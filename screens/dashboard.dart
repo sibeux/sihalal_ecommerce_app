@@ -1,4 +1,7 @@
+// ignore_for_file: unused_import
+
 import 'package:flutter/material.dart';
+import 'package:flutter_mobile/SiHALAL-ecommerce-app/components/dashboard/categories.dart';
 import 'package:flutter_mobile/SiHALAL-ecommerce-app/components/dashboard/home_header.dart';
 import 'package:flutter_mobile/SiHALAL-ecommerce-app/components/dashboard/image_slider_dashboard.dart';
 import 'package:flutter_mobile/SiHALAL-ecommerce-app/main_sihalal_app.dart';
@@ -17,103 +20,9 @@ class DashboardScreen extends StatelessWidget {
               SizedBox(height: 10),
               ImageSlider(),
               SizedBox(height: 30),
-              Categories()
+              Categories(),
             ],
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class Categories extends StatelessWidget {
-  const Categories({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    List<Map<String, dynamic>> categories = [
-      {
-        'icon': Icons.fastfood_outlined,
-        'title': 'Buah',
-      },
-      {
-        'icon': Icons.fastfood,
-        'title': 'Sayur',
-      },
-      {
-        'icon': Icons.fastfood,
-        'title': 'Pakaian',
-      },
-      {
-        'icon': Icons.fastfood,
-        'title': 'Elektronik',
-      },
-      {
-        'icon': Icons.fastfood,
-        'title': 'Kesehatan',
-      },
-    ];
-
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 20,
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ...List.generate(
-            categories.length,
-            (index) => CategoryCard(
-              icon: categories[index]['icon'],
-              text: categories[index]['title'],
-              press: () {},
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class CategoryCard extends StatelessWidget {
-  const CategoryCard({
-    super.key,
-    required this.icon,
-    required this.text,
-    required this.press,
-  });
-
-  final IconData icon;
-  final String text;
-  final GestureTapCallback press;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: press,
-      child: SizedBox(
-        width: 55,
-        child: Column(
-          children: [
-            AspectRatio(
-              aspectRatio: 1,
-              child: Container(
-                  padding: const EdgeInsets.all(15),
-                  decoration: BoxDecoration(
-                    color: kPrimaryColor,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Icon(
-                    icon,
-                  )),
-            ),
-            const SizedBox(height: 5),
-            Text(
-              text,
-              textAlign: TextAlign.center,
-            ),
-          ],
         ),
       ),
     );
