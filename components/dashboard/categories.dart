@@ -9,23 +9,23 @@ class Categories extends StatelessWidget {
     List<Map<String, dynamic>> categories = [
       {
         'icon': Icons.fastfood_outlined,
-        'title': 'Buah',
+        'title': 'Bumbu',
+      },
+      {
+        'icon': Icons.outbox_outlined,
+        'title': 'Gula',
       },
       {
         'icon': Icons.fastfood,
-        'title': 'Sayur',
+        'title': 'Tepung',
       },
       {
         'icon': Icons.fastfood,
-        'title': 'Pakaian',
+        'title': 'Minyak',
       },
       {
         'icon': Icons.fastfood,
-        'title': 'Elektronik',
-      },
-      {
-        'icon': Icons.fastfood,
-        'title': 'Kesehatan',
+        'title': 'Garam',
       },
     ];
 

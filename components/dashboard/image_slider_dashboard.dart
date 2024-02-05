@@ -11,13 +11,18 @@ List<String> assets = [
 
 int currentindex = 0;
 
-final _pageController = PageController(initialPage: 0, viewportFraction: 0.92);
+final _pageController = PageController(initialPage: 0, viewportFraction: 0.95);
 
-class ImageSlider extends StatelessWidget {
+class ImageSlider extends StatefulWidget {
   const ImageSlider({
     super.key,
   });
 
+  @override
+  State<StatefulWidget> createState() => _ImageSliderState();
+}
+
+class _ImageSliderState extends State<ImageSlider> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -26,7 +31,7 @@ class ImageSlider extends StatelessWidget {
           height: 150,
           width: MediaQuery.of(context).size.width,
           child: PageView.builder(
-            itemCount: 5,
+            // itemCount: 5,
             physics: const BouncingScrollPhysics(),
             controller: _pageController,
             onPageChanged: (value) {
@@ -34,13 +39,13 @@ class ImageSlider extends StatelessWidget {
             },
             itemBuilder: (context, index) {
               return Container(
-                margin: const EdgeInsets.all(8),
+                margin: const EdgeInsets.all(5),
                 clipBehavior: Clip.antiAlias,
                 decoration: BoxDecoration(
                     //  color: color[index],
-                    borderRadius: BorderRadius.circular(10)),
+                    borderRadius: BorderRadius.circular(8)),
                 child: Image.asset(
-                  assets[index],
+                  assets[index % 5],
                   fit: BoxFit.cover,
                 ),
               );
@@ -48,7 +53,7 @@ class ImageSlider extends StatelessWidget {
           ),
         ),
         const SizedBox(
-          height: 10,
+          height: 8,
         ),
         SmoothPageIndicator(
           controller: _pageController,
@@ -56,8 +61,8 @@ class ImageSlider extends StatelessWidget {
           effect: const ExpandingDotsEffect(
             activeDotColor: Color.fromARGB(255, 0, 169, 88),
             dotColor: Colors.grey,
-            dotHeight: 7,
-            dotWidth: 7,
+            dotHeight: 4,
+            dotWidth: 4,
             spacing: 5,
           ),
         )
