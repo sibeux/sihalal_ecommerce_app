@@ -1,10 +1,10 @@
 // ignore_for_file: unused_import
 
 import 'package:flutter/material.dart';
-import 'package:flutter_mobile/SiHALAL-ecommerce-app/components/dashboard/categories.dart';
-import 'package:flutter_mobile/SiHALAL-ecommerce-app/components/dashboard/home_header.dart';
-import 'package:flutter_mobile/SiHALAL-ecommerce-app/components/dashboard/image_slider_dashboard.dart';
-import 'package:flutter_mobile/SiHALAL-ecommerce-app/components/little_particle.dart';
+import 'package:flutter_mobile/SiHALAL-ecommerce-app/widgets/dashboard/categories.dart';
+import 'package:flutter_mobile/SiHALAL-ecommerce-app/widgets/dashboard/home_header.dart';
+import 'package:flutter_mobile/SiHALAL-ecommerce-app/widgets/dashboard/image_slider_dashboard.dart';
+import 'package:flutter_mobile/SiHALAL-ecommerce-app/widgets/little_particle.dart';
 import 'package:flutter_mobile/SiHALAL-ecommerce-app/main_sihalal_app.dart';
 
 class DashboardScreen extends StatelessWidget {
@@ -63,18 +63,7 @@ class _SpecialOfferCardState extends State<SpecialOfferCard> {
         child: Row(
           // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Expanded(
-              child: Container(
-                clipBehavior: Clip.antiAlias,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Image.network(
-                  imageLeft,
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
+            OfferingCard(imageLeft: imageLeft),
             const SizedBox(width: 10),
             Expanded(
               child: Column(
@@ -100,6 +89,31 @@ class _SpecialOfferCardState extends State<SpecialOfferCard> {
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class OfferingCard extends StatelessWidget {
+  const OfferingCard({
+    super.key,
+    required this.imageLeft,
+  });
+
+  final String imageLeft;
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Container(
+        clipBehavior: Clip.antiAlias,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Image.network(
+          imageLeft,
+          fit: BoxFit.cover,
         ),
       ),
     );
