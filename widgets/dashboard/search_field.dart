@@ -21,23 +21,29 @@ class SearchField extends StatelessWidget {
       child: TextField(
         onChanged: (value) {},
         decoration: const InputDecoration(
-            enabledBorder: InputBorder.none,
-            focusedBorder: InputBorder.none,
-            hintText: 'Cari di SiHALAL',
-            hintStyle: TextStyle(
-              color: Color.fromARGB(255, 103, 103, 102),
-              fontSize: 14,
-              fontWeight: FontWeight.w300,
-            ),
-            prefixIcon: Icon(
-              Icons.search,
-              size: 18,
-            ),
-            prefixIconColor: Color.fromARGB(255, 103, 103, 102),
-            contentPadding: EdgeInsets.symmetric(
-              horizontal: 20,
-              vertical: 11.5,
-            )),
+          isDense: true,
+          enabledBorder: InputBorder.none,
+          focusedBorder: InputBorder.none,
+          hintText: 'Cari di SiHALAL',
+          hintStyle: TextStyle(
+            color: Color.fromARGB(255, 103, 103, 102),
+            fontSize: 15,
+            fontWeight: FontWeight.w300,
+          ),
+          prefixIcon: Icon(
+            Icons.search,
+            size: 18,
+          ),
+          prefixIconConstraints: BoxConstraints(
+            minWidth: 30,
+            minHeight: 40,
+          ),
+          prefixIconColor: Color.fromARGB(255, 103, 103, 102),
+          contentPadding: EdgeInsets.only(
+            right: 10,
+            top: 4,
+          ),
+        ),
       ),
     );
   }

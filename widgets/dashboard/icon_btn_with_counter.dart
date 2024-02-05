@@ -14,8 +14,11 @@ class IconBtnWithCounter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
+    return Material(
+      color: Colors.transparent,
       child: InkWell(
+        splashColor: Colors.white.withOpacity(0.3),
+        borderRadius: BorderRadius.circular(8),
         onTap: press,
         child: Stack(
           children: [

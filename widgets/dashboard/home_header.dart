@@ -21,16 +21,11 @@ class HomeHeader extends StatelessWidget {
         end: Alignment.bottomCenter,
       )),
       child: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 20,
-          vertical: 10,
-        ),
+        padding: const EdgeInsets.only(left: 20, bottom: 10, top: 10),
         child: Row(
           children: [
             const SearchField(),
-            const SizedBox(
-              width: 10,
-            ),
+            const SizedBox(width: 10),
             IconBtnWithCounter(
               iconBar: Icons.shopping_cart_rounded,
               numOfItems: 3,
