@@ -11,7 +11,15 @@ class HomeHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: kPrimaryColor,
+      decoration: BoxDecoration(
+          gradient: LinearGradient(
+        colors: [
+          kPrimaryColor,
+          Colors.green.shade300,
+        ],
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
+      )),
       child: Padding(
         padding: const EdgeInsets.symmetric(
           horizontal: 20,

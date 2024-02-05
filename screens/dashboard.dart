@@ -27,7 +27,9 @@ class DashboardScreen extends StatelessWidget {
                     Categories(),
                     SizedBox(height: 20),
                     GreyLined(),
-                    PromoCardPortrait(),
+                    SizedBox(height: 20),
+                    SpecialOfferCard(),
+                    SizedBox(height: 30),
                   ],
                 ),
               ),
@@ -39,16 +41,67 @@ class DashboardScreen extends StatelessWidget {
   }
 }
 
-class PromoCardPortrait extends StatefulWidget {
-  const PromoCardPortrait({super.key});
+class SpecialOfferCard extends StatefulWidget {
+  const SpecialOfferCard({super.key});
 
   @override
-  State<PromoCardPortrait> createState() => _PromoCardPortraitState();
+  State<SpecialOfferCard> createState() => _SpecialOfferCardState();
 }
 
-class _PromoCardPortraitState extends State<PromoCardPortrait> {
+class _SpecialOfferCardState extends State<SpecialOfferCard> {
+  final String imageLeft =
+      'https://cdn.discordapp.com/attachments/975298274917482556/1203953170641068112/Mask_group.png?ex=65d2f7c4&is=65c082c4&hm=85e804f5892dc0450ee2d9c3fd991e4b48c44ef6575d07eb02f195e812f2a874&';
+
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 20,
+      ),
+      child: SizedBox(
+        height: 300,
+        child: Row(
+          // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Expanded(
+              child: Container(
+                clipBehavior: Clip.antiAlias,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Image.network(
+                  imageLeft,
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+            const SizedBox(width: 10),
+            Expanded(
+              child: Column(
+                children: [
+                  Expanded(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.blue,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  Expanded(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.yellow,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
