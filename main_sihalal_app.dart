@@ -12,6 +12,7 @@ class MainSihalalApp extends StatelessWidget {
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
         statusBarColor: kPrimaryColor,
+        statusBarIconBrightness: Brightness.dark,
       ),
     );
     return const MaterialApp(
