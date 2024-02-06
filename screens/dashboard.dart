@@ -20,7 +20,6 @@ class DashboardScreen extends StatelessWidget {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    SizedBox(height: 10),
                     ImageSlider(),
                     SizedBox(height: 30),
                     Categories(),

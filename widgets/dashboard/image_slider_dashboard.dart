@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobile/SiHALAL-ecommerce-app/provider/page_indicator_provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 List<String> assets = [
   'assets/images/food.jpg',
@@ -9,43 +12,46 @@ List<String> assets = [
   'assets/images/food5.jpg'
 ];
 
-int currentindex = 0;
+// final _pageController = PageController(initialPage: 0, viewportFraction: 0.95);
+const itemCount = 5;
 
-final _pageController = PageController(initialPage: 0, viewportFraction: 0.95);
-
-class ImageSlider extends StatefulWidget {
+class ImageSlider extends ConsumerStatefulWidget {
   const ImageSlider({
     super.key,
   });
 
   @override
-  State<StatefulWidget> createState() => _ImageSliderState();
+  ConsumerState<ImageSlider> createState() => _ImageSliderState();
 }
 
-class _ImageSliderState extends State<ImageSlider> {
+class _ImageSliderState extends ConsumerState<ImageSlider> {
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         SizedBox(
-          height: 150,
+          // height: 150,
           width: MediaQuery.of(context).size.width,
-          child: PageView.builder(
-            // itemCount: 5,
-            physics: const BouncingScrollPhysics(),
-            controller: _pageController,
+          child: VxSwiper.builder(
+            itemCount: itemCount,
+            autoPlay: true,
+            aspectRatio: 16 / 9,
+            viewportFraction: 1.0,
+            initialPage: 0,
             onPageChanged: (value) {
-              currentindex = value;
+              ref.watch(counterProvider.notifier).setPage(value);
             },
             itemBuilder: (context, index) {
               return Container(
-                margin: const EdgeInsets.all(5),
+                // width: MediaQuery.of(context).size.width * 0.95,
+                width: double.infinity,
+                // margin: const EdgeInsets.all(5),
                 clipBehavior: Clip.antiAlias,
-                decoration: BoxDecoration(
-                    //  color: color[index],
-                    borderRadius: BorderRadius.circular(8)),
+                decoration: const BoxDecoration(
+                  // borderRadius: BorderRadius.circular(8),
+                ),
                 child: Image.asset(
-                  assets[index % 5],
+                  assets[index],
                   fit: BoxFit.cover,
                 ),
               );
@@ -55,9 +61,9 @@ class _ImageSliderState extends State<ImageSlider> {
         const SizedBox(
           height: 8,
         ),
-        SmoothPageIndicator(
-          controller: _pageController,
-          count: 5,
+        AnimatedSmoothIndicator(
+          activeIndex: ref.watch(counterProvider),
+          count: itemCount,
           effect: const ExpandingDotsEffect(
             activeDotColor: Color.fromARGB(255, 0, 169, 88),
             dotColor: Colors.grey,
@@ -65,7 +71,7 @@ class _ImageSliderState extends State<ImageSlider> {
             dotWidth: 4,
             spacing: 5,
           ),
-        )
+        ),
       ],
     );
   }
