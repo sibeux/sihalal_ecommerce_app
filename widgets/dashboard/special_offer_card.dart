@@ -58,6 +58,11 @@ class OfferingCard extends StatelessWidget {
         clipBehavior: Clip.antiAlias,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
+          border: Border.all(
+            color: const Color.fromARGB(255, 217, 220, 231),
+            width: 1.2,
+            strokeAlign: BorderSide.strokeAlignOutside,
+          ),
         ),
         child: Image.network(
           image,

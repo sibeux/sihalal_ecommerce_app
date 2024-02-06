@@ -22,7 +22,8 @@ class HomeHeader extends StatelessWidget {
       )),
       child: Padding(
         // padding: const EdgeInsets.only(left: 20, bottom: 10, top: 10),
-        padding: const EdgeInsets.only(left: 20, bottom: 10, top: 35),
+        padding: EdgeInsets.only(
+            left: 20, bottom: 10, top: MediaQuery.of(context).padding.top + 10),
         child: Row(
           children: [
             const SearchField(),
