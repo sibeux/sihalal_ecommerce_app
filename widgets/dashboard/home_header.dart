@@ -15,13 +15,14 @@ class HomeHeader extends StatelessWidget {
           gradient: LinearGradient(
         colors: [
           kPrimaryColor,
-          Colors.green.shade300,
+          const Color.fromARGB(255, 124, 198, 126),
         ],
-        begin: Alignment.topCenter,
-        end: Alignment.bottomCenter,
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
       )),
       child: Padding(
-        padding: const EdgeInsets.only(left: 20, bottom: 10, top: 10),
+        // padding: const EdgeInsets.only(left: 20, bottom: 10, top: 10),
+        padding: const EdgeInsets.only(left: 20, bottom: 10, top: 35),
         child: Row(
           children: [
             const SearchField(),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
 
 class ProductCardRowScroll extends StatelessWidget {
   const ProductCardRowScroll({
@@ -7,18 +8,22 @@ class ProductCardRowScroll extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const SizedBox(
-      height: 350,
+    return Container(
+      color: HexColor('#B1E9AC'),
+      height: 360,
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: Row(
           children: [
-            SizedBox(width: 20),
-            ProductCard(),
-            ProductCard(),
-            ProductCard(),
-            ProductCard(),
-            ProductCard(),
+            SizedBox(width: MediaQuery.of(context).size.width * 0.5),
+            const ProductCard(),
+            const ProductCard(),
+            const ProductCard(),
+            const ProductCard(),
+            const ProductCard(),
+            const ProductCard(),
+            const ProductCard(),
+            const ProductCard(),
           ],
         ),
       ),
@@ -36,11 +41,12 @@ class ProductCard extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(
         right: 10,
-        top: 5,
-        bottom: 5,
+        top: 25,
+        bottom: 25,
       ),
       width: 145,
       decoration: BoxDecoration(
+        color: Colors.white,
         borderRadius: BorderRadius.circular(10),
         border: Border.all(
           color: const Color.fromARGB(255, 217, 220, 231),
@@ -56,26 +62,78 @@ class ProductCard extends StatelessWidget {
             height: 140,
             width: 160,
             decoration: const BoxDecoration(
+                color: Colors.red,
                 borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(10),
-              topRight: Radius.circular(10),
-            )),
+                  topLeft: Radius.circular(10),
+                  topRight: Radius.circular(10),
+                )),
             child: Image.network(
-                'https://cdn.discordapp.com/attachments/1203953170901110794/1204005142370721792/Mask_group.png?ex=65d3282b&is=65c0b32b&hm=689b1c388710d978fdf0b64ea073f7d08c9cdb0bc1c8b117e61d61b3a1fdf728&',
+                'https://cdn.discordapp.com/attachments/1203953170901110794/1204377726132162611/sliced-green-apple-isolated-white-background_93675-131248.png?ex=65d4832a&is=65c20e2a&hm=e9b3d27691dd93427f432cf2b1f3ffac4d859d3995dfb858ab6c6d0f7de84d0f&',
                 fit: BoxFit.cover),
           ),
+          const SizedBox(height: 5),
+          Container(
+              height: 20,
+              width: 45,
+              decoration: BoxDecoration(
+                color: HexColor('##81cc32'),
+                borderRadius: BorderRadius.circular(3),
+              ),
+              child: const Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.star, color: Colors.white, size: 10),
+                  SizedBox(width: 5),
+                  Text(
+                    '4.5',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              )),
           const SizedBox(height: 10),
-          const Text(
-            'Wireless Controller for PS4',
-            style: TextStyle(color: Colors.black),
+          Flexible(
+            fit: FlexFit.tight,
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              child: const Text(
+                'Wireless Controller for PS4',
+                style: TextStyle(color: Colors.black),
+              ),
+            ),
+          ),
+          Flexible(
+            fit: FlexFit.tight,
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              child: const Text(
+                'Wireless Controller for PS4',
+                style: TextStyle(color: Colors.grey, fontSize: 11),
+              ),
+            ),
           ),
           const SizedBox(height: 10),
-          const Text(
-            '\$64.99',
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.w600,
-              color: Colors.green,
+          Container(
+            alignment: Alignment.center,
+            margin: const EdgeInsets.only(bottom: 10),
+            height: 25,
+            width: 120,
+            decoration: BoxDecoration(
+              color: HexColor('#5EC684'),
+              borderRadius: BorderRadius.circular(5),
+            ),
+            child: const Text(
+              'Tambah',
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w600,
+                color: Colors.white,
+              ),
+              textAlign: TextAlign.center,
             ),
           ),
         ],

@@ -39,37 +39,38 @@ class Categories extends StatelessWidget {
       ),
       child: Column(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              ...List.generate(
-                categories.length,
-                (index) => CategoryCard(
-                  image: categories[index]['icon'],
-                  text: categories[index]['title'],
-                  press: () {},
-                ),
-              ),
-            ],
-          ),
+          IconRow(categories: categories),
           const SizedBox(height: 20),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              ...List.generate(
-                categories.length,
-                (index) => CategoryCard(
-                  image: categories[index]['icon'],
-                  text: categories[index]['title'],
-                  press: () {},
-                ),
-              ),
-            ],
-          ),
+          IconRow(categories: categories),
         ],
       ),
+    );
+  }
+}
+
+class IconRow extends StatelessWidget {
+  const IconRow({
+    super.key,
+    required this.categories,
+  });
+
+  final List<Map<String, dynamic>> categories;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        ...List.generate(
+          categories.length,
+          (index) => CategoryCard(
+            image: categories[index]['icon'],
+            text: categories[index]['title'],
+            press: () {},
+          ),
+        ),
+      ],
     );
   }
 }

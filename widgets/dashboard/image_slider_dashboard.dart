@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobile/SiHALAL-ecommerce-app/main_sihalal_app.dart';
 import 'package:flutter_mobile/SiHALAL-ecommerce-app/provider/page_indicator_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -35,20 +36,21 @@ class _ImageSliderState extends ConsumerState<ImageSlider> {
           child: VxSwiper.builder(
             itemCount: itemCount,
             autoPlay: true,
-            aspectRatio: 16 / 9,
-            viewportFraction: 1.0,
+            height: 200,
+            // aspectRatio: 16 / 9,
+            viewportFraction: 0.95,
             initialPage: 0,
             onPageChanged: (value) {
               ref.watch(counterProvider.notifier).setPage(value);
             },
             itemBuilder: (context, index) {
               return Container(
-                // width: MediaQuery.of(context).size.width * 0.95,
-                width: double.infinity,
-                // margin: const EdgeInsets.all(5),
+                width: MediaQuery.of(context).size.width * 0.95,
+                // width: double.infinity,
+                margin: const EdgeInsets.all(5),
                 clipBehavior: Clip.antiAlias,
-                decoration: const BoxDecoration(
-                  // borderRadius: BorderRadius.circular(8),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
                 ),
                 child: Image.asset(
                   assets[index],
@@ -64,8 +66,8 @@ class _ImageSliderState extends ConsumerState<ImageSlider> {
         AnimatedSmoothIndicator(
           activeIndex: ref.watch(counterProvider),
           count: itemCount,
-          effect: const ExpandingDotsEffect(
-            activeDotColor: Color.fromARGB(255, 0, 169, 88),
+          effect: ExpandingDotsEffect(
+            activeDotColor: kPrimaryColor,
             dotColor: Colors.grey,
             dotHeight: 4,
             dotWidth: 4,
