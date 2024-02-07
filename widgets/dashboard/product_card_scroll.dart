@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+// import 'package:flutter_mobile/SiHALAL-ecommerce-app/provider/tab_opacity_provider.dart';
 import 'package:flutter_mobile/SiHALAL-ecommerce-app/widgets/little_particle.dart';
+import 'package:flutter_mobile/SiHALAL-ecommerce-app/widgets/shrink_tap_card.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:intl/intl.dart';
 
@@ -9,14 +12,17 @@ NumberFormat numberFormat =
 class ProductCardRowScroll extends StatelessWidget {
   const ProductCardRowScroll({
     super.key,
+    required this.color,
   });
+
+  final String color;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 370,
       decoration: BoxDecoration(
-        color: HexColor('#B1E9AC'),
+        color: HexColor(color),
         image: const DecorationImage(
           alignment: AlignmentDirectional.centerStart,
           fit: BoxFit.fitHeight,
@@ -36,12 +42,8 @@ class ProductCardRowScroll extends StatelessWidget {
               rating: 3.5,
               price: 12000,
             ),
-            const ProductCard(
-              title: 'Sweet apple with green label and red apple',
-              subtitle: '12 pieces per 1kg and 6 pieces per 1kg',
-              rating: 4.5,
-              price: 12000,
-            ),
+            const CoreButton(),
+            const CoreButton(),
             const ProductCard(
               title: 'Sweet apple ',
               subtitle: '12 pieces per 1kg',
@@ -61,7 +63,7 @@ class ProductCardRowScroll extends StatelessWidget {
   }
 }
 
-class ProductCard extends StatelessWidget {
+class ProductCard extends ConsumerWidget {
   const ProductCard({
     super.key,
     required this.rating,
@@ -76,7 +78,7 @@ class ProductCard extends StatelessWidget {
   final double price;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Container(
       margin: const EdgeInsets.only(
         right: 10,

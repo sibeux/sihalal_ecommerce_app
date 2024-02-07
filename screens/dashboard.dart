@@ -11,9 +11,9 @@ class DashboardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return  const Scaffold(
       // * harusnya ini body-nya pake safearea, tapi karena biar
-      // * lebih mudah maintain warna header, jadi ga pake safearea 
+      // * lebih mudah maintain warna header, jadi ga pake safearea
       body: Column(
         children: [
           HomeHeader(),
@@ -32,9 +32,10 @@ class DashboardScreen extends StatelessWidget {
                   SizedBox(height: 30),
                   GreyLined(),
                   SizedBox(height: 30),
-                  ProductCardRowScroll(),
+                  ProductCardRowScroll(color: '#B1E9AC'),
                   SizedBox(height: 30),
                   GreyLined(),
+                  SizedBox(height: 30),
                 ],
               ),
             ),
@@ -42,6 +43,7 @@ class DashboardScreen extends StatelessWidget {
         ],
       ),
     );
-    
   }
 }
+
+

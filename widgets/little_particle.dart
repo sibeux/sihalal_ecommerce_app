@@ -56,3 +56,13 @@ class InkButton extends StatelessWidget {
     );
   }
 }
+
+final ButtonStyle buttonBeli = ElevatedButton.styleFrom(
+  minimumSize: const Size(200, 50),
+  backgroundColor: HexColor('#81cc32'),
+  elevation: 0,
+  tapTargetSize: MaterialTapTargetSize.padded,
+  shape: RoundedRectangleBorder(
+    borderRadius: BorderRadius.circular(5),
+  ),
+);
