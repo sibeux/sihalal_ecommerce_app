@@ -1,12 +1,14 @@
 class ProductCard {
   final String title;
   final String description;
-  final String price;
+  final double price, rating;
   final String image;
 
-  ProductCard(
-      {required this.title,
-      required this.description,
-      required this.price,
-      required this.image});
+  ProductCard({
+    required this.title,
+    required this.description,
+    required this.price,
+    required this.image,
+    required this.rating,
+  });
 }

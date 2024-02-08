@@ -1,3 +1,5 @@
+// ignore_for_file: unused_import
+
 import 'package:flutter/material.dart';
 import 'package:flutter_mobile/SiHALAL-ecommerce-app/widgets/dashboard/categories.dart';
 import 'package:flutter_mobile/SiHALAL-ecommerce-app/widgets/dashboard/home_header.dart';
@@ -11,7 +13,7 @@ class DashboardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  const Scaffold(
+    return const Scaffold(
       // * harusnya ini body-nya pake safearea, tapi karena biar
       // * lebih mudah maintain warna header, jadi ga pake safearea
       body: Column(
@@ -25,17 +27,18 @@ class DashboardScreen extends StatelessWidget {
                   ImageSlider(),
                   SizedBox(height: 30),
                   Categories(),
-                  SizedBox(height: 20),
-                  GreyLined(),
                   SizedBox(height: 30),
                   SpecialOfferCard(),
-                  SizedBox(height: 30),
-                  GreyLined(),
-                  SizedBox(height: 30),
-                  ProductCardRowScroll(color: '#B1E9AC'),
-                  SizedBox(height: 30),
-                  GreyLined(),
-                  SizedBox(height: 30),
+                  SizedBox(height: 40),
+                  ProductCardRowScroll(
+                    color: '#B1E9AC',
+                    cardHeader: "Cek Produk Terbaru di SiHALAL",
+                  ),
+                  SizedBox(height: 40),
+                  ProductCardRowScroll(
+                    color: '#FE5959',
+                    cardHeader: 'Kebutuhan Masakan Kamu',
+                  ),
                 ],
               ),
             ),
@@ -45,5 +48,3 @@ class DashboardScreen extends StatelessWidget {
     );
   }
 }
-
-

@@ -3,16 +3,26 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobile/SiHALAL-ecommerce-app/widgets/dashboard/product_card_scroll.dart';
 
-class CoreButton extends StatefulWidget {
-  const CoreButton({
+double colorOnTap = 1;
+
+class ShrinkCardProduct extends StatefulWidget {
+  const ShrinkCardProduct({
     super.key,
+    required this.title,
+    required this.description,
+    required this.rating,
+    required this.price,
+    required this.image,
   });
 
+  final String title, description, image;
+  final double rating, price;
+
   @override
-  CoreButtonState createState() => CoreButtonState();
+  ShrinkCardProductState createState() => ShrinkCardProductState();
 }
 
-class CoreButtonState extends State<CoreButton>
+class ShrinkCardProductState extends State<ShrinkCardProduct>
     with SingleTickerProviderStateMixin {
   static const clickAnimationDurationMillis = 100;
 
@@ -42,6 +52,8 @@ class CoreButtonState extends State<CoreButton>
 
   void _shrinkButtonSize() {
     animationController.forward();
+
+    colorOnTap = 0.5;
   }
 
   void _restoreButtonSize() {
@@ -49,6 +61,7 @@ class CoreButtonState extends State<CoreButton>
       const Duration(milliseconds: clickAnimationDurationMillis),
       () => animationController.reverse(),
     );
+    colorOnTap = 1;
   }
 
   @override
@@ -64,10 +77,10 @@ class CoreButtonState extends State<CoreButton>
     DateTime dateTime1 = DateTime.now();
 
     return GestureDetector(
-      // onTap: () {
-      //   _shrinkButtonSize();
-      //   _restoreButtonSize();
-      // },
+      onTap: () {
+        _shrinkButtonSize();
+        _restoreButtonSize();
+      },
       onTapDown: (_) {
         _shrinkButtonSize();
         dateTime1 = DateTime.now();
@@ -91,13 +104,33 @@ class CoreButtonState extends State<CoreButton>
       onTapCancel: _restoreButtonSize,
       child: Transform.scale(
         scale: _scaleTransformValue,
-        child: const SizedBox(
+        child: SizedBox(
           height: 370,
-          child: ProductCard(
-            title: 'Sweet apple with green label',
-            subtitle: '12 pieces per 1kg',
-            rating: 3.5,
-            price: 1500000,
+          child: Stack(
+            children: [
+              Container(
+                margin: const EdgeInsets.only(
+                  right: 10,
+                  top: 20,
+                  bottom: 20,
+                ),
+                width: 150,
+                decoration: BoxDecoration(
+                  color: Colors.grey.shade300,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+              Opacity(
+                opacity: colorOnTap,
+                child: ProductCard(
+                  title: widget.title,
+                  description: widget.description,
+                  rating: widget.rating,
+                  price: widget.price,
+                  image: widget.image,
+                ),
+              ),
+            ],
           ),
         ),
       ),

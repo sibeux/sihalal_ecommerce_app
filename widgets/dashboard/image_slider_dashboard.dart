@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mobile/SiHALAL-ecommerce-app/main_sihalal_app.dart';
 import 'package:flutter_mobile/SiHALAL-ecommerce-app/provider/page_indicator_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -28,7 +27,7 @@ class ImageSlider extends ConsumerStatefulWidget {
 class _ImageSliderState extends ConsumerState<ImageSlider> {
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Stack(
       children: [
         SizedBox(
           // height: 150,
@@ -36,8 +35,8 @@ class _ImageSliderState extends ConsumerState<ImageSlider> {
           child: VxSwiper.builder(
             itemCount: itemCount,
             autoPlay: true,
-            height: 200,
-            // aspectRatio: 16 / 9,
+            // height: 200,
+            aspectRatio: 16 / 8,
             viewportFraction: 0.95,
             initialPage: 0,
             onPageChanged: (value) {
@@ -60,18 +59,22 @@ class _ImageSliderState extends ConsumerState<ImageSlider> {
             },
           ),
         ),
-        const SizedBox(
-          height: 8,
-        ),
-        AnimatedSmoothIndicator(
-          activeIndex: ref.watch(counterProvider),
-          count: itemCount,
-          effect: ExpandingDotsEffect(
-            activeDotColor: kPrimaryColor,
-            dotColor: Colors.grey,
-            dotHeight: 4,
-            dotWidth: 4,
-            spacing: 5,
+        Positioned.fill(
+          bottom: 15,
+          child: Align(
+            alignment: Alignment.bottomCenter,
+            child: AnimatedSmoothIndicator(
+              activeIndex: ref.watch(counterProvider),
+              count: itemCount,
+              effect: ExpandingDotsEffect(
+                activeDotColor: Colors.white,
+                dotColor: Colors.grey.shade200.withOpacity(0.7),
+                dotHeight: 4,
+                dotWidth: 4,
+                expansionFactor: 6,
+                spacing: 5,
+              ),
+            ),
           ),
         ),
       ],
