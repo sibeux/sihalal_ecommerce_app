@@ -9,6 +9,10 @@ import 'package:intl/intl.dart';
 NumberFormat numberFormat =
     NumberFormat.currency(locale: 'id', symbol: 'Rp', decimalDigits: 0);
 
+final Shader linearGradient = LinearGradient(
+  colors: <Color>[HexColor("1D6BFF"), HexColor("C125FF")],
+).createShader(const Rect.fromLTWH(0.0, 0.0, 200.0, 70.0));
+
 class ProductCardRowScroll extends ConsumerWidget {
   const ProductCardRowScroll({
     super.key,
@@ -136,7 +140,7 @@ class ProductCard extends ConsumerWidget {
           ProductTitle(title: title),
           const SizedBox(height: 2),
           ProductDescription(description: description),
-          const SizedBox(height: 10),
+          const SizedBox(height: 5),
           ProductPrice(price: price),
           const InkButton(
             text: 'Tambah',
@@ -144,6 +148,50 @@ class ProductCard extends ConsumerWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class NoHalal extends StatelessWidget {
+  const NoHalal({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Container(
+          width: 25,
+          height: 25,
+          margin: const EdgeInsets.only(left: 10),
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: NetworkImage(
+                  "https://cdn.discordapp.com/attachments/1203953170901110794/1205115624225898516/logo_halal.png?ex=65d73262&is=65c4bd62&hm=be8496e1908f66bbe78c0bbcf6b8dfffd39c2b65ce24c41c3ce9f8b2b636f0c7&"),
+            ),
+          ),
+        ),
+        Expanded(
+          child: Container(
+            height: 25,
+            alignment: Alignment.centerLeft,
+            // color: Colors.amber.withOpacity(0.8),
+            margin: const EdgeInsets.only(
+              right: 10,
+              left: 5,
+            ),
+            child: Text(
+              "ID00410000088710720",
+              style: TextStyle(
+                  fontSize: 8,
+                  fontWeight: FontWeight.bold,
+                  overflow: TextOverflow.ellipsis,
+                  foreground: Paint()..shader = linearGradient),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
@@ -167,7 +215,7 @@ class ProductPrice extends StatelessWidget {
           (numberFormat.format(price)),
           style: const TextStyle(
             color: Colors.black,
-            fontSize: 14,
+            fontSize: 15,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -189,8 +237,8 @@ class ProductImage extends StatelessWidget {
     return Container(
       // padding: const EdgeInsets.all(10),
       clipBehavior: Clip.antiAlias,
-      height: 140,
-      width: 160,
+      height: 150,
+      width: double.infinity,
       decoration: const BoxDecoration(
           borderRadius: BorderRadius.only(
         topLeft: Radius.circular(10),

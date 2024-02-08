@@ -105,7 +105,6 @@ class ShrinkCardProductState extends State<ShrinkCardProduct>
       child: Transform.scale(
         scale: _scaleTransformValue,
         child: SizedBox(
-          height: 370,
           child: Stack(
             children: [
               Container(
