@@ -71,7 +71,7 @@ class ShrinkCardProductState extends State<ShrinkCardProduct>
     // };
 
     onTap() {
-      print('tapped');
+      // print('tapped');
     }
 
     DateTime dateTime1 = DateTime.now();
