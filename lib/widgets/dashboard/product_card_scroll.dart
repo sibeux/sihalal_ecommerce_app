@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mobile/SiHALAL-ecommerce-app/provider/product_card_provider.dart';
-import 'package:flutter_mobile/SiHALAL-ecommerce-app/widgets/little_particle.dart';
-import 'package:flutter_mobile/SiHALAL-ecommerce-app/widgets/shrink_tap_card.dart';
+import 'package:sihalal_ecommerce_app/provider/product_card_provider.dart';
+import 'package:sihalal_ecommerce_app/widgets/little_particle.dart';
+import 'package:sihalal_ecommerce_app/widgets/shrink_tap_card.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:intl/intl.dart';

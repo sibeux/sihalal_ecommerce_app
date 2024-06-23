@@ -1,4 +1,4 @@
-import 'package:flutter_mobile/SiHALAL-ecommerce-app/models/product_card.dart';
+import 'package:sihalal_ecommerce_app/models/product_card.dart';
 
 var dummyProductCard = [
   ProductCard(

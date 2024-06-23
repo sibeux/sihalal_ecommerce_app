@@ -15,11 +15,11 @@ final theme = ThemeData(
 );
 
 void main() {
-  runApp(const MainSihalalApp());
+  runApp(const MyApp());
 }
 
-class MainSihalalApp extends StatelessWidget {
-  const MainSihalalApp({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {

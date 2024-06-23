@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mobile/SiHALAL-ecommerce-app/widgets/dashboard/icon_btn_with_counter.dart';
-import 'package:flutter_mobile/SiHALAL-ecommerce-app/widgets/dashboard/search_field.dart';
-import 'package:flutter_mobile/SiHALAL-ecommerce-app/main_sihalal_app.dart';
+import 'package:sihalal_ecommerce_app/widgets/dashboard/icon_btn_with_counter.dart';
+import 'package:sihalal_ecommerce_app/widgets/dashboard/search_field.dart';
+import 'package:sihalal_ecommerce_app/main.dart';
 
 class HomeHeader extends StatelessWidget {
   const HomeHeader({
