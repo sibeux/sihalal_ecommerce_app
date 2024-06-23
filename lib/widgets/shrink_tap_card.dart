@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_mobile/SiHALAL-ecommerce-app/widgets/dashboard/product_card_scroll.dart';
+import 'package:sihalal_ecommerce_app/widgets/dashboard/product_card_scroll.dart';
 
 double colorOnTap = 1;
 
