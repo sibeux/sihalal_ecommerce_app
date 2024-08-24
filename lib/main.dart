@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:sihalal_ecommerce_app/screens/dashboard.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sihalal_ecommerce_app/screens/home_screen/home_screen.dart';
 
 var kPrimaryColor = const Color.fromARGB(
   255,
@@ -15,7 +16,7 @@ final theme = ThemeData(
 );
 
 void main() {
-  runApp(const MyApp());
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -26,11 +27,15 @@ class MyApp extends StatelessWidget {
     SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(
         statusBarIconBrightness: Brightness.light,
+        statusBarColor: Colors.white,
       ),
     );
     return MaterialApp(
       theme: theme,
-      home: const DashboardScreen(),
+      debugShowCheckedModeBanner: false,
+      showPerformanceOverlay: false,
+      title: 'SiHALAL',
+      home: const HomeScreen(),
     );
   }
 }

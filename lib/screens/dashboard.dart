@@ -1,4 +1,3 @@
-// ignore_for_file: unused_import
 
 import 'package:flutter/material.dart';
 import 'package:sihalal_ecommerce_app/widgets/dashboard/categories.dart';
@@ -6,7 +5,6 @@ import 'package:sihalal_ecommerce_app/widgets/dashboard/home_header.dart';
 import 'package:sihalal_ecommerce_app/widgets/dashboard/image_slider_dashboard.dart';
 import 'package:sihalal_ecommerce_app/widgets/dashboard/product_card_scroll.dart';
 import 'package:sihalal_ecommerce_app/widgets/dashboard/special_offer_card.dart';
-import 'package:sihalal_ecommerce_app/widgets/little_particle.dart';
 
 class DashboardScreen extends StatelessWidget {
   const DashboardScreen({super.key});
