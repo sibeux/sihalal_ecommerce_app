@@ -2,10 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:sihalal_ecommerce_app/controller/product_controller.dart';
+import 'package:sihalal_ecommerce_app/screens/home_screen/widgets/banner_slider.dart';
+import 'package:sihalal_ecommerce_app/widgets/dashboard/categories.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+final iconList = <IconData>[
+  Icons.brightness_5,
+  Icons.brightness_4,
+  Icons.brightness_6,
+  Icons.brightness_7,
+];
+
+class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final searchProductController = Get.put(SearchProductController());
@@ -37,7 +51,7 @@ class HomeScreen extends StatelessWidget {
                 const EdgeInsets.symmetric(vertical: 7, horizontal: 7),
             hintText: 'Cari produk halal di SiHALAL',
             hintStyle: TextStyle(color: HexColor('#909191'), fontSize: 12),
-            // agar textfield tidak terlalu lebar, maka dibuat constraints
+            // * agar textfield tidak terlalu lebar, maka dibuat constraints
             suffixIconConstraints: const BoxConstraints(
               minWidth: 30,
               minHeight: 20,
@@ -79,15 +93,26 @@ class HomeScreen extends StatelessWidget {
             color: Colors.white,
           ),
           SizedBox(
-            width: 50,
-          )
+            width: 10,
+          ),
         ],
         toolbarHeight: 80,
         scrolledUnderElevation: 0,
         elevation: 0,
       ),
-      body: const Center(
-        child: Text('Welcome to Home Screen'),
+      body: const SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            SizedBox(
+              height: 5,
+            ),
+            BannerSlider(),
+            SizedBox(
+              height: 20,
+            ),
+            Categories(),
+          ],
+        ),
       ),
     );
   }
