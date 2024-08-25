@@ -31,7 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
             gradient: LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
-                colors: <Color>[HexColor('C86DD7'), HexColor('683EBC')]),
+                colors: <Color>[HexColor('C86DD7'), HexColor('C86DD7')]),
           ),
         ),
         titleSpacing: 10,

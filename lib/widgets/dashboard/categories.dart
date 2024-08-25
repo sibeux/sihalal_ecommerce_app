@@ -5,25 +5,48 @@ class Categories extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Map<String, dynamic>> categories = [
+    List<Map<String, dynamic>> categories1 = [
       {
         'icon': "assets/images/icon-category/Sugar-1.png",
-        'title': 'Bumbu',
-      },
-      {
-        'icon': "assets/images/icon-category/Sugar-2.png",
         'title': 'Gula',
       },
       {
-        'icon': "assets/images/icon-category/Sugar-1.png",
+        'icon': "assets/images/icon-category/flour.png",
         'title': 'Tepung',
       },
       {
-        'icon': "assets/images/icon-category/Sugar-2.png",
-        'title': 'Minyak',
+        'icon': "assets/images/icon-category/milk.png",
+        'title': 'Susu',
       },
       {
-        'icon': "assets/images/icon-category/Sugar-1.png",
+        'icon': "assets/images/icon-category/meat.png",
+        'title': 'Daging',
+      },
+      {
+        'icon': "assets/images/icon-category/oil.png",
+        'title': 'Minyak',
+      },
+    ];
+
+    List<Map<String, dynamic>> categories2 = [
+      {
+        'icon': "assets/images/icon-category/bumbu.jpg",
+        'title': 'Bumbu',
+      },
+      {
+        'icon': "assets/images/icon-category/santan.jpg",
+        'title': 'Santan',
+      },
+      {
+        'icon': "assets/images/icon-category/fish.jpg",
+        'title': 'Ikan',
+      },
+      {
+        'icon': "assets/images/icon-category/sirup.jpg",
+        'title': 'Sirup',
+      },
+      {
+        'icon': "assets/images/icon-category/salt.jpg",
         'title': 'Garam',
       },
     ];
@@ -34,9 +57,9 @@ class Categories extends StatelessWidget {
       ),
       child: Column(
         children: [
-          IconRow(categories: categories),
+          IconRow(categories: categories1),
           const SizedBox(height: 20),
-          IconRow(categories: categories),
+          IconRow(categories: categories2),
         ],
       ),
     );
