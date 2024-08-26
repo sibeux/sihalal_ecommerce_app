@@ -29,7 +29,7 @@ class _BannerSliderState extends State<BannerSlider> {
     return Column(
       children: [
         SizedBox(
-          height: 150,
+          height: 200,
           width: MediaQuery.of(context).size.width,
           child: PageView.builder(
             physics: const BouncingScrollPhysics(),
@@ -59,7 +59,7 @@ class _BannerSliderState extends State<BannerSlider> {
           controller: _pageController,
           count: 5,
           effect: ExpandingDotsEffect(
-            activeDotColor: HexColor('#670076'),
+            activeDotColor: HexColor('#8D1EE4'),
             dotColor: Colors.grey,
             expansionFactor: 5,
             dotHeight: 4,

@@ -41,6 +41,7 @@ dependencies:
   velocity_x: ^4.2.1
   intl: ^0.19.0
   get: ^4.6.6
+  cached_network_image: ^3.4.0
 
 dev_dependencies:
   flutter_test:

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:sihalal_ecommerce_app/provider/product_card_provider.dart';
 import 'package:sihalal_ecommerce_app/widgets/little_particle.dart';
@@ -56,7 +57,7 @@ class ProductCardRowScroll extends ConsumerWidget {
                     'Lihat Semua',
                     textAlign: TextAlign.right,
                     style: TextStyle(
-                      color: Colors.green,
+                      color: HexColor('#8D1EE4'),
                       fontSize: 15,
                       fontWeight: FontWeight.values[5],
                     ),
@@ -73,7 +74,7 @@ class ProductCardRowScroll extends ConsumerWidget {
               alignment: AlignmentDirectional.centerStart,
               fit: BoxFit.fitHeight,
               image: NetworkImage(
-                  "https://cdn.discordapp.com/attachments/1203953170901110794/1205086820577185812/Mask_group.png?ex=65d7178f&is=65c4a28f&hm=97b5b85283c8e36ebdcf30d8d991a4f5ad37a64508f233b631528cafc20b6695&"),
+                  "https://raw.githubusercontent.com/sibeux/license-sibeux/MyProgram/Mask_group.png"),
             ),
           ),
           child: SingleChildScrollView(
@@ -144,54 +145,11 @@ class ProductCard extends ConsumerWidget {
           ProductPrice(price: price),
           const InkButton(
             text: 'Tambah',
-            color: '#5EC684',
+            // color: '#5EC684',
+            color: '#8D1EE4',
           ),
         ],
       ),
-    );
-  }
-}
-
-class NoHalal extends StatelessWidget {
-  const NoHalal({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Container(
-          width: 25,
-          height: 25,
-          margin: const EdgeInsets.only(left: 10),
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: NetworkImage(
-                  "https://cdn.discordapp.com/attachments/1203953170901110794/1205115624225898516/logo_halal.png?ex=65d73262&is=65c4bd62&hm=be8496e1908f66bbe78c0bbcf6b8dfffd39c2b65ce24c41c3ce9f8b2b636f0c7&"),
-            ),
-          ),
-        ),
-        Expanded(
-          child: Container(
-            height: 25,
-            alignment: Alignment.centerLeft,
-            // color: Colors.amber.withOpacity(0.8),
-            margin: const EdgeInsets.only(
-              right: 10,
-              left: 5,
-            ),
-            child: Text(
-              "ID00410000088710720",
-              style: TextStyle(
-                  fontSize: 8,
-                  fontWeight: FontWeight.bold,
-                  overflow: TextOverflow.ellipsis,
-                  foreground: Paint()..shader = linearGradient),
-            ),
-          ),
-        ),
-      ],
     );
   }
 }
@@ -244,9 +202,20 @@ class ProductImage extends StatelessWidget {
         topLeft: Radius.circular(10),
         topRight: Radius.circular(10),
       )),
-      child: Image.network(
-        image,
+      child: CachedNetworkImage(
+        imageUrl: image,
         fit: BoxFit.cover,
+        maxHeightDiskCache: 300,
+        maxWidthDiskCache: 300,
+        filterQuality: FilterQuality.low,
+        // placeholder: (context, url) => Image.asset(
+        //   'assets/images/placeholder_cover_music.png',
+        //   fit: BoxFit.cover,
+        // ),
+        // errorWidget: (context, url, error) => Image.asset(
+        //   'assets/images/placeholder_cover_music.png',
+        //   fit: BoxFit.cover,
+        // ),
       ),
     );
   }
@@ -270,7 +239,8 @@ class Rating extends StatelessWidget {
             height: 20,
             width: 45,
             decoration: BoxDecoration(
-              color: HexColor('##81cc32'),
+              // color: HexColor('##81cc32'),
+              color: HexColor('#fec101'),
               borderRadius: BorderRadius.circular(3),
             ),
             child: Row(

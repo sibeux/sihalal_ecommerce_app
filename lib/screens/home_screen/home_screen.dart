@@ -20,6 +20,13 @@ final iconList = <IconData>[
   Icons.brightness_7,
 ];
 
+class NoGlowScrollBehavior extends ScrollBehavior {
+  Widget buildViewportChrome(
+      BuildContext context, Widget child, AxisDirection axisDirection) {
+    return child;
+  }
+}
+
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
@@ -30,9 +37,9 @@ class _HomeScreenState extends State<HomeScreen> {
         flexibleSpace: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: <Color>[HexColor('C86DD7'), HexColor('C86DD7')]),
+                begin: Alignment.bottomCenter,
+                end: Alignment.topCenter,
+                colors: <Color>[HexColor('#C47DFE'), HexColor('#C47DFE')]),
           ),
         ),
         titleSpacing: 10,
@@ -47,11 +54,11 @@ class _HomeScreenState extends State<HomeScreen> {
           decoration: InputDecoration(
             filled: true,
             isDense: true,
-            fillColor: HexColor('#f1f1f1'),
+            fillColor: Colors.white,
             contentPadding:
                 const EdgeInsets.symmetric(vertical: 7, horizontal: 7),
             hintText: 'Cari produk halal di SiHALAL',
-            hintStyle: TextStyle(color: HexColor('#909191'), fontSize: 12),
+            hintStyle: TextStyle(color: HexColor('#8D1EE4'), fontSize: 12),
             // * agar textfield tidak terlalu lebar, maka dibuat constraints
             suffixIconConstraints: const BoxConstraints(
               minWidth: 30,
@@ -63,7 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             prefixIcon: Icon(
               Icons.search,
-              color: HexColor('#575757'),
+              color: HexColor('#8D1EE4'),
             ),
             suffixIcon: Obx(() => searchProductController.isTypingValue
                 ? GestureDetector(
@@ -101,23 +108,26 @@ class _HomeScreenState extends State<HomeScreen> {
         scrolledUnderElevation: 0,
         elevation: 0,
       ),
-      body: const SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            SizedBox(
-              height: 5,
-            ),
-            BannerSlider(),
-            SizedBox(
-              height: 20,
-            ),
-            Categories(),
-            SizedBox(height: 30),
-            ProductCardRowScroll(
-              color: '#B1E9AC',
-              cardHeader: "Cek Produk Terbaru di SiHALAL",
-            ),
-          ],
+      body: ScrollConfiguration(
+        behavior: NoGlowScrollBehavior(),
+        child: const SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              SizedBox(
+                height: 5,
+              ),
+              BannerSlider(),
+              SizedBox(
+                height: 20,
+              ),
+              Categories(),
+              SizedBox(height: 30),
+              ProductCardRowScroll(
+                color: '#B1E9AC',
+                cardHeader: "Cek Produk Terbaru di SiHALAL",
+              ),
+            ],
+          ),
         ),
       ),
     );
