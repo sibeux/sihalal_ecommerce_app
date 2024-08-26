@@ -5,8 +5,8 @@ import 'package:sihalal_ecommerce_app/screens/home_screen/widgets/product_card_s
 
 double colorOnTap = 1;
 
-class ShrinkCardProduct extends StatefulWidget {
-  const ShrinkCardProduct({
+class ShrinkTapProduct extends StatefulWidget {
+  const ShrinkTapProduct({
     super.key,
     required this.title,
     required this.description,
@@ -15,14 +15,14 @@ class ShrinkCardProduct extends StatefulWidget {
     required this.image,
   });
 
-  final String title, description, image;
-  final double rating, price;
+  final String title, description, image, rating;
+  final double price;
 
   @override
-  ShrinkCardProductState createState() => ShrinkCardProductState();
+  ShrinkTapProductState createState() => ShrinkTapProductState();
 }
 
-class ShrinkCardProductState extends State<ShrinkCardProduct>
+class ShrinkTapProductState extends State<ShrinkTapProduct>
     with SingleTickerProviderStateMixin {
   static const clickAnimationDurationMillis = 100;
 

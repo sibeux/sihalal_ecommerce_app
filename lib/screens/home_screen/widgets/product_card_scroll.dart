@@ -1,8 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:sihalal_ecommerce_app/provider/product_card_provider.dart';
+import 'package:get/get.dart';
+import 'package:sihalal_ecommerce_app/controller/product_controller.dart';
+import 'package:sihalal_ecommerce_app/screens/home_screen/widgets/shimmer_product_card.dart';
 import 'package:sihalal_ecommerce_app/widgets/little_particle.dart';
-import 'package:sihalal_ecommerce_app/widgets/shrink_tap_card.dart';
+import 'package:sihalal_ecommerce_app/screens/home_screen/widgets/shrink_tap_card.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:intl/intl.dart';
@@ -14,19 +16,32 @@ final Shader linearGradient = LinearGradient(
   colors: <Color>[HexColor("1D6BFF"), HexColor("C125FF")],
 ).createShader(const Rect.fromLTWH(0.0, 0.0, 200.0, 70.0));
 
-class ProductCardRowScroll extends ConsumerWidget {
+class ProductCardRowScroll extends StatefulWidget {
   const ProductCardRowScroll({
     super.key,
     required this.color,
     required this.cardHeader,
+    required this.sort,
   });
 
-  final String color;
-  final String cardHeader;
+  final String color, cardHeader, sort;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final dummyProductCard = ref.watch(productCardProvider_1);
+  State<StatefulWidget> createState() {
+    return _ProductCardRowScrollState();
+  }
+}
+
+class _ProductCardRowScrollState extends State<ProductCardRowScroll> {
+  get cardHeader => widget.cardHeader;
+  get color => widget.color;
+  final getScrollLeftProductController =
+      Get.put(GetScrollLeftProductController());
+
+  @override
+  Widget build(BuildContext context) {
+    getScrollLeftProductController.getLeftProduct(widget.sort);
+    final productCardScroll = getScrollLeftProductController.recentProduct;
 
     return Column(
       children: [
@@ -77,23 +92,28 @@ class ProductCardRowScroll extends ConsumerWidget {
                   "https://raw.githubusercontent.com/sibeux/license-sibeux/MyProgram/Mask_group.png"),
             ),
           ),
-          child: SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: [
-                SizedBox(width: MediaQuery.of(context).size.width * 0.43),
-                // create for each product card from dummyProductCard
-                for (var product in dummyProductCard)
-                  ShrinkCardProduct(
-                    title: product.title,
-                    description: product.description,
-                    price: product.price,
-                    rating: product.rating,
-                    image: product.image,
+          child: Obx(
+            () => getScrollLeftProductController.isLoading.value
+                ? const ShimmerProductCard()
+                : SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: [
+                        SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.43),
+                        // create for each product card from dummyProductCard
+                        for (var product in productCardScroll)
+                          ShrinkTapProduct(
+                            title: product!.nama,
+                            description: product.deskripsi,
+                            price: double.parse(product.harga),
+                            rating: product.rating,
+                            image: product.foto1,
+                          ),
+                        const SizedBox(width: 10),
+                      ],
+                    ),
                   ),
-                const SizedBox(width: 10),
-              ],
-            ),
           ),
         ),
       ],
@@ -111,8 +131,8 @@ class ProductCard extends ConsumerWidget {
     required this.image,
   });
 
-  final String title, description, image;
-  final double rating, price;
+  final String title, description, image, rating;
+  final double price;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -227,7 +247,7 @@ class Rating extends StatelessWidget {
     required this.rating,
   });
 
-  final double rating;
+  final String rating;
 
   @override
   Widget build(BuildContext context) {
@@ -249,7 +269,7 @@ class Rating extends StatelessWidget {
                 const Icon(Icons.star, color: Colors.white, size: 10),
                 const SizedBox(width: 5),
                 Text(
-                  rating.toString(),
+                  rating == '0.0000' ? '---' : ('${double.parse(rating)}'),
                   textAlign: TextAlign.center,
                   style: const TextStyle(
                     color: Colors.white,

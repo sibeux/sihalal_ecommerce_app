@@ -123,8 +123,9 @@ class _HomeScreenState extends State<HomeScreen> {
               Categories(),
               SizedBox(height: 30),
               ProductCardRowScroll(
-                color: '#B1E9AC',
+                color: '#C47DFE',
                 cardHeader: "Cek Produk Terbaru di SiHALAL",
+                sort: 'recent',
               ),
             ],
           ),

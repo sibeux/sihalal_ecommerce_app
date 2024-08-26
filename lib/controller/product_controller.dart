@@ -1,9 +1,14 @@
+import 'dart:convert';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sihalal_ecommerce_app/component/regex_drive.dart';
+import 'package:sihalal_ecommerce_app/models/product.dart';
+import 'package:http/http.dart' as http;
 
 class SearchProductController extends GetxController {
   final controller = TextEditingController();
-  // final HomeAlbumGridController homeAlbumGridController = Get.find();
   var isTyping = false.obs;
   var textValue = ''.obs;
   var isKeybordFocus = false.obs;
@@ -18,7 +23,6 @@ class SearchProductController extends GetxController {
   }
 
   void filterAlbum(String value) {
-    
     isSearch.value = !isSearch.value;
     update();
   }
@@ -26,4 +30,75 @@ class SearchProductController extends GetxController {
   get getTextValue => textValue.value;
 
   get isTypingValue => isTyping.value;
+}
+
+class GetScrollLeftProductController extends GetxController {
+  // final dummyProductCard = [
+  //   Product(
+  //       title: 'Telur Ayam Kampung Petelur',
+  //       description: '10 pcs, 10 pcs (Harga Rp12.000 per butir)',
+  //       rating: 4.4,
+  //       price: 13800,
+  //       image:
+  //           "https://img.freepik.com/premium-photo/fresh-chicken-eggs-basket-grey-wooden-background_106006-1013.jpg?w=996"),
+  //   Product(
+  //       title: 'Minyak Goreng Pouch Sania',
+  //       description: 'Sania Minyak Goreng Sawit Pouch 1 liter',
+  //       rating: 4.1,
+  //       price: 18600,
+  //       image:
+  //           "https://ik.imagekit.io/dcjlghyytp1/5b0338051dc85cb9df799c2cbe6cb018?tr=f-auto,w-1000"),
+  // ].obs;
+
+  var recentProduct = RxList<Product?>([]);
+  var isLoading = false.obs;
+
+  Future<void> getLeftProduct(String sort) async {
+    isLoading.value = true;
+
+    String url =
+        'https://sibeux.my.id/project/sihalal/product?method=scroll_left&sort=$sort';
+    const api =
+        'https://sibeux.my.id/cloud-music-player/database/mobile-music-player/api/gdrive_api.php';
+
+    try {
+      final response = await http.get(Uri.parse(url));
+      final apiResponse = await http.get(Uri.parse(api));
+
+      final List<dynamic> listData = json.decode(response.body);
+      final List<dynamic> apiData = json.decode(apiResponse.body);
+
+      final list = listData.map((produk) {
+        return Product(
+          uidProduct: produk['id_produk'],
+          uidKategori: produk['id_kategori'],
+          uidUser: produk['id_user'],
+          nama: produk['nama_produk'],
+          deskripsi: produk['deskripsi_produk'] ?? '--',
+          rating: produk['rating_produk'],
+          harga: produk['harga_produk'],
+          foto1: regexGdriveLink(
+              produk['foto_produk_1'], apiData[0]['gdrive_api']),
+          foto2: produk['foto_produk_2'] == null
+              ? ''
+              : regexGdriveLink(
+                  produk['foto_produk_2'], apiData[0]['gdrive_api']),
+          foto3: produk['foto_produk_3'] == null
+              ? ''
+              : regexGdriveLink(
+                  produk['foto_produk_3'], apiData[0]['gdrive_api']),
+          stok: produk['stok_produk'],
+        );
+      }).toList();
+
+      recentProduct.value = list;
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    } finally {
+      // ini tetap dieksekusi baik berhasil atau gagal
+      isLoading.value = false;
+    }
+  }
 }
