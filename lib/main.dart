@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sihalal_ecommerce_app/screens/home_screen/home_screen.dart';
 
@@ -30,7 +31,7 @@ class MyApp extends StatelessWidget {
         statusBarColor: Colors.white,
       ),
     );
-    return MaterialApp(
+    return GetMaterialApp(
       theme: theme,
       debugShowCheckedModeBanner: false,
       showPerformanceOverlay: false,

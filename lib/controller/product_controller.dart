@@ -18,11 +18,11 @@ class SearchProductController extends GetxController {
     isTyping.value = value.isNotEmpty;
     textValue.value = value;
     isKeybordFocus.value = true;
-    filterAlbum(value);
+    filterProduct(value);
     update();
   }
 
-  void filterAlbum(String value) {
+  void filterProduct(String value) {
     isSearch.value = !isSearch.value;
     update();
   }
@@ -33,23 +33,6 @@ class SearchProductController extends GetxController {
 }
 
 class GetScrollLeftProductController extends GetxController {
-  // final dummyProductCard = [
-  //   Product(
-  //       title: 'Telur Ayam Kampung Petelur',
-  //       description: '10 pcs, 10 pcs (Harga Rp12.000 per butir)',
-  //       rating: 4.4,
-  //       price: 13800,
-  //       image:
-  //           "https://img.freepik.com/premium-photo/fresh-chicken-eggs-basket-grey-wooden-background_106006-1013.jpg?w=996"),
-  //   Product(
-  //       title: 'Minyak Goreng Pouch Sania',
-  //       description: 'Sania Minyak Goreng Sawit Pouch 1 liter',
-  //       rating: 4.1,
-  //       price: 18600,
-  //       image:
-  //           "https://ik.imagekit.io/dcjlghyytp1/5b0338051dc85cb9df799c2cbe6cb018?tr=f-auto,w-1000"),
-  // ].obs;
-
   var recentProduct = RxList<Product?>([]);
   var isLoading = false.obs;
 
@@ -64,6 +47,8 @@ class GetScrollLeftProductController extends GetxController {
     try {
       final response = await http.get(Uri.parse(url));
       final apiResponse = await http.get(Uri.parse(api));
+
+      print('awikwok');
 
       final List<dynamic> listData = json.decode(response.body);
       final List<dynamic> apiData = json.decode(apiResponse.body);
