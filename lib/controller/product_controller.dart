@@ -48,8 +48,6 @@ class GetScrollLeftProductController extends GetxController {
       final response = await http.get(Uri.parse(url));
       final apiResponse = await http.get(Uri.parse(api));
 
-      print('awikwok');
-
       final List<dynamic> listData = json.decode(response.body);
       final List<dynamic> apiData = json.decode(apiResponse.body);
 
