@@ -3,7 +3,8 @@ import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:sihalal_ecommerce_app/controller/product_controller.dart';
 import 'package:sihalal_ecommerce_app/screens/home_screen/widgets/banner_slider.dart';
-import 'package:sihalal_ecommerce_app/widgets/dashboard/categories.dart';
+import 'package:sihalal_ecommerce_app/screens/home_screen/widgets/categories.dart';
+import 'package:sihalal_ecommerce_app/screens/home_screen/widgets/product_card_scroll.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -111,6 +112,11 @@ class _HomeScreenState extends State<HomeScreen> {
               height: 20,
             ),
             Categories(),
+            SizedBox(height: 30),
+            ProductCardRowScroll(
+              color: '#B1E9AC',
+              cardHeader: "Cek Produk Terbaru di SiHALAL",
+            ),
           ],
         ),
       ),
