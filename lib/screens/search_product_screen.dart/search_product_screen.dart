@@ -10,8 +10,10 @@ class SearchProductScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final searchProductController = Get.put(SearchProductController());
     return Scaffold(
+      backgroundColor: HexColor('#fefffe'),
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
+        backgroundColor: HexColor('#fefffe'),
         titleSpacing: 0,
         leading: IconButton(
           onPressed: () {
@@ -33,7 +35,7 @@ class SearchProductScreen extends StatelessWidget {
           decoration: InputDecoration(
             filled: true,
             isDense: true,
-            fillColor: Colors.white,
+            fillColor: HexColor('#fefffe'),
             contentPadding:
                 const EdgeInsets.symmetric(vertical: 7, horizontal: 7),
             hintText: 'Cari produk halal di SiHALAL',

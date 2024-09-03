@@ -26,6 +26,18 @@ class Categories extends StatelessWidget {
         'icon': "assets/images/icon-category/oil.png",
         'title': 'Minyak',
       },
+      {
+        'icon': "assets/images/icon-category/oil.png",
+        'title': 'Minyak',
+      },
+      {
+        'icon': "assets/images/icon-category/oil.png",
+        'title': 'Minyak',
+      },
+      {
+        'icon': "assets/images/icon-category/oil.png",
+        'title': 'Minyak',
+      },
     ];
 
     List<Map<String, dynamic>> categories2 = [
@@ -49,18 +61,31 @@ class Categories extends StatelessWidget {
         'icon': "assets/images/icon-category/salt.jpg",
         'title': 'Garam',
       },
+      {
+        'icon': "assets/images/icon-category/salt.jpg",
+        'title': 'Garam',
+      },
+      {
+        'icon': "assets/images/icon-category/salt.jpg",
+        'title': 'Garam',
+      },
+      {
+        'icon': "assets/images/icon-category/salt.jpg",
+        'title': 'Garam',
+      },
     ];
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 20,
-      ),
-      child: Column(
-        children: [
-          IconRow(categories: categories1),
-          const SizedBox(height: 20),
-          IconRow(categories: categories2),
-        ],
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Padding(
+        padding: const EdgeInsets.only(left: 20),
+        child: Column(
+          children: [
+            IconRow(categories: categories1),
+            const SizedBox(height: 20),
+            IconRow(categories: categories2),
+          ],
+        ),
       ),
     );
   }
@@ -77,7 +102,6 @@ class IconRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         ...List.generate(
@@ -109,7 +133,8 @@ class CategoryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: press,
-      child: SizedBox(
+      child: Container(
+        margin: const EdgeInsets.only(right: 20),
         width: 55,
         child: Column(
           children: [

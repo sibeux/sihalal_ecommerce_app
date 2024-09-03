@@ -14,11 +14,20 @@ class HomeScreen extends StatefulWidget {
 }
 
 final iconList = <IconData>[
-  Icons.brightness_5,
-  Icons.brightness_4,
+  Icons.home,
+  Icons.book,
   Icons.brightness_6,
-  Icons.brightness_7,
+  Icons.person,
 ];
+
+final labelList = <String>[
+  'Home',
+  'Category',
+  'Wishlist',
+  'Akun',
+];
+
+const String colorWhite = 'fefffe';
 
 class NoGlowScrollBehavior extends ScrollBehavior {
   Widget buildViewportChrome(
@@ -31,6 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: HexColor(colorWhite),
       appBar: AppBar(
         flexibleSpace: Container(
           decoration: BoxDecoration(
@@ -54,7 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
               decoration: InputDecoration(
                 filled: true,
                 isDense: true,
-                fillColor: Colors.white,
+                fillColor: HexColor(colorWhite),
                 contentPadding:
                     const EdgeInsets.symmetric(vertical: 7, horizontal: 7),
                 hintText: 'Cari produk halal di SiHALAL',
@@ -80,14 +90,14 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         actions: const [
           Icon(
-            Icons.shopping_cart_rounded,
+            Icons.shopping_cart_checkout_sharp,
             color: Colors.white,
           ),
           SizedBox(
             width: 10,
           ),
           Icon(
-            Icons.message_rounded,
+            Icons.person,
             color: Colors.white,
           ),
           SizedBox(
@@ -97,6 +107,21 @@ class _HomeScreenState extends State<HomeScreen> {
         toolbarHeight: 80,
         scrolledUnderElevation: 0,
         elevation: 0,
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: HexColor(colorWhite),
+        selectedItemColor: HexColor('#C47DFE'),
+        unselectedItemColor: HexColor('#575757'),
+        showSelectedLabels: true,
+        showUnselectedLabels: true,
+        items: iconList
+            .map(
+              (e) => BottomNavigationBarItem(
+                icon: Icon(e),
+                label: labelList[iconList.indexOf(e)],
+              ),
+            )
+            .toList(),
       ),
       body: ScrollConfiguration(
         behavior: NoGlowScrollBehavior(),
