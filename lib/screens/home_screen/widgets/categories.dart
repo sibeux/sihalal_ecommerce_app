@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
 
 class Categories extends StatelessWidget {
   const Categories({super.key});
@@ -75,16 +76,38 @@ class Categories extends StatelessWidget {
       },
     ];
 
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Padding(
-        padding: const EdgeInsets.only(left: 20),
-        child: Column(
-          children: [
-            IconRow(categories: categories1),
-            const SizedBox(height: 20),
-            IconRow(categories: categories2),
-          ],
+    final scrollController = ScrollController();
+
+    return SizedBox(
+      // dikasih Sizedbox dan height agar
+      // scroll bar ada jarak
+      height: 200,
+      child: RawScrollbar(
+        controller: scrollController,
+        crossAxisMargin: 0,
+        interactive: false,
+        radius: const Radius.circular(10),
+        trackRadius: const Radius.circular(10),
+        thumbVisibility: true,
+        padding: const EdgeInsets.symmetric(horizontal: 180),
+        thickness: 4,
+        thumbColor: HexColor('#8D1EE4'),
+        trackColor: Colors.grey[300],
+        trackBorderColor: Colors.transparent,
+        trackVisibility: true,
+        child: SingleChildScrollView(
+          controller: scrollController,
+          scrollDirection: Axis.horizontal,
+          child: Padding(
+            padding: const EdgeInsets.only(left: 20),
+            child: Column(
+              children: [
+                IconRow(categories: categories1),
+                const SizedBox(height: 20),
+                IconRow(categories: categories2),
+              ],
+            ),
+          ),
         ),
       ),
     );
