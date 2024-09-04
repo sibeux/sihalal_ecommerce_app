@@ -85,16 +85,16 @@ class Categories extends StatelessWidget {
       child: RawScrollbar(
         controller: scrollController,
         crossAxisMargin: 0,
+        padding: const EdgeInsets.symmetric(horizontal: 180),
         interactive: false,
         radius: const Radius.circular(10),
         trackRadius: const Radius.circular(10),
         thumbVisibility: true,
-        padding: const EdgeInsets.symmetric(horizontal: 180),
+        trackVisibility: true,
         thickness: 4,
         thumbColor: HexColor('#8D1EE4'),
         trackColor: Colors.grey[300],
         trackBorderColor: Colors.transparent,
-        trackVisibility: true,
         child: SingleChildScrollView(
           controller: scrollController,
           scrollDirection: Axis.horizontal,
