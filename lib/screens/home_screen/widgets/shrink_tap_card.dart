@@ -1,6 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:sihalal_ecommerce_app/models/product.dart';
+import 'package:sihalal_ecommerce_app/screens/detail_product_screen/detail_product_screen.dart';
 import 'package:sihalal_ecommerce_app/screens/home_screen/widgets/product_card_scroll.dart';
 
 double colorOnTap = 1;
@@ -13,10 +16,13 @@ class ShrinkTapProduct extends StatefulWidget {
     required this.rating,
     required this.price,
     required this.image,
+    required this.uid,
+    required this.product,
   });
 
-  final String title, description, image, rating;
+  final String uid, title, description, image, rating;
   final double price;
+  final Product product;
 
   @override
   ShrinkTapProductState createState() => ShrinkTapProductState();
@@ -66,42 +72,19 @@ class ShrinkTapProductState extends State<ShrinkTapProduct>
 
   @override
   Widget build(BuildContext context) {
-    // VoidCallback? onTap = () {
-    //   print('tapped');
-    // };
-
-    onTap() {
-      // print('tapped');
-    }
-
-    DateTime dateTime1 = DateTime.now();
-
     return GestureDetector(
       onTap: () {
         _shrinkButtonSize();
         _restoreButtonSize();
+        Get.to(() => DetailProductScreen(product: widget.product));
       },
-      onTapDown: (_) {
+      onPanDown: (_) {
         _shrinkButtonSize();
-        dateTime1 = DateTime.now();
       },
-      onTapUp: (_) {
+      onPanEnd: (_) {
         _restoreButtonSize();
-        Duration difference = DateTime.now().difference(dateTime1);
-        if (difference.inMilliseconds < 500) {
-          // UX delight: Adding this delay let's the user see the tap
-          // animation before the tap action is performed instead of instantly
-          // performing the action. This is great in cases where the tap action
-          // triggers navigation. If we remove this delay, the app would navigate
-          // instantly and hence the user wouldn't be able to see the button
-          // animation in action.
-          Future.delayed(
-            const Duration(milliseconds: clickAnimationDurationMillis * 2),
-            () => onTap.call(),
-          );
-        }
       },
-      onTapCancel: _restoreButtonSize,
+      onPanCancel: () => _restoreButtonSize(),
       child: Transform.scale(
         scale: _scaleTransformValue,
         child: SizedBox(

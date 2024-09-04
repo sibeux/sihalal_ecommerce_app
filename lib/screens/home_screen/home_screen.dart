@@ -4,7 +4,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:sihalal_ecommerce_app/screens/home_screen/widgets/banner_slider.dart';
 import 'package:sihalal_ecommerce_app/screens/home_screen/widgets/categories.dart';
 import 'package:sihalal_ecommerce_app/screens/home_screen/widgets/product_card_scroll.dart';
-import 'package:sihalal_ecommerce_app/screens/search_product_screen.dart/search_product_screen.dart';
+import 'package:sihalal_ecommerce_app/screens/search_product_screen/search_product_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

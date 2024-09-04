@@ -104,7 +104,9 @@ class _ProductCardRowScrollState extends State<ProductCardRowScroll> {
                         // create for each product card from dummyProductCard
                         for (var product in productCardScroll)
                           ShrinkTapProduct(
-                            title: product!.nama,
+                            product: product!,
+                            uid: product.uidProduct,
+                            title: product.nama,
                             description: product.deskripsi,
                             price: double.parse(product.harga),
                             rating: product.rating,
