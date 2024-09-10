@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:sihalal_ecommerce_app/component/price_format.dart';
 import 'package:sihalal_ecommerce_app/controller/product_detail_controller.dart';
 import 'package:sihalal_ecommerce_app/models/product.dart';
 
@@ -33,76 +34,100 @@ class DetailProductScreen extends StatelessWidget {
     ];
     final productDetailController = Get.put(ProductDetailController());
     return Scaffold(
+      backgroundColor: HexColor('#fefffe'),
+      appBar: AppBar(
         backgroundColor: HexColor('#fefffe'),
-        appBar: AppBar(
-          backgroundColor: HexColor('#fefffe'),
-          title: const Text('Detail Product'),
-        ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              const Divider(
-                height: 0.5,
-                thickness: 0.5,
-              ),
-              Stack(
-                children: [
-                  AspectRatio(
-                    aspectRatio: 1,
-                    child: SizedBox(
-                      width: MediaQuery.of(context).size.width,
-                      child: ScrollConfiguration(
-                        behavior: NoGlowScrollBehavior(),
-                        child: PageView.builder(
-                          itemCount: itemCount,
-                          controller: _pageController,
-                          onPageChanged: (value) {
-                            productDetailController.changeImageIndex(value + 1);
-                          },
-                          itemBuilder: (context, index) {
-                            return CachedNetworkImage(
-                              imageUrl: listFoto[index],
-                              fit: BoxFit.cover,
-                            );
-                          },
-                        ),
+        title: const Text('Detail Product'),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            const Divider(
+              height: 0.5,
+              thickness: 0.5,
+            ),
+            Stack(
+              children: [
+                AspectRatio(
+                  aspectRatio: 1,
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    child: ScrollConfiguration(
+                      behavior: NoGlowScrollBehavior(),
+                      child: PageView.builder(
+                        itemCount: itemCount,
+                        controller: _pageController,
+                        onPageChanged: (value) {
+                          productDetailController.changeImageIndex(value + 1);
+                        },
+                        itemBuilder: (context, index) {
+                          return CachedNetworkImage(
+                            imageUrl: listFoto[index],
+                            fit: BoxFit.cover,
+                          );
+                        },
                       ),
                     ),
                   ),
-                  Positioned(
-                    bottom: 10,
-                    left: 20,
-                    child: Container(
-                      width: 35,
-                      height: 20,
-                      decoration: BoxDecoration(
-                        color: HexColor('#fefefe'),
-                        borderRadius: BorderRadius.circular(3),
-                        border: Border.all(
-                          color: const Color.fromARGB(255, 217, 220, 231),
-                          width: 1.1,
-                          strokeAlign: BorderSide.strokeAlignOutside,
-                        ),
-                      ),
-                      child: Center(
-                        child: Obx(() => Text(
-                              '${productDetailController.imageIndex.value}/$itemCount',
-                              style: TextStyle(
-                                color: const Color.fromARGB(255, 0, 0, 0)
-                                    .withOpacity(0.7),
-                                fontSize: 12,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            )),
+                ),
+                Positioned(
+                  bottom: 10,
+                  left: 20,
+                  child: Container(
+                    width: 35,
+                    height: 20,
+                    decoration: BoxDecoration(
+                      color: HexColor('#fefefe'),
+                      borderRadius: BorderRadius.circular(3),
+                      border: Border.all(
+                        color: const Color.fromARGB(255, 217, 220, 231),
+                        width: 1.1,
+                        strokeAlign: BorderSide.strokeAlignOutside,
                       ),
                     ),
-                  )
+                    child: Center(
+                      child: Obx(() => Text(
+                            '${productDetailController.imageIndex.value}/$itemCount',
+                            style: TextStyle(
+                              color: const Color.fromARGB(255, 0, 0, 0)
+                                  .withOpacity(0.7),
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          )),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 8,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Row(
+                children: [
+                  Flexible(
+                    fit: FlexFit.tight,
+                    child: Text(
+                      priceFormat(product.harga),
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  const Icon(
+                    Icons.favorite_border_outlined,
+                    color: Colors.grey,
+                  ),
                 ],
               ),
-              const SizedBox(height: 10),
-              
-            ],
-          ),
-        ));
+            )
+          ],
+        ),
+      ),
+    );
   }
 }

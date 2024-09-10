@@ -13,7 +13,7 @@ var kPrimaryColor = const Color.fromARGB(
 );
 
 final theme = ThemeData(
-  fontFamily: GoogleFonts.lato().fontFamily,
+  fontFamily: GoogleFonts.roboto().fontFamily,
 );
 
 void main() {
