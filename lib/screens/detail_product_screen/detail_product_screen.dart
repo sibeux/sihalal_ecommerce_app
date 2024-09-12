@@ -100,6 +100,10 @@ class DetailProductScreen extends StatelessWidget {
                 ),
               ],
             ),
+            const Divider(
+              height: 0.5,
+              thickness: 0.5,
+            ),
             const SizedBox(
               height: 8,
             ),
@@ -115,6 +119,7 @@ class DetailProductScreen extends StatelessWidget {
                         color: Colors.black,
                         fontSize: 22,
                         fontWeight: FontWeight.bold,
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ),
                   ),
@@ -124,10 +129,90 @@ class DetailProductScreen extends StatelessWidget {
                   ),
                 ],
               ),
+            ),
+            const SizedBox(
+              height: 8,
+            ),
+            Container(
+              alignment: Alignment.centerLeft,
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Text(
+                product.nama,
+                maxLines: 3,
+                style: const TextStyle(
+                  color: Colors.black,
+                  fontSize: 16,
+                  overflow: TextOverflow.ellipsis,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 12,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Row(
+                children: [
+                  ProductRating(rating: product.rating),
+                  const SizedBox(width: 2),
+                  Text(
+                    '${product.jumlahUlasan} Ulasan',
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 14,
+                    ),
+                  ),
+                ],
+              ),
             )
           ],
         ),
       ),
+    );
+  }
+}
+
+class ProductRating extends StatelessWidget {
+  const ProductRating({super.key, required this.rating});
+
+  final String rating;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        Container(
+            margin: const EdgeInsets.only(right: 10),
+            height: 25,
+            width: 55,
+            decoration: BoxDecoration(
+              color: Colors.transparent,
+              borderRadius: BorderRadius.circular(5),
+              border: Border.all(
+                color: const Color.fromARGB(255, 217, 220, 231),
+                width: 1.1,
+                strokeAlign: BorderSide.strokeAlignOutside,
+              ),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(Icons.star, color: HexColor('#fec101'), size: 15),
+                const SizedBox(width: 6),
+                Text(
+                  rating == '0.0000' ? '---' : ('${double.parse(rating)}'),
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    color: Colors.black,
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            )),
+      ],
     );
   }
 }
