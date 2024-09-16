@@ -120,7 +120,7 @@ class DetailProductScreen extends StatelessWidget {
                       maxLines: 2,
                       style: const TextStyle(
                         color: Colors.black,
-                        fontSize: 16,
+                        fontSize: 14,
                         overflow: TextOverflow.ellipsis,
                         fontWeight: FontWeight.bold,
                       ),
