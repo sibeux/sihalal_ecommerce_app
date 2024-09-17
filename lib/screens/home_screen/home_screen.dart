@@ -5,6 +5,7 @@ import 'package:sihalal_ecommerce_app/screens/home_screen/widgets/banner_slider.
 import 'package:sihalal_ecommerce_app/screens/home_screen/widgets/categories.dart';
 import 'package:sihalal_ecommerce_app/screens/home_screen/widgets/product_card_scroll.dart';
 import 'package:sihalal_ecommerce_app/screens/search_product_screen/search_product_screen.dart';
+import 'package:sihalal_ecommerce_app/screens/user_auth_screen/login_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -88,19 +89,24 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
         ),
-        actions: const [
-          Icon(
+        actions: [
+          const Icon(
             Icons.shopping_cart_checkout_sharp,
             color: Colors.white,
           ),
-          SizedBox(
+          const SizedBox(
             width: 10,
           ),
-          Icon(
-            Icons.person,
-            color: Colors.white,
+          GestureDetector(
+            onTap: (){
+              Get.to(() => const LoginScreen());
+            },
+            child: const Icon(
+              Icons.person,
+              color: Colors.white,
+            ),
           ),
-          SizedBox(
+          const SizedBox(
             width: 10,
           ),
         ],
