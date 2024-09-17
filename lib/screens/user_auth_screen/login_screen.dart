@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:sihalal_ecommerce_app/controller/auth_user_controller.dart';
 import 'package:sihalal_ecommerce_app/screens/user_auth_screen/widgets/form_widgets.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -7,6 +9,7 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final authPasswordController = Get.put(AuthPasswordController());
     return Scaffold(
       backgroundColor: HexColor('fefffe'),
       resizeToAvoidBottomInset: false,
@@ -35,7 +38,11 @@ class LoginScreen extends StatelessWidget {
           const SizedBox(height: 30),
           const EmailLoginForm(),
           const SizedBox(height: 10),
-          const PasswordLoginForm(),
+          Obx(
+            () => authPasswordController.isObscureValue
+                ? const PasswordLoginForm()
+                : const PasswordLoginForm(),
+          ),
           const SizedBox(height: 40),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 40),

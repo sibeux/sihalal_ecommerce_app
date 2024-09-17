@@ -27,6 +27,7 @@ class AuthPasswordController extends GetxController {
   var isTyping = false.obs;
   var textValue = ''.obs;
   var isKeybordFocus = false.obs;
+  var isObscure = true.obs;
 
   void onChanged(String value) {
     isTyping.value = value.isNotEmpty;
@@ -35,7 +36,14 @@ class AuthPasswordController extends GetxController {
     update();
   }
 
+  void toggleObscure() {
+    isObscure.value = !isObscure.value;
+    update();
+  }
+
   get getTextValue => textValue.value;
 
   get isTypingValue => isTyping.value;
+
+  get isObscureValue => isObscure.value;
 }

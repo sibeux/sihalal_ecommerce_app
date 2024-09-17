@@ -60,6 +60,8 @@ class FormBlueprint extends StatelessWidget {
         cursorColor: HexColor('#575757'),
         textAlignVertical: TextAlignVertical.center,
         keyboardType: keyboardType,
+        obscureText:
+            formType == 'password' ? authController.isObscureValue : false,
         onChanged: (value) {
           authController.onChanged(value);
         },
@@ -72,6 +74,29 @@ class FormBlueprint extends StatelessWidget {
             icon,
             color: HexColor('#575757'),
           ),
+          suffixIcon: formType == 'password'
+              ? Obx(
+                  () => authController.isObscureValue == false
+                      ? GestureDetector(
+                          onTap: () {
+                            authController.toggleObscure();
+                          },
+                          child: Icon(
+                            Icons.visibility_off,
+                            color: HexColor('#575757'),
+                          ),
+                        )
+                      : GestureDetector(
+                          onTap: () {
+                            authController.toggleObscure();
+                          },
+                          child: Icon(
+                            Icons.visibility,
+                            color: HexColor('#575757'),
+                          ),
+                        ),
+                )
+              : null,
           filled: true,
           isDense: true,
           fillColor: HexColor('#fefffe'),
@@ -83,6 +108,10 @@ class FormBlueprint extends StatelessWidget {
           hintStyle: const TextStyle(
             color: Colors.grey,
             fontSize: 12,
+          ),
+          suffixIconConstraints: const BoxConstraints(
+            minWidth: 40,
+            minHeight: 45,
           ),
           prefixIconConstraints: const BoxConstraints(
             minWidth: 40,
