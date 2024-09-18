@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:sihalal_ecommerce_app/screens/home_screen/widgets/banner_slider.dart';
-import 'package:sihalal_ecommerce_app/screens/home_screen/widgets/categories.dart';
-import 'package:sihalal_ecommerce_app/screens/home_screen/widgets/product_card_scroll.dart';
+import 'package:sihalal_ecommerce_app/widgets/home_widgets/banner_slider.dart';
+import 'package:sihalal_ecommerce_app/widgets/home_widgets/categories.dart';
+import 'package:sihalal_ecommerce_app/widgets/home_widgets/product_card_scroll.dart';
 import 'package:sihalal_ecommerce_app/screens/search_product_screen/search_product_screen.dart';
 import 'package:sihalal_ecommerce_app/screens/user_auth_screen/login_screen.dart';
 

@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:sihalal_ecommerce_app/controller/auth_user_controller.dart';
-import 'package:sihalal_ecommerce_app/screens/user_auth_screen/widgets/form_widgets.dart';
+import 'package:sihalal_ecommerce_app/widgets/user_auth_widgets/button_widgets.dart';
+import 'package:sihalal_ecommerce_app/widgets/user_auth_widgets/form_widgets.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
