@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:sihalal_ecommerce_app/controller/auth_user_controller.dart';
+import 'package:sihalal_ecommerce_app/controller/auth_form_controller.dart';
 import 'package:sihalal_ecommerce_app/widgets/user_auth_widgets/button_widgets.dart';
 import 'package:sihalal_ecommerce_app/widgets/user_auth_widgets/form_widgets.dart';
 
@@ -10,8 +10,7 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final authPasswordController = Get.put(AuthPasswordController());
-    final authUserController = Get.put(AuthUserController());
+    final authController = Get.put(AuthFormLoginController());
     return Scaffold(
       backgroundColor: HexColor('fefffe'),
       resizeToAvoidBottomInset: false,
@@ -40,15 +39,10 @@ class LoginScreen extends StatelessWidget {
           const SizedBox(height: 30),
           const EmailLoginForm(),
           const SizedBox(height: 10),
-          Obx(
-            () => authPasswordController.isObscureValue
-                ? const PasswordLoginForm()
-                : const PasswordLoginForm(),
-          ),
+          const PasswordLoginForm(),
           const SizedBox(height: 30),
           Obx(
-            () => authUserController.isEmailValid &&
-                    authPasswordController.getTextValue.isNotEmpty
+            () => authController.isAllDataValid
                 ? const LoginButtonEnable()
                 : const AbsorbPointer(child: LoginButtonDisable()),
           ),
