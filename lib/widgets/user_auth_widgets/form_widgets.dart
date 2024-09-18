@@ -138,15 +138,12 @@ class FormBlueprint extends StatelessWidget {
 
 OutlineInputBorder outlineInputBorder(
     AuthFormLoginController authController, String formType) {
-  final isKeybordFocusValue =
-      authController.formData[formType]?['isKeybordFocus'] == true;
   final textValue = authController.formData[formType]?['text'].toString();
-
-  print('isKeybordFocusValue: $isKeybordFocusValue');
+  final isCurrentType = authController.currentType.value == formType;
 
   return OutlineInputBorder(
     borderSide: BorderSide(
-      color: isKeybordFocusValue || textValue!.isNotEmpty
+      color: (isCurrentType || textValue!.isNotEmpty)
           ? formType == 'email'
               ? !authController.isEmailValid && textValue!.isNotEmpty
                   ? HexColor('#ff0000').withOpacity(0.5)

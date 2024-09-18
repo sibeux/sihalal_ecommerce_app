@@ -4,19 +4,18 @@ import 'package:get/get.dart';
 
 class AuthFormLoginController extends GetxController {
   var isObscure = true.obs;
+  var currentType = ''.obs;
 
   var formData = RxMap(
     {
       'email': {
         'text': '',
         'type': 'email',
-        'isKeybordFocus': false,
         'controller': TextEditingController(),
       },
       'password': {
         'text': '',
         'type': 'password',
-        'isKeybordFocus': false,
         'controller': TextEditingController(),
       },
     },
@@ -28,7 +27,6 @@ class AuthFormLoginController extends GetxController {
     formData[type] = {
       'text': value,
       'type': type,
-      'isKeybordFocus': true,
       'controller': currentController!,
     };
     update();
@@ -40,9 +38,9 @@ class AuthFormLoginController extends GetxController {
     formData[type] = {
       'text': currentText!,
       'type': type,
-      'isKeybordFocus': isFocus,
       'controller': currentController!,
     };
+    currentType.value = isFocus ? type : '';
     update();
   }
 
