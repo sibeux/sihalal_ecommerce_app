@@ -10,6 +10,7 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final authPasswordController = Get.put(AuthPasswordController());
+    final authUserController = Get.put(AuthUserController());
     return Scaffold(
       backgroundColor: HexColor('fefffe'),
       resizeToAvoidBottomInset: false,
@@ -43,31 +44,38 @@ class LoginScreen extends StatelessWidget {
                 ? const PasswordLoginForm()
                 : const PasswordLoginForm(),
           ),
-          const SizedBox(height: 40),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 40),
-            child: ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                foregroundColor: Colors.white,
-                backgroundColor: HexColor('#3f44a6'),
-                elevation: 0, // Menghilangkan shadow
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                minimumSize: const Size(
-                  double.infinity,
-                  40,
+          const SizedBox(height: 30),
+          Obx(
+            () => authUserController.isEmailValid &&
+                    authPasswordController.getTextValue.isNotEmpty
+                ? const LoginButtonEnable()
+                : const AbsorbPointer(child: LoginButtonDisable()),
+          ),
+          const SizedBox(height: 20),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'Belum memiliki akun SiHALAL? ',
+                style: TextStyle(
+                  fontSize: 12,
+                  color: Colors.black.withOpacity(0.8),
+                  fontWeight: FontWeight.w500,
                 ),
               ),
-              child: const Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 24.0,
-                  vertical: 12.0,
+              GestureDetector(
+                onTap: () {},
+                child: Text(
+                  'Daftar',
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: HexColor('#3f44a6'),
+                    fontWeight: FontWeight.bold,
+                    // decoration: TextDecoration.underline,
+                  ),
                 ),
-                child: Text('Masuk'),
               ),
-            ),
+            ],
           ),
         ],
       ),
