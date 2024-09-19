@@ -79,6 +79,8 @@ class RegisterDataScreen extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
+                  authController.onClearController('nameRegister');
+                  authController.onClearController('passwordRegister');
                   Get.to(() => const LoginScreen());
                 },
                 child: Text(
