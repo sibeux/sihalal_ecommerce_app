@@ -60,7 +60,8 @@ class RegisterDataScreen extends StatelessWidget {
           const PasswordRegisterForm(),
           const SizedBox(height: 20),
           Obx(
-            () => authController.getIsDataRegisterValid()
+            () => authController.getIsDataRegisterValid() &&
+                    !authController.getIsNameValid()
                 ? const RegisterSubmitButtonEnable()
                 : const AbsorbPointer(child: RegisterSubmitButtonDisable()),
           ),
