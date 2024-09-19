@@ -9,6 +9,7 @@ class LoginButtonEnable extends StatelessWidget {
   Widget build(BuildContext context) {
     return AuthButton(
       authType: 'masuk',
+      buttonText: 'Masuk',
       foreground: Colors.white,
       background: HexColor('#3f44a6'),
       isEnable: true,
@@ -23,6 +24,37 @@ class LoginButtonDisable extends StatelessWidget {
   Widget build(BuildContext context) {
     return AuthButton(
       authType: 'masuk',
+      buttonText: 'Masuk',
+      foreground: HexColor('#a8b5c8'),
+      background: HexColor('#e5eaf5'),
+      isEnable: false,
+    );
+  }
+}
+
+class RegisterEmailEnable extends StatelessWidget {
+  const RegisterEmailEnable({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return AuthButton(
+      authType: 'register',
+      buttonText: 'Lanjutkan',
+      foreground: Colors.white,
+      background: HexColor('#3f44a6'),
+      isEnable: true,
+    );
+  }
+}
+
+class RegisterEmailDisable extends StatelessWidget {
+  const RegisterEmailDisable({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return AuthButton(
+      authType: 'register',
+      buttonText: 'lanjutkan',
       foreground: HexColor('#a8b5c8'),
       background: HexColor('#e5eaf5'),
       isEnable: false,
@@ -37,9 +69,10 @@ class AuthButton extends StatelessWidget {
     required this.foreground,
     required this.background,
     required this.isEnable,
+    required this.buttonText,
   });
 
-  final String authType;
+  final String authType, buttonText;
   final Color foreground, background;
   final bool isEnable;
 
@@ -72,7 +105,7 @@ class AuthButton extends StatelessWidget {
             vertical: 12.0,
           ),
           child: Text(
-            authType.capitalizeFirst!,
+            buttonText.capitalizeFirst!,
             style: const TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.bold,

@@ -14,6 +14,7 @@ class EmailLoginForm extends StatelessWidget {
     return FormBlueprint(
       authFormController: authFormController,
       formType: 'email',
+      formText: 'email',
       keyboardType: TextInputType.emailAddress,
       icon: Icons.email,
     );
@@ -31,8 +32,25 @@ class PasswordLoginForm extends StatelessWidget {
     return FormBlueprint(
       authFormController: authFormController,
       formType: 'password',
+      formText: 'password',
       keyboardType: TextInputType.visiblePassword,
       icon: Icons.lock,
+    );
+  }
+}
+
+class EmailRegisterForm extends StatelessWidget {
+  const EmailRegisterForm({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final authFormController = Get.put(AuthFormLoginController());
+    return FormBlueprint(
+      authFormController: authFormController,
+      formType: 'emailRegister',
+      formText: 'email',
+      keyboardType: TextInputType.emailAddress,
+      icon: Icons.email,
     );
   }
 }
@@ -44,10 +62,11 @@ class FormBlueprint extends StatelessWidget {
     required this.formType,
     required this.keyboardType,
     required this.icon,
+    required this.formText,
   });
 
   final AuthFormLoginController authFormController;
-  final String formType;
+  final String formType, formText;
   final TextInputType keyboardType;
   final IconData icon;
 
@@ -62,7 +81,7 @@ class FormBlueprint extends StatelessWidget {
           cursorColor: HexColor('#575757'),
           textAlignVertical: TextAlignVertical.center,
           keyboardType: keyboardType,
-          obscureText: formType == 'password'
+          obscureText: formType.contains('password')
               ? authFormController.isObscureValue
               : false,
           onChanged: (value) {
@@ -84,7 +103,7 @@ class FormBlueprint extends StatelessWidget {
               icon,
               color: HexColor('#575757'),
             ),
-            suffixIcon: formType == 'password'
+            suffixIcon: formType.contains('password')
                 ? Obx(
                     () => authFormController.isObscureValue == false
                         ? GestureDetector(
@@ -114,7 +133,7 @@ class FormBlueprint extends StatelessWidget {
               vertical: 7,
               horizontal: 12,
             ),
-            hintText: formType.capitalizeFirst!,
+            hintText: formText.capitalizeFirst!,
             hintStyle: const TextStyle(
               color: Colors.grey,
               fontSize: 12,
@@ -144,8 +163,9 @@ OutlineInputBorder outlineInputBorder(
   return OutlineInputBorder(
     borderSide: BorderSide(
       color: (isCurrentType || textValue!.isNotEmpty)
-          ? formType == 'email'
-              ? !authController.isEmailValid && textValue!.isNotEmpty
+          ? formType.contains('email')
+              ? !authController.getIsEmailValid(formType) &&
+                      textValue!.isNotEmpty
                   ? HexColor('#ff0000').withOpacity(0.5)
                   : HexColor('#3f44a6').withOpacity(0.5)
               : HexColor('#3f44a6').withOpacity(0.5)

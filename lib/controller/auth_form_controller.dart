@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 class AuthFormLoginController extends GetxController {
   var isObscure = true.obs;
   var currentType = ''.obs;
-
   var formData = RxMap(
     {
       'email': {
@@ -16,6 +15,11 @@ class AuthFormLoginController extends GetxController {
       'password': {
         'text': '',
         'type': 'password',
+        'controller': TextEditingController(),
+      },
+      'emailRegister': {
+        'text': '',
+        'type': 'emailRegister',
         'controller': TextEditingController(),
       },
     },
@@ -49,14 +53,17 @@ class AuthFormLoginController extends GetxController {
     update();
   }
 
-  get getEmailValue => formData['email']?['text'];
+  bool getIsEmailValid(String type) {
+    final emailValue = formData[type]!['text'].toString();
+    return EmailValidator.validate(emailValue);
+  }
 
-  get getPasswordValue => formData['password']?['text'];
-
-  get isEmailValid => EmailValidator.validate(getEmailValue);
-
-  get isAllDataValid =>
-      isEmailValid && getEmailValue.isNotEmpty && getPasswordValue.isNotEmpty;
+  bool getIsDataLoginValid() {
+    final emailValue = formData['email']!['text'].toString();
+    return EmailValidator.validate(emailValue) &&
+        emailValue.isNotEmpty &&
+        formData['password']!['text'].toString().isNotEmpty;
+  }
 
   get isObscureValue => isObscure.value;
 }

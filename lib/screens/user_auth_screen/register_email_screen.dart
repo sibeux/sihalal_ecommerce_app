@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:sihalal_ecommerce_app/controller/auth_form_controller.dart';
-import 'package:sihalal_ecommerce_app/screens/user_auth_screen/register_email_screen.dart';
+import 'package:sihalal_ecommerce_app/screens/user_auth_screen/login_screen.dart';
 import 'package:sihalal_ecommerce_app/widgets/user_auth_widgets/button_widgets.dart';
 import 'package:sihalal_ecommerce_app/widgets/user_auth_widgets/form_widgets.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+class RegisterEmailScreen extends StatelessWidget {
+  const RegisterEmailScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class LoginScreen extends StatelessWidget {
       body: Column(
         children: [
           Text(
-            'Masuk Sekarang',
+            'Daftar SiHALAL',
             style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,
@@ -30,7 +30,7 @@ class LoginScreen extends StatelessWidget {
           ),
           const SizedBox(height: 5),
           Text(
-            'Mohon masuk ke dalam akun anda',
+            'Daftar akun SiHALAL terlebih dahulu',
             style: TextStyle(
               fontSize: 12,
               color: Colors.black.withOpacity(0.8),
@@ -38,21 +38,19 @@ class LoginScreen extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 30),
-          const EmailLoginForm(),
-          const SizedBox(height: 10),
-          const PasswordLoginForm(),
-          const SizedBox(height: 30),
+          const EmailRegisterForm(),
+          const SizedBox(height: 20),
           Obx(
-            () => authController.getIsDataLoginValid()
-                ? const LoginButtonEnable()
-                : const AbsorbPointer(child: LoginButtonDisable()),
+            () => authController.getIsEmailValid('emailRegister')
+                ? const RegisterEmailEnable()
+                : const AbsorbPointer(child: RegisterEmailDisable()),
           ),
           const SizedBox(height: 20),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                'Belum memiliki akun SiHALAL? ',
+                'Sudah memiliki akun SiHALAL? ',
                 style: TextStyle(
                   fontSize: 12,
                   color: Colors.black.withOpacity(0.8),
@@ -61,10 +59,10 @@ class LoginScreen extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
-                  Get.to(() => const RegisterEmailScreen());
+                  Get.to(() => const LoginScreen());
                 },
                 child: Text(
-                  'Daftar',
+                  'Masuk',
                   style: TextStyle(
                     fontSize: 12,
                     color: HexColor('#3f44a6'),
