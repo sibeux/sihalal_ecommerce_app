@@ -4,10 +4,9 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:sihalal_ecommerce_app/controller/auth_form_controller.dart';
 import 'package:sihalal_ecommerce_app/screens/user_auth_screen/login_screen.dart';
 import 'package:sihalal_ecommerce_app/widgets/user_auth_widgets/button_widgets.dart';
-import 'package:sihalal_ecommerce_app/widgets/user_auth_widgets/form_widgets.dart';
 
-class RegisterEmailScreen extends StatelessWidget {
-  const RegisterEmailScreen({super.key});
+class RegisterDataScreen extends StatelessWidget {
+  const RegisterDataScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +20,7 @@ class RegisterEmailScreen extends StatelessWidget {
       body: Column(
         children: [
           Text(
-            'Daftar SiHALAL',
+            'Data Diri',
             style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,
@@ -30,7 +29,7 @@ class RegisterEmailScreen extends StatelessWidget {
           ),
           const SizedBox(height: 5),
           Text(
-            'Daftar akun SiHALAL terlebih dahulu',
+            'Mohon lengkapi data diri anda',
             style: TextStyle(
               fontSize: 12,
               color: Colors.black.withOpacity(0.8),
@@ -38,7 +37,6 @@ class RegisterEmailScreen extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 30),
-          const EmailRegisterForm(),
           const SizedBox(height: 20),
           Obx(
             () => authController.getIsEmailValid('emailRegister')
@@ -59,7 +57,6 @@ class RegisterEmailScreen extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
-                  authController.onClearController('emailRegister');
                   Get.to(() => const LoginScreen());
                 },
                 child: Text(

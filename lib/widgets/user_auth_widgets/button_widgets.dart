@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:sihalal_ecommerce_app/screens/user_auth_screen/register_data_screen.dart';
 
 class LoginButtonEnable extends StatelessWidget {
   const LoginButtonEnable({super.key});
@@ -8,11 +9,12 @@ class LoginButtonEnable extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AuthButton(
-      authType: 'masuk',
+      authType: 'login',
       buttonText: 'Masuk',
       foreground: Colors.white,
       background: HexColor('#3f44a6'),
       isEnable: true,
+      onPressed: () {},
     );
   }
 }
@@ -23,11 +25,12 @@ class LoginButtonDisable extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AuthButton(
-      authType: 'masuk',
+      authType: 'login',
       buttonText: 'Masuk',
       foreground: HexColor('#a8b5c8'),
       background: HexColor('#e5eaf5'),
       isEnable: false,
+      onPressed: () {},
     );
   }
 }
@@ -43,6 +46,9 @@ class RegisterEmailEnable extends StatelessWidget {
       foreground: Colors.white,
       background: HexColor('#3f44a6'),
       isEnable: true,
+      onPressed: () {
+        Get.to(() => const RegisterDataScreen());
+      },
     );
   }
 }
@@ -58,6 +64,7 @@ class RegisterEmailDisable extends StatelessWidget {
       foreground: HexColor('#a8b5c8'),
       background: HexColor('#e5eaf5'),
       isEnable: false,
+      onPressed: () {},
     );
   }
 }
@@ -70,11 +77,13 @@ class AuthButton extends StatelessWidget {
     required this.background,
     required this.isEnable,
     required this.buttonText,
+    required this.onPressed,
   });
 
   final String authType, buttonText;
   final Color foreground, background;
   final bool isEnable;
+  final void Function() onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +92,7 @@ class AuthButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: () {
           if (isEnable) {
-            // Do something
+            onPressed();
           }
         },
         style: ElevatedButton.styleFrom(

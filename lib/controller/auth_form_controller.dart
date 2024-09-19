@@ -48,6 +48,17 @@ class AuthFormLoginController extends GetxController {
     update();
   }
 
+  void onClearController(String type) {
+    final currentController = formData[type]?['controller'] as TextEditingController;
+    currentController.clear();
+    formData[type] = {
+      'text': '',
+      'type': type,
+      'controller': currentController,
+    };
+    update();
+  }
+
   void toggleObscure() {
     isObscure.value = !isObscure.value;
     update();

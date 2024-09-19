@@ -43,12 +43,17 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       backgroundColor: HexColor(colorWhite),
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         flexibleSpace: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
-                begin: Alignment.bottomCenter,
-                end: Alignment.topCenter,
-                colors: <Color>[HexColor('#C47DFE'), HexColor('#C47DFE')]),
+              begin: Alignment.bottomCenter,
+              end: Alignment.topCenter,
+              colors: <Color>[
+                HexColor('#C47DFE'),
+                HexColor('#C47DFE'),
+              ],
+            ),
           ),
         ),
         titleSpacing: 10,
@@ -69,7 +74,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 contentPadding:
                     const EdgeInsets.symmetric(vertical: 7, horizontal: 7),
                 hintText: 'Cari produk halal di SiHALAL',
-                hintStyle: TextStyle(color: HexColor('#8D1EE4'), fontSize: 12),
+                hintStyle:
+                    TextStyle(color: HexColor('#8D1EE4'), fontSize: 12),
                 // * agar textfield tidak terlalu lebar, maka dibuat constraints
                 suffixIconConstraints: const BoxConstraints(
                   minWidth: 30,
@@ -98,7 +104,7 @@ class _HomeScreenState extends State<HomeScreen> {
             width: 10,
           ),
           GestureDetector(
-            onTap: (){
+            onTap: () {
               Get.to(() => const LoginScreen());
             },
             child: const Icon(

@@ -36,7 +36,13 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       showPerformanceOverlay: false,
       title: 'SiHALAL',
-      home: const HomeScreen(),
+      initialRoute: '/',
+      getPages: [
+        GetPage(
+          name: '/',
+          page: () => const HomeScreen(),
+        ),
+      ],
     );
   }
 }
