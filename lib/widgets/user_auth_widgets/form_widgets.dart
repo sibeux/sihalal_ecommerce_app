@@ -10,13 +10,12 @@ class EmailLoginForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final authFormController = Get.put(AuthFormLoginController());
-    return FormBlueprint(
-      authFormController: authFormController,
+    return const FormBlueprint(
       formType: 'email',
       formText: 'email',
       keyboardType: TextInputType.emailAddress,
       icon: Icons.email,
+      autoFillHints: AutofillHints.email,
     );
   }
 }
@@ -28,13 +27,12 @@ class PasswordLoginForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final authFormController = Get.put(AuthFormLoginController());
-    return FormBlueprint(
-      authFormController: authFormController,
+    return const FormBlueprint(
       formType: 'password',
       formText: 'password',
       keyboardType: TextInputType.visiblePassword,
       icon: Icons.lock,
+      autoFillHints: '',
     );
   }
 }
@@ -44,13 +42,42 @@ class EmailRegisterForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final authFormController = Get.put(AuthFormLoginController());
-    return FormBlueprint(
-      authFormController: authFormController,
+    return const FormBlueprint(
       formType: 'emailRegister',
       formText: 'email',
       keyboardType: TextInputType.emailAddress,
       icon: Icons.email,
+      autoFillHints: AutofillHints.email,
+    );
+  }
+}
+
+class NameRegisterForm extends StatelessWidget {
+  const NameRegisterForm({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const FormBlueprint(
+      formType: 'nameRegister',
+      formText: 'nama lengkap',
+      keyboardType: TextInputType.text,
+      icon: Icons.person,
+      autoFillHints: AutofillHints.name,
+    );
+  }
+}
+
+class PasswordRegisterForm extends StatelessWidget {
+  const PasswordRegisterForm({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const FormBlueprint(
+      formType: 'passwordRegister',
+      formText: 'password',
+      keyboardType: TextInputType.visiblePassword,
+      icon: Icons.lock,
+      autoFillHints: '',
     );
   }
 }
@@ -58,20 +85,20 @@ class EmailRegisterForm extends StatelessWidget {
 class FormBlueprint extends StatelessWidget {
   const FormBlueprint({
     super.key,
-    required this.authFormController,
     required this.formType,
     required this.keyboardType,
     required this.icon,
     required this.formText,
+    required this.autoFillHints,
   });
 
-  final AuthFormLoginController authFormController;
-  final String formType, formText;
+  final String formType, formText, autoFillHints;
   final TextInputType keyboardType;
   final IconData icon;
 
   @override
   Widget build(BuildContext context) {
+    final authFormController = Get.put(AuthFormLoginController());
     final controller = authFormController.formData[formType]?['controller'];
     return Obx(
       () => Padding(
@@ -80,8 +107,10 @@ class FormBlueprint extends StatelessWidget {
           controller: controller as TextEditingController?,
           cursorColor: HexColor('#575757'),
           textAlignVertical: TextAlignVertical.center,
+          enableSuggestions: true,
+          autofillHints: [autoFillHints],
           keyboardType: keyboardType,
-          obscureText: formType.contains('password')
+          obscureText: formType.toLowerCase().contains('password')
               ? authFormController.isObscureValue
               : false,
           onChanged: (value) {
@@ -103,7 +132,7 @@ class FormBlueprint extends StatelessWidget {
               icon,
               color: HexColor('#575757'),
             ),
-            suffixIcon: formType.contains('password')
+            suffixIcon: formType.toLowerCase().contains('password')
                 ? Obx(
                     () => authFormController.isObscureValue == false
                         ? GestureDetector(
@@ -133,7 +162,7 @@ class FormBlueprint extends StatelessWidget {
               vertical: 7,
               horizontal: 12,
             ),
-            hintText: formText.capitalizeFirst!,
+            hintText: formText.capitalize,
             hintStyle: const TextStyle(
               color: Colors.grey,
               fontSize: 12,
@@ -163,12 +192,16 @@ OutlineInputBorder outlineInputBorder(
   return OutlineInputBorder(
     borderSide: BorderSide(
       color: (isCurrentType || textValue!.isNotEmpty)
-          ? formType.contains('email')
+          ? formType.toLowerCase().contains('email')
               ? !authController.getIsEmailValid(formType) &&
                       textValue!.isNotEmpty
                   ? HexColor('#ff0000').withOpacity(0.5)
                   : HexColor('#3f44a6').withOpacity(0.5)
-              : HexColor('#3f44a6').withOpacity(0.5)
+              : formType.toLowerCase().contains('name')
+                  ? authController.getIsNameValid() && textValue!.isNotEmpty
+                      ? HexColor('#ff0000').withOpacity(0.5)
+                      : HexColor('#3f44a6').withOpacity(0.5)
+                  : HexColor('#3f44a6').withOpacity(0.5)
           : HexColor('#575757').withOpacity(0.5),
       width: 2,
     ),

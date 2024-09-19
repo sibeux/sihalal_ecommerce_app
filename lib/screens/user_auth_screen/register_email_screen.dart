@@ -13,10 +13,10 @@ class RegisterEmailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final authController = Get.put(AuthFormLoginController());
     return Scaffold(
-      backgroundColor: HexColor('fefffe'),
+      backgroundColor: HexColor('#fefffe'),
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        backgroundColor: HexColor('fefffe'),
+        backgroundColor: HexColor('#fefffe'),
       ),
       body: Column(
         children: [

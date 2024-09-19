@@ -3,8 +3,8 @@ import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:sihalal_ecommerce_app/screens/user_auth_screen/register_data_screen.dart';
 
-class LoginButtonEnable extends StatelessWidget {
-  const LoginButtonEnable({super.key});
+class LoginSubmitButtonEnable extends StatelessWidget {
+  const LoginSubmitButtonEnable({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,8 +19,8 @@ class LoginButtonEnable extends StatelessWidget {
   }
 }
 
-class LoginButtonDisable extends StatelessWidget {
-  const LoginButtonDisable({super.key});
+class LoginSubmitButtonDisable extends StatelessWidget {
+  const LoginSubmitButtonDisable({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +47,10 @@ class RegisterEmailEnable extends StatelessWidget {
       background: HexColor('#3f44a6'),
       isEnable: true,
       onPressed: () {
-        Get.to(() => const RegisterDataScreen());
+        Get.to(
+          () => const RegisterDataScreen(),
+          transition: Transition.rightToLeftWithFade,
+        );
       },
     );
   }
@@ -61,6 +64,38 @@ class RegisterEmailDisable extends StatelessWidget {
     return AuthButton(
       authType: 'register',
       buttonText: 'lanjutkan',
+      foreground: HexColor('#a8b5c8'),
+      background: HexColor('#e5eaf5'),
+      isEnable: false,
+      onPressed: () {},
+    );
+  }
+}
+
+class RegisterSubmitButtonEnable extends StatelessWidget {
+  const RegisterSubmitButtonEnable({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return AuthButton(
+      authType: 'register',
+      buttonText: 'Daftar',
+      foreground: Colors.white,
+      background: HexColor('#3f44a6'),
+      isEnable: true,
+      onPressed: () {},
+    );
+  }
+}
+
+class RegisterSubmitButtonDisable extends StatelessWidget {
+  const RegisterSubmitButtonDisable({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return AuthButton(
+      authType: 'register',
+      buttonText: 'Daftar',
       foreground: HexColor('#a8b5c8'),
       background: HexColor('#e5eaf5'),
       isEnable: false,

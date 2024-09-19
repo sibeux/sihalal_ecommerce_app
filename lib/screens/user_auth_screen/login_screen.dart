@@ -14,7 +14,7 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final authController = Get.put(AuthFormLoginController());
     return Scaffold(
-      backgroundColor: HexColor('fefffe'),
+      backgroundColor: HexColor('#fefffe'),
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         leading: IconButton(
@@ -23,7 +23,7 @@ class LoginScreen extends StatelessWidget {
             Get.offAll(() => const HomeScreen());
           },
         ),
-        backgroundColor: HexColor('fefffe'),
+        backgroundColor: HexColor('#fefffe'),
       ),
       body: Column(
         children: [
@@ -51,8 +51,8 @@ class LoginScreen extends StatelessWidget {
           const SizedBox(height: 30),
           Obx(
             () => authController.getIsDataLoginValid()
-                ? const LoginButtonEnable()
-                : const AbsorbPointer(child: LoginButtonDisable()),
+                ? const LoginSubmitButtonEnable()
+                : const AbsorbPointer(child: LoginSubmitButtonDisable()),
           ),
           const SizedBox(height: 20),
           Row(

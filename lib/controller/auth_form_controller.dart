@@ -22,6 +22,16 @@ class AuthFormLoginController extends GetxController {
         'type': 'emailRegister',
         'controller': TextEditingController(),
       },
+      'nameRegister': {
+        'text': '',
+        'type': 'nameRegister',
+        'controller': TextEditingController(),
+      },
+      'passwordRegister': {
+        'text': '',
+        'type': 'passwordRegister',
+        'controller': TextEditingController(),
+      },
     },
   );
 
@@ -49,7 +59,8 @@ class AuthFormLoginController extends GetxController {
   }
 
   void onClearController(String type) {
-    final currentController = formData[type]?['controller'] as TextEditingController;
+    final currentController =
+        formData[type]?['controller'] as TextEditingController;
     currentController.clear();
     formData[type] = {
       'text': '',
@@ -74,6 +85,18 @@ class AuthFormLoginController extends GetxController {
     return EmailValidator.validate(emailValue) &&
         emailValue.isNotEmpty &&
         formData['password']!['text'].toString().isNotEmpty;
+  }
+
+  bool getIsDataRegisterValid() {
+    return formData['nameRegister']!['text'].toString().isNotEmpty &&
+        formData['passwordRegister']!['text'].toString().isNotEmpty;
+  }
+
+  bool getIsNameValid() {
+    final nameValue = formData['nameRegister']!['text'].toString();
+    final nameRegExp = RegExp(r'^[a-zA-Z\s]+$');
+
+    return !nameRegExp.hasMatch(nameValue) && nameValue.isNotEmpty;
   }
 
   get isObscureValue => isObscure.value;
