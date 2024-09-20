@@ -6,6 +6,8 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:sihalal_ecommerce_app/component/price_format.dart';
 import 'package:sihalal_ecommerce_app/controller/product_detail_controller.dart';
 import 'package:sihalal_ecommerce_app/models/product.dart';
+import 'package:sihalal_ecommerce_app/widgets/detail_product_widgets/product_review.dart';
+import 'package:sihalal_ecommerce_app/widgets/detail_product_widgets/shop_info.dart';
 
 final _pageController = PageController(initialPage: 0, viewportFraction: 1);
 
@@ -37,6 +39,7 @@ class DetailProductScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: HexColor('#fefeff'),
       appBar: AppBar(
+        surfaceTintColor: Colors.transparent,
         backgroundColor: HexColor('#fefeff'),
         title: const Text('Detail Product'),
       ),
@@ -117,12 +120,12 @@ class DetailProductScreen extends StatelessWidget {
                     fit: FlexFit.tight,
                     child: Text(
                       product.nama,
-                      maxLines: 2,
+                      maxLines: 3,
                       style: const TextStyle(
                         color: Colors.black,
-                        fontSize: 14,
+                        fontSize: 15,
                         overflow: TextOverflow.ellipsis,
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.w500,
                       ),
                     ),
                   ),
@@ -132,10 +135,10 @@ class DetailProductScreen extends StatelessWidget {
                   Row(
                     children: [
                       ProductRating(rating: product.rating),
-                      product.rating == '0.0000'
+                      product.jumlahRating == '0'
                           ? const SizedBox()
                           : Text(
-                              '(${product.jumlahUlasan})',
+                              '(${product.jumlahRating})',
                               style: const TextStyle(
                                 color: Colors.black,
                                 fontSize: 14,
@@ -239,6 +242,28 @@ class DetailProductScreen extends StatelessWidget {
                   ),
                 ],
               ),
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            Divider(
+              color: HexColor('#eff4f8'),
+              height: 8,
+              thickness: 8,
+            ),
+            const ShopInfo(),
+            Divider(
+              color: HexColor('#eff4f8'),
+              height: 8,
+              thickness: 8,
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            ProductReview(
+              rating: product.rating,
+              jumlahRating: product.jumlahRating,
+              jumlahUlasan: product.jumlahUlasan,
             )
           ],
         ),
@@ -263,10 +288,14 @@ class ProductRating extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.star, color: HexColor('#fec101'), size: 15),
+                Icon(
+                  Icons.star,
+                  color: HexColor('#fec101'),
+                  size: 15,
+                ),
                 const SizedBox(width: 3),
                 Text(
-                  rating == '0.0000' ? '---' : ('${double.parse(rating)}'),
+                  rating == '0.0000' ? '0.0' : ('${double.parse(rating)}'),
                   textAlign: TextAlign.center,
                   style: const TextStyle(
                     color: Colors.black,

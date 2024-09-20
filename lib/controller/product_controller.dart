@@ -72,6 +72,7 @@ class GetScrollLeftProductController extends GetxController {
                   produk['foto_produk_3'], apiData[0]['gdrive_api']),
           stok: produk['stok_produk'],
           jumlahUlasan: produk['jumlah_ulasan'],
+          jumlahRating: produk['jumlah_rating'],
         );
       }).toList();
 

@@ -271,7 +271,7 @@ class Rating extends StatelessWidget {
                 const Icon(Icons.star, color: Colors.white, size: 10),
                 const SizedBox(width: 5),
                 Text(
-                  rating == '0.0000' ? '---' : ('${double.parse(rating)}'),
+                  rating == '0.0000' ? '0.0' : ('${double.parse(rating)}'),
                   textAlign: TextAlign.center,
                   style: const TextStyle(
                     color: Colors.white,
