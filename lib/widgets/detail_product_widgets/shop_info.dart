@@ -5,10 +5,20 @@ import 'package:hexcolor/hexcolor.dart';
 class ShopInfo extends StatelessWidget {
   const ShopInfo({
     super.key,
+    required this.namaToko,
+    required this.lokasiToko,
+    required this.image,
+    required this.rating,
+    required this.jumlahProduk,
   });
+
+  final String image;
+  final String namaToko, lokasiToko;
+  final String rating, jumlahProduk;
 
   @override
   Widget build(BuildContext context) {
+    final rate = rating == '0.0000' ? '0.0' : ('${double.parse(rating)}');
     return Container(
       margin: const EdgeInsets.symmetric(
         vertical: 15,
@@ -22,8 +32,7 @@ class ShopInfo extends StatelessWidget {
               ClipRRect(
                 borderRadius: const BorderRadius.all(Radius.circular(100)),
                 child: CachedNetworkImage(
-                  imageUrl:
-                      'https://raw.githubusercontent.com/sibeux/cybeat_music_player/refs/heads/master/assets/images/cybeat_splash.png',
+                  imageUrl: image,
                   fit: BoxFit.cover,
                   height: 50,
                   width: 50,
@@ -31,11 +40,11 @@ class ShopInfo extends StatelessWidget {
                   maxWidthDiskCache: 150,
                   filterQuality: FilterQuality.low,
                   placeholder: (context, url) => Image.asset(
-                    'assets/images/placeholder_cover_music.png',
+                    'assets/images/shimmer/profile/profile_shimmer.png',
                     fit: BoxFit.cover,
                   ),
                   errorWidget: (context, url, error) => Image.asset(
-                    'assets/images/placeholder_cover_music.png',
+                    'assets/images/shimmer/profile/profile_shimmer.png',
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -50,10 +59,10 @@ class ShopInfo extends StatelessWidget {
                       alignment: Alignment.centerLeft,
                       height: 25,
                       width: double.infinity,
-                      child: const Text(
-                        'RedDennis',
+                      child: Text(
+                        namaToko,
                         maxLines: 1,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                           color: Colors.black,
@@ -66,7 +75,7 @@ class ShopInfo extends StatelessWidget {
                         height: 25,
                         width: double.infinity,
                         child: Text(
-                          'Kabupaten Jember',
+                          lokasiToko,
                           maxLines: 1,
                           style: TextStyle(
                             fontSize: 14,
@@ -102,7 +111,7 @@ class ShopInfo extends StatelessWidget {
                           ),
                           const SizedBox(width: 5),
                           Text(
-                            '4.5',
+                            rate,
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               color: HexColor('#3f44a6'),
@@ -130,19 +139,19 @@ class ShopInfo extends StatelessWidget {
                       alignment: Alignment.centerLeft,
                       height: 25,
                       width: double.infinity,
-                      child: const Row(
+                      child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Icon(
+                          const Icon(
                             Icons.local_grocery_store_rounded,
                             size: 20,
                             color: Colors.black,
                           ),
-                          SizedBox(width: 5),
+                          const SizedBox(width: 5),
                           Text(
-                            '146 Produk',
+                            '$jumlahProduk Produk',
                             textAlign: TextAlign.center,
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: Colors.black,
                               fontSize: 14,
                               fontWeight: FontWeight.w500,

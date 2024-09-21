@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sihalal_ecommerce_app/controller/product_detail_controller.dart';
 import 'package:sihalal_ecommerce_app/models/product.dart';
 import 'package:sihalal_ecommerce_app/screens/detail_product_screen/detail_product_screen.dart';
 import 'package:sihalal_ecommerce_app/widgets/home_widgets/product_card_scroll.dart';
@@ -72,10 +73,12 @@ class ShrinkTapProductState extends State<ShrinkTapProduct>
 
   @override
   Widget build(BuildContext context) {
+    final shopInfoProductController = Get.put(ShopInfoProductController());
     return GestureDetector(
       onTap: () {
         _shrinkButtonSize();
         _restoreButtonSize();
+        shopInfoProductController.getShopInfo(widget.product.uidProduct);
         Get.to(() => DetailProductScreen(product: widget.product));
       },
       onPanDown: (_) {

@@ -49,21 +49,24 @@ class ProductCard extends StatelessWidget {
       child: Column(
         children: [
           Shimmer.fromColors(
-              baseColor: Colors.grey[300]!,
-              highlightColor: Colors.grey[100]!,
-              child: const ProductImage()),
+            baseColor: Colors.grey[300]!,
+            highlightColor: Colors.grey[100]!,
+            child: const ProductImage(),
+          ),
           const SizedBox(height: 5),
           const Rating(rating: 0.0),
           const SizedBox(height: 10),
           Shimmer.fromColors(
-              baseColor: Colors.grey[300]!,
-              highlightColor: Colors.grey[100]!,
-              child: const ProductTitle()),
+            baseColor: Colors.grey[300]!,
+            highlightColor: Colors.grey[100]!,
+            child: const ProductTitle(),
+          ),
           const SizedBox(height: 8),
           Shimmer.fromColors(
-              baseColor: Colors.grey[300]!,
-              highlightColor: Colors.grey[100]!,
-              child: const ProductDescription()),
+            baseColor: Colors.grey[300]!,
+            highlightColor: Colors.grey[100]!,
+            child: const ProductDescription(),
+          ),
           const SizedBox(height: 5),
           const ProductPrice(),
           const InkButtonShrink(),

@@ -1,7 +1,7 @@
 class User {
   final String idUser, idAlamat;
   final String namaUser, emailUser, passuser, fotoUser;
-  final String namaToko, deskripsiToko;
+  final String namaToko, deskripsiToko, kotaToko, provinsiToko;
 
   User({
     required this.idUser,
@@ -12,5 +12,7 @@ class User {
     required this.fotoUser,
     required this.namaToko,
     required this.deskripsiToko,
+    required this.kotaToko,
+    required this.provinsiToko,
   });
 }

@@ -8,6 +8,7 @@ import 'package:sihalal_ecommerce_app/controller/product_detail_controller.dart'
 import 'package:sihalal_ecommerce_app/models/product.dart';
 import 'package:sihalal_ecommerce_app/widgets/detail_product_widgets/product_review.dart';
 import 'package:sihalal_ecommerce_app/widgets/detail_product_widgets/shop_info.dart';
+import 'package:sihalal_ecommerce_app/widgets/detail_product_widgets/shop_info_shimmer.dart';
 
 final _pageController = PageController(initialPage: 0, viewportFraction: 1);
 
@@ -36,6 +37,8 @@ class DetailProductScreen extends StatelessWidget {
       product.foto3,
     ];
     final productDetailController = Get.put(ProductDetailController());
+    final shopInfoProductController = Get.put(ShopInfoProductController());
+
     return Scaffold(
       backgroundColor: HexColor('#fefeff'),
       appBar: AppBar(
@@ -251,7 +254,18 @@ class DetailProductScreen extends StatelessWidget {
               height: 8,
               thickness: 8,
             ),
-            const ShopInfo(),
+            Obx(
+              () => shopInfoProductController.isLoading.value
+                  ? const ShopInfoShimmer()
+                  : ShopInfo(
+                      namaToko: shopInfoProductController.shopInfo[0]!.namaToko,
+                      lokasiToko:
+                          shopInfoProductController.shopInfo[0]!.kotaToko,
+                      image: shopInfoProductController.shopInfo[0]!.fotoUser,
+                      rating: product.rating,
+                      jumlahProduk: product.jumlahRating,
+                    ),
+            ),
             Divider(
               color: HexColor('#eff4f8'),
               height: 8,

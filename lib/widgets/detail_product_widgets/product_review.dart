@@ -92,7 +92,7 @@ class ProductReview extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      '$jumlahUlasan ulasan',
+                      ' $jumlahUlasan ulasan',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.black.withOpacity(0.7),
@@ -104,6 +104,12 @@ class ProductReview extends StatelessWidget {
                 )
               ],
             ),
+          ),
+          const SizedBox(height: 10),
+          Container(
+            height: 50,
+            width: double.infinity,
+            color: Colors.red,
           )
         ],
       ),

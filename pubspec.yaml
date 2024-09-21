@@ -75,6 +75,7 @@ flutter:
   assets:
     - assets/images/
     - assets/images/icon-category/
+    - assets/images/shimmer/profile/profile_shimmer.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
