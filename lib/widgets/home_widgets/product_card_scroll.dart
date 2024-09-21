@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sihalal_ecommerce_app/component/string_formatter.dart';
 import 'package:sihalal_ecommerce_app/controller/product_controller.dart';
 import 'package:sihalal_ecommerce_app/widgets/home_widgets/shimmer_product_card.dart';
 import 'package:sihalal_ecommerce_app/widgets/little_particle.dart';
@@ -8,6 +9,7 @@ import 'package:sihalal_ecommerce_app/widgets/home_widgets/shrink_tap_card.dart'
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:intl/intl.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 NumberFormat numberFormat =
     NumberFormat.currency(locale: 'id', symbol: 'Rp', decimalDigits: 0);
@@ -55,10 +57,10 @@ class _ProductCardRowScrollState extends State<ProductCardRowScroll> {
                 child: Text(
                   cardHeader,
                   textAlign: TextAlign.left,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.black87,
-                    fontSize: 16,
-                    fontWeight: FontWeight.values[5],
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
@@ -82,7 +84,7 @@ class _ProductCardRowScrollState extends State<ProductCardRowScroll> {
         ),
         const SizedBox(height: 15),
         Container(
-          height: 370,
+          height: 385,
           decoration: BoxDecoration(
             color: HexColor(color),
             image: const DecorationImage(
@@ -94,7 +96,7 @@ class _ProductCardRowScrollState extends State<ProductCardRowScroll> {
           ),
           child: Obx(
             () => getScrollLeftProductController.isLoading.value
-                ? const ShimmerProductCard()
+                ? const AbsorbPointer(child: ShimmerProductCard())
                 : SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Row(
@@ -131,9 +133,10 @@ class ProductCard extends ConsumerWidget {
     required this.price,
     required this.description,
     required this.image,
+    required this.kota,
   });
 
-  final String title, description, image, rating;
+  final String title, description, image, rating, kota;
   final double price;
 
   @override
@@ -155,6 +158,7 @@ class ProductCard extends ConsumerWidget {
         ),
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ProductImage(image: image),
           const SizedBox(height: 5),
@@ -165,40 +169,20 @@ class ProductCard extends ConsumerWidget {
           ProductDescription(description: description),
           const SizedBox(height: 5),
           ProductPrice(price: price),
+          const SizedBox(height: 1),
+          Flexible(
+            // sama dengan Expanded
+            fit: FlexFit.tight,
+            child: ProductLocation(
+              location: kota,
+            ),
+          ),
           const InkButton(
             text: 'Tambah',
             // color: '#5EC684',
             color: '#8D1EE4',
           ),
         ],
-      ),
-    );
-  }
-}
-
-class ProductPrice extends StatelessWidget {
-  const ProductPrice({
-    super.key,
-    required this.price,
-  });
-
-  final double price;
-
-  @override
-  Widget build(BuildContext context) {
-    return Flexible(
-      fit: FlexFit.tight,
-      child: Container(
-        alignment: Alignment.topLeft,
-        margin: const EdgeInsets.symmetric(horizontal: 10),
-        child: Text(
-          (numberFormat.format(price)),
-          style: const TextStyle(
-            color: Colors.black,
-            fontSize: 15,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
       ),
     );
   }
@@ -230,14 +214,16 @@ class ProductImage extends StatelessWidget {
         maxHeightDiskCache: 300,
         maxWidthDiskCache: 300,
         filterQuality: FilterQuality.low,
-        // placeholder: (context, url) => Image.asset(
-        //   'assets/images/placeholder_cover_music.png',
-        //   fit: BoxFit.cover,
-        // ),
-        // errorWidget: (context, url, error) => Image.asset(
-        //   'assets/images/placeholder_cover_music.png',
-        //   fit: BoxFit.cover,
-        // ),
+        placeholder: (context, url) => Icon(
+          Icons.image,
+          size: 100,
+          color: colorShrink,
+        ),
+        errorWidget: (context, url, error) => Icon(
+          Icons.image,
+          size: 100,
+          color: colorShrink,
+        ),
       ),
     );
   }
@@ -261,8 +247,8 @@ class Rating extends StatelessWidget {
             height: 20,
             width: 45,
             decoration: BoxDecoration(
-              // color: HexColor('##81cc32'),
-              color: HexColor('#fec101'),
+              color:
+                  rating == '0.0000' ? Colors.grey[400] : HexColor('#FFC107'),
               borderRadius: BorderRadius.circular(3),
             ),
             child: Row(
@@ -282,31 +268,6 @@ class Rating extends StatelessWidget {
               ],
             )),
       ],
-    );
-  }
-}
-
-class ProductDescription extends StatelessWidget {
-  const ProductDescription({
-    super.key,
-    required this.description,
-  });
-
-  final String description;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
-      alignment: Alignment.topLeft,
-      child: Text(
-        description,
-        style: const TextStyle(
-          color: Colors.black54,
-          fontSize: 12,
-          overflow: TextOverflow.ellipsis,
-        ),
-      ),
     );
   }
 }
@@ -332,6 +293,95 @@ class ProductTitle extends StatelessWidget {
           fontSize: 14,
           overflow: TextOverflow.ellipsis,
         ),
+      ),
+    );
+  }
+}
+
+class ProductDescription extends StatelessWidget {
+  const ProductDescription({
+    super.key,
+    required this.description,
+  });
+
+  final String description;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      alignment: Alignment.topLeft,
+      child: Text(
+        cleanAndCombineText(description),
+        style: const TextStyle(
+          color: Colors.black54,
+          fontSize: 12,
+          overflow: TextOverflow.ellipsis,
+        ),
+      ),
+    );
+  }
+}
+
+class ProductPrice extends StatelessWidget {
+  const ProductPrice({
+    super.key,
+    required this.price,
+  });
+
+  final double price;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      alignment: Alignment.topLeft,
+      margin: const EdgeInsets.symmetric(horizontal: 10),
+      child: Text(
+        (numberFormat.format(price)),
+        style: const TextStyle(
+          color: Colors.black,
+          fontSize: 15,
+          fontWeight: FontWeight.w800,
+        ),
+      ),
+    );
+  }
+}
+
+class ProductLocation extends StatelessWidget {
+  const ProductLocation({
+    super.key,
+    required this.location,
+  });
+
+  final String location;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 10),
+      alignment: Alignment.topLeft,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Image.asset(
+            'assets/images/icon-general/deliver.png',
+            height: 20,
+            width: 20,
+            fit: BoxFit.cover,
+          ),
+          const SizedBox(width: 5),
+          Text(
+            shortenKabupaten(location.capitalized),
+            maxLines: 1,
+            style: const TextStyle(
+              color: Colors.black54,
+              fontSize: 11,
+              fontWeight: FontWeight.w400,
+              overflow: TextOverflow.ellipsis,
+            ),
+          )
+        ],
       ),
     );
   }

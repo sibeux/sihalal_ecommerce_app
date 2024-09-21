@@ -55,7 +55,6 @@ class ShopInfoProductController extends GetxController {
       final list = listData.map((user) {
         return User(
           idUser: user['id_user'],
-          idAlamat: user['id_alamat'],
           namaUser: user['nama_user'],
           emailUser: user['email_user'],
           passuser: user['pass_user'],
@@ -65,6 +64,8 @@ class ShopInfoProductController extends GetxController {
           deskripsiToko: user['deskripsi_toko'],
           kotaToko: user['kota'],
           provinsiToko: user['provinsi'],
+          totalProduk: user['total_produk'],
+          totalRating: user['rata_rata_rating'],
         );
       }).toList();
 

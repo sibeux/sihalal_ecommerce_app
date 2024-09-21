@@ -73,6 +73,7 @@ class GetScrollLeftProductController extends GetxController {
           stok: produk['stok_produk'],
           jumlahUlasan: produk['jumlah_ulasan'],
           jumlahRating: produk['jumlah_rating'],
+          kota: produk['kota'],
         );
       }).toList();
 

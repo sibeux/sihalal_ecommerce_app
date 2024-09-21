@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sihalal_ecommerce_app/controller/product_detail_controller.dart';
 import 'package:sihalal_ecommerce_app/models/product.dart';
-import 'package:sihalal_ecommerce_app/screens/detail_product_screen/detail_product_screen.dart';
+import 'package:sihalal_ecommerce_app/screens/product_detail_screen/product_detail_screen.dart';
 import 'package:sihalal_ecommerce_app/widgets/home_widgets/product_card_scroll.dart';
 
 double colorOnTap = 1;
@@ -79,7 +79,7 @@ class ShrinkTapProductState extends State<ShrinkTapProduct>
         _shrinkButtonSize();
         _restoreButtonSize();
         shopInfoProductController.getShopInfo(widget.product.uidProduct);
-        Get.to(() => DetailProductScreen(product: widget.product));
+        Get.to(() => ProductDetailScreen(product: widget.product));
       },
       onPanDown: (_) {
         _shrinkButtonSize();
@@ -113,6 +113,7 @@ class ShrinkTapProductState extends State<ShrinkTapProduct>
                   rating: widget.rating,
                   price: widget.price,
                   image: widget.image,
+                  kota: widget.product.kota,
                 ),
               ),
             ],

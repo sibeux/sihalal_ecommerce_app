@@ -3,7 +3,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:sihalal_ecommerce_app/component/price_format.dart';
+import 'package:sihalal_ecommerce_app/component/string_formatter.dart';
 import 'package:sihalal_ecommerce_app/controller/product_detail_controller.dart';
 import 'package:sihalal_ecommerce_app/models/product.dart';
 import 'package:sihalal_ecommerce_app/widgets/detail_product_widgets/product_review.dart';
@@ -19,8 +19,8 @@ class NoGlowScrollBehavior extends ScrollBehavior {
   }
 }
 
-class DetailProductScreen extends StatelessWidget {
-  const DetailProductScreen({super.key, required this.product});
+class ProductDetailScreen extends StatelessWidget {
+  const ProductDetailScreen({super.key, required this.product});
 
   final Product product;
 
@@ -163,7 +163,7 @@ class DetailProductScreen extends StatelessWidget {
                 style: TextStyle(
                   color: HexColor('#3f44a6'),
                   fontSize: 20,
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.w800,
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
@@ -199,26 +199,28 @@ class DetailProductScreen extends StatelessWidget {
                   AutoSizeText(
                     product.deskripsi,
                     maxLines: 5,
-                    maxFontSize: 14,
-                    minFontSize: 14,
+                    maxFontSize: 13,
+                    minFontSize: 13,
                     // Jika memakai AutoSizeText, maka overflow tidak bisa digunakan
                     // overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                       color: Colors.black.withOpacity(0.6),
-                      fontSize: 14,
+                      fontSize: 13,
                     ),
                     overflowReplacement: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Obx(() => Text(
-                              product.deskripsi,
-                              maxLines: productDetailController.maxLine,
-                              overflow: productDetailController.overflow[0],
-                              style: TextStyle(
-                                color: Colors.black.withOpacity(0.6),
-                                fontSize: 14,
-                              ),
-                            )),
+                        Obx(
+                          () => Text(
+                            product.deskripsi,
+                            maxLines: productDetailController.maxLine,
+                            overflow: productDetailController.overflow[0],
+                            style: TextStyle(
+                              color: Colors.black.withOpacity(0.6),
+                              fontSize: 13,
+                            ),
+                          ),
+                        ),
                         const SizedBox(
                           height: 10,
                         ),
@@ -262,8 +264,10 @@ class DetailProductScreen extends StatelessWidget {
                       lokasiToko:
                           shopInfoProductController.shopInfo[0]!.kotaToko,
                       image: shopInfoProductController.shopInfo[0]!.fotoUser,
-                      rating: product.rating,
-                      jumlahProduk: product.jumlahRating,
+                      rating:
+                          shopInfoProductController.shopInfo[0]!.totalRating,
+                      jumlahProduk:
+                          shopInfoProductController.shopInfo[0]!.totalProduk,
                     ),
             ),
             Divider(
@@ -304,7 +308,9 @@ class ProductRating extends StatelessWidget {
               children: [
                 Icon(
                   Icons.star,
-                  color: HexColor('#fec101'),
+                  color: rating == '0.0000'
+                      ? Colors.grey[400]
+                      : HexColor('#FFC107'),
                   size: 15,
                 ),
                 const SizedBox(width: 3),

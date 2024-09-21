@@ -76,6 +76,7 @@ flutter:
     - assets/images/
     - assets/images/icon-category/
     - assets/images/shimmer/profile/profile_shimmer.png
+    - assets/images/icon-general/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
@@ -100,5 +101,20 @@ flutter:
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700
   #
+  fonts:
+    - family: SauceOne
+      fonts:
+        - asset: assets/font/open-sauce-one/OpenSauceOne-Light.ttf
+          weight: 300
+        - asset: assets/font/open-sauce-one/OpenSauceOne-Regular.ttf
+          weight: 400
+        - asset: assets/font/open-sauce-one/OpenSauceOne-Medium.ttf
+          weight: 500
+        - asset: assets/font/open-sauce-one/OpenSauceOne-SemiBold.ttf
+          weight: 600
+        - asset: assets/font/open-sauce-one/OpenSauceOne-Bold.ttf
+          weight: 700
+        - asset: assets/font/open-sauce-one/OpenSauceOne-ExtraBold.ttf
+          weight: 800
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

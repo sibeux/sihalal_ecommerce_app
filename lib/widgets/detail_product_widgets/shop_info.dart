@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:sihalal_ecommerce_app/component/string_formatter.dart';
 
 class ShopInfo extends StatelessWidget {
   const ShopInfo({
@@ -75,7 +76,7 @@ class ShopInfo extends StatelessWidget {
                         height: 25,
                         width: double.infinity,
                         child: Text(
-                          lokasiToko,
+                          shortenKabupaten(lokasiToko),
                           maxLines: 1,
                           style: TextStyle(
                             fontSize: 14,
@@ -149,9 +150,19 @@ class ShopInfo extends StatelessWidget {
                           ),
                           const SizedBox(width: 5),
                           Text(
-                            '$jumlahProduk Produk',
+                            jumlahProduk,
                             textAlign: TextAlign.center,
-                            style: const TextStyle(
+                            style: TextStyle(
+                              color: HexColor('#3f44a6'),
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(width: 5),
+                          const Text(
+                            'Produk',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
                               color: Colors.black,
                               fontSize: 14,
                               fontWeight: FontWeight.w500,

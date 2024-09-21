@@ -26,7 +26,7 @@ class InkButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+      margin: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
       height: 35,
       width: double.infinity,
       decoration: BoxDecoration(

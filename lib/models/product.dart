@@ -1,5 +1,5 @@
 class Product {
-  final String uidProduct, uidKategori, uidUser, nama, deskripsi;
+  final String uidProduct, uidKategori, uidUser, nama, deskripsi, kota;
   final String foto1, foto2, foto3;
   final String harga, rating, stok, jumlahUlasan, jumlahRating;
 
@@ -17,5 +17,6 @@ class Product {
     required this.stok,
     required this.jumlahUlasan,
     required this.jumlahRating,
+    required this.kota,
   });
 }

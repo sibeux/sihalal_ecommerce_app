@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+// ignore: unnecessary_import
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:sihalal_ecommerce_app/screens/home_screen/home_screen.dart';
 
 var kPrimaryColor = const Color.fromARGB(
@@ -13,10 +14,11 @@ var kPrimaryColor = const Color.fromARGB(
 );
 
 final theme = ThemeData(
-  fontFamily: GoogleFonts.roboto().fontFamily,
+  fontFamily: 'SauceOne',
 );
 
 void main() {
+  // debugPaintSizeEnabled = true; // Mengaktifkan debug paint
   runApp(const ProviderScope(child: MyApp()));
 }
 

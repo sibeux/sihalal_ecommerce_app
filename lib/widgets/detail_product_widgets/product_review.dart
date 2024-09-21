@@ -55,10 +55,10 @@ class ProductReview extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const Icon(
+                Icon(
                   Icons.star,
                   size: 25,
-                  color: Colors.amber,
+                  color: rating == '0.0000' ? Colors.grey : HexColor('#FFD700'),
                 ),
                 const SizedBox(width: 5),
                 Row(

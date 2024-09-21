@@ -1,11 +1,11 @@
 class User {
-  final String idUser, idAlamat;
+  final String idUser;
   final String namaUser, emailUser, passuser, fotoUser;
   final String namaToko, deskripsiToko, kotaToko, provinsiToko;
+  final String totalProduk, totalRating;
 
   User({
     required this.idUser,
-    required this.idAlamat,
     required this.namaUser,
     required this.emailUser,
     required this.passuser,
@@ -14,5 +14,7 @@ class User {
     required this.deskripsiToko,
     required this.kotaToko,
     required this.provinsiToko,
+    required this.totalProduk,
+    required this.totalRating,
   });
 }
