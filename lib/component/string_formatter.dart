@@ -26,3 +26,30 @@ String cleanAndCombineText(String input) {
   cleanedText = cleanedText.replaceAll(RegExp(r'\s+'), ' ').trim();
   return cleanedText;
 }
+
+String timeAgo(String dateTimeString) {
+  // Parsing input string ke DateTime
+  DateTime dateTime = DateFormat('yyyy-MM-dd HH:mm:ss').parse(dateTimeString);
+  
+  Duration diff = DateTime.now().difference(dateTime);
+  
+  if (diff.inDays == 0) {
+    // Jika hari ini
+    return "hari ini";
+  } else if (diff.inDays == 1) {
+    // Jika kemarin
+    return "kemarin";
+  } else if (diff.inDays <= 7) {
+    // Jika dalam seminggu
+    return "${diff.inDays} hari yang lalu";
+  } else if (diff.inDays <= 30) {
+    // Jika dalam satu bulan
+    return "${(diff.inDays / 7).floor()} minggu yang lalu";
+  } else if (diff.inDays <= 365) {
+    // Jika dalam setahun
+    return "${(diff.inDays / 30).floor()} bulan yang lalu";
+  } else {
+    // Jika lebih dari setahun
+    return "${(diff.inDays / 365).floor()} tahun yang lalu";
+  }
+}

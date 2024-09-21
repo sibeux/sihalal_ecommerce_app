@@ -46,245 +46,275 @@ class ProductDetailScreen extends StatelessWidget {
         backgroundColor: HexColor('#fefeff'),
         title: const Text('Detail Product'),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            const Divider(
-              height: 0.5,
-              thickness: 0.5,
-            ),
-            Stack(
-              children: [
-                AspectRatio(
-                  aspectRatio: 1,
-                  child: SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    child: ScrollConfiguration(
-                      behavior: NoGlowScrollBehavior(),
-                      child: PageView.builder(
-                        itemCount: itemCount,
-                        controller: _pageController,
-                        onPageChanged: (value) {
-                          productDetailController.changeImageIndex(value + 1);
-                        },
-                        itemBuilder: (context, index) {
-                          return CachedNetworkImage(
-                            imageUrl: listFoto[index],
-                            fit: BoxFit.cover,
-                          );
-                        },
-                      ),
-                    ),
-                  ),
-                ),
-                Positioned(
-                  bottom: 10,
-                  left: 20,
-                  child: Container(
-                    width: 35,
-                    height: 20,
-                    decoration: BoxDecoration(
-                      color: HexColor('#fefeff'),
-                      borderRadius: BorderRadius.circular(3),
-                      border: Border.all(
-                        color: const Color.fromARGB(255, 217, 220, 231),
-                        width: 1.1,
-                        strokeAlign: BorderSide.strokeAlignOutside,
-                      ),
-                    ),
-                    child: Center(
-                      child: Obx(() => Text(
-                            '${productDetailController.imageIndex.value}/$itemCount',
-                            style: TextStyle(
-                              color: const Color.fromARGB(255, 0, 0, 0)
-                                  .withOpacity(0.7),
-                              fontSize: 12,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          )),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            const Divider(
-              height: 0.5,
-              thickness: 0.5,
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
+      body: Column(
+        children: [
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
                 children: [
-                  Flexible(
-                    fit: FlexFit.tight,
-                    child: Text(
-                      product.nama,
-                      maxLines: 3,
-                      style: const TextStyle(
-                        color: Colors.black,
-                        fontSize: 15,
-                        overflow: TextOverflow.ellipsis,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
+                  const Divider(
+                    height: 0.5,
+                    thickness: 0.5,
                   ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Row(
+                  Stack(
                     children: [
-                      ProductRating(rating: product.rating),
-                      product.jumlahRating == '0'
-                          ? const SizedBox()
-                          : Text(
-                              '(${product.jumlahRating})',
-                              style: const TextStyle(
-                                color: Colors.black,
-                                fontSize: 14,
-                              ),
+                      AspectRatio(
+                        aspectRatio: 1,
+                        child: SizedBox(
+                          width: MediaQuery.of(context).size.width,
+                          child: ScrollConfiguration(
+                            behavior: NoGlowScrollBehavior(),
+                            child: PageView.builder(
+                              itemCount: itemCount,
+                              controller: _pageController,
+                              onPageChanged: (value) {
+                                productDetailController
+                                    .changeImageIndex(value + 1);
+                              },
+                              itemBuilder: (context, index) {
+                                return CachedNetworkImage(
+                                  imageUrl: listFoto[index],
+                                  fit: BoxFit.cover,
+                                );
+                              },
                             ),
+                          ),
+                        ),
+                      ),
+                      Positioned(
+                        bottom: 10,
+                        left: 20,
+                        child: Container(
+                          width: 35,
+                          height: 20,
+                          decoration: BoxDecoration(
+                            color: HexColor('#fefeff'),
+                            borderRadius: BorderRadius.circular(3),
+                            border: Border.all(
+                              color: const Color.fromARGB(255, 217, 220, 231),
+                              width: 1.1,
+                              strokeAlign: BorderSide.strokeAlignOutside,
+                            ),
+                          ),
+                          child: Center(
+                            child: Obx(() => Text(
+                                  '${productDetailController.imageIndex.value}/$itemCount',
+                                  style: TextStyle(
+                                    color: const Color.fromARGB(255, 0, 0, 0)
+                                        .withOpacity(0.7),
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                )),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
-                ],
-              ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Container(
-              alignment: Alignment.centerLeft,
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Text(
-                priceFormat(product.harga),
-                style: TextStyle(
-                  color: HexColor('#3f44a6'),
-                  fontSize: 20,
-                  fontWeight: FontWeight.w800,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ),
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 20),
-              padding: const EdgeInsets.symmetric(
-                horizontal: 10,
-                vertical: 10,
-              ),
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: HexColor('#f0f2f5'),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Deskripsi Produk',
-                    style: TextStyle(
-                      color: Colors.black.withOpacity(0.8),
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
+                  const Divider(
+                    height: 0.5,
+                    thickness: 0.5,
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Flexible(
+                          fit: FlexFit.tight,
+                          child: Text(
+                            product.nama,
+                            maxLines: 3,
+                            style: const TextStyle(
+                              color: Colors.black,
+                              fontSize: 15,
+                              overflow: TextOverflow.ellipsis,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Row(
+                          children: [
+                            ProductRating(rating: product.rating),
+                            product.jumlahRating == '0'
+                                ? const SizedBox()
+                                : Text(
+                                    '(${product.jumlahRating})',
+                                    style: const TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                          ],
+                        ),
+                      ],
                     ),
                   ),
                   const SizedBox(
                     height: 10,
                   ),
-                  AutoSizeText(
-                    product.deskripsi,
-                    maxLines: 5,
-                    maxFontSize: 13,
-                    minFontSize: 13,
-                    // Jika memakai AutoSizeText, maka overflow tidak bisa digunakan
-                    // overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      color: Colors.black.withOpacity(0.6),
-                      fontSize: 13,
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Text(
+                      priceFormat(product.harga),
+                      style: TextStyle(
+                        color: HexColor('#3f44a6'),
+                        fontSize: 20,
+                        fontWeight: FontWeight.w800,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
-                    overflowReplacement: Column(
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 20),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 10,
+                      vertical: 10,
+                    ),
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: HexColor('#f0f2f5'),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Obx(
-                          () => Text(
-                            product.deskripsi,
-                            maxLines: productDetailController.maxLine,
-                            overflow: productDetailController.overflow[0],
-                            style: TextStyle(
-                              color: Colors.black.withOpacity(0.6),
-                              fontSize: 13,
-                            ),
+                        Text(
+                          'Deskripsi Produk',
+                          style: TextStyle(
+                            color: Colors.black.withOpacity(0.8),
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                         const SizedBox(
                           height: 10,
                         ),
-                        GestureDetector(
-                          onTap: () {
-                            productDetailController.isShowAllDescription.value
-                                ? productDetailController.showLessDescription()
-                                : productDetailController.showAllDescription();
-                          },
-                          child: Obx(() => Text(
-                                productDetailController
-                                        .isShowAllDescription.value
-                                    ? 'Lebih Sedikit'
-                                    : 'Baca Selengkapnya',
-                                style: TextStyle(
-                                  color: HexColor('#3f44a6'),
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
+                        AutoSizeText(
+                          product.deskripsi,
+                          maxLines: 5,
+                          maxFontSize: 13,
+                          minFontSize: 13,
+                          // Jika memakai AutoSizeText, maka overflow tidak bisa digunakan
+                          // overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            color: Colors.black.withOpacity(0.6),
+                            fontSize: 13,
+                          ),
+                          overflowReplacement: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Obx(
+                                () => Text(
+                                  product.deskripsi,
+                                  maxLines: productDetailController.maxLine,
+                                  overflow: productDetailController.overflow[0],
+                                  style: TextStyle(
+                                    color: Colors.black.withOpacity(0.6),
+                                    fontSize: 13,
+                                  ),
                                 ),
-                              )),
-                        )
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  productDetailController
+                                          .isShowAllDescription.value
+                                      ? productDetailController
+                                          .showLessDescription()
+                                      : productDetailController
+                                          .showAllDescription();
+                                },
+                                child: Obx(() => Text(
+                                      productDetailController
+                                              .isShowAllDescription.value
+                                          ? 'Lebih Sedikit'
+                                          : 'Baca Selengkapnya',
+                                      style: TextStyle(
+                                        color: HexColor('#3f44a6'),
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    )),
+                              )
+                            ],
+                          ),
+                        ),
                       ],
                     ),
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  Divider(
+                    color: HexColor('#eff4f8'),
+                    height: 8,
+                    thickness: 8,
+                  ),
+                  Obx(
+                    () => shopInfoProductController.isLoading.value
+                        ? const ShopInfoShimmer()
+                        : ShopInfo(
+                            namaToko:
+                                shopInfoProductController.shopInfo[0]!.namaToko,
+                            lokasiToko:
+                                shopInfoProductController.shopInfo[0]!.kotaToko,
+                            image:
+                                shopInfoProductController.shopInfo[0]!.fotoUser,
+                            rating: shopInfoProductController
+                                .shopInfo[0]!.totalRating,
+                            jumlahProduk: shopInfoProductController
+                                .shopInfo[0]!.totalProduk,
+                          ),
+                  ),
+                  Divider(
+                    color: HexColor('#eff4f8'),
+                    height: 8,
+                    thickness: 8,
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  ProductReview(
+                    rating: product.rating,
+                    jumlahRating: product.jumlahRating,
+                    jumlahUlasan: product.jumlahUlasan,
+                  ),
+                  const SizedBox(
+                    height: 15,
                   ),
                 ],
               ),
             ),
-            const SizedBox(
-              height: 15,
+          ),
+          Container(
+            width: double.infinity,
+            height: 50,
+            decoration: BoxDecoration(
+              color: HexColor('#fefeff'),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  spreadRadius: 1,
+                  blurRadius: 1,
+                  offset: const Offset(0, 1),
+                ),
+              ],
             ),
-            Divider(
-              color: HexColor('#eff4f8'),
-              height: 8,
-              thickness: 8,
-            ),
-            Obx(
-              () => shopInfoProductController.isLoading.value
-                  ? const ShopInfoShimmer()
-                  : ShopInfo(
-                      namaToko: shopInfoProductController.shopInfo[0]!.namaToko,
-                      lokasiToko:
-                          shopInfoProductController.shopInfo[0]!.kotaToko,
-                      image: shopInfoProductController.shopInfo[0]!.fotoUser,
-                      rating:
-                          shopInfoProductController.shopInfo[0]!.totalRating,
-                      jumlahProduk:
-                          shopInfoProductController.shopInfo[0]!.totalProduk,
-                    ),
-            ),
-            Divider(
-              color: HexColor('#eff4f8'),
-              height: 8,
-              thickness: 8,
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-            ProductReview(
-              rating: product.rating,
-              jumlahRating: product.jumlahRating,
-              jumlahUlasan: product.jumlahUlasan,
-            )
-          ],
-        ),
+          )
+        ],
       ),
     );
   }
@@ -301,30 +331,30 @@ class ProductRating extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
         SizedBox(
-            height: 25,
-            width: 50,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  Icons.star,
-                  color: rating == '0.0000'
-                      ? Colors.grey[400]
-                      : HexColor('#FFC107'),
-                  size: 15,
+          height: 25,
+          width: 50,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.star,
+                color:
+                    rating == '0.0000' ? Colors.grey[400] : HexColor('#FFC107'),
+                size: 15,
+              ),
+              const SizedBox(width: 3),
+              Text(
+                rating == '0.0000' ? '0.0' : ('${double.parse(rating)}'),
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  color: Colors.black,
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
                 ),
-                const SizedBox(width: 3),
-                Text(
-                  rating == '0.0000' ? '0.0' : ('${double.parse(rating)}'),
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            )),
+              ),
+            ],
+          ),
+        ),
       ],
     );
   }

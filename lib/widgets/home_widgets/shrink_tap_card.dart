@@ -17,11 +17,11 @@ class ShrinkTapProduct extends StatefulWidget {
     required this.rating,
     required this.price,
     required this.image,
-    required this.uid,
+    required this.uidProduct,
     required this.product,
   });
 
-  final String uid, title, description, image, rating;
+  final String uidProduct, title, description, image, rating;
   final double price;
   final Product product;
 
@@ -73,12 +73,12 @@ class ShrinkTapProductState extends State<ShrinkTapProduct>
 
   @override
   Widget build(BuildContext context) {
-    final shopInfoProductController = Get.put(ShopInfoProductController());
+    final productDetailController = Get.put(ProductDetailController());
     return GestureDetector(
       onTap: () {
         _shrinkButtonSize();
         _restoreButtonSize();
-        shopInfoProductController.getShopInfo(widget.product.uidProduct);
+        productDetailController.getProductDetailData(widget.uidProduct);
         Get.to(() => ProductDetailScreen(product: widget.product));
       },
       onPanDown: (_) {
