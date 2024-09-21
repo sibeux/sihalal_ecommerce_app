@@ -39,7 +39,7 @@ class ProductReview extends StatelessWidget {
                   ),
                 ),
               ),
-              productReviewController.productReview.isEmpty
+              jumlahUlasan == '0'
                   ? const SizedBox()
                   : Flexible(
                       flex: 1,
@@ -119,7 +119,7 @@ class ProductReview extends StatelessWidget {
                 ? const Center(
                     child: CircularProgressIndicator(),
                   )
-                : productReviewController.productReview.isEmpty
+                : jumlahUlasan == '0'
                     ? const Center(
                         child: Column(
                           children: [
