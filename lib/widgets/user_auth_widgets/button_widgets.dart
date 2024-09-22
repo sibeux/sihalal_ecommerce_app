@@ -3,6 +3,9 @@ import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:sihalal_ecommerce_app/controller/auth_controller.dart';
 
+final userRegisterController = Get.put(UserRegisterController());
+final authController = Get.put(AuthFormController());
+
 class LoginSubmitButtonEnable extends StatelessWidget {
   const LoginSubmitButtonEnable({super.key});
 
@@ -47,8 +50,6 @@ class RegisterEmailEnable extends StatelessWidget {
       background: HexColor('#3f44a6'),
       isEnable: true,
       onPressed: () {
-        final userRegisterController = Get.put(UserRegisterController());
-        final authController = Get.put(AuthFormController());
         userRegisterController.getCheckEmail(
           email: authController.formData['emailRegister']!['text'].toString(),
         );
@@ -84,7 +85,13 @@ class RegisterSubmitButtonEnable extends StatelessWidget {
       foreground: Colors.white,
       background: HexColor('#3f44a6'),
       isEnable: true,
-      onPressed: () {},
+      onPressed: () {
+        userRegisterController.createNewUserData(
+          email: authController.formData['emailRegister']!['text'].toString(),
+          name: authController.formData['nameRegister']!['text'].toString().trim(),
+          password: authController.formData['passwordRegister']!['text'].toString(),
+        );
+      },
     );
   }
 }

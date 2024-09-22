@@ -12,6 +12,7 @@ class RegisterDataScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final authController = Get.put(AuthFormController());
+    final userRegisterController = Get.put(UserRegisterController());
     return Scaffold(
       backgroundColor: HexColor('#fefffe'),
       resizeToAvoidBottomInset: false,
@@ -62,7 +63,9 @@ class RegisterDataScreen extends StatelessWidget {
           Obx(
             () => authController.getIsDataRegisterValid() &&
                     !authController.getIsNameValid()
-                ? const RegisterSubmitButtonEnable()
+                ? userRegisterController.isLoading.value
+                    ? const AuthButtonLoading()
+                    : const RegisterSubmitButtonEnable()
                 : const AbsorbPointer(child: RegisterSubmitButtonDisable()),
           ),
           const SizedBox(height: 20),

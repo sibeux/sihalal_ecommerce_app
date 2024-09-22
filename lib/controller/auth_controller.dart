@@ -143,7 +143,55 @@ class UserRegisterController extends GetxController {
         }
       } else {
         if (kDebugMode) {
-          print('Gagal memeriksa email. Error code: ${response.statusCode}');
+          print('Failed checking. Error: ${response.statusCode}');
+        }
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print('error: $e');
+      }
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+  Future<void> createNewUserData({
+    required String email,
+    required String name,
+    required String password,
+  }) async {
+    isLoading.value = true;
+
+    String url = 'https://sibeux.my.id/project/sihalal/auth';
+
+    try {
+      final response = await http.post(
+        Uri.parse(url),
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: {
+          'method': 'create_user',
+          'email': email,
+          'name': name,
+          'password': password,
+        },
+      );
+
+      if (response.statusCode == 200) {
+        final jsonResponse = jsonDecode(response.body);
+        bool success = jsonResponse['status'] == 'success';
+
+        if (success) {
+          // Get.back();
+        } else {
+          if (kDebugMode) {
+            print('Failed registering. Error: ${response.statusCode}');
+          }
+        }
+      } else {
+        if (kDebugMode) {
+          print('Failed registering. Error: ${response.statusCode}');
         }
       }
     } catch (e) {
