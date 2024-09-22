@@ -95,6 +95,7 @@ class Categories extends StatelessWidget {
         thumbColor: HexColor('#8D1EE4'),
         trackColor: Colors.grey[300],
         trackBorderColor: Colors.transparent,
+        fadeDuration: const Duration(milliseconds: 0),
         child: SingleChildScrollView(
           controller: scrollController,
           scrollDirection: Axis.horizontal,

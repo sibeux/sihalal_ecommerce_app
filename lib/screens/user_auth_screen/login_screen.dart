@@ -70,6 +70,7 @@ class LoginScreen extends StatelessWidget {
                 onTap: () {
                   authController.onClearController('email');
                   authController.onClearController('password');
+                  authController.onClearController('emailRegister');
                   Get.to(() => const RegisterEmailScreen());
                 },
                 child: Text(

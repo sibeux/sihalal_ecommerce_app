@@ -111,6 +111,8 @@ class UserRegisterController extends GetxController {
   var isLoading = false.obs;
   var isEmailRegistered = false.obs;
 
+  final authFormController = Get.put(AuthFormController());
+
   Future<void> getCheckEmail({required String email}) async {
     isLoading.value = true;
 
