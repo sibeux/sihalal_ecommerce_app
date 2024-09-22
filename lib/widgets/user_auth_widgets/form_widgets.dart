@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:sihalal_ecommerce_app/controller/auth_form_controller.dart';
+import 'package:sihalal_ecommerce_app/controller/auth_controller.dart';
 
 class EmailLoginForm extends StatelessWidget {
   const EmailLoginForm({
