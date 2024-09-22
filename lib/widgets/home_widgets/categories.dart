@@ -99,7 +99,7 @@ class Categories extends StatelessWidget {
           controller: scrollController,
           scrollDirection: Axis.horizontal,
           child: Padding(
-            padding: const EdgeInsets.only(left: 20),
+            padding: const EdgeInsets.only(left: 20, right: 3),
             child: Column(
               children: [
                 IconRow(categories: categories1),
@@ -157,7 +157,7 @@ class CategoryCard extends StatelessWidget {
     return GestureDetector(
       onTap: press,
       child: Container(
-        margin: const EdgeInsets.only(right: 20),
+        margin: const EdgeInsets.only(right: 17),
         width: 55,
         child: Column(
           children: [

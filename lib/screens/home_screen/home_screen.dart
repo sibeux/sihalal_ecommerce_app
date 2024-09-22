@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -56,64 +57,77 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
         ),
-        titleSpacing: 10,
-        title: GestureDetector(
-          onTap: () => Get.to(
-            () => const SearchProductScreen(),
-            transition: Transition.rightToLeft,
-          ),
-          child: AbsorbPointer(
-            child: TextFormField(
-              cursorColor: HexColor('#575757'),
-              textAlignVertical: TextAlignVertical.center,
-              style: TextStyle(color: HexColor('#575757'), fontSize: 12),
-              decoration: InputDecoration(
-                filled: true,
-                isDense: true,
-                fillColor: HexColor(colorWhite),
-                contentPadding:
-                    const EdgeInsets.symmetric(vertical: 7, horizontal: 7),
-                hintText: 'Cari produk halal di SiHALAL',
-                hintStyle:
-                    TextStyle(color: HexColor('#8D1EE4'), fontSize: 12),
-                // * agar textfield tidak terlalu lebar, maka dibuat constraints
-                suffixIconConstraints: const BoxConstraints(
-                  minWidth: 30,
-                  minHeight: 20,
+        // ini semacam padding untuk title
+        titleSpacing: 0,
+        title: Padding(
+          padding: const EdgeInsets.only(left: 20, right: 10),
+          child: GestureDetector(
+            onTap: () => Get.to(
+              () => const SearchProductScreen(),
+              transition: Transition.rightToLeft,
+            ),
+            child: AbsorbPointer(
+              child: TextFormField(
+                cursorColor: HexColor('#575757'),
+                textAlignVertical: TextAlignVertical.center,
+                style: TextStyle(color: HexColor('#575757'), fontSize: 12),
+                decoration: InputDecoration(
+                  filled: true,
+                  isDense: true,
+                  fillColor: HexColor(colorWhite),
+                  contentPadding:
+                      const EdgeInsets.symmetric(vertical: 7, horizontal: 7),
+                  hintText: 'Cari produk halal di SiHALAL',
+                  hintStyle:
+                      TextStyle(color: HexColor('#8D1EE4'), fontSize: 12),
+                  // * agar textfield tidak terlalu lebar, maka dibuat constraints
+                  suffixIconConstraints: const BoxConstraints(
+                    minWidth: 30,
+                    minHeight: 20,
+                  ),
+                  prefixIconConstraints: const BoxConstraints(
+                    minWidth: 30,
+                    minHeight: 20,
+                  ),
+                  prefixIcon: Icon(
+                    Icons.search,
+                    color: HexColor('#8D1EE4'),
+                  ),
+                  enabledBorder: outlineInputBorder(),
+                  focusedBorder: outlineInputBorder(),
                 ),
-                prefixIconConstraints: const BoxConstraints(
-                  minWidth: 30,
-                  minHeight: 20,
-                ),
-                prefixIcon: Icon(
-                  Icons.search,
-                  color: HexColor('#8D1EE4'),
-                ),
-                enabledBorder: outlineInputBorder(),
-                focusedBorder: outlineInputBorder(),
               ),
             ),
           ),
         ),
         actions: [
-          const Icon(
-            Icons.shopping_cart_checkout_sharp,
-            color: Colors.white,
-          ),
-          const SizedBox(
-            width: 10,
-          ),
           GestureDetector(
             onTap: () {
               Get.to(() => const LoginScreen());
             },
-            child: const Icon(
-              Icons.person,
-              color: Colors.white,
+            child: Container(
+              margin: const EdgeInsets.only(right: 20),
+              child: ClipRRect(
+                borderRadius: const BorderRadius.all(Radius.circular(100)),
+                child: CachedNetworkImage(
+                  imageUrl: '',
+                  fit: BoxFit.cover,
+                  height: 35,
+                  width: 35,
+                  maxHeightDiskCache: 100,
+                  maxWidthDiskCache: 100,
+                  filterQuality: FilterQuality.low,
+                  placeholder: (context, url) => Image.asset(
+                    'assets/images/shimmer/profile/profile_shimmer.png',
+                    fit: BoxFit.cover,
+                  ),
+                  errorWidget: (context, url, error) => Image.asset(
+                    'assets/images/shimmer/profile/profile_shimmer.png',
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
             ),
-          ),
-          const SizedBox(
-            width: 10,
           ),
         ],
         toolbarHeight: 80,

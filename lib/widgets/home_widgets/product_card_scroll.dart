@@ -59,7 +59,7 @@ class _ProductCardRowScrollState extends State<ProductCardRowScroll> {
                   textAlign: TextAlign.left,
                   style: const TextStyle(
                     color: Colors.black87,
-                    fontSize: 15,
+                    fontSize: 14,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -75,7 +75,7 @@ class _ProductCardRowScrollState extends State<ProductCardRowScroll> {
                     textAlign: TextAlign.right,
                     style: TextStyle(
                       color: HexColor('#8D1EE4'),
-                      fontSize: 15,
+                      fontSize: 14,
                       fontWeight: FontWeight.values[5],
                     ),
                   )),
