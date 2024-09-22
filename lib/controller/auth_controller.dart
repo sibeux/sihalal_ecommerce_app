@@ -1,8 +1,13 @@
+import 'dart:convert';
+
 import 'package:email_validator/email_validator.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
+import 'package:sihalal_ecommerce_app/screens/user_auth_screen/register_data_screen.dart';
 
-class AuthFormLoginController extends GetxController {
+class AuthFormController extends GetxController {
   var isObscure = true.obs;
   var currentType = ''.obs;
   var formData = RxMap(
@@ -100,4 +105,53 @@ class AuthFormLoginController extends GetxController {
   }
 
   get isObscureValue => isObscure.value;
+}
+
+class UserRegisterController extends GetxController {
+  var isLoading = false.obs;
+  var isEmailRegistered = false.obs;
+
+  Future<void> getCheckEmail({required String email}) async {
+    isLoading.value = true;
+
+    String url = 'https://sibeux.my.id/project/sihalal/auth';
+
+    try {
+      final response = await http.post(
+        Uri.parse(url),
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: {
+          'method': 'email_check',
+          'email': email,
+        },
+      );
+
+      if (response.statusCode == 200) {
+        final jsonResponse = jsonDecode(response.body);
+        bool emailExists = jsonResponse['email_exists'] == 'true';
+
+        if (emailExists) {
+          isEmailRegistered.value = true;
+        } else {
+          isEmailRegistered.value = false;
+          Get.off(
+            () => const RegisterDataScreen(),
+            transition: Transition.rightToLeftWithFade,
+          );
+        }
+      } else {
+        if (kDebugMode) {
+          print('Gagal memeriksa email. Error code: ${response.statusCode}');
+        }
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print('error: $e');
+      }
+    } finally {
+      isLoading.value = false;
+    }
+  }
 }

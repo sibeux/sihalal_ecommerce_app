@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:sihalal_ecommerce_app/screens/user_auth_screen/register_data_screen.dart';
+import 'package:sihalal_ecommerce_app/controller/auth_controller.dart';
 
 class LoginSubmitButtonEnable extends StatelessWidget {
   const LoginSubmitButtonEnable({super.key});
@@ -41,15 +41,16 @@ class RegisterEmailEnable extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AuthButton(
-      authType: 'register',
+      authType: 'emailRegister',
       buttonText: 'Lanjutkan',
       foreground: Colors.white,
       background: HexColor('#3f44a6'),
       isEnable: true,
       onPressed: () {
-        Get.to(
-          () => const RegisterDataScreen(),
-          transition: Transition.rightToLeftWithFade,
+        final userRegisterController = Get.put(UserRegisterController());
+        final authController = Get.put(AuthFormController());
+        userRegisterController.getCheckEmail(
+          email: authController.formData['emailRegister']!['text'].toString(),
         );
       },
     );
@@ -62,7 +63,7 @@ class RegisterEmailDisable extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AuthButton(
-      authType: 'register',
+      authType: 'emailRegister',
       buttonText: 'lanjutkan',
       foreground: HexColor('#a8b5c8'),
       background: HexColor('#e5eaf5'),
@@ -153,6 +154,51 @@ class AuthButton extends StatelessWidget {
             style: const TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class AuthButtonLoading extends StatelessWidget {
+  const AuthButtonLoading({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 40),
+      child: ElevatedButton(
+        onPressed: () {
+          // Do nothing
+        },
+        style: ElevatedButton.styleFrom(
+          elevation: 0, // Menghilangkan shadow
+          backgroundColor: HexColor('#fefffe'),
+          splashFactory: InkRipple.splashFactory,
+          side: BorderSide(
+            color: HexColor('#3f44a6'),
+            strokeAlign: BorderSide.strokeAlignCenter,
+            width: 2,
+          ),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          minimumSize: const Size(
+            double.infinity,
+            40,
+          ),
+        ),
+        child: Center(
+          child: Transform.scale(
+            scale: 0.7,
+            child: CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(
+                HexColor('#3f44a6'),
+              ),
             ),
           ),
         ),

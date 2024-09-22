@@ -98,7 +98,7 @@ class FormBlueprint extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final authFormController = Get.put(AuthFormLoginController());
+    final authFormController = Get.put(AuthFormController());
     final controller = authFormController.formData[formType]?['controller'];
     return Obx(
       () => Padding(
@@ -185,9 +185,10 @@ class FormBlueprint extends StatelessWidget {
 }
 
 OutlineInputBorder outlineInputBorder(
-    AuthFormLoginController authController, String formType) {
+    AuthFormController authController, String formType) {
   final textValue = authController.formData[formType]?['text'].toString();
   final isCurrentType = authController.currentType.value == formType;
+  final userRegisterController = Get.put(UserRegisterController());
 
   return OutlineInputBorder(
     borderSide: BorderSide(
@@ -196,7 +197,9 @@ OutlineInputBorder outlineInputBorder(
               ? !authController.getIsEmailValid(formType) &&
                       textValue!.isNotEmpty
                   ? HexColor('#ff0000').withOpacity(0.5)
-                  : HexColor('#3f44a6').withOpacity(0.5)
+                  : userRegisterController.isEmailRegistered.value
+                      ? HexColor('#ff0000').withOpacity(0.5)
+                      : HexColor('#3f44a6').withOpacity(0.5)
               : formType.toLowerCase().contains('name')
                   ? authController.getIsNameValid() && textValue!.isNotEmpty
                       ? HexColor('#ff0000').withOpacity(0.5)

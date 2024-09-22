@@ -12,7 +12,8 @@ class RegisterEmailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final authController = Get.put(AuthFormLoginController());
+    final userRegisterController = Get.put(UserRegisterController());
+    final authController = Get.put(AuthFormController());
     return Scaffold(
       backgroundColor: HexColor('#fefffe'),
       resizeToAvoidBottomInset: false,
@@ -46,10 +47,29 @@ class RegisterEmailScreen extends StatelessWidget {
           ),
           const SizedBox(height: 30),
           const EmailRegisterForm(),
+          Obx(
+            () => userRegisterController.isEmailRegistered.value
+                ? Container(
+                    alignment: Alignment.centerLeft,
+                    margin: const EdgeInsets.only(top: 5),
+                    padding: const EdgeInsets.symmetric(horizontal: 40),
+                    child: Text(
+                      '*Email ini sudah terdaftar',
+                      style: TextStyle(
+                        fontSize: 10,
+                        color: Colors.red.withOpacity(1),
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  )
+                : const SizedBox(),
+          ),
           const SizedBox(height: 20),
           Obx(
             () => authController.getIsEmailValid('emailRegister')
-                ? const RegisterEmailEnable()
+                ? userRegisterController.isLoading.value
+                    ? const AuthButtonLoading()
+                    : const RegisterEmailEnable()
                 : const AbsorbPointer(child: RegisterEmailDisable()),
           ),
           const SizedBox(height: 20),

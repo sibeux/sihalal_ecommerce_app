@@ -34,6 +34,7 @@ class ProductDetailController extends GetxController {
   }
 
   void getProductDetailData(String idProduk) {
+    showLessDescription();
     shopInfoProductController.getShopInfo(idProduk);
     productReviewController.getProductReview(idProduk);
   }

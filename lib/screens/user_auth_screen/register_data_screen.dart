@@ -11,7 +11,7 @@ class RegisterDataScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final authController = Get.put(AuthFormLoginController());
+    final authController = Get.put(AuthFormController());
     return Scaffold(
       backgroundColor: HexColor('#fefffe'),
       resizeToAvoidBottomInset: false,
