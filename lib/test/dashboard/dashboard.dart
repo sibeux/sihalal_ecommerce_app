@@ -1,10 +1,10 @@
 
 import 'package:flutter/material.dart';
+import 'package:sihalal_ecommerce_app/test/dashboard/home_header.dart';
+import 'package:sihalal_ecommerce_app/test/dashboard/image_slider_dashboard.dart';
+import 'package:sihalal_ecommerce_app/test/dashboard/special_offer_card.dart';
 import 'package:sihalal_ecommerce_app/widgets/home_widgets/categories.dart';
-import 'package:sihalal_ecommerce_app/widgets/test/dashboard/home_header.dart';
-import 'package:sihalal_ecommerce_app/widgets/test/dashboard/image_slider_dashboard.dart';
 import 'package:sihalal_ecommerce_app/widgets/home_widgets/product_card_scroll.dart';
-import 'package:sihalal_ecommerce_app/widgets/test/dashboard/special_offer_card.dart';
 
 class DashboardScreen extends StatelessWidget {
   const DashboardScreen({super.key});
