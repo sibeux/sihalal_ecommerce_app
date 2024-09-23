@@ -49,11 +49,11 @@ class _HomeScreenState extends State<HomeScreen> {
         flexibleSpace: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              begin: Alignment.bottomCenter,
-              end: Alignment.topCenter,
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
               colors: <Color>[
-                HexColor('#cbeaca'),
-                HexColor('#f0fbe1'),
+                HexColor('#519756').withOpacity(0.6),
+                HexColor('#f4d68a').withOpacity(0.6),
               ],
             ),
           ),
@@ -155,20 +155,20 @@ class _HomeScreenState extends State<HomeScreen> {
         child: GlowingOverscrollIndicator(
           axisDirection: AxisDirection.down,
           color: ColorPalette().primary,
-          child: const SingleChildScrollView(
+          child: SingleChildScrollView(
             child: Column(
               children: <Widget>[
-                SizedBox(
+                const SizedBox(
                   height: 5,
                 ),
-                BannerSlider(),
-                SizedBox(
+                const BannerSlider(),
+                const SizedBox(
                   height: 20,
                 ),
-                Categories(),
-                SizedBox(height: 25),
+                const Categories(),
+                const SizedBox(height: 25),
                 ProductCardRowScroll(
-                  color: '#f0fbe1',
+                  color: HexColor('#ecffef'),
                   cardHeader: "Cek Produk Terbaru di SiHALAL",
                   sort: 'recent',
                 ),

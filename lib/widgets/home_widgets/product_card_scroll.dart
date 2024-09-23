@@ -27,7 +27,8 @@ class ProductCardRowScroll extends StatefulWidget {
     required this.sort,
   });
 
-  final String color, cardHeader, sort;
+  final Color color;
+  final String cardHeader, sort;
 
   @override
   State<StatefulWidget> createState() {
@@ -87,7 +88,7 @@ class _ProductCardRowScrollState extends State<ProductCardRowScroll> {
         Container(
           height: 385,
           decoration: BoxDecoration(
-            color: HexColor(color),
+            color: color,
             image: const DecorationImage(
               alignment: AlignmentDirectional.centerStart,
               fit: BoxFit.fitHeight,

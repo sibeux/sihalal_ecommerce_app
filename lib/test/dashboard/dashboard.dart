@@ -29,13 +29,13 @@ class DashboardScreen extends StatelessWidget {
                   SpecialOfferCard(),
                   SizedBox(height: 40),
                   ProductCardRowScroll(
-                    color: '#B1E9AC',
+                    color: Colors.white,
                     cardHeader: "Cek Produk Terbaru di SiHALAL",
                     sort: 'recent',
                   ),
                   SizedBox(height: 40),
                   ProductCardRowScroll(
-                    color: '#FE5959',
+                    color: Colors.white,
                     cardHeader: 'Kebutuhan Masakan Kamu',
                     sort: 'popular',
                   ),

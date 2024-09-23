@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 // ignore: unnecessary_import
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
-import 'package:sihalal_ecommerce_app/screens/home_screen/home_screen.dart';
+import 'package:sihalal_ecommerce_app/screens/splash_screen/splash_screen.dart';
 
 var kPrimaryColor = const Color.fromARGB(
   255,
@@ -19,7 +20,13 @@ final theme = ThemeData(
 
 void main() {
   // debugPaintSizeEnabled = true; // Mengaktifkan debug paint
-  runApp(const ProviderScope(child: MyApp()));
+
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+      .then((fn) {
+    runApp(const ProviderScope(child: MyApp()));
+  });
 }
 
 class MyApp extends StatelessWidget {
@@ -42,7 +49,7 @@ class MyApp extends StatelessWidget {
       getPages: [
         GetPage(
           name: '/',
-          page: () => const HomeScreen(),
+          page: () => const SplashScreen(),
         ),
       ],
     );
