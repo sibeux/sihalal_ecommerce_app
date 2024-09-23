@@ -9,13 +9,21 @@ class LoginSubmitButtonEnable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final UserLoginController userLoginController =
+        Get.put(UserLoginController());
+    final AuthFormController authController = Get.put(AuthFormController());
     return AuthButton(
       authType: 'login',
       buttonText: 'Masuk',
       foreground: Colors.white,
       background: ColorPalette().primary,
       isEnable: true,
-      onPressed: () {},
+      onPressed: () {
+        userLoginController.loginUser(
+          email: authController.formData['emailLogin']!['text'].toString(),
+          password: authController.formData['passwordLogin']!['text'].toString(),
+        );
+      },
     );
   }
 }
@@ -93,8 +101,11 @@ class RegisterSubmitButtonEnable extends StatelessWidget {
       onPressed: () {
         userRegisterController.createNewUserData(
           email: authController.formData['emailRegister']!['text'].toString(),
-          name: authController.formData['nameRegister']!['text'].toString().trim(),
-          password: authController.formData['passwordRegister']!['text'].toString(),
+          name: authController.formData['nameRegister']!['text']
+              .toString()
+              .trim(),
+          password:
+              authController.formData['passwordRegister']!['text'].toString(),
         );
       },
     );

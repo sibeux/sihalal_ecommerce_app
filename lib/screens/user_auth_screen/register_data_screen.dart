@@ -85,7 +85,7 @@ class RegisterDataScreen extends StatelessWidget {
                 onTap: () {
                   authController.onClearController('nameRegister');
                   authController.onClearController('passwordRegister');
-                  Get.to(() => const LoginScreen());
+                  Get.off(() => const LoginScreen());
                 },
                 child: Text(
                   'Masuk',

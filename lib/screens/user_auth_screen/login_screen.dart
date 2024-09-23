@@ -14,6 +14,7 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final authController = Get.put(AuthFormController());
+    final userLoginController = Get.put(UserLoginController());
     return Scaffold(
       backgroundColor: HexColor('#fefffe'),
       resizeToAvoidBottomInset: false,
@@ -49,10 +50,29 @@ class LoginScreen extends StatelessWidget {
           const EmailLoginForm(),
           const SizedBox(height: 10),
           const PasswordLoginForm(),
+          Obx(
+            () => !userLoginController.isLoginSuccess.value
+                ? Container(
+                    alignment: Alignment.centerLeft,
+                    margin: const EdgeInsets.only(top: 5),
+                    padding: const EdgeInsets.symmetric(horizontal: 40),
+                    child: Text(
+                      '*Email atau password tidak sesuai',
+                      style: TextStyle(
+                        fontSize: 10,
+                        color: Colors.red.withOpacity(1),
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  )
+                : const SizedBox(),
+          ),
           const SizedBox(height: 30),
           Obx(
             () => authController.getIsDataLoginValid()
-                ? const LoginSubmitButtonEnable()
+                ? userLoginController.isLoading.value
+                    ? const AuthButtonLoading()
+                    : const LoginSubmitButtonEnable()
                 : const AbsorbPointer(child: LoginSubmitButtonDisable()),
           ),
           const SizedBox(height: 20),
@@ -69,10 +89,10 @@ class LoginScreen extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
-                  authController.onClearController('email');
-                  authController.onClearController('password');
+                  authController.onClearController('emailLogin');
+                  authController.onClearController('passwordLogin');
                   authController.onClearController('emailRegister');
-                  Get.to(() => const RegisterEmailScreen());
+                  Get.off(() => const RegisterEmailScreen());
                 },
                 child: Text(
                   'Daftar',

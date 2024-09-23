@@ -12,14 +12,14 @@ class AuthFormController extends GetxController {
   var currentType = ''.obs;
   var formData = RxMap(
     {
-      'email': {
+      'emailLogin': {
         'text': '',
-        'type': 'email',
+        'type': 'emailLogin',
         'controller': TextEditingController(),
       },
-      'password': {
+      'passwordLogin': {
         'text': '',
-        'type': 'password',
+        'type': 'passwordLogin',
         'controller': TextEditingController(),
       },
       'emailRegister': {
@@ -86,10 +86,10 @@ class AuthFormController extends GetxController {
   }
 
   bool getIsDataLoginValid() {
-    final emailValue = formData['email']!['text'].toString();
+    final emailValue = formData['emailLogin']!['text'].toString();
     return EmailValidator.validate(emailValue) &&
         emailValue.isNotEmpty &&
-        formData['password']!['text'].toString().isNotEmpty;
+        formData['passwordLogin']!['text'].toString().isNotEmpty;
   }
 
   bool getIsDataRegisterValid() {
@@ -110,8 +110,6 @@ class AuthFormController extends GetxController {
 class UserRegisterController extends GetxController {
   var isLoading = false.obs;
   var isEmailRegistered = false.obs;
-
-  final authFormController = Get.put(AuthFormController());
 
   Future<void> getCheckEmail({required String email}) async {
     isLoading.value = true;
@@ -195,6 +193,46 @@ class UserRegisterController extends GetxController {
         if (kDebugMode) {
           print('Failed registering. Error: ${response.statusCode}');
         }
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print('error: $e');
+      }
+    } finally {
+      isLoading.value = false;
+    }
+  }
+}
+
+class UserLoginController extends GetxController {
+  var isLoading = false.obs;
+  var isLoginSuccess = true.obs;
+
+  final authFormController = Get.put(AuthFormController());
+
+  Future<void> loginUser(
+      {required String email, required String password}) async {
+    isLoading.value = true;
+
+    String url = 'https://sibeux.my.id/project/sihalal-php-jwt/login';
+
+    try {
+      final response = await http.post(
+        Uri.parse(url),
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: {
+          'email': email,
+          'password': password,
+        },
+      );
+
+      if (response.statusCode == 200) {
+        isLoginSuccess.value = true;
+        final jsonResponse = jsonDecode(response.body);
+      } else {
+        isLoginSuccess.value = false;
       }
     } catch (e) {
       if (kDebugMode) {

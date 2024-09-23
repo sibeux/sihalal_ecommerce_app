@@ -12,7 +12,7 @@ class EmailLoginForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const FormBlueprint(
-      formType: 'email',
+      formType: 'emailLogin',
       formText: 'email',
       keyboardType: TextInputType.emailAddress,
       icon: Icons.email,
@@ -29,7 +29,7 @@ class PasswordLoginForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const FormBlueprint(
-      formType: 'password',
+      formType: 'passwordLogin',
       formText: 'password',
       keyboardType: TextInputType.visiblePassword,
       icon: Icons.lock,
@@ -190,22 +190,29 @@ OutlineInputBorder outlineInputBorder(
   final textValue = authController.formData[formType]?['text'].toString();
   final isCurrentType = authController.currentType.value == formType;
   final userRegisterController = Get.put(UserRegisterController());
+  final userLoginController = Get.put(UserLoginController());
+
+  final bool emailBool =
+      (!authController.getIsEmailValid(formType) && textValue!.isNotEmpty) ||
+          userRegisterController.isEmailRegistered.value ||
+          (formType.toLowerCase().contains('login') &&
+              !userLoginController.isLoginSuccess.value);
 
   return OutlineInputBorder(
     borderSide: BorderSide(
       color: (isCurrentType || textValue!.isNotEmpty)
           ? formType.toLowerCase().contains('email')
-              ? !authController.getIsEmailValid(formType) &&
-                      textValue!.isNotEmpty
+              ? emailBool
                   ? HexColor('#ff0000').withOpacity(0.5)
-                  : userRegisterController.isEmailRegistered.value
-                      ? HexColor('#ff0000').withOpacity(0.5)
-                      : ColorPalette().primary.withOpacity(0.5)
+                  : ColorPalette().primary.withOpacity(0.5)
               : formType.toLowerCase().contains('name')
                   ? authController.getIsNameValid() && textValue!.isNotEmpty
                       ? HexColor('#ff0000').withOpacity(0.5)
                       : ColorPalette().primary.withOpacity(0.5)
-                  : ColorPalette().primary.withOpacity(0.5)
+                  : formType.toLowerCase().contains('login') &&
+                          !userLoginController.isLoginSuccess.value
+                      ? HexColor('#ff0000').withOpacity(0.5)
+                      : ColorPalette().primary.withOpacity(0.5)
           : HexColor('#575757').withOpacity(0.5),
       width: 2,
     ),

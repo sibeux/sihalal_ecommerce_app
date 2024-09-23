@@ -88,7 +88,7 @@ class RegisterEmailScreen extends StatelessWidget {
               GestureDetector(
                 onTap: () {
                   authController.onClearController('emailRegister');
-                  Get.to(() => const LoginScreen());
+                  Get.off(() => const LoginScreen());
                 },
                 child: Text(
                   'Masuk',
