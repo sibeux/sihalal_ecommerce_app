@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:sihalal_ecommerce_app/component/color_palette.dart';
 import 'package:sihalal_ecommerce_app/controller/product_controller.dart';
 
 class SearchProductScreen extends StatelessWidget {
@@ -21,7 +22,7 @@ class SearchProductScreen extends StatelessWidget {
           },
           icon: Icon(
             Icons.arrow_back,
-            color: HexColor('#8D1EE4'),
+            color: ColorPalette().primary,
           ),
         ),
         title: TextFormField(
@@ -71,8 +72,8 @@ class SearchProductScreen extends StatelessWidget {
             child: Container(
               margin: const EdgeInsets.only(right: 10),
               decoration: BoxDecoration(
-                  color: HexColor('#8D1EE4'),
-                  border: Border.all(color: HexColor('#8D1EE4'), width: 2),
+                  color: ColorPalette().primary,
+                  border: Border.all(color: ColorPalette().primary, width: 2),
                   borderRadius: const BorderRadius.only(
                     topRight: Radius.circular(7),
                     bottomRight: Radius.circular(7),
@@ -105,7 +106,7 @@ class SearchProductScreen extends StatelessWidget {
 
 OutlineInputBorder outlineInputBorder() {
   return OutlineInputBorder(
-    borderSide: BorderSide(color: HexColor('#8D1EE4'), width: 2),
+    borderSide: BorderSide(color: ColorPalette().primary, width: 2),
     borderRadius: const BorderRadius.only(
       topLeft: Radius.circular(7),
       bottomLeft: Radius.circular(7),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:sihalal_ecommerce_app/component/color_palette.dart';
 import 'package:sihalal_ecommerce_app/controller/auth_controller.dart';
 
 class EmailLoginForm extends StatelessWidget {
@@ -199,12 +200,12 @@ OutlineInputBorder outlineInputBorder(
                   ? HexColor('#ff0000').withOpacity(0.5)
                   : userRegisterController.isEmailRegistered.value
                       ? HexColor('#ff0000').withOpacity(0.5)
-                      : HexColor('#3f44a6').withOpacity(0.5)
+                      : ColorPalette().primary.withOpacity(0.5)
               : formType.toLowerCase().contains('name')
                   ? authController.getIsNameValid() && textValue!.isNotEmpty
                       ? HexColor('#ff0000').withOpacity(0.5)
-                      : HexColor('#3f44a6').withOpacity(0.5)
-                  : HexColor('#3f44a6').withOpacity(0.5)
+                      : ColorPalette().primary.withOpacity(0.5)
+                  : ColorPalette().primary.withOpacity(0.5)
           : HexColor('#575757').withOpacity(0.5),
       width: 2,
     ),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
+import 'package:sihalal_ecommerce_app/component/color_palette.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 List<String> assets = [
@@ -59,7 +59,7 @@ class _BannerSliderState extends State<BannerSlider> {
           controller: _pageController,
           count: 5,
           effect: ExpandingDotsEffect(
-            activeDotColor: HexColor('#8D1EE4'),
+            activeDotColor: ColorPalette().primary,
             dotColor: Colors.grey,
             expansionFactor: 5,
             dotHeight: 4,

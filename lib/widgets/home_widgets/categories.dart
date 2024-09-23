@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
+import 'package:sihalal_ecommerce_app/component/color_palette.dart';
 
 class Categories extends StatelessWidget {
   const Categories({super.key});
@@ -92,7 +92,7 @@ class Categories extends StatelessWidget {
         thumbVisibility: true,
         trackVisibility: true,
         thickness: 4,
-        thumbColor: HexColor('#8D1EE4'),
+        thumbColor: ColorPalette().primary,
         trackColor: Colors.grey[300],
         trackBorderColor: Colors.transparent,
         fadeDuration: const Duration(milliseconds: 0),

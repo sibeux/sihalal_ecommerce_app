@@ -3,6 +3,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:sihalal_ecommerce_app/component/color_palette.dart';
 import 'package:sihalal_ecommerce_app/component/string_formatter.dart';
 import 'package:sihalal_ecommerce_app/controller/product_detail_controller.dart';
 import 'package:sihalal_ecommerce_app/models/product.dart';
@@ -165,7 +166,7 @@ class ProductDetailScreen extends StatelessWidget {
                     child: Text(
                       priceFormat(product.harga),
                       style: TextStyle(
-                        color: HexColor('#3f44a6'),
+                        color: ColorPalette().primary,
                         fontSize: 20,
                         fontWeight: FontWeight.w800,
                         overflow: TextOverflow.ellipsis,
@@ -243,7 +244,7 @@ class ProductDetailScreen extends StatelessWidget {
                                           ? 'Lebih Sedikit'
                                           : 'Baca Selengkapnya',
                                       style: TextStyle(
-                                        color: HexColor('#3f44a6'),
+                                        color: ColorPalette().primary,
                                         fontSize: 14,
                                         fontWeight: FontWeight.bold,
                                       ),

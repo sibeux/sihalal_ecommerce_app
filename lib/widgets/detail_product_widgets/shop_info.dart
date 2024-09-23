@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
+import 'package:sihalal_ecommerce_app/component/color_palette.dart';
 import 'package:sihalal_ecommerce_app/component/string_formatter.dart';
 
 class ShopInfo extends StatelessWidget {
@@ -115,7 +115,7 @@ class ShopInfo extends StatelessWidget {
                             rate,
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                              color: HexColor('#3f44a6'),
+                              color: ColorPalette().primary,
                               fontSize: 14,
                               fontWeight: FontWeight.bold,
                             ),
@@ -153,7 +153,7 @@ class ShopInfo extends StatelessWidget {
                             jumlahProduk,
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                              color: HexColor('#3f44a6'),
+                              color: ColorPalette().primary,
                               fontSize: 14,
                               fontWeight: FontWeight.bold,
                             ),
@@ -181,7 +181,7 @@ class ShopInfo extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8),
                   border: Border.all(
-                    color: HexColor('#3f44a6'),
+                    color: ColorPalette().primary,
                     width: 1.5,
                     strokeAlign: BorderSide.strokeAlignOutside,
                   ),
@@ -189,7 +189,7 @@ class ShopInfo extends StatelessWidget {
                 child: Text(
                   'Lihat Toko',
                   style: TextStyle(
-                    color: HexColor('#3f44a6'),
+                    color: ColorPalette().primary,
                     fontSize: 14,
                     fontWeight: FontWeight.bold,
                   ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:sihalal_ecommerce_app/component/color_palette.dart';
 import 'package:sihalal_ecommerce_app/controller/auth_controller.dart';
 import 'package:sihalal_ecommerce_app/screens/home_screen/home_screen.dart';
 import 'package:sihalal_ecommerce_app/screens/user_auth_screen/login_screen.dart';
@@ -33,7 +34,7 @@ class RegisterEmailScreen extends StatelessWidget {
             style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,
-              color: HexColor('#3f44a6'),
+              color: ColorPalette().primary,
             ),
           ),
           const SizedBox(height: 5),
@@ -93,7 +94,7 @@ class RegisterEmailScreen extends StatelessWidget {
                   'Masuk',
                   style: TextStyle(
                     fontSize: 12,
-                    color: HexColor('#3f44a6'),
+                    color: ColorPalette().primary,
                     fontWeight: FontWeight.bold,
                     // decoration: TextDecoration.underline,
                   ),

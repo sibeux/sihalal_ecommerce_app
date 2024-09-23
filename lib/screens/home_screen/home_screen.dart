@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:sihalal_ecommerce_app/component/color_palette.dart';
 import 'package:sihalal_ecommerce_app/widgets/home_widgets/banner_slider.dart';
 import 'package:sihalal_ecommerce_app/widgets/home_widgets/categories.dart';
 import 'package:sihalal_ecommerce_app/widgets/home_widgets/product_card_scroll.dart';
@@ -51,8 +52,8 @@ class _HomeScreenState extends State<HomeScreen> {
               begin: Alignment.bottomCenter,
               end: Alignment.topCenter,
               colors: <Color>[
-                HexColor('#C47DFE'),
-                HexColor('#C47DFE'),
+                HexColor('#cbeaca'),
+                HexColor('#f0fbe1'),
               ],
             ),
           ),
@@ -79,7 +80,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       const EdgeInsets.symmetric(vertical: 7, horizontal: 7),
                   hintText: 'Cari produk halal di SiHALAL',
                   hintStyle:
-                      TextStyle(color: HexColor('#8D1EE4'), fontSize: 12),
+                      TextStyle(color: ColorPalette().primary, fontSize: 12),
                   // * agar textfield tidak terlalu lebar, maka dibuat constraints
                   suffixIconConstraints: const BoxConstraints(
                     minWidth: 30,
@@ -91,7 +92,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   prefixIcon: Icon(
                     Icons.search,
-                    color: HexColor('#8D1EE4'),
+                    color: ColorPalette().primary,
                   ),
                   enabledBorder: outlineInputBorder(),
                   focusedBorder: outlineInputBorder(),
@@ -136,7 +137,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: HexColor(colorWhite),
-        selectedItemColor: HexColor('#C47DFE'),
+        selectedItemColor: ColorPalette().primary,
         unselectedItemColor: HexColor('#575757'),
         showSelectedLabels: true,
         showUnselectedLabels: true,
@@ -153,7 +154,7 @@ class _HomeScreenState extends State<HomeScreen> {
         behavior: NoGlowScrollBehavior(),
         child: GlowingOverscrollIndicator(
           axisDirection: AxisDirection.down,
-          color: HexColor('#C47DFE'),
+          color: ColorPalette().primary,
           child: const SingleChildScrollView(
             child: Column(
               children: <Widget>[
@@ -167,7 +168,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Categories(),
                 SizedBox(height: 25),
                 ProductCardRowScroll(
-                  color: '#C47DFE',
+                  color: '#f0fbe1',
                   cardHeader: "Cek Produk Terbaru di SiHALAL",
                   sort: 'recent',
                 ),

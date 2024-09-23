@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sihalal_ecommerce_app/component/color_palette.dart';
 import 'package:sihalal_ecommerce_app/component/string_formatter.dart';
 import 'package:sihalal_ecommerce_app/controller/product_controller.dart';
 import 'package:sihalal_ecommerce_app/widgets/home_widgets/shimmer_product_card.dart';
@@ -74,7 +75,7 @@ class _ProductCardRowScrollState extends State<ProductCardRowScroll> {
                     'Lihat Semua',
                     textAlign: TextAlign.right,
                     style: TextStyle(
-                      color: HexColor('#8D1EE4'),
+                      color: ColorPalette().primary,
                       fontSize: 14,
                       fontWeight: FontWeight.values[5],
                     ),
@@ -179,8 +180,7 @@ class ProductCard extends ConsumerWidget {
           ),
           const InkButton(
             text: 'Tambah',
-            // color: '#5EC684',
-            color: '#8D1EE4',
+            color: '#519756',
           ),
         ],
       ),
@@ -199,7 +199,6 @@ class ProductImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // padding: const EdgeInsets.all(10),
       clipBehavior: Clip.antiAlias,
       height: 150,
       width: double.infinity,

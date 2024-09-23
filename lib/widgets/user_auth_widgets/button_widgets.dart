@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:sihalal_ecommerce_app/component/color_palette.dart';
 import 'package:sihalal_ecommerce_app/controller/auth_controller.dart';
 
 class LoginSubmitButtonEnable extends StatelessWidget {
@@ -12,7 +13,7 @@ class LoginSubmitButtonEnable extends StatelessWidget {
       authType: 'login',
       buttonText: 'Masuk',
       foreground: Colors.white,
-      background: HexColor('#3f44a6'),
+      background: ColorPalette().primary,
       isEnable: true,
       onPressed: () {},
     );
@@ -46,7 +47,7 @@ class RegisterEmailEnable extends StatelessWidget {
       authType: 'emailRegister',
       buttonText: 'Lanjutkan',
       foreground: Colors.white,
-      background: HexColor('#3f44a6'),
+      background: ColorPalette().primary,
       isEnable: true,
       onPressed: () {
         authController.onClearController('nameRegister');
@@ -87,7 +88,7 @@ class RegisterSubmitButtonEnable extends StatelessWidget {
       authType: 'register',
       buttonText: 'Daftar',
       foreground: Colors.white,
-      background: HexColor('#3f44a6'),
+      background: ColorPalette().primary,
       isEnable: true,
       onPressed: () {
         userRegisterController.createNewUserData(
@@ -191,7 +192,7 @@ class AuthButtonLoading extends StatelessWidget {
           backgroundColor: HexColor('#fefffe'),
           splashFactory: InkRipple.splashFactory,
           side: BorderSide(
-            color: HexColor('#3f44a6'),
+            color: ColorPalette().primary,
             strokeAlign: BorderSide.strokeAlignCenter,
             width: 2,
           ),
@@ -208,7 +209,7 @@ class AuthButtonLoading extends StatelessWidget {
             scale: 0.7,
             child: CircularProgressIndicator(
               valueColor: AlwaysStoppedAnimation<Color>(
-                HexColor('#3f44a6'),
+                ColorPalette().primary,
               ),
             ),
           ),
