@@ -19,9 +19,10 @@ class LoginSubmitButtonEnable extends StatelessWidget {
       background: ColorPalette().primary,
       isEnable: true,
       onPressed: () {
-        userLoginController.loginUser(
+        userLoginController.generateJwtLogin(
           email: authController.formData['emailLogin']!['text'].toString(),
-          password: authController.formData['passwordLogin']!['text'].toString(),
+          password:
+              authController.formData['passwordLogin']!['text'].toString(),
         );
       },
     );

@@ -5,6 +5,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:sihalal_ecommerce_app/controller/jwt_controller.dart';
+import 'package:sihalal_ecommerce_app/screens/home_screen/home_screen.dart';
 import 'package:sihalal_ecommerce_app/screens/user_auth_screen/register_data_screen.dart';
 
 class AuthFormController extends GetxController {
@@ -110,6 +112,15 @@ class AuthFormController extends GetxController {
 class UserRegisterController extends GetxController {
   var isLoading = false.obs;
   var isEmailRegistered = false.obs;
+  var isRedirecting = false.obs;
+
+  @override
+  void onInit() {
+    super.onInit();
+    isLoading.value = false;
+    isEmailRegistered.value = false;
+    isRedirecting.value = false;
+  }
 
   Future<void> getCheckEmail({required String email}) async {
     isLoading.value = true;
@@ -136,7 +147,7 @@ class UserRegisterController extends GetxController {
           isEmailRegistered.value = true;
         } else {
           isEmailRegistered.value = false;
-          Get.off(
+          Get.to(
             () => const RegisterDataScreen(),
             transition: Transition.rightToLeftWithFade,
           );
@@ -183,7 +194,8 @@ class UserRegisterController extends GetxController {
         bool success = jsonResponse['status'] == 'success';
 
         if (success) {
-          // Get.back();
+          isLoading.value = false;
+          await generateJwtRegister(email: email, password: password);
         } else {
           if (kDebugMode) {
             print('Failed registering. Error: ${response.statusCode}');
@@ -202,18 +214,9 @@ class UserRegisterController extends GetxController {
       isLoading.value = false;
     }
   }
-}
 
-class UserLoginController extends GetxController {
-  var isLoading = false.obs;
-  var isLoginSuccess = true.obs;
-
-  final authFormController = Get.put(AuthFormController());
-
-  Future<void> loginUser(
+  Future<void> generateJwtRegister(
       {required String email, required String password}) async {
-    isLoading.value = true;
-
     String url = 'https://sibeux.my.id/project/sihalal-php-jwt/login';
 
     try {
@@ -229,8 +232,75 @@ class UserLoginController extends GetxController {
       );
 
       if (response.statusCode == 200) {
-        isLoginSuccess.value = true;
+        isLoading.value = false;
+        isRedirecting.value = true;
         final jsonResponse = jsonDecode(response.body);
+        await Future.delayed(const Duration(seconds: 1));
+        Get.offAll(
+          () => const HomeScreen(),
+          transition: Transition.rightToLeftWithFade,
+        );
+      } else {
+        if (kDebugMode) {
+          print('Failed generating JWT. Error: ${response.statusCode}');
+        }
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print('error: $e');
+      }
+    } finally {
+      isLoading.value = false;
+      isRedirecting.value = false;
+    }
+  }
+}
+
+class UserLoginController extends GetxController {
+  var isLoading = false.obs;
+  var isLoginSuccess = true.obs;
+  var isRedirecting = false.obs;
+
+  @override
+  void onInit() {
+    super.onInit();
+    isLoading.value = false;
+    isLoginSuccess.value = true;
+    isRedirecting.value = false;
+  }
+
+  Future<void> generateJwtLogin(
+      {required String email, required String password}) async {
+    isLoading.value = true;
+
+    final jwtController = Get.put(JwtController());
+    const String url = 'https://sibeux.my.id/project/sihalal-php-jwt/login';
+
+    try {
+      final response = await http.post(
+        Uri.parse(url),
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: {
+          'email': email,
+          'password': password,
+        },
+      );
+
+      if (response.statusCode == 200) {
+        isLoginSuccess.value = true;
+        isLoading.value = false;
+        isRedirecting.value = true;
+        final jsonResponse = jsonDecode(response.body);
+        await jwtController.setToken(
+          token: jsonResponse['token'],
+          email: email,
+        );
+        Get.offAll(
+          () => const HomeScreen(),
+          transition: Transition.rightToLeftWithFade,
+        );
       } else {
         isLoginSuccess.value = false;
       }
@@ -240,6 +310,7 @@ class UserLoginController extends GetxController {
       }
     } finally {
       isLoading.value = false;
+      isRedirecting.value = false;
     }
   }
 }

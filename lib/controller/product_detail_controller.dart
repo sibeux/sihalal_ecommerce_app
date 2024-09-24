@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:sihalal_ecommerce_app/component/regex_drive.dart';
 import 'package:sihalal_ecommerce_app/models/review.dart';
-import 'package:sihalal_ecommerce_app/models/user.dart';
+import 'package:sihalal_ecommerce_app/models/shop.dart';
 
 class ProductDetailController extends GetxController {
   var imageIndex = 1.obs;
@@ -45,7 +45,7 @@ class ProductDetailController extends GetxController {
 
 class ShopInfoProductController extends GetxController {
   var isLoading = false.obs;
-  var shopInfo = RxList<User?>([]);
+  var shopInfo = RxList<Shop?>([]);
 
   Future<void> getShopInfo(String idProduk) async {
     isLoading.value = true;
@@ -62,20 +62,17 @@ class ShopInfoProductController extends GetxController {
       final List<dynamic> listData = json.decode(response.body);
       final List<dynamic> apiData = json.decode(apiResponse.body);
 
-      final list = listData.map((user) {
-        return User(
-          idUser: user['id_user'],
-          namaUser: user['nama_user'],
-          emailUser: user['email_user'],
-          passuser: user['pass_user'],
+      final list = listData.map((shop) {
+        return Shop(
+          idUser: shop['id_user'],
           fotoUser:
-              regexGdriveLink(user['foto_user'], apiData[0]['gdrive_api']),
-          namaToko: user['nama_toko'],
-          deskripsiToko: user['deskripsi_toko'],
-          kotaToko: user['kota'],
-          provinsiToko: user['provinsi'],
-          totalProduk: user['total_produk'],
-          totalRating: user['rata_rata_rating'],
+              regexGdriveLink(shop['foto_user'], apiData[0]['gdrive_api']),
+          namaToko: shop['nama_toko'],
+          deskripsiToko: shop['deskripsi_toko'],
+          kotaToko: shop['kota'],
+          provinsiToko: shop['provinsi'],
+          totalProduk: shop['total_produk'],
+          totalRating: shop['rata_rata_rating'],
         );
       }).toList();
 

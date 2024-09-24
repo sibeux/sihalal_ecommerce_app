@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:get/get.dart';
+import 'package:sihalal_ecommerce_app/controller/jwt_controller.dart';
 import 'package:sihalal_ecommerce_app/screens/home_screen/home_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -10,6 +12,8 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  final jwtController = Get.put(JwtController());
+
   @override
   void initState() {
     super.initState();
@@ -17,8 +21,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> initialization() async {
-    await Future.delayed(const Duration(seconds: 1));
-    await Future.delayed(const Duration(seconds: 1));
+    await jwtController.checkToken();
     FlutterNativeSplash.remove();
   }
 
