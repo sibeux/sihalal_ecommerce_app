@@ -45,6 +45,15 @@ class ProductDetailScreen extends StatelessWidget {
       appBar: AppBar(
         surfaceTintColor: Colors.transparent,
         backgroundColor: HexColor('#fefeff'),
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back,
+            color: Colors.black,
+          ),
+          onPressed: () {
+            Get.back();
+          },
+        ),
         title: const Text('Detail Product'),
       ),
       body: Column(

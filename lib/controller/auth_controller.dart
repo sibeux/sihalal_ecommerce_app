@@ -147,7 +147,7 @@ class UserRegisterController extends GetxController {
           isEmailRegistered.value = true;
         } else {
           isEmailRegistered.value = false;
-          Get.to(
+          Get.off(
             () => const RegisterDataScreen(),
             transition: Transition.rightToLeftWithFade,
           );
@@ -316,5 +316,25 @@ class UserLoginController extends GetxController {
       isLoading.value = false;
       isRedirecting.value = false;
     }
+  }
+}
+
+class UserLogoutController extends GetxController {
+  var isLoggingOut = false.obs;
+
+  @override
+  void onInit() {
+    super.onInit();
+    isLoggingOut.value = false;
+  }
+
+  Future<void> logout() async {
+    isLoggingOut.value = true;
+    final jwtController = Get.put(JwtController());
+    await jwtController.deleteToken();
+    Get.off(
+      () => const PersistenBarScreen(),
+      transition: Transition.rightToLeftWithFade,
+    );
   }
 }

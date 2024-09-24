@@ -53,6 +53,7 @@ dependencies:
   persistent_bottom_nav_bar: ^6.2.1
   flutter_launcher_icons: ^0.14.1
   fluttertoast: ^8.2.8
+  get_storage: ^2.1.1
   
 dev_dependencies:
   flutter_test:

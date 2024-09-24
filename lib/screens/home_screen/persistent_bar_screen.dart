@@ -3,9 +3,11 @@ import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 import 'package:sihalal_ecommerce_app/component/color_palette.dart';
+import 'package:sihalal_ecommerce_app/screens/cart_screen/cart_screen.dart';
+import 'package:sihalal_ecommerce_app/screens/favorite_screen/favorite_screen.dart';
 import 'package:sihalal_ecommerce_app/screens/home_screen/home_screen.dart';
-import 'package:sihalal_ecommerce_app/screens/user_auth_screen/login_screen.dart';
-import 'package:sihalal_ecommerce_app/screens/user_auth_screen/register_email_screen.dart';
+import 'package:sihalal_ecommerce_app/screens/order_screen/order_screen.dart';
+import 'package:sihalal_ecommerce_app/screens/user_auth_screen/check_valid_login.dart';
 
 class PersistenBarScreen extends StatefulWidget {
   const PersistenBarScreen({super.key});
@@ -28,10 +30,10 @@ class _PersistenBarScreenState extends State<PersistenBarScreen> {
   List<Widget> _buildScreens() {
     return [
       const HomeScreen(),
-      const LoginScreen(),
-      const RegisterEmailScreen(),
-      const RegisterEmailScreen(),
-      const RegisterEmailScreen(),
+      const CartScreen(),
+      const FavoriteScreen(),
+      const OrderScreen(),
+      const CheckValidLoginScreen(),
     ];
   }
 
@@ -86,7 +88,7 @@ class _PersistenBarScreenState extends State<PersistenBarScreen> {
       items: _navBarsItems(),
       confineToSafeArea: true,
       backgroundColor: Colors.white,
-      handleAndroidBackButtonPress: true, // Mengatur tombol back di Android
+      handleAndroidBackButtonPress: false, // Mengatur tombol back di Android
       resizeToAvoidBottomInset: true,
       stateManagement: true, // Untuk manajemen state dari tiap halaman
       hideNavigationBarWhenKeyboardAppears:
@@ -116,7 +118,7 @@ class _PersistenBarScreenState extends State<PersistenBarScreen> {
           Fluttertoast.showToast(
             msg: 'Tekan sekali lagi untuk keluar',
             toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.BOTTOM,
+            gravity: ToastGravity.CENTER,
             timeInSecForIosWeb: 1,
             backgroundColor: Colors.black.withOpacity(0.8),
             textColor: Colors.white,

@@ -5,15 +5,16 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:sihalal_ecommerce_app/screens/splash_screen/splash_screen.dart';
 
 final theme = ThemeData(
   fontFamily: 'SauceOne',
 );
 
-void main() {
+void main() async {
   // debugPaintSizeEnabled = true; // Mengaktifkan debug paint
-
+  await GetStorage.init();
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])

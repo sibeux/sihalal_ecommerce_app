@@ -7,7 +7,6 @@ import 'package:sihalal_ecommerce_app/widgets/home_widgets/banner_slider.dart';
 import 'package:sihalal_ecommerce_app/widgets/home_widgets/categories.dart';
 import 'package:sihalal_ecommerce_app/widgets/home_widgets/product_card_scroll.dart';
 import 'package:sihalal_ecommerce_app/screens/search_product_screen/search_product_screen.dart';
-import 'package:sihalal_ecommerce_app/screens/user_auth_screen/login_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -88,30 +87,25 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
         actions: [
-          GestureDetector(
-            onTap: () {
-              Get.to(() => const LoginScreen());
-            },
-            child: Container(
-              margin: const EdgeInsets.only(right: 20),
-              child: ClipRRect(
-                borderRadius: const BorderRadius.all(Radius.circular(100)),
-                child: CachedNetworkImage(
-                  imageUrl: '',
+          Container(
+            margin: const EdgeInsets.only(right: 20),
+            child: ClipRRect(
+              borderRadius: const BorderRadius.all(Radius.circular(100)),
+              child: CachedNetworkImage(
+                imageUrl: '',
+                fit: BoxFit.cover,
+                height: 35,
+                width: 35,
+                maxHeightDiskCache: 100,
+                maxWidthDiskCache: 100,
+                filterQuality: FilterQuality.low,
+                placeholder: (context, url) => Image.asset(
+                  'assets/images/shimmer/profile/profile_shimmer.png',
                   fit: BoxFit.cover,
-                  height: 35,
-                  width: 35,
-                  maxHeightDiskCache: 100,
-                  maxWidthDiskCache: 100,
-                  filterQuality: FilterQuality.low,
-                  placeholder: (context, url) => Image.asset(
-                    'assets/images/shimmer/profile/profile_shimmer.png',
-                    fit: BoxFit.cover,
-                  ),
-                  errorWidget: (context, url, error) => Image.asset(
-                    'assets/images/shimmer/profile/profile_shimmer.png',
-                    fit: BoxFit.cover,
-                  ),
+                ),
+                errorWidget: (context, url, error) => Image.asset(
+                  'assets/images/shimmer/profile/profile_shimmer.png',
+                  fit: BoxFit.cover,
                 ),
               ),
             ),
