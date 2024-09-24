@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:sihalal_ecommerce_app/screens/account_screen/account_screen.dart';
 import 'package:sihalal_ecommerce_app/screens/user_auth_screen/login_screen.dart';
 import 'package:sihalal_ecommerce_app/screens/user_auth_screen/register_email_screen.dart';
@@ -26,6 +27,7 @@ class UserAuthOptionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: HexColor('#fefffe'),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

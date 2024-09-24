@@ -23,6 +23,7 @@ class RegisterDataScreen extends StatelessWidget {
           resizeToAvoidBottomInset: false,
           appBar: AppBar(
             backgroundColor: HexColor('#fefffe'),
+            titleSpacing: 0,
             leading: IconButton(
               icon: const Icon(Icons.arrow_back),
               color: Colors.black,
@@ -30,9 +31,16 @@ class RegisterDataScreen extends StatelessWidget {
                 Get.back();
               },
             ),
+            title: const Text('Daftar'),
+            titleTextStyle: const TextStyle(
+              color: Colors.black,
+              fontSize: 18,
+              fontWeight: FontWeight.w500,
+            ),
           ),
           body: Column(
             children: [
+              const SizedBox(height: 30),
               Text(
                 'Data Diri',
                 style: TextStyle(

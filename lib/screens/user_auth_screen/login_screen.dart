@@ -21,16 +21,24 @@ class LoginScreen extends StatelessWidget {
           backgroundColor: HexColor('#fefffe'),
           resizeToAvoidBottomInset: false,
           appBar: AppBar(
+            backgroundColor: HexColor('#fefffe'),
+            titleSpacing: 0,
             leading: IconButton(
               icon: const Icon(Icons.arrow_back),
               onPressed: () {
                 Get.back();
               },
             ),
-            backgroundColor: HexColor('#fefffe'),
+            title: const Text('Masuk'),
+            titleTextStyle: const TextStyle(
+              color: Colors.black,
+              fontSize: 18,
+              fontWeight: FontWeight.w500,
+            ),
           ),
           body: Column(
             children: [
+              const SizedBox(height: 30),
               Text(
                 'Masuk Sekarang',
                 style: TextStyle(
