@@ -147,7 +147,6 @@ class UserRegisterController extends GetxController {
           isEmailRegistered.value = true;
         } else {
           isEmailRegistered.value = false;
-          print(email);
           Get.off(
             () => const RegisterDataScreen(),
             transition: Transition.rightToLeftWithFade,
