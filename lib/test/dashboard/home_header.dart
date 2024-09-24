@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sihalal_ecommerce_app/main.dart';
 import 'package:sihalal_ecommerce_app/test/dashboard/icon_btn_with_counter.dart';
 import 'package:sihalal_ecommerce_app/test/dashboard/search_field.dart';
 
@@ -11,11 +10,11 @@ class HomeHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
           gradient: LinearGradient(
         colors: [
-          kPrimaryColor,
-          const Color.fromARGB(255, 124, 198, 126),
+          // kPrimaryColor,
+          Color.fromARGB(255, 124, 198, 126),
         ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,

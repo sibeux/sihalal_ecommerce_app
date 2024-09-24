@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:sihalal_ecommerce_app/controller/jwt_controller.dart';
-import 'package:sihalal_ecommerce_app/screens/home_screen/home_screen.dart';
+import 'package:sihalal_ecommerce_app/screens/home_screen/persistent_bar_screen.dart';
 import 'package:sihalal_ecommerce_app/screens/user_auth_screen/register_data_screen.dart';
 
 class AuthFormController extends GetxController {
@@ -241,7 +241,7 @@ class UserRegisterController extends GetxController {
           email: email,
         );
         Get.offAll(
-          () => const HomeScreen(),
+          () => const PersistenBarScreen(),
           transition: Transition.rightToLeftWithFade,
         );
       } else {
@@ -302,7 +302,7 @@ class UserLoginController extends GetxController {
           email: email,
         );
         Get.offAll(
-          () => const HomeScreen(),
+          () => const PersistenBarScreen(),
           transition: Transition.rightToLeftWithFade,
         );
       } else {

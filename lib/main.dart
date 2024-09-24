@@ -1,18 +1,11 @@
 import 'package:flutter/material.dart';
 // ignore: unnecessary_import
-import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:sihalal_ecommerce_app/screens/splash_screen/splash_screen.dart';
-
-var kPrimaryColor = const Color.fromARGB(
-  255,
-  97,
-  186,
-  99,
-);
 
 final theme = ThemeData(
   fontFamily: 'SauceOne',
@@ -52,6 +45,11 @@ class MyApp extends StatelessWidget {
           page: () => const SplashScreen(),
         ),
       ],
+      builder: (context, child) {
+        // create multiple builders
+        child = FToastBuilder()(context, child);
+        return child;
+      },
     );
   }
 }

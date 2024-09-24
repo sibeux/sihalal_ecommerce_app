@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 import 'package:sihalal_ecommerce_app/component/color_palette.dart';
 import 'package:sihalal_ecommerce_app/screens/home_screen/home_screen.dart';
@@ -14,6 +16,7 @@ class PersistenBarScreen extends StatefulWidget {
 
 class _PersistenBarScreenState extends State<PersistenBarScreen> {
   late PersistentTabController _controller;
+  DateTime? lastPressed;
 
   @override
   void initState() {
@@ -100,6 +103,33 @@ class _PersistenBarScreenState extends State<PersistenBarScreen> {
         borderRadius: BorderRadius.circular(0),
         colorBehindNavBar: Colors.white,
       ),
+      onWillPop: (p0) {
+        // Kode ini akan dijalankan saat tombol back ditekan
+        final now = DateTime.now();
+        const maxDuration = Duration(seconds: 2);
+        bool backButtonHasNotBeenPressedOrToast =
+            lastPressed == null || now.difference(lastPressed!) > maxDuration;
+
+        if (backButtonHasNotBeenPressedOrToast) {
+          lastPressed = DateTime.now(); // Update waktu saat back ditekan
+
+          Fluttertoast.showToast(
+            msg: 'Tekan sekali lagi untuk keluar',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.black.withOpacity(0.8),
+            textColor: Colors.white,
+            fontSize: 10.0,
+          );
+
+          return Future.value(false); // Tidak keluar dari aplikasi
+        }
+
+        // Keluar dari aplikasi
+        SystemNavigator.pop();
+        return Future.value(true);
+      },
       navBarStyle: NavBarStyle.style3,
       padding: const EdgeInsets.only(
         bottom: 5,

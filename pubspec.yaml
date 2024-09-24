@@ -52,6 +52,7 @@ dependencies:
   jwt_decoder: ^2.0.1
   persistent_bottom_nav_bar: ^6.2.1
   flutter_launcher_icons: ^0.14.1
+  fluttertoast: ^8.2.8
   
 dev_dependencies:
   flutter_test:
