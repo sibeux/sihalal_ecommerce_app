@@ -125,7 +125,7 @@ class UserRegisterController extends GetxController {
   Future<void> getCheckEmail({required String email}) async {
     isLoading.value = true;
 
-    String url = 'https://sibeux.my.id/project/sihalal/auth';
+    const String url = 'https://sibeux.my.id/project/sihalal/auth';
 
     try {
       final response = await http.post(
@@ -173,7 +173,7 @@ class UserRegisterController extends GetxController {
   }) async {
     isLoading.value = true;
 
-    String url = 'https://sibeux.my.id/project/sihalal/auth';
+    const String url = 'https://sibeux.my.id/project/sihalal/auth';
 
     try {
       final response = await http.post(
@@ -217,7 +217,8 @@ class UserRegisterController extends GetxController {
 
   Future<void> generateJwtRegister(
       {required String email, required String password}) async {
-    String url = 'https://sibeux.my.id/project/sihalal-php-jwt/login';
+    const String url = 'https://sibeux.my.id/project/sihalal-php-jwt/login';
+    final jwtController = Get.put(JwtController());
 
     try {
       final response = await http.post(
@@ -235,7 +236,10 @@ class UserRegisterController extends GetxController {
         isLoading.value = false;
         isRedirecting.value = true;
         final jsonResponse = jsonDecode(response.body);
-        await Future.delayed(const Duration(seconds: 1));
+        await jwtController.setToken(
+          token: jsonResponse['token'],
+          email: email,
+        );
         Get.offAll(
           () => const HomeScreen(),
           transition: Transition.rightToLeftWithFade,
