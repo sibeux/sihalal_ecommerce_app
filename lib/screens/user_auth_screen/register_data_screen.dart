@@ -15,6 +15,7 @@ class RegisterDataScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final authController = Get.put(AuthFormController());
     final userRegisterController = Get.put(UserRegisterController());
+    final String email = Get.arguments['email'] ?? '';
     return Stack(
       children: [
         Scaffold(
@@ -22,6 +23,13 @@ class RegisterDataScreen extends StatelessWidget {
           resizeToAvoidBottomInset: false,
           appBar: AppBar(
             backgroundColor: HexColor('#fefffe'),
+            leading: IconButton(
+              icon: const Icon(Icons.arrow_back),
+              color: Colors.black,
+              onPressed: () {
+                Get.back();
+              },
+            ),
           ),
           body: Column(
             children: [
@@ -69,7 +77,7 @@ class RegisterDataScreen extends StatelessWidget {
                         !authController.getIsNameValid()
                     ? userRegisterController.isLoading.value
                         ? const AuthButtonLoading()
-                        : const RegisterSubmitButtonEnable()
+                        : RegisterSubmitButtonEnable(email: email)
                     : const AbsorbPointer(child: RegisterSubmitButtonDisable()),
               ),
               const SizedBox(height: 20),
@@ -88,7 +96,11 @@ class RegisterDataScreen extends StatelessWidget {
                     onTap: () {
                       authController.onClearController('nameRegister');
                       authController.onClearController('passwordRegister');
-                      Get.off(() => const LoginScreen());
+                      Get.off(
+                        () => const LoginScreen(),
+                        fullscreenDialog: true,
+                        popGesture: false,
+                      );
                     },
                     child: Text(
                       'Masuk',

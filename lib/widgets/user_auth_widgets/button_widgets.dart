@@ -86,7 +86,9 @@ class RegisterEmailDisable extends StatelessWidget {
 }
 
 class RegisterSubmitButtonEnable extends StatelessWidget {
-  const RegisterSubmitButtonEnable({super.key});
+  const RegisterSubmitButtonEnable({super.key, required this.email});
+
+  final String email;
 
   @override
   Widget build(BuildContext context) {
@@ -101,7 +103,7 @@ class RegisterSubmitButtonEnable extends StatelessWidget {
       isEnable: true,
       onPressed: () {
         userRegisterController.createNewUserData(
-          email: authController.formData['emailRegister']!['text'].toString(),
+          email: email,
           name: authController.formData['nameRegister']!['text']
               .toString()
               .trim(),

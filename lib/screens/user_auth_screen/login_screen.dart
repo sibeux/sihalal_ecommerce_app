@@ -94,7 +94,12 @@ class LoginScreen extends StatelessWidget {
                       authController.onClearController('emailLogin');
                       authController.onClearController('passwordLogin');
                       authController.onClearController('emailRegister');
-                      Get.off(() => const RegisterEmailScreen());
+                      Get.off(
+                        () => const RegisterEmailScreen(),
+                        transition: Transition.native,
+                        fullscreenDialog: true,
+                        popGesture: false,
+                      );
                     },
                     child: Text(
                       'Daftar',

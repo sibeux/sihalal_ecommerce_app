@@ -147,9 +147,15 @@ class UserRegisterController extends GetxController {
           isEmailRegistered.value = true;
         } else {
           isEmailRegistered.value = false;
+          print(email);
           Get.off(
             () => const RegisterDataScreen(),
             transition: Transition.rightToLeftWithFade,
+            fullscreenDialog: true,
+            popGesture: false,
+            arguments: {
+              'email': email,
+            },
           );
         }
       } else {
@@ -332,9 +338,10 @@ class UserLogoutController extends GetxController {
     isLoggingOut.value = true;
     final jwtController = Get.put(JwtController());
     await jwtController.deleteToken();
-    Get.off(
+    Get.offAll(
       () => const PersistenBarScreen(),
       transition: Transition.rightToLeftWithFade,
     );
+    isLoggingOut.value = false;
   }
 }

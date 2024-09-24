@@ -33,14 +33,24 @@ class UserAuthOptionScreen extends StatelessWidget {
             const SizedBox(height: 50),
             ElevatedButton(
               onPressed: () {
-                Get.to(() => const LoginScreen());
+                Get.to(
+                  () => const LoginScreen(),
+                  transition: Transition.native,
+                  fullscreenDialog: true,
+                  popGesture: false,
+                );
               },
               child: const Text('Login'),
             ),
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                Get.to(() => const RegisterEmailScreen());
+                Get.to(
+                  () => const RegisterEmailScreen(),
+                  transition: Transition.native,
+                  fullscreenDialog: true,
+                  popGesture: false,
+                );
               },
               child: const Text('Register'),
             ),

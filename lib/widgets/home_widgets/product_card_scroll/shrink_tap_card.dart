@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:sihalal_ecommerce_app/controller/product_detail_controller.dart';
 import 'package:sihalal_ecommerce_app/models/product.dart';
 import 'package:sihalal_ecommerce_app/screens/product_detail_screen/product_detail_screen.dart';
-import 'package:sihalal_ecommerce_app/widgets/home_widgets/product_card_scroll.dart';
+import 'package:sihalal_ecommerce_app/widgets/home_widgets/product_card_scroll/product_card.dart';
 
 double colorOnTap = 1;
 
@@ -79,7 +79,12 @@ class ShrinkTapProductState extends State<ShrinkTapProduct>
         _shrinkButtonSize();
         _restoreButtonSize();
         productDetailController.getProductDetailData(widget.uidProduct);
-        Get.to(() => ProductDetailScreen(product: widget.product));
+        Get.to(
+          () => ProductDetailScreen(product: widget.product),
+          transition: Transition.native,
+          fullscreenDialog: true,
+          popGesture: false,
+        );
       },
       onPanDown: (_) {
         _shrinkButtonSize();
