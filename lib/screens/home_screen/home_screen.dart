@@ -16,20 +16,6 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-final iconList = <IconData>[
-  Icons.home,
-  Icons.book,
-  Icons.brightness_6,
-  Icons.person,
-];
-
-final labelList = <String>[
-  'Home',
-  'Category',
-  'Wishlist',
-  'Akun',
-];
-
 const String colorWhite = 'fefffe';
 
 class NoGlowScrollBehavior extends ScrollBehavior {
@@ -134,21 +120,6 @@ class _HomeScreenState extends State<HomeScreen> {
         toolbarHeight: 80,
         scrolledUnderElevation: 0,
         elevation: 0,
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: HexColor(colorWhite),
-        selectedItemColor: ColorPalette().primary,
-        unselectedItemColor: HexColor('#575757'),
-        showSelectedLabels: true,
-        showUnselectedLabels: true,
-        items: iconList
-            .map(
-              (e) => BottomNavigationBarItem(
-                icon: Icon(e),
-                label: labelList[iconList.indexOf(e)],
-              ),
-            )
-            .toList(),
       ),
       body: ScrollConfiguration(
         behavior: NoGlowScrollBehavior(),
