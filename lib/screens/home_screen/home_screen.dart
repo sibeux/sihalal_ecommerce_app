@@ -94,6 +94,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: ClipRRect(
               borderRadius: const BorderRadius.all(Radius.circular(100)),
               child: Obx(
+                // ini masih bug, animasi gak jalan pas obx
                 () => userProfileController.isLoading.value
                     ? const UserPhotoAppbar()
                     : const UserPhotoAppbar(),
