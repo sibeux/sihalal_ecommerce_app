@@ -8,6 +8,7 @@ import 'package:sihalal_ecommerce_app/screens/favorite_screen/favorite_screen.da
 import 'package:sihalal_ecommerce_app/screens/home_screen/home_screen.dart';
 import 'package:sihalal_ecommerce_app/screens/order_screen/order_screen.dart';
 import 'package:sihalal_ecommerce_app/screens/user_auth_screen/check_valid_login.dart';
+import 'package:ionicons/ionicons.dart';
 
 class PersistenBarScreen extends StatefulWidget {
   const PersistenBarScreen({super.key});
@@ -42,24 +43,24 @@ class _PersistenBarScreenState extends State<PersistenBarScreen> {
     return [
       buttonNavBar(
           title: 'Beranda',
-          iconActive: Icons.home,
-          iconInactive: Icons.home_outlined),
+          iconActive: Ionicons.home_sharp,
+          iconInactive: Ionicons.home_outline),
       buttonNavBar(
           title: 'Keranjang',
-          iconActive: Icons.add_shopping_cart_rounded,
-          iconInactive: Icons.add_shopping_cart_outlined),
+          iconActive: Ionicons.cart_sharp,
+          iconInactive: Ionicons.cart_outline),
       buttonNavBar(
           title: 'Favorit',
-          iconActive: Icons.favorite_rounded,
-          iconInactive: Icons.favorite_border_rounded),
+          iconActive: Ionicons.heart_sharp,
+          iconInactive: Ionicons.heart_outline),
       buttonNavBar(
           title: 'Pesanan',
-          iconActive: Icons.notifications_active,
-          iconInactive: Icons.notifications),
+          iconActive: Ionicons.receipt_sharp,
+          iconInactive: Ionicons.receipt_outline),
       buttonNavBar(
           title: 'Akun',
-          iconActive: Icons.person_2_rounded,
-          iconInactive: Icons.person_2_outlined),
+          iconActive: Ionicons.person_sharp,
+          iconInactive: Ionicons.person_outline),
     ];
   }
 
@@ -73,7 +74,7 @@ class _PersistenBarScreenState extends State<PersistenBarScreen> {
       inactiveIcon: Icon(iconInactive),
       title: title,
       contentPadding: 0,
-      iconSize: 24,
+      iconSize: 20,
       activeColorPrimary: ColorPalette().primary,
       inactiveColorPrimary: Colors.black.withOpacity(0.5),
     );
