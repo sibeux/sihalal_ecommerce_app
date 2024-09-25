@@ -18,28 +18,21 @@ class JwtController extends GetxController {
 
   Future<void> setToken({required String token, email}) async {
     await storage.write(key: 'token', value: token);
-    await storage.write(key: 'email', value: email);
-    await storage.write(key: 'login', value: 'true');
     box.write('login', true);
+    box.write('email', email);
   }
 
   Future<void> checkToken() async {
     final token = await storage.read(key: 'token');
     if (token != null) {
       sendTokenToServer(token);
-    } else {
-      await storage.write(key: 'login', value: 'false');
-      if (kDebugMode) {
-        print('Token not found');
-      }
     }
   }
 
   Future<void> deleteToken() async {
     await storage.delete(key: 'token');
-    await storage.delete(key: 'email');
-    await storage.delete(key: 'login');
     box.write('login', false);
+    box.remove('email');
   }
 
   Future<void> sendTokenToServer(String token) async {
@@ -63,13 +56,6 @@ class JwtController extends GetxController {
           final Map<String, dynamic> decodedToken = JwtDecoder.decode(token);
           final email = decodedToken['data']['email'];
           setToken(token: token, email: email);
-        } else {
-          await storage.write(key: 'login', value: 'false');
-        }
-      } else {
-        await storage.write(key: 'login', value: 'false');
-        if (kDebugMode) {
-          print('Failed sending token. Error: ${response.statusCode}');
         }
       }
     } catch (e) {

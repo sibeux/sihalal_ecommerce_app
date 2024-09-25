@@ -1,12 +1,13 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:sihalal_ecommerce_app/component/color_palette.dart';
+import 'package:sihalal_ecommerce_app/controller/user_profile_controller.dart';
 import 'package:sihalal_ecommerce_app/widgets/home_widgets/banner_slider.dart';
 import 'package:sihalal_ecommerce_app/widgets/home_widgets/categories.dart';
 import 'package:sihalal_ecommerce_app/widgets/home_widgets/product_card_scroll/product_card_scroll.dart';
 import 'package:sihalal_ecommerce_app/screens/search_product_screen/search_product_screen.dart';
+import 'package:sihalal_ecommerce_app/widgets/home_widgets/photo_user.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -27,6 +28,7 @@ class NoGlowScrollBehavior extends ScrollBehavior {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
+    final userProfileController = Get.put(UserProfileController());
     return Scaffold(
       backgroundColor: HexColor(colorWhite),
       appBar: AppBar(
@@ -38,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
               end: Alignment.bottomRight,
               colors: <Color>[
                 HexColor('#519756').withOpacity(0.6),
-                HexColor('#f4d68a').withOpacity(0.6),
+                HexColor('#519756').withOpacity(0.6),
               ],
             ),
           ),
@@ -91,22 +93,10 @@ class _HomeScreenState extends State<HomeScreen> {
             margin: const EdgeInsets.only(right: 20),
             child: ClipRRect(
               borderRadius: const BorderRadius.all(Radius.circular(100)),
-              child: CachedNetworkImage(
-                imageUrl: '',
-                fit: BoxFit.cover,
-                height: 35,
-                width: 35,
-                maxHeightDiskCache: 100,
-                maxWidthDiskCache: 100,
-                filterQuality: FilterQuality.low,
-                placeholder: (context, url) => Image.asset(
-                  'assets/images/shimmer/profile/profile_shimmer.png',
-                  fit: BoxFit.cover,
-                ),
-                errorWidget: (context, url, error) => Image.asset(
-                  'assets/images/shimmer/profile/profile_shimmer.png',
-                  fit: BoxFit.cover,
-                ),
+              child: Obx(
+                () => userProfileController.isLoading.value
+                    ? const UserPhotoAppbar()
+                    : const UserPhotoAppbar(),
               ),
             ),
           ),

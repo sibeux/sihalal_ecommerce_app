@@ -70,10 +70,13 @@ void showModalConfirmLogout(BuildContext context) {
               ),
               Center(
                 child: TextButton(
-                  onPressed: () async {
-                    final userLogoutController = Get.put(UserLogoutController());
-                    Navigator.of(context).pop();
-                    userLogoutController.logout();
+                  onPressed: () {
+                    Get.back();
+                    Future.delayed(const Duration(milliseconds: 100), () {
+                      final userLogoutController =
+                          Get.put(UserLogoutController());
+                      userLogoutController.logout();
+                    });
                   },
                   style: ButtonStyle(
                     overlayColor: MaterialStateProperty.all(Colors.transparent),
