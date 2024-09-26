@@ -7,9 +7,11 @@ import 'package:sihalal_ecommerce_app/component/color_palette.dart';
 import 'package:sihalal_ecommerce_app/component/string_formatter.dart';
 import 'package:sihalal_ecommerce_app/controller/product_detail_controller.dart';
 import 'package:sihalal_ecommerce_app/models/product.dart';
+import 'package:sihalal_ecommerce_app/widgets/detail_product_widgets/button.dart';
 import 'package:sihalal_ecommerce_app/widgets/detail_product_widgets/product_review.dart';
 import 'package:sihalal_ecommerce_app/widgets/detail_product_widgets/shop_info.dart';
 import 'package:sihalal_ecommerce_app/widgets/detail_product_widgets/shop_info_shimmer.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 final _pageController = PageController(initialPage: 0, viewportFraction: 1);
 
@@ -311,17 +313,39 @@ class ProductDetailScreen extends StatelessWidget {
           ),
           Container(
             width: double.infinity,
-            height: 50,
+            height: 60,
             decoration: BoxDecoration(
               color: HexColor('#fefeff'),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.grey.withOpacity(0.5),
+                  color: Colors.grey.withOpacity(0.15),
                   spreadRadius: 1,
                   blurRadius: 1,
-                  offset: const Offset(0, 1),
+                  offset: const Offset(0, -1),
                 ),
               ],
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: BuyButton(
+                      onPressed: () {
+                        // Do something
+                      },
+                    ),
+                  ),
+                  const WidthBox(10),
+                  Expanded(
+                    child: CartButton(
+                      onPressed: () {
+                        // Do something
+                      },
+                    ),
+                  ),
+                ],
+              ),
             ),
           )
         ],

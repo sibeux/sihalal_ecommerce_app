@@ -21,7 +21,7 @@ class InkButton extends StatelessWidget {
   });
 
   final String text;
-  final String color;
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,7 @@ class InkButton extends StatelessWidget {
       height: 35,
       width: double.infinity,
       decoration: BoxDecoration(
-        color: HexColor(color),
+        color: color,
         borderRadius: BorderRadius.circular(5),
       ),
       child: Material(

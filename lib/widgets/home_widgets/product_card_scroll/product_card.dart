@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:sihalal_ecommerce_app/component/color_palette.dart';
 import 'package:sihalal_ecommerce_app/component/string_formatter.dart';
 import 'package:sihalal_ecommerce_app/widgets/home_widgets/product_card_scroll/product_card_scroll.dart';
 import 'package:sihalal_ecommerce_app/widgets/home_widgets/product_card_scroll/shimmer_product_card.dart';
@@ -60,9 +61,9 @@ class ProductCard extends ConsumerWidget {
               location: kota,
             ),
           ),
-          const InkButton(
+          InkButton(
             text: 'Tambah',
-            color: '#519756',
+            color: ColorPalette().primary,
           ),
         ],
       ),
