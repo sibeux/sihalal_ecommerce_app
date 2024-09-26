@@ -18,14 +18,13 @@ class UserPhotoAppbar extends StatelessWidget {
         return FadeTransition(opacity: animation, child: child);
       },
       child: userProfileController.isLoading.value ||
-                userProfileController.userData.isEmpty
-            ? const UserImage(
-                image: '',
-              )
-            : UserImage(
-                image: userProfileController.userData[0].fotoUser,
-              ),
-      
+              userProfileController.userData.isEmpty
+          ? const UserImage(
+              image: '',
+            )
+          : UserImage(
+              image: userProfileController.userData[0].fotoUser,
+            ),
     );
   }
 }
@@ -45,8 +44,8 @@ class UserImage extends StatelessWidget {
       fit: BoxFit.cover,
       height: 35,
       width: 35,
-      maxHeightDiskCache: 100,
-      maxWidthDiskCache: 100,
+      maxHeightDiskCache: 200,
+      maxWidthDiskCache: 200,
       filterQuality: FilterQuality.low,
       placeholder: (context, url) => Image.asset(
         'assets/images/shimmer/profile/profile_shimmer.png',

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-// ignore: unnecessary_import
+// ignore: unused_import
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

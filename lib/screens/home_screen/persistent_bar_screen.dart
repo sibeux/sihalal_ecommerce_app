@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 import 'package:sihalal_ecommerce_app/component/color_palette.dart';
+import 'package:sihalal_ecommerce_app/controller/auth_controller.dart';
 import 'package:sihalal_ecommerce_app/screens/cart_screen/cart_screen.dart';
 import 'package:sihalal_ecommerce_app/screens/favorite_screen/favorite_screen.dart';
 import 'package:sihalal_ecommerce_app/screens/home_screen/home_screen.dart';
@@ -82,60 +84,64 @@ class _PersistenBarScreenState extends State<PersistenBarScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return PersistentTabView(
-      context,
-      controller: _controller,
-      screens: _buildScreens(),
-      items: _navBarsItems(),
-      confineToSafeArea: true,
-      backgroundColor: Colors.white,
-      handleAndroidBackButtonPress: false, // Mengatur tombol back di Android
-      resizeToAvoidBottomInset: true,
-      stateManagement: true, // Untuk manajemen state dari tiap halaman
-      hideNavigationBarWhenKeyboardAppears:
-          false, // Sembunyikan nav bar saat keyboard muncul
-      decoration: NavBarDecoration(
-        boxShadow: [
-          const BoxShadow(
-            color: Colors.grey,
-            spreadRadius: 0.2,
-            // blurRadius: 0.1,
-            offset: Offset(0, 0),
-          )
-        ],
-        borderRadius: BorderRadius.circular(0),
-        colorBehindNavBar: Colors.white,
-      ),
-      onWillPop: (p0) {
-        // Kode ini akan dijalankan saat tombol back ditekan
-        final now = DateTime.now();
-        const maxDuration = Duration(seconds: 2);
-        bool backButtonHasNotBeenPressedOrToast =
-            lastPressed == null || now.difference(lastPressed!) > maxDuration;
+    final userLogoutController = Get.put(UserLogoutController());
+    return AbsorbPointer(
+      absorbing: userLogoutController.isLoggingOut.value,
+      child: PersistentTabView(
+        context,
+        controller: _controller,
+        screens: _buildScreens(),
+        items: _navBarsItems(),
+        confineToSafeArea: true,
+        backgroundColor: Colors.white,
+        handleAndroidBackButtonPress: false, // Mengatur tombol back di Android
+        resizeToAvoidBottomInset: true,
+        stateManagement: true, // Untuk manajemen state dari tiap halaman
+        hideNavigationBarWhenKeyboardAppears:
+            false, // Sembunyikan nav bar saat keyboard muncul
+        decoration: NavBarDecoration(
+          boxShadow: [
+            const BoxShadow(
+              color: Colors.grey,
+              spreadRadius: 0.2,
+              // blurRadius: 0.1,
+              offset: Offset(0, 0),
+            )
+          ],
+          borderRadius: BorderRadius.circular(0),
+          colorBehindNavBar: Colors.white,
+        ),
+        onWillPop: (p0) {
+          // Kode ini akan dijalankan saat tombol back ditekan
+          final now = DateTime.now();
+          const maxDuration = Duration(seconds: 2);
+          bool backButtonHasNotBeenPressedOrToast =
+              lastPressed == null || now.difference(lastPressed!) > maxDuration;
 
-        if (backButtonHasNotBeenPressedOrToast) {
-          lastPressed = DateTime.now(); // Update waktu saat back ditekan
+          if (backButtonHasNotBeenPressedOrToast) {
+            lastPressed = DateTime.now(); // Update waktu saat back ditekan
 
-          Fluttertoast.showToast(
-            msg: 'Tekan sekali lagi untuk keluar',
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.CENTER,
-            timeInSecForIosWeb: 1,
-            backgroundColor: Colors.black.withOpacity(0.8),
-            textColor: Colors.white,
-            fontSize: 10.0,
-          );
+            Fluttertoast.showToast(
+              msg: 'Tekan sekali lagi untuk keluar',
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.CENTER,
+              timeInSecForIosWeb: 1,
+              backgroundColor: Colors.black.withOpacity(0.8),
+              textColor: Colors.white,
+              fontSize: 10.0,
+            );
 
-          return Future.value(false); // Tidak keluar dari aplikasi
-        }
+            return Future.value(false); // Tidak keluar dari aplikasi
+          }
 
-        // Keluar dari aplikasi
-        SystemNavigator.pop();
-        return Future.value(true);
-      },
-      navBarStyle: NavBarStyle.style3,
-      padding: const EdgeInsets.only(
-        bottom: 5,
+          // Keluar dari aplikasi
+          SystemNavigator.pop();
+          return Future.value(true);
+        },
+        navBarStyle: NavBarStyle.style3,
+        padding: const EdgeInsets.only(
+          bottom: 5,
+        ),
       ),
     );
   }

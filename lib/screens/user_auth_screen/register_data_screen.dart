@@ -84,7 +84,7 @@ class RegisterDataScreen extends StatelessWidget {
                 () => authController.getIsDataRegisterValid() &&
                         !authController.getIsNameValid()
                     ? userRegisterController.isLoading.value
-                        ? const AuthButtonLoading()
+                        ? const AbsorbPointer(child: AuthButtonLoading())
                         : RegisterSubmitButtonEnable(email: email)
                     : const AbsorbPointer(child: RegisterSubmitButtonDisable()),
               ),

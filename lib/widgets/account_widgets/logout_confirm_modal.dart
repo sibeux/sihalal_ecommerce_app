@@ -72,9 +72,9 @@ void showModalConfirmLogout(BuildContext context) {
                 child: TextButton(
                   onPressed: () {
                     Get.back();
-                    Future.delayed(const Duration(milliseconds: 100), () {
+                    Future.delayed(const Duration(milliseconds: 200), () {
                       final userLogoutController =
-                          Get.put(UserLogoutController());
+                          Get.find<UserLogoutController>();
                       userLogoutController.logout();
                     });
                   },

@@ -76,7 +76,7 @@ class RegisterEmailScreen extends StatelessWidget {
           Obx(
             () => authController.getIsEmailValid('emailRegister')
                 ? userRegisterController.isLoading.value
-                    ? const AuthButtonLoading()
+                    ? const AbsorbPointer(child: AuthButtonLoading())
                     : const RegisterEmailEnable()
                 : const AbsorbPointer(child: RegisterEmailDisable()),
           ),

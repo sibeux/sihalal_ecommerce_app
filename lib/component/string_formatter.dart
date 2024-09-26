@@ -30,9 +30,9 @@ String cleanAndCombineText(String input) {
 String timeAgo(String dateTimeString) {
   // Parsing input string ke DateTime
   DateTime dateTime = DateFormat('yyyy-MM-dd HH:mm:ss').parse(dateTimeString);
-  
+
   Duration diff = DateTime.now().difference(dateTime);
-  
+
   if (diff.inDays == 0) {
     // Jika hari ini
     return "hari ini";
@@ -52,4 +52,25 @@ String timeAgo(String dateTimeString) {
     // Jika lebih dari setahun
     return "${(diff.inDays / 365).floor()} tahun yang lalu";
   }
+}
+
+String maskEmail(String email) {
+  // Memisahkan bagian email sebelum dan sesudah simbol '@'
+  List<String> parts = email.split('@');
+  String localPart = parts[0]; // Bagian sebelum '@'
+  String domainPart = parts[1]; // Bagian setelah '@'
+
+  // Jika panjang bagian lokal lebih dari 2, samarkan sesuai
+  String maskedLocalPart;
+  if (localPart.length > 2) {
+    maskedLocalPart =
+        localPart[0] + '*' * (5) + localPart[localPart.length - 1];
+  } else if (localPart.length == 2) {
+    maskedLocalPart = '${localPart[0]}*'; // Hanya menyisakan huruf pertama
+  } else {
+    maskedLocalPart = localPart; // Menyimpan huruf jika hanya ada satu huruf
+  }
+
+  // Menggabungkan kembali bagian yang telah disamarkan
+  return '$maskedLocalPart@$domainPart';
 }

@@ -81,7 +81,7 @@ class LoginScreen extends StatelessWidget {
               Obx(
                 () => authController.getIsDataLoginValid()
                     ? userLoginController.isLoading.value
-                        ? const AuthButtonLoading()
+                        ? const AbsorbPointer(child: AuthButtonLoading())
                         : const LoginSubmitButtonEnable()
                     : const AbsorbPointer(child: LoginSubmitButtonDisable()),
               ),
