@@ -11,50 +11,37 @@ class UserPhotoAppbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final userProfileController = Get.put(UserProfileController());
-    return AnimatedSwitcher(
-      duration: const Duration(seconds: 1),
-      transitionBuilder: (Widget child, Animation<double> animation) {
-        return FadeTransition(opacity: animation, child: child);
-      },
-      child: userProfileController.isLoading.value ||
-              userProfileController.userData.isEmpty
-          ? const UserImage(
-              image: '',
-            )
-          : UserImage(
-              image: userProfileController.userData[0].fotoUser,
-            ),
-    );
+    return const UserImage();
   }
 }
 
 class UserImage extends StatelessWidget {
   const UserImage({
     super.key,
-    required this.image,
   });
-
-  final String image;
 
   @override
   Widget build(BuildContext context) {
-    return CachedNetworkImage(
-      imageUrl: image,
-      fit: BoxFit.cover,
-      height: 35,
-      width: 35,
-      maxHeightDiskCache: 200,
-      maxWidthDiskCache: 200,
-      filterQuality: FilterQuality.low,
-      placeholder: (context, url) => Image.asset(
-        'assets/images/shimmer/profile/profile_shimmer.png',
-        fit: BoxFit.cover,
-      ),
-      errorWidget: (context, url, error) => Image.asset(
-        'assets/images/shimmer/profile/profile_shimmer.png',
-        fit: BoxFit.cover,
-      ),
-    );
+    final userProfileController = Get.put(UserProfileController());
+    return Obx(() => CachedNetworkImage(
+          imageUrl: (userProfileController.isLoading.value ||
+                  userProfileController.userData.isEmpty)
+              ? ''
+              : userProfileController.userData[0].fotoUser,
+          fit: BoxFit.cover,
+          height: 35,
+          width: 35,
+          maxHeightDiskCache: 200,
+          maxWidthDiskCache: 200,
+          filterQuality: FilterQuality.low,
+          placeholder: (context, url) => Image.asset(
+            'assets/images/shimmer/profile/profile_shimmer.png',
+            fit: BoxFit.cover,
+          ),
+          errorWidget: (context, url, error) => Image.asset(
+            'assets/images/shimmer/profile/profile_shimmer.png',
+            fit: BoxFit.cover,
+          ),
+        ));
   }
 }

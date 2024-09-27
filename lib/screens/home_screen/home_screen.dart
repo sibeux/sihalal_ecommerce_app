@@ -28,7 +28,7 @@ class NoGlowScrollBehavior extends ScrollBehavior {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    final userProfileController = Get.put(UserProfileController());
+    Get.put(UserProfileController());
     return Scaffold(
       backgroundColor: HexColor(colorWhite),
       appBar: AppBar(
@@ -91,16 +91,12 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: [
           Container(
             margin: const EdgeInsets.only(right: 20),
-            child: ClipRRect(
-              borderRadius: const BorderRadius.all(Radius.circular(100)),
-              child: Obx(
-                // ini masih bug, animasi gak jalan pas obx
-                () => userProfileController.isLoading.value
-                    ? const UserPhotoAppbar()
-                    : const UserPhotoAppbar(),
+            child: const ClipRRect(
+              borderRadius: BorderRadius.all(Radius.circular(100)),
+              child: UserPhotoAppbar(),
               ),
             ),
-          ),
+          
         ],
         toolbarHeight: 80,
         scrolledUnderElevation: 0,

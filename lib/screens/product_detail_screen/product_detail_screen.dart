@@ -47,6 +47,7 @@ class ProductDetailScreen extends StatelessWidget {
       appBar: AppBar(
         surfaceTintColor: Colors.transparent,
         backgroundColor: HexColor('#fefeff'),
+        titleSpacing: 0,
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back,
@@ -56,7 +57,29 @@ class ProductDetailScreen extends StatelessWidget {
             Get.back();
           },
         ),
-        title: const Text('Detail Product'),
+        actions: [
+          IconButton(
+            icon: const Icon(
+              Icons.share,
+              color: Colors.black,
+            ),
+            onPressed: () {
+              // Do something
+            },
+          ),
+          Container(
+            margin: const EdgeInsets.only(right: 20),
+            child: IconButton(
+              icon: const Icon(
+                Icons.favorite_border,
+                color: Colors.black,
+              ),
+              onPressed: () {
+                // Do something
+              },
+            ),
+          ),
+        ],
       ),
       body: Column(
         children: [
