@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:sihalal_ecommerce_app/component/color_palette.dart';
 import 'package:sihalal_ecommerce_app/models/product.dart';
 import 'package:sihalal_ecommerce_app/widgets/checkout_widgets/address_stripe.dart';
 import 'package:sihalal_ecommerce_app/widgets/checkout_widgets/product_info.dart';
 import 'package:sihalal_ecommerce_app/widgets/checkout_widgets/shipping_address.dart';
+import 'package:sihalal_ecommerce_app/widgets/checkout_widgets/shipping_method.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class CheckoutScreen extends StatelessWidget {
@@ -56,6 +58,14 @@ class CheckoutScreen extends StatelessWidget {
             product: product,
             shopName: shopName,
           ),
+          const HeightBox(15),
+          Divider(
+            color: HexColor('#eff4f8'),
+            height: 8,
+            thickness: 8,
+          ),
+          const HeightBox(15),
+          const ShippingMethod()
         ],
       ),
     );
