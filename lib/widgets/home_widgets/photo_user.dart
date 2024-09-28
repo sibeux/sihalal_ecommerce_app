@@ -23,25 +23,27 @@ class UserImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final userProfileController = Get.put(UserProfileController());
-    return Obx(() => CachedNetworkImage(
-          imageUrl: (userProfileController.isLoading.value ||
-                  userProfileController.userData.isEmpty)
-              ? ''
-              : userProfileController.userData[0].fotoUser,
+    return Obx(
+      () => CachedNetworkImage(
+        imageUrl: (userProfileController.isLoading.value ||
+                userProfileController.userData.isEmpty)
+            ? ''
+            : userProfileController.userData[0].fotoUser,
+        fit: BoxFit.cover,
+        height: 35,
+        width: 35,
+        maxHeightDiskCache: 200,
+        maxWidthDiskCache: 200,
+        filterQuality: FilterQuality.low,
+        placeholder: (context, url) => Image.asset(
+          'assets/images/shimmer/profile/profile_shimmer.png',
           fit: BoxFit.cover,
-          height: 35,
-          width: 35,
-          maxHeightDiskCache: 200,
-          maxWidthDiskCache: 200,
-          filterQuality: FilterQuality.low,
-          placeholder: (context, url) => Image.asset(
-            'assets/images/shimmer/profile/profile_shimmer.png',
-            fit: BoxFit.cover,
-          ),
-          errorWidget: (context, url, error) => Image.asset(
-            'assets/images/shimmer/profile/profile_shimmer.png',
-            fit: BoxFit.cover,
-          ),
-        ));
+        ),
+        errorWidget: (context, url, error) => Image.asset(
+          'assets/images/shimmer/profile/profile_shimmer.png',
+          fit: BoxFit.cover,
+        ),
+      ),
+    );
   }
 }

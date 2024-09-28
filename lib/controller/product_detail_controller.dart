@@ -112,14 +112,17 @@ class ProductReviewController extends GetxController {
           idRating: review['id_rating'],
           idProduk: idProduk,
           idUser: review['id_user'],
+          idPesanan: review['id_pesanan'],
           rating: review['bintang_rating'],
-          ulasan: review['pesan_rating'],
+          ulasan: review['pesan_rating'] ?? '',
           tanggal: review['tanggal_rating'],
           namaUser: review['nama_user'],
-          fotoUser: regexGdriveLink(
-            review['foto_user'],
-            apiData[0]['gdrive_api'],
-          ),
+          fotoUser: review['foto_user'] == null
+              ? ''
+              : regexGdriveLink(
+                  review['foto_user'],
+                  apiData[0]['gdrive_api'],
+                ),
         );
       }).toList();
 
