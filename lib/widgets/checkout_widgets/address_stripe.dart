@@ -13,7 +13,7 @@ class DiagonalStripedPainter extends CustomPainter {
       ..color = const Color(0xFF91c8e7)
       ..style = PaintingStyle.fill;
 
-    double stripeWidth = 20;
+    double stripeWidth = 20; // panjang garis
     double stripeSpace = 10; // Jarak antar garis
     double angle = 30; // Sudut kemiringan garis
 

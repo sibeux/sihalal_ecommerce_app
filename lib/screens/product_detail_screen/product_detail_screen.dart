@@ -357,7 +357,11 @@ class ProductDetailScreen extends StatelessWidget {
                     child: BuyButton(
                       onPressed: () {
                         Get.to(
-                          () => const CheckoutScreen(),
+                          () => CheckoutScreen(
+                            product: product,
+                            shopName: shopInfoProductController
+                                .shopInfo[0]!.namaToko,
+                          ),
                           transition: Transition.rightToLeft,
                         );
                       },
