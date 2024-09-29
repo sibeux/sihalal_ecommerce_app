@@ -7,6 +7,7 @@ import 'package:velocity_x/velocity_x.dart';
 class AddressContainer extends StatelessWidget {
   const AddressContainer({
     super.key,
+    required this.label,
     required this.name,
     required this.phoneNumber,
     required this.address,
@@ -18,7 +19,14 @@ class AddressContainer extends StatelessWidget {
     required this.isStore,
   });
 
-  final String name, phoneNumber, address, district, city, province, postalCode;
+  final String label,
+      name,
+      phoneNumber,
+      address,
+      district,
+      city,
+      province,
+      postalCode;
   final bool isMain, isStore;
 
   @override
@@ -41,19 +49,26 @@ class AddressContainer extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Icon(
-                Ionicons.home_outline,
-                color: HexColor('#000000'),
-                size: 22,
-              ),
-              const WidthBox(10),
-              Text(
-                'Rumah',
-                style: TextStyle(
-                  color: HexColor('#000000'),
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Icon(
+                    label == 'kantor'
+                        ? Ionicons.business_outline
+                        : Ionicons.home_outline,
+                    color: HexColor('#000000'),
+                    size: 22,
+                  ),
+                  const WidthBox(10),
+                  Text(
+                    label.capitalized,
+                    style: TextStyle(
+                      color: HexColor('#000000'),
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ],
               ),
               const WidthBox(10),
               if (isMain)
@@ -95,12 +110,6 @@ class AddressContainer extends StatelessWidget {
                     ),
                   ),
                 ),
-              const Spacer(),
-              Icon(
-                Icons.edit,
-                color: ColorPalette().primary,
-                size: 22,
-              ),
             ],
           ),
           const HeightBox(5),

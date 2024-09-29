@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ionicons/ionicons.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:sihalal_ecommerce_app/component/color_palette.dart';
 
 class EditProfileButton extends StatelessWidget {
@@ -44,53 +44,83 @@ class EditProfileButton extends StatelessWidget {
   }
 }
 
-class AddNewAddress extends StatelessWidget {
-  const AddNewAddress({
-    super.key,
-  });
+class DisableSendNewAddress extends StatelessWidget {
+  const DisableSendNewAddress({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: ElevatedButton(
-        onPressed: () {},
-        style: ElevatedButton.styleFrom(
-          foregroundColor: ColorPalette().primary.withOpacity(0.7),
-          elevation: 0, // Menghilangkan shadow
-          splashFactory: InkRipple.splashFactory,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-            side: BorderSide(
-              color: ColorPalette().primary.withOpacity(0.7),
-            ),
-          ),
-          minimumSize: const Size(
-            double.infinity,
-            40,
+    return AbsorbPointer(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        child: AddressButtonWidget(
+          onPressed: () {},
+          title: 'Simpan Alamat',
+          icon: Icons.save,
+          foregroundColor: HexColor('#a8b5c8'),
+          backgroundColor: HexColor('#e5eaf5'),
+        ),
+      ),
+    );
+  }
+}
+
+class AddressButtonWidget extends StatelessWidget {
+  const AddressButtonWidget({
+    super.key,
+    required this.onPressed,
+    required this.title,
+    required this.icon,
+    required this.foregroundColor,
+    required this.backgroundColor,
+  });
+
+  final void Function() onPressed;
+  final String title;
+  final IconData icon;
+  final Color foregroundColor, backgroundColor;
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      onPressed: () {
+        onPressed();
+      },
+      style: ElevatedButton.styleFrom(
+        foregroundColor: foregroundColor,
+        backgroundColor: backgroundColor,
+        elevation: 0, // Menghilangkan shadow
+        splashFactory: InkRipple.splashFactory,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+          side: BorderSide(
+            color: foregroundColor.withOpacity(0.7),
           ),
         ),
-        child: const Padding(
-          padding: EdgeInsets.symmetric(
-            vertical: 12.0,
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                Ionicons.add_circle_outline,
-                size: 20,
+        minimumSize: const Size(
+          double.infinity,
+          40,
+        ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(
+          vertical: 12.0,
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              icon,
+              size: 20,
+            ),
+            const SizedBox(width: 10),
+            Text(
+              title,
+              style: const TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
               ),
-              SizedBox(width: 10),
-              Text(
-                'Tambah Alamat Baru',
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

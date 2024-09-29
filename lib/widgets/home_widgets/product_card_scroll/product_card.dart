@@ -6,7 +6,7 @@ import 'package:sihalal_ecommerce_app/component/color_palette.dart';
 import 'package:sihalal_ecommerce_app/component/string_formatter.dart';
 import 'package:sihalal_ecommerce_app/widgets/home_widgets/product_card_scroll/product_card_scroll.dart';
 import 'package:sihalal_ecommerce_app/widgets/home_widgets/product_card_scroll/shimmer_product_card.dart';
-import 'package:sihalal_ecommerce_app/widgets/little_particle.dart';
+import 'package:sihalal_ecommerce_app/component/little_particle.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class ProductCard extends ConsumerWidget {

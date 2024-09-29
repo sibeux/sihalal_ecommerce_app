@@ -109,7 +109,7 @@ class CheckoutScreen extends StatelessWidget {
               ],
             ),
             child: const ButtonCreateOrder(),
-          )
+          ),
         ],
       ),
     );
