@@ -6,6 +6,7 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:sihalal_ecommerce_app/component/string_formatter.dart';
 import 'package:sihalal_ecommerce_app/controller/auth_controller.dart';
 import 'package:sihalal_ecommerce_app/controller/user_profile_controller.dart';
+import 'package:sihalal_ecommerce_app/screens/account_screen/list_address_screen.dart';
 import 'package:sihalal_ecommerce_app/widgets/account_widgets/button_widget.dart';
 import 'package:sihalal_ecommerce_app/widgets/account_widgets/logout_confirm_modal.dart';
 import 'package:sihalal_ecommerce_app/widgets/account_widgets/text_tile.dart';
@@ -118,7 +119,12 @@ class AccountScreen extends StatelessWidget {
                     TextTile(
                       title: 'Daftar Alamat',
                       icon: Ionicons.map_outline,
-                      action: () {},
+                      action: () {
+                        Get.to(
+                          () => const ListAddressScreen(),
+                          transition: Transition.downToUp,
+                        );
+                      },
                     ),
                     const SpaceDivider(),
                     TextTile(
