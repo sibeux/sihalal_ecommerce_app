@@ -14,7 +14,9 @@ class ReceiptDistrictScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final newAddressController = Get.find<NewAddressController>();
-    newAddressController.clearSelectedAddress();
+    if (!newAddressController.isAllLocationSet.value) {
+      newAddressController.clearSelectedAddress();
+    }
     return Scaffold(
       backgroundColor: HexColor('#fefffe'),
       resizeToAvoidBottomInset: false,
@@ -40,7 +42,8 @@ class ReceiptDistrictScreen extends StatelessWidget {
           Stack(
             children: [
               Obx(
-                () => newAddressController.isAddressSetManual.value
+                () => newAddressController.isAddressSetManual.value ||
+                        newAddressController.isAllLocationSet.value
                     ? Container(
                         width: double.infinity,
                         color: Colors.grey[100],
@@ -61,10 +64,6 @@ class ReceiptDistrictScreen extends StatelessWidget {
                                 const Spacer(),
                                 GestureDetector(
                                   onTap: () {
-                                    newAddressController
-                                        .isAddressSetManual.value = false;
-                                    newAddressController
-                                        .firstLetterLocation.value = '';
                                     newAddressController.clearSelectedAddress();
                                     newAddressController
                                             .listCurrentLocation.value =
@@ -91,44 +90,40 @@ class ReceiptDistrictScreen extends StatelessWidget {
                                                 .value ==
                                             'city' ||
                                         newAddressController
-                                            .provinceIsSet.value)
+                                            .provinceIsSet.value ||
+                                        newAddressController
+                                            .isAllLocationSet.value)
                                       const BulletSelectedLocation(
                                         area: 'province',
                                       ),
                                     if (newAddressController
-                                            .nowCurrentSelectedAddress.value ==
-                                        'district' || newAddressController
-                                            .cityIsSet.value)
+                                                .nowCurrentSelectedAddress
+                                                .value ==
+                                            'postalCode' ||
+                                        newAddressController.cityIsSet.value ||
+                                        newAddressController
+                                            .isAllLocationSet.value)
                                       const BulletSelectedLocation(
                                         area: 'city',
-                                      ),
-                                    if (newAddressController
-                                            .nowCurrentSelectedAddress.value ==
-                                        'postalCode' || newAddressController
-                                            .districtIsSet.value)
-                                      const BulletSelectedLocation(
-                                        area: 'district',
                                       ),
                                     const ContainerSelectArea(),
                                     const HeightBox(20),
                                     Obx(
                                       () => Text(
-                                        newAddressController
-                                                    .nowCurrentSelectedAddress
-                                                    .value ==
-                                                'province'
-                                            ? 'Provinsi'
-                                            : newAddressController
+                                        !newAddressController
+                                                .isAllLocationSet.value
+                                            ? newAddressController
                                                         .nowCurrentSelectedAddress
                                                         .value ==
-                                                    'city'
-                                                ? 'Kota'
+                                                    'province'
+                                                ? 'Provinsi'
                                                 : newAddressController
                                                             .nowCurrentSelectedAddress
                                                             .value ==
-                                                        'district'
-                                                    ? 'Kecamatan'
-                                                    : 'Kode Pos',
+                                                        'city'
+                                                    ? 'Kota'
+                                                    : 'Kode Pos'
+                                            : 'Kode Pos',
                                       ),
                                     ),
                                   ],

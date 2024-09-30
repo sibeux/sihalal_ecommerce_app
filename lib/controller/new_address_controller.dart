@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 
 import 'package:http/http.dart' as http;
 import 'package:sihalal_ecommerce_app/models/address_model/city.dart';
+import 'package:sihalal_ecommerce_app/models/address_model/postal_code.dart';
 import 'package:sihalal_ecommerce_app/models/address_model/province.dart';
 
 class NewAddressController extends GetxController {
@@ -18,14 +19,15 @@ class NewAddressController extends GetxController {
   var isAddressSetManual = false.obs;
   var needRebuildTrack = false.obs;
   var nowCurrentSelectedAddress = 'province'.obs;
+  var isAllLocationSet = false.obs;
 
   var provinceIsSet = false.obs;
   var cityIsSet = false.obs;
-  var districtIsSet = false.obs;
   var postalCodeIsSet = false.obs;
 
   var listCurrentLocation = RxList([]);
   var listProvince = RxList<Province?>([]);
+  var listCity = RxList<City?>([]);
 
   var formData = RxMap(
     {
@@ -57,17 +59,10 @@ class NewAddressController extends GetxController {
       'selectedAddress': {
         'province': '',
         'city': '',
-        'district': '',
         'postalCode': '',
       },
     },
   );
-
-  @override
-  void onInit() {
-    super.onInit();
-    firstLetterLocation.value = '';
-  }
 
   void onChanged(String value, String type) {
     final currentController = formData[type]?['controller'];
@@ -151,8 +146,6 @@ class NewAddressController extends GetxController {
       case 'province':
         return cityIsSet.value;
       case 'city':
-        return districtIsSet.value;
-      case 'district':
         return postalCodeIsSet.value;
       case 'postalCode':
         return true;
@@ -166,29 +159,36 @@ class NewAddressController extends GetxController {
       'province': '',
       'city': '',
       'district': '',
-      'postalCode': '',
     };
     isAddressSetManual.value = false;
     firstLetterLocation.value = '';
     nowCurrentSelectedAddress.value = 'province';
     provinceIsSet.value = false;
     cityIsSet.value = false;
-    districtIsSet.value = false;
     postalCodeIsSet.value = false;
+    update();
+  }
+
+  void setFormReceiptDistrictValue(String value) {
+    final currentController = formData['receiptDistrict']?['controller'];
+    (currentController as TextEditingController).text = value;
+    formData['receiptDistrict'] = {
+      'text': value,
+      'type': 'receiptDistrict',
+      'controller': currentController,
+    };
     update();
   }
 
   void setAddressLocation(String location, String area) {
     final currentProvince = selectedAddress['selectedAddress']?['province'];
     final currentCity = selectedAddress['selectedAddress']?['city'];
-    final currentDistrict = selectedAddress['selectedAddress']?['district'];
 
     switch (area) {
       case 'province':
         selectedAddress['selectedAddress'] = {
           'province': location,
           'city': '',
-          'district': '',
           'postalCode': '',
         };
         nowCurrentSelectedAddress.value = 'city';
@@ -198,31 +198,26 @@ class NewAddressController extends GetxController {
         selectedAddress['selectedAddress'] = {
           'province': currentProvince ?? '',
           'city': location,
-          'district': '',
-          'postalCode': '',
-        };
-        nowCurrentSelectedAddress.value = 'district';
-        cityIsSet.value = true;
-        break;
-      case 'district':
-        selectedAddress['selectedAddress'] = {
-          'province': currentProvince ?? '',
-          'city': currentCity ?? '',
-          'district': location,
           'postalCode': '',
         };
         nowCurrentSelectedAddress.value = 'postalCode';
-        districtIsSet.value = true;
+        cityIsSet.value = true;
         break;
       case 'postalCode':
         selectedAddress['selectedAddress'] = {
           'province': currentProvince ?? '',
           'city': currentCity ?? '',
-          'district': currentDistrict ?? '',
           'postalCode': location,
         };
         nowCurrentSelectedAddress.value = 'done';
         postalCodeIsSet.value = true;
+        isAllLocationSet.value = true;
+        setFormReceiptDistrictValue(
+          '${selectedAddress['selectedAddress']?['province']}\n'
+          '${selectedAddress['selectedAddress']?['city']}\n'
+          '${selectedAddress['selectedAddress']?['postalCode']}',
+        );
+        Get.back();
         break;
     }
     update();
@@ -296,6 +291,7 @@ class NewAddressController extends GetxController {
       }).toList();
 
       listCurrentLocation.value = list;
+      listCity.value = list;
     } catch (e) {
       if (kDebugMode) {
         print(e);
@@ -303,5 +299,25 @@ class NewAddressController extends GetxController {
     } finally {
       isGetLocationLoading.value = false;
     }
+  }
+
+  void getPostalCodeData(String idCity) {
+    isGetLocationLoading.value = true;
+    firstLetterLocation.value = '';
+
+    final list = listCity.where((city) => city!.idCity == idCity).toList();
+
+    final postalCode = list
+        .map(
+          (code) => PostalCode(
+            postalCode: code!.postalCode,
+            area: 'postalCode',
+            isFistLetter: false,
+          ),
+        )
+        .toList();
+
+    listCurrentLocation.value = postalCode;
+    isGetLocationLoading.value = false;
   }
 }

@@ -18,16 +18,23 @@ class ListTileLocation extends StatelessWidget {
     final newAddressController = Get.find<NewAddressController>();
     return InkWell(
       onTap: () {
-        newAddressController.setAddressLocation(
-          location.area != 'city'
-              ? location.name
-              : '${shortenKabupaten(location.type)} ${location.name}',
-          location.area,
-        );
+        if (location.area != 'postalCode') {
+          newAddressController.setAddressLocation(
+            location.area != 'city'
+                ? location.name
+                : '${shortenKabupaten(location.type)} ${location.name}',
+            location.area,
+          );
+        } else {
+          newAddressController.setAddressLocation(
+              location.postalCode, 'postalCode');
+        }
         newAddressController.isAddressSetManual.value = true;
         newAddressController.needRebuildTrack.value = true;
         if (location.area == 'province') {
           newAddressController.getCityData(location.id);
+        } else if (location.area == 'city') {
+          newAddressController.getPostalCodeData(location.idCity);
         }
       },
       child: Container(
@@ -59,9 +66,11 @@ class ListTileLocation extends StatelessWidget {
                   height: 20,
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    location.area != 'city'
-                        ? location.name
-                        : '${shortenKabupaten(location.type)} ${location.name}',
+                    location.area == 'city'
+                        ? '${shortenKabupaten(location.type)} ${location.name}'
+                        : location.area == 'postalCode'
+                            ? location.postalCode
+                            : location.name,
                     style: TextStyle(
                       fontSize: 14,
                       color: Colors.black.withOpacity(0.7),
@@ -132,7 +141,8 @@ class BulletSelectedLocation extends StatelessWidget {
               ? Container(
                   margin: const EdgeInsets.only(left: 14),
                   width: 2,
-                  height: newAddressController.isIncreaseHeightTrack(area)
+                  height: newAddressController.isIncreaseHeightTrack(area) &&
+                          area != 'city'
                       ? 30
                       : 15,
                   color: Colors.grey[300],
@@ -140,7 +150,8 @@ class BulletSelectedLocation extends StatelessWidget {
               : Container(
                   margin: const EdgeInsets.only(left: 14),
                   width: 2,
-                  height: newAddressController.isIncreaseHeightTrack(area)
+                  height: newAddressController.isIncreaseHeightTrack(area) &&
+                          area != 'city'
                       ? 30
                       : 15,
                   color: Colors.grey[300],
@@ -159,6 +170,8 @@ class ContainerSelectArea extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final newAddressController = Get.find<NewAddressController>();
+    final code =
+        newAddressController.selectedAddress['selectedAddress']?['postalCode'];
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.symmetric(horizontal: 8),
@@ -193,15 +206,15 @@ class ContainerSelectArea extends StatelessWidget {
           const WidthBox(10),
           Obx(
             () => Text(
-              newAddressController.nowCurrentSelectedAddress.value == 'province'
-                  ? 'Pilih Provinsi'
-                  : newAddressController.nowCurrentSelectedAddress.value ==
-                          'city'
-                      ? 'Pilih Kota'
+              !newAddressController.isAllLocationSet.value
+                  ? newAddressController.nowCurrentSelectedAddress.value ==
+                          'province'
+                      ? 'Pilih Provinsi'
                       : newAddressController.nowCurrentSelectedAddress.value ==
-                              'district'
-                          ? 'Pilih Kecamatan'
-                          : 'Pilih Kode Pos',
+                              'city'
+                          ? 'Pilih Kota'
+                          : 'Pilih Kode Pos'
+                  : code ?? '',
               style: TextStyle(
                 color: ColorPalette().primary.withOpacity(0.9),
                 fontWeight: FontWeight.w500,

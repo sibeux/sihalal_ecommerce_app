@@ -43,9 +43,13 @@ class ReceiptDistrict extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final newAddressController = Get.put(NewAddressController());
+    final controller =
+        newAddressController.formData['receiptDistrict']?['controller'];
     return GestureDetector(
       onTap: () {
-        newAddressController.getProvinceData();
+        if ((controller as TextEditingController).text.isEmpty) {
+          newAddressController.getProvinceData();
+        }
         Get.to(
           () => const ReceiptDistrictScreen(),
           transition: Transition.rightToLeft,
@@ -56,7 +60,7 @@ class ReceiptDistrict extends StatelessWidget {
           formType: 'receiptDistrict',
           keyboardType: TextInputType.text,
           icon: Icons.location_city,
-          formText: 'Provinsi, Kota, Kecamatan, Kode Pos',
+          formText: 'Provinsi, Kota, Kode Pos',
           autoFillHints: '',
           maxLength: 300,
         ),
@@ -115,6 +119,11 @@ class FormBlueprint extends StatelessWidget {
           autofillHints: [autoFillHints],
           keyboardType: keyboardType,
           maxLength: maxLength,
+          maxLines: formType == 'receiptDistrict'
+              ? newAddressController.isAllLocationSet.value
+                  ? 3
+                  : 1
+              : 1,
           onChanged: (value) {
             newAddressController.onChanged(value, formType);
           },
