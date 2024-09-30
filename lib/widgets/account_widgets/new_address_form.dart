@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:sihalal_ecommerce_app/component/color_palette.dart';
 import 'package:sihalal_ecommerce_app/controller/new_address_controller.dart';
+import 'package:sihalal_ecommerce_app/screens/account_screen/receipt_district_screen.dart';
 
 class ReceiptName extends StatelessWidget {
   const ReceiptName({super.key});
@@ -41,14 +42,24 @@ class ReceiptDistrict extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const AbsorbPointer(
-      child: FormBlueprint(
-        formType: 'receiptDistrict',
-        keyboardType: TextInputType.text,
-        icon: Icons.location_city,
-        formText: 'Provinsi, Kota, Kecamatan, Kode Pos',
-        autoFillHints: '',
-        maxLength: 300,
+    final newAddressController = Get.put(NewAddressController());
+    return GestureDetector(
+      onTap: () {
+        newAddressController.getProvinceData();
+        Get.to(
+          () => const ReceiptDistrictScreen(),
+          transition: Transition.rightToLeft,
+        );
+      },
+      child: const AbsorbPointer(
+        child: FormBlueprint(
+          formType: 'receiptDistrict',
+          keyboardType: TextInputType.text,
+          icon: Icons.location_city,
+          formText: 'Provinsi, Kota, Kecamatan, Kode Pos',
+          autoFillHints: '',
+          maxLength: 300,
+        ),
       ),
     );
   }

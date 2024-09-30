@@ -64,6 +64,21 @@ class DisableSendNewAddress extends StatelessWidget {
   }
 }
 
+class UseCurrentLocation extends StatelessWidget {
+  const UseCurrentLocation({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return AddressButtonWidget(
+      onPressed: () {},
+      title: 'Gunakan Lokasi Saat Ini',
+      icon: Icons.location_on,
+      foregroundColor: Colors.white,
+      backgroundColor: ColorPalette().primary,
+    );
+  }
+}
+
 class AddressButtonWidget extends StatelessWidget {
   const AddressButtonWidget({
     super.key,

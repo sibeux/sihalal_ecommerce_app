@@ -68,7 +68,9 @@ class AccountScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 15),
                     Transform.scale(
-                        scale: 0.9, child: const EditProfileButton()),
+                      scale: 0.9,
+                      child: const EditProfileButton(),
+                    ),
                   ],
                 ),
               ),
