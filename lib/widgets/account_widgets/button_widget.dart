@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:sihalal_ecommerce_app/component/color_palette.dart';
-import 'package:sihalal_ecommerce_app/screens/account_screen/receipt_district_screen.dart';
+import 'package:sihalal_ecommerce_app/controller/map_geolocation_controller.dart';
 
 class EditProfileButton extends StatelessWidget {
   const EditProfileButton({
@@ -71,9 +71,11 @@ class UseCurrentLocation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final mapGeolocationController =
+        Get.find<MapGeolocationController>();
     return AddressButtonWidget(
       onPressed: () {
-        Get.to(() => MapScreen());
+        mapGeolocationController.getPosition();
       },
       title: 'Gunakan Lokasi Saat Ini',
       icon: Icons.location_on,
