@@ -3,17 +3,59 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:sihalal_ecommerce_app/component/string_formatter.dart';
+import 'package:sihalal_ecommerce_app/controller/new_address_controller.dart';
+import 'package:sihalal_ecommerce_app/models/address_model/geolocation_address.dart';
 
 class MapGeolocationController extends GetxController {
   LatLng _currentPosition = const LatLng(-6.200000, 106.816666);
-  var address = "".obs;
+  var address = RxList<GeolocationAddress?>([]);
   var isLoadingMap = false.obs;
+
+  final NewAddressController newAddressController =
+      Get.find<NewAddressController>();
 
   void getPosition() async {
     isLoadingMap.value = true;
     await getCurrentLocation();
-    print(address.value);
+    final geoProvince = address[0]!.nameProvince;
+    final geoCity = address[0]!.nameCity;
+
+    final splitLocation = geoCity.split(" ");
+    final cleanLocation = splitLocation.sublist(1).join(" ");
+
+    final idProvince = newAddressController.listProvince
+        .firstWhere((province) => province!.name.contains(geoProvince))
+        ?.id;
+
+    await newAddressController.getCityData(idProvince!, needLoading: false);
+
+    final city = newAddressController.listCity
+        .where((city) =>
+            city!.name.contains(cleanLocation) && city.idProvince == idProvince)
+        .map((e) => {
+              'id': e!.idCity,
+              'name': e.name,
+              'type': e.type,
+            })
+        .toList();
+
+    newAddressController.getPostalCodeData(city[0]['id']!);
+
+    newAddressController.currentSelectedAddress['selectedAddress'] = {
+      'province': geoProvince,
+      'idProvince': idProvince,
+      'city': '${shortenKabupaten(city[0]['type']!)} ${city[0]['name']!}',
+      'idCity': city[0]['id']!,
+      'postalCode': '',
+    };
+
+    newAddressController.nowCurrentSelectedAddress.value = 'postalCode';
+    newAddressController.provinceIsSet.value = true;
+    newAddressController.cityIsSet.value = true;
+
     isLoadingMap.value = false;
+    newAddressController.isAddressSetManual.value = true;
   }
 
   Future<void> getCurrentLocation() async {
@@ -63,8 +105,12 @@ class MapGeolocationController extends GetxController {
       Placemark place = placemarks[0];
 
       // Menampilkan hasil alamat
-      address.value =
-          "${place.name}, ${place.locality}, ${place.subAdministrativeArea}, ${place.administrativeArea}, ${place.postalCode}, ${place.country}";
+      address.value = [
+        GeolocationAddress(
+          nameProvince: place.administrativeArea ?? '',
+          nameCity: place.subAdministrativeArea ?? '',
+        )
+      ];
     } catch (e) {
       if (kDebugMode) {
         print("Error: $e");

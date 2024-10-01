@@ -66,13 +66,12 @@ class DisableSendNewAddress extends StatelessWidget {
   }
 }
 
-class UseCurrentLocation extends StatelessWidget {
-  const UseCurrentLocation({super.key});
+class UseCurrentLocationEnable extends StatelessWidget {
+  const UseCurrentLocationEnable({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final mapGeolocationController =
-        Get.find<MapGeolocationController>();
+    final mapGeolocationController = Get.find<MapGeolocationController>();
     return AddressButtonWidget(
       onPressed: () {
         mapGeolocationController.getPosition();
@@ -81,6 +80,23 @@ class UseCurrentLocation extends StatelessWidget {
       icon: Icons.location_on,
       foregroundColor: Colors.white,
       backgroundColor: ColorPalette().primary,
+    );
+  }
+}
+
+class UseCurrentLocationDisable extends StatelessWidget {
+  const UseCurrentLocationDisable({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return AbsorbPointer(
+      child: AddressButtonWidget(
+        onPressed: () {},
+        title: 'Gunakan Lokasi Saat Ini',
+        icon: Icons.location_on,
+        foregroundColor: HexColor('#a8b5c8'),
+        backgroundColor: HexColor('#e5eaf5'),
+      ),
     );
   }
 }

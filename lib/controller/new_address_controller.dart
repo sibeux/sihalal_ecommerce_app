@@ -61,7 +61,9 @@ class NewAddressController extends GetxController {
     {
       'selectedAddress': {
         'province': '',
+        'idProvince': '',
         'city': '',
+        'idCity': '',
         'postalCode': '',
       },
     },
@@ -71,7 +73,9 @@ class NewAddressController extends GetxController {
     {
       'selectedAddress': {
         'province': '',
+        'idProvince': '',
         'city': '',
+        'idCity': '',
         'postalCode': '',
       },
     },
@@ -170,7 +174,9 @@ class NewAddressController extends GetxController {
   void clearSelectedAddress() {
     currentSelectedAddress['selectedAddress'] = {
       'province': '',
+      'idProvince': '',
       'city': '',
+      'idCity': '',
       'district': '',
     };
     isAddressSetManual.value = false;
@@ -196,13 +202,22 @@ class NewAddressController extends GetxController {
   void setAddressLocation(String location, String area) {
     final currentProvince =
         currentSelectedAddress['selectedAddress']?['province'];
+    final currentIdProvince =
+        currentSelectedAddress['selectedAddress']?['idProvince'];
     final currentCity = currentSelectedAddress['selectedAddress']?['city'];
+    final currentIdCity = currentSelectedAddress['selectedAddress']?['idCity'];
 
     switch (area) {
       case 'province':
+        final idProvince = listProvince
+                .firstWhere((province) => province!.name == location)
+                ?.id ??
+            '';
         currentSelectedAddress['selectedAddress'] = {
           'province': location,
+          'idProvince': idProvince,
           'city': '',
+          'idCity': '',
           'postalCode': '',
         };
         nowCurrentSelectedAddress.value = 'city';
@@ -210,9 +225,22 @@ class NewAddressController extends GetxController {
         cityIsSet.value = false;
         break;
       case 'city':
+        final splitLocation = location.split(" ");
+        final cleanLocation = splitLocation.sublist(1).join(" ");
+        final idCity = listCity
+                .firstWhere(
+                  (city) =>
+                      city!.name == cleanLocation &&
+                      city.idProvince == currentIdProvince,
+                  orElse: () => null,
+                )
+                ?.idCity ??
+            '';
         currentSelectedAddress['selectedAddress'] = {
           'province': currentProvince ?? '',
+          'idProvince': currentIdProvince ?? '',
           'city': location,
+          'idCity': idCity,
           'postalCode': '',
         };
         nowCurrentSelectedAddress.value = 'postalCode';
@@ -221,12 +249,16 @@ class NewAddressController extends GetxController {
       case 'postalCode':
         currentSelectedAddress['selectedAddress'] = {
           'province': currentProvince ?? '',
+          'idProvince': currentIdProvince ?? '',
           'city': currentCity ?? '',
+          'idCity': currentIdCity ?? '',
           'postalCode': location,
         };
         alreadySelectedAddress['selectedAddress'] = {
           'province': currentProvince ?? '',
+          'idProvince': currentIdProvince ?? '',
           'city': currentCity ?? '',
+          'idCity': currentIdCity ?? '',
           'postalCode': location,
         };
         nowCurrentSelectedAddress.value = 'done';
@@ -280,8 +312,10 @@ class NewAddressController extends GetxController {
     }
   }
 
-  Future<void> getCityData(String id) async {
+  Future<void> getCityData(String id, {required bool needLoading}) async {
+    if (needLoading) {
     isGetLocationLoading.value = true;
+    }
     firstLetterLocation.value = '';
 
     final String url = "https://api.rajaongkir.com/starter/city?province=$id";

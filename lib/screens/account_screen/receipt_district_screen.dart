@@ -152,12 +152,17 @@ class ReceiptDistrictScreen extends StatelessWidget {
                             color: Colors.grey[100],
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 20, vertical: 15),
-                            child: const Column(
+                            child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                UseCurrentLocation(),
-                                SizedBox(height: 10),
-                                Text(
+                                Obx(
+                                  () => newAddressController
+                                          .isGetLocationLoading.value
+                                      ? const UseCurrentLocationDisable()
+                                      : const UseCurrentLocationEnable(),
+                                ),
+                                const SizedBox(height: 10),
+                                const Text(
                                   'Provinsi',
                                 ),
                               ],

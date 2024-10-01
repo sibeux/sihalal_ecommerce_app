@@ -32,7 +32,7 @@ class ListTileLocation extends StatelessWidget {
         newAddressController.isAddressSetManual.value = true;
         newAddressController.needRebuildTrack.value = true;
         if (location.area == 'province') {
-          newAddressController.getCityData(location.id);
+          newAddressController.getCityData(location.id, needLoading: true);
         } else if (location.area == 'city') {
           newAddressController.getPostalCodeData(location.idCity);
         }
