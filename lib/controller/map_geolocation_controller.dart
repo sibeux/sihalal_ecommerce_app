@@ -16,46 +16,48 @@ class MapGeolocationController extends GetxController {
       Get.find<NewAddressController>();
 
   void getPosition() async {
-    isLoadingMap.value = true;
     await getCurrentLocation();
-    final geoProvince = address[0]!.nameProvince;
-    final geoCity = address[0]!.nameCity;
+    if (address.isNotEmpty) {
+      final geoProvince = address[0]!.nameProvince;
+      final geoCity = address[0]!.nameCity;
 
-    final splitLocation = geoCity.split(" ");
-    final cleanLocation = splitLocation.sublist(1).join(" ");
+      final splitLocation = geoCity.split(" ");
+      final cleanLocation = splitLocation.sublist(1).join(" ");
 
-    final idProvince = newAddressController.listProvince
-        .firstWhere((province) => province!.name.contains(geoProvince))
-        ?.id;
+      final idProvince = newAddressController.listProvince
+          .firstWhere((province) => province!.name.contains(geoProvince))
+          ?.id;
 
-    await newAddressController.getCityData(idProvince!, needLoading: false);
+      await newAddressController.getCityData(idProvince!, needLoading: false);
 
-    final city = newAddressController.listCity
-        .where((city) =>
-            city!.name.contains(cleanLocation) && city.idProvince == idProvince)
-        .map((e) => {
-              'id': e!.idCity,
-              'name': e.name,
-              'type': e.type,
-            })
-        .toList();
+      final city = newAddressController.listCity
+          .where((city) =>
+              city!.name.contains(cleanLocation) &&
+              city.idProvince == idProvince)
+          .map((e) => {
+                'id': e!.idCity,
+                'name': e.name,
+                'type': e.type,
+              })
+          .toList();
 
-    newAddressController.getPostalCodeData(city[0]['id']!);
+      newAddressController.getPostalCodeData(city[0]['id']!);
 
-    newAddressController.currentSelectedAddress['selectedAddress'] = {
-      'province': geoProvince,
-      'idProvince': idProvince,
-      'city': '${shortenKabupaten(city[0]['type']!)} ${city[0]['name']!}',
-      'idCity': city[0]['id']!,
-      'postalCode': '',
-    };
+      newAddressController.currentSelectedAddress['selectedAddress'] = {
+        'province': geoProvince,
+        'idProvince': idProvince,
+        'city': '${shortenKabupaten(city[0]['type']!)} ${city[0]['name']!}',
+        'idCity': city[0]['id']!,
+        'postalCode': '',
+      };
 
-    newAddressController.nowCurrentSelectedAddress.value = 'postalCode';
-    newAddressController.provinceIsSet.value = true;
-    newAddressController.cityIsSet.value = true;
+      newAddressController.nowCurrentSelectedAddress.value = 'postalCode';
+      newAddressController.provinceIsSet.value = true;
+      newAddressController.cityIsSet.value = true;
 
-    isLoadingMap.value = false;
-    newAddressController.isAddressSetManual.value = true;
+      isLoadingMap.value = false;
+      newAddressController.isAddressSetManual.value = true;
+    }
   }
 
   Future<void> getCurrentLocation() async {
@@ -93,6 +95,7 @@ class MapGeolocationController extends GetxController {
     // Tandai bahwa peta siap untuk di-update
 
     // Setelah lokasi didapatkan, arahkan peta ke lokasi tersebut
+    isLoadingMap.value = true;
     await getAddressFromLatLng(
         _currentPosition.latitude, _currentPosition.longitude);
   }
