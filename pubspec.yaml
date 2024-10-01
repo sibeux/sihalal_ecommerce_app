@@ -55,6 +55,9 @@ dependencies:
   fluttertoast: ^8.2.8
   get_storage: ^2.1.1
   ionicons: ^0.2.2
+  google_maps_flutter: ^2.6.1
+  geocoding: ^3.0.0
+  geolocator: ^12.0.0
   
 dev_dependencies:
   flutter_test:

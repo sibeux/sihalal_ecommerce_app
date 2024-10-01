@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:sihalal_ecommerce_app/component/color_palette.dart';
+import 'package:sihalal_ecommerce_app/screens/account_screen/receipt_district_screen.dart';
 
 class EditProfileButton extends StatelessWidget {
   const EditProfileButton({
@@ -70,7 +72,9 @@ class UseCurrentLocation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AddressButtonWidget(
-      onPressed: () {},
+      onPressed: () {
+        Get.to(() => MapScreen());
+      },
       title: 'Gunakan Lokasi Saat Ini',
       icon: Icons.location_on,
       foregroundColor: Colors.white,
