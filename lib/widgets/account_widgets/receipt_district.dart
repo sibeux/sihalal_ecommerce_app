@@ -107,7 +107,7 @@ class BulletSelectedLocation extends StatelessWidget {
   Widget build(BuildContext context) {
     final newAddressController = Get.find<NewAddressController>();
     final location =
-        newAddressController.selectedAddress['selectedAddress']?[area];
+        newAddressController.currentSelectedAddress['selectedAddress']?[area];
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -170,8 +170,8 @@ class ContainerSelectArea extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final newAddressController = Get.find<NewAddressController>();
-    final code =
-        newAddressController.selectedAddress['selectedAddress']?['postalCode'];
+    final code = newAddressController.currentSelectedAddress['selectedAddress']
+        ?['postalCode'];
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.symmetric(horizontal: 8),
@@ -206,7 +206,7 @@ class ContainerSelectArea extends StatelessWidget {
           const WidthBox(10),
           Obx(
             () => Text(
-              !newAddressController.isAllLocationSet.value
+              !newAddressController.postalCodeIsSet.value
                   ? newAddressController.nowCurrentSelectedAddress.value ==
                           'province'
                       ? 'Pilih Provinsi'

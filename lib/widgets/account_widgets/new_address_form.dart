@@ -49,6 +49,27 @@ class ReceiptDistrict extends StatelessWidget {
       onTap: () {
         if ((controller as TextEditingController).text.isEmpty) {
           newAddressController.getProvinceData();
+        } else {
+          final currentProvince = newAddressController
+              .alreadySelectedAddress['selectedAddress']!['province'];
+          final currentCity = newAddressController
+              .alreadySelectedAddress['selectedAddress']!['city'];
+          final currentCode = newAddressController
+              .alreadySelectedAddress['selectedAddress']!['postalCode'];
+
+          newAddressController.provinceIsSet.value = true;
+          newAddressController.cityIsSet.value = true;
+          newAddressController.postalCodeIsSet.value = true;
+
+          newAddressController.currentSelectedAddress['selectedAddress'] = {
+            'province': currentProvince ?? '',
+            'city': currentCity ?? '',
+            'postalCode': currentCode ?? '',
+          };
+
+          newAddressController.isAddressSetManual.value = true;
+          newAddressController.listCurrentLocation.value =
+              newAddressController.alreadyListPostalCode;
         }
         Get.to(
           () => const ReceiptDistrictScreen(),
@@ -120,7 +141,7 @@ class FormBlueprint extends StatelessWidget {
           keyboardType: keyboardType,
           maxLength: maxLength,
           maxLines: formType == 'receiptDistrict'
-              ? newAddressController.isAllLocationSet.value
+              ? (controller as TextEditingController).text.isNotEmpty
                   ? 3
                   : 1
               : 1,

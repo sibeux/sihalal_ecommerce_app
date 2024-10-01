@@ -14,7 +14,7 @@ class ReceiptDistrictScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final newAddressController = Get.find<NewAddressController>();
-    if (!newAddressController.isAllLocationSet.value) {
+    if (!newAddressController.postalCodeIsSet.value) {
       newAddressController.clearSelectedAddress();
     }
     return Scaffold(
@@ -42,8 +42,7 @@ class ReceiptDistrictScreen extends StatelessWidget {
           Stack(
             children: [
               Obx(
-                () => newAddressController.isAddressSetManual.value ||
-                        newAddressController.isAllLocationSet.value
+                () => newAddressController.isAddressSetManual.value
                     ? Container(
                         width: double.infinity,
                         color: Colors.grey[100],
@@ -64,16 +63,25 @@ class ReceiptDistrictScreen extends StatelessWidget {
                                 const Spacer(),
                                 GestureDetector(
                                   onTap: () {
-                                    newAddressController.clearSelectedAddress();
+                                    newAddressController.postalCodeIsSet.value =
+                                        false;
+                                    newAddressController
+                                        .isAllLocationSet.value = false;
+                                    newAddressController
+                                        .isAddressSetManual.value = false;
                                     newAddressController
                                             .listCurrentLocation.value =
                                         newAddressController.listProvince;
                                   },
-                                  child: Text(
-                                    'Atur Ulang',
-                                    style: TextStyle(
-                                      color: ColorPalette().primary,
-                                      fontSize: 12,
+                                  child: Container(
+                                    height: 25,
+                                    color: Colors.transparent,
+                                    child: Text(
+                                      'Atur Ulang',
+                                      style: TextStyle(
+                                        color: ColorPalette().primary,
+                                        fontSize: 12,
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -85,24 +93,24 @@ class ReceiptDistrictScreen extends StatelessWidget {
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    if (newAddressController
+                                    if ((newAddressController
                                                 .nowCurrentSelectedAddress
                                                 .value ==
                                             'city' ||
                                         newAddressController
                                             .provinceIsSet.value ||
                                         newAddressController
-                                            .isAllLocationSet.value)
+                                            .isAllLocationSet.value))
                                       const BulletSelectedLocation(
                                         area: 'province',
                                       ),
-                                    if (newAddressController
+                                    if ((newAddressController
                                                 .nowCurrentSelectedAddress
                                                 .value ==
                                             'postalCode' ||
                                         newAddressController.cityIsSet.value ||
                                         newAddressController
-                                            .isAllLocationSet.value)
+                                            .isAllLocationSet.value))
                                       const BulletSelectedLocation(
                                         area: 'city',
                                       ),
@@ -183,6 +191,7 @@ class ReceiptDistrictScreen extends StatelessWidget {
                       itemCount:
                           newAddressController.listCurrentLocation.length,
                       itemBuilder: (context, index) {
+                        
                         return ListTileLocation(
                           location:
                               newAddressController.listCurrentLocation[index]!,

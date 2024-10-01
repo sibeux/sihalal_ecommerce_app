@@ -29,6 +29,9 @@ class NewAddressController extends GetxController {
   var listProvince = RxList<Province?>([]);
   var listCity = RxList<City?>([]);
 
+  var currentListPostalCode = RxList<PostalCode?>([]);
+  var alreadyListPostalCode = RxList<PostalCode?>([]);
+
   var formData = RxMap(
     {
       'receiptName': {
@@ -54,7 +57,17 @@ class NewAddressController extends GetxController {
     },
   );
 
-  var selectedAddress = RxMap(
+  var currentSelectedAddress = RxMap(
+    {
+      'selectedAddress': {
+        'province': '',
+        'city': '',
+        'postalCode': '',
+      },
+    },
+  );
+
+  var alreadySelectedAddress = RxMap(
     {
       'selectedAddress': {
         'province': '',
@@ -129,7 +142,7 @@ class NewAddressController extends GetxController {
   }
 
   bool getIsAllDataValid() {
-    return getIsNameValid() && getIsPhoneValid();
+    return getIsNameValid() && getIsPhoneValid() && isAllLocationSet.value;
   }
 
   bool getFirstLetterLocation(String location) {
@@ -155,7 +168,7 @@ class NewAddressController extends GetxController {
   }
 
   void clearSelectedAddress() {
-    selectedAddress['selectedAddress'] = {
+    currentSelectedAddress['selectedAddress'] = {
       'province': '',
       'city': '',
       'district': '',
@@ -165,7 +178,6 @@ class NewAddressController extends GetxController {
     nowCurrentSelectedAddress.value = 'province';
     provinceIsSet.value = false;
     cityIsSet.value = false;
-    postalCodeIsSet.value = false;
     update();
   }
 
@@ -177,25 +189,28 @@ class NewAddressController extends GetxController {
       'type': 'receiptDistrict',
       'controller': currentController,
     };
+    alreadyListPostalCode.value = List<PostalCode?>.from(currentListPostalCode);
     update();
   }
 
   void setAddressLocation(String location, String area) {
-    final currentProvince = selectedAddress['selectedAddress']?['province'];
-    final currentCity = selectedAddress['selectedAddress']?['city'];
+    final currentProvince =
+        currentSelectedAddress['selectedAddress']?['province'];
+    final currentCity = currentSelectedAddress['selectedAddress']?['city'];
 
     switch (area) {
       case 'province':
-        selectedAddress['selectedAddress'] = {
+        currentSelectedAddress['selectedAddress'] = {
           'province': location,
           'city': '',
           'postalCode': '',
         };
         nowCurrentSelectedAddress.value = 'city';
         provinceIsSet.value = true;
+        cityIsSet.value = false;
         break;
       case 'city':
-        selectedAddress['selectedAddress'] = {
+        currentSelectedAddress['selectedAddress'] = {
           'province': currentProvince ?? '',
           'city': location,
           'postalCode': '',
@@ -204,7 +219,12 @@ class NewAddressController extends GetxController {
         cityIsSet.value = true;
         break;
       case 'postalCode':
-        selectedAddress['selectedAddress'] = {
+        currentSelectedAddress['selectedAddress'] = {
+          'province': currentProvince ?? '',
+          'city': currentCity ?? '',
+          'postalCode': location,
+        };
+        alreadySelectedAddress['selectedAddress'] = {
           'province': currentProvince ?? '',
           'city': currentCity ?? '',
           'postalCode': location,
@@ -213,9 +233,9 @@ class NewAddressController extends GetxController {
         postalCodeIsSet.value = true;
         isAllLocationSet.value = true;
         setFormReceiptDistrictValue(
-          '${selectedAddress['selectedAddress']?['province']}\n'
-          '${selectedAddress['selectedAddress']?['city']}\n'
-          '${selectedAddress['selectedAddress']?['postalCode']}',
+          '${currentSelectedAddress['selectedAddress']?['province']}\n'
+          '${currentSelectedAddress['selectedAddress']?['city']}\n'
+          '${currentSelectedAddress['selectedAddress']?['postalCode']}',
         );
         Get.back();
         break;
@@ -318,6 +338,7 @@ class NewAddressController extends GetxController {
         .toList();
 
     listCurrentLocation.value = postalCode;
+    currentListPostalCode.value = postalCode;
     isGetLocationLoading.value = false;
   }
 }
