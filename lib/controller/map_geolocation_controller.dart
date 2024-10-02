@@ -8,9 +8,14 @@ import 'package:sihalal_ecommerce_app/controller/new_address_controller.dart';
 import 'package:sihalal_ecommerce_app/models/address_model/geolocation_address.dart';
 
 class MapGeolocationController extends GetxController {
-  LatLng _currentPosition = const LatLng(-6.200000, 106.816666);
+  LatLng currentPosition = const LatLng(-6.200000, 106.816666);
   var address = RxList<GeolocationAddress?>([]);
   var isLoadingMap = false.obs;
+
+  // pin point map screen
+  GoogleMapController? mapController;
+  var centerPosition = Rx<LatLng>(const LatLng(-6.200000, 106.816666));
+  var selectedLocation = Rx<LatLng?>(null);
 
   final NewAddressController newAddressController =
       Get.find<NewAddressController>();
@@ -31,9 +36,11 @@ class MapGeolocationController extends GetxController {
       await newAddressController.getCityData(idProvince!, needLoading: false);
 
       final city = newAddressController.listCity
-          .where((city) =>
-              city!.name.contains(cleanLocation) &&
-              city.idProvince == idProvince)
+          .where(
+            (city) =>
+                city!.name.contains(cleanLocation) &&
+                city.idProvince == idProvince,
+          )
           .map((e) => {
                 'id': e!.idCity,
                 'name': e.name,
@@ -55,12 +62,22 @@ class MapGeolocationController extends GetxController {
       newAddressController.provinceIsSet.value = true;
       newAddressController.cityIsSet.value = true;
 
-      isLoadingMap.value = false;
       newAddressController.isAddressSetManual.value = true;
     }
+    isLoadingMap.value = false;
+  }
+
+  Future<void> getCurrentLatLng({required bool needFetchMap}) async {
+    if (needFetchMap) {
+      await getCurrentLocation();
+    } else {
+      Future.delayed(const Duration(milliseconds: 500), () {});
+    }
+    isLoadingMap.value = false;
   }
 
   Future<void> getCurrentLocation() async {
+    isLoadingMap.value = true;
     bool serviceEnabled;
     LocationPermission permission;
 
@@ -69,6 +86,7 @@ class MapGeolocationController extends GetxController {
     if (!serviceEnabled) {
       // Jika tidak aktif, minta pengguna untuk mengaktifkan lokasi
       await Geolocator.openLocationSettings();
+      isLoadingMap.value = false;
       return;
     }
 
@@ -78,12 +96,14 @@ class MapGeolocationController extends GetxController {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
         // Jika izin ditolak, tidak bisa lanjut
+        isLoadingMap.value = false;
         return;
       }
     }
 
     if (permission == LocationPermission.deniedForever) {
       // Jika pengguna memblokir izin lokasi secara permanen
+      isLoadingMap.value = false;
       return;
     }
 
@@ -91,13 +111,12 @@ class MapGeolocationController extends GetxController {
     Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
 
-    _currentPosition = LatLng(position.latitude, position.longitude);
+    currentPosition = LatLng(position.latitude, position.longitude);
     // Tandai bahwa peta siap untuk di-update
 
     // Setelah lokasi didapatkan, arahkan peta ke lokasi tersebut
-    isLoadingMap.value = true;
     await getAddressFromLatLng(
-        _currentPosition.latitude, _currentPosition.longitude);
+        currentPosition.latitude, currentPosition.longitude);
   }
 
   Future<void> getAddressFromLatLng(double latitude, double longitude) async {

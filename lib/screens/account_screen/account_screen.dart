@@ -125,6 +125,8 @@ class AccountScreen extends StatelessWidget {
                         Get.to(
                           () => const ListAddressScreen(),
                           transition: Transition.downToUp,
+                          fullscreenDialog: true,
+                          popGesture: false,
                         );
                       },
                     ),

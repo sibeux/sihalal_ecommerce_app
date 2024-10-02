@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:sihalal_ecommerce_app/component/color_palette.dart';
@@ -74,6 +75,8 @@ class ReceiptDistrict extends StatelessWidget {
         Get.to(
           () => const ReceiptDistrictScreen(),
           transition: Transition.rightToLeft,
+          fullscreenDialog: true,
+          popGesture: false,
         );
       },
       child: const AbsorbPointer(
@@ -95,15 +98,40 @@ class ReceiptStreet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const AbsorbPointer(
-      child: FormBlueprint(
-        formType: 'receiptStreet',
-        keyboardType: TextInputType.text,
-        icon: Icons.location_on,
-        formText: 'Nama Jalan, Nomor Rumah',
-        autoFillHints: AutofillHints.streetAddressLine1,
-        maxLength: 300,
-      ),
+    final newAddressController = Get.put(NewAddressController());
+    final controller = newAddressController.formData['receiptDistrict']
+        ?['controller'] as TextEditingController;
+
+    return ValueListenableBuilder(
+      valueListenable: controller,
+      builder: (context, TextEditingValue value, child) {
+        return GestureDetector(
+          onTap: () {
+            if (controller.text.isEmpty) {
+              Fluttertoast.showToast(
+                msg: 'Mohon pilih provinsi, kota, dan kode pos terlebih dahulu',
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.CENTER,
+                timeInSecForIosWeb: 1,
+                backgroundColor: Colors.black.withOpacity(0.8),
+                textColor: Colors.white,
+                fontSize: 10.0,
+              );
+            }
+          },
+          child: AbsorbPointer(
+            absorbing: value.text.isEmpty,
+            child: const FormBlueprint(
+              formType: 'receiptStreet',
+              keyboardType: TextInputType.text,
+              icon: Icons.location_on,
+              formText: 'Nama Jalan, Nomor Rumah',
+              autoFillHints: AutofillHints.streetAddressLine1,
+              maxLength: 300,
+            ),
+          ),
+        );
+      },
     );
   }
 }
@@ -168,13 +196,12 @@ class FormBlueprint extends StatelessWidget {
               icon,
               color: HexColor('#575757'),
             ),
-            suffixIcon:
-                formType == 'receiptDistrict' || formType == 'receiptStreet'
-                    ? Icon(
-                        Icons.arrow_forward_ios_rounded,
-                        color: HexColor('#575757'),
-                      )
-                    : null,
+            suffixIcon: formType == 'receiptDistrict'
+                ? Icon(
+                    Icons.arrow_forward_ios_rounded,
+                    color: HexColor('#575757'),
+                  )
+                : null,
             filled: true,
             isDense: true,
             fillColor: HexColor('#fefffe'),

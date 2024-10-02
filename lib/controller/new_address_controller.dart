@@ -146,7 +146,16 @@ class NewAddressController extends GetxController {
   }
 
   bool getIsAllDataValid() {
-    return getIsNameValid() && getIsPhoneValid() && isAllLocationSet.value;
+    final receiptDistrictController =
+        formData['receiptDistrict']?['controller'] as TextEditingController;
+
+    final receiptStreetController =
+        formData['receiptStreet']?['controller'] as TextEditingController;
+
+    return getIsNameValid() &&
+        getIsPhoneValid() &&
+        receiptDistrictController.text.isNotEmpty &&
+        receiptStreetController.text.isNotEmpty;
   }
 
   bool getFirstLetterLocation(String location) {
@@ -314,7 +323,7 @@ class NewAddressController extends GetxController {
 
   Future<void> getCityData(String id, {required bool needLoading}) async {
     if (needLoading) {
-    isGetLocationLoading.value = true;
+      isGetLocationLoading.value = true;
     }
     firstLetterLocation.value = '';
 

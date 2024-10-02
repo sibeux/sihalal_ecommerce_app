@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:sihalal_ecommerce_app/component/color_palette.dart';
 import 'package:sihalal_ecommerce_app/controller/map_geolocation_controller.dart';
+import 'package:sihalal_ecommerce_app/screens/account_screen/pin_point_map_screen.dart';
 
 class EditProfileButton extends StatelessWidget {
   const EditProfileButton({
@@ -96,6 +97,55 @@ class UseCurrentLocationDisable extends StatelessWidget {
         icon: Icons.location_on,
         foregroundColor: HexColor('#a8b5c8'),
         backgroundColor: HexColor('#e5eaf5'),
+      ),
+    );
+  }
+}
+
+class SetPinPointEnable extends StatelessWidget {
+  const SetPinPointEnable({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final mapGeolocationController = Get.find<MapGeolocationController>();
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 10),
+      child: AddressButtonWidget(
+        onPressed: () async {
+          await mapGeolocationController.getCurrentLatLng(
+            needFetchMap: true,
+          );
+          Get.to(
+            () => const PinPointMapScreen(),
+            transition: Transition.native,
+            popGesture: false,
+            fullscreenDialog: true,
+          );
+        },
+        title: 'Atur Pin Peta',
+        icon: Icons.location_pin,
+        foregroundColor: Colors.white,
+        backgroundColor: ColorPalette().primary,
+      ),
+    );
+  }
+}
+
+class SetPinPointDisable extends StatelessWidget {
+  const SetPinPointDisable({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 10),
+      child: AbsorbPointer(
+        child: AddressButtonWidget(
+          onPressed: () {},
+          title: 'Atur Pin Peta',
+          icon: Icons.location_pin,
+          foregroundColor: HexColor('#a8b5c8'),
+          backgroundColor: HexColor('#e5eaf5'),
+        ),
       ),
     );
   }
