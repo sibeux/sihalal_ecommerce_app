@@ -1,11 +1,14 @@
+import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
-import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sihalal_ecommerce_app/component/string_formatter.dart';
 import 'package:sihalal_ecommerce_app/controller/new_address_controller.dart';
 import 'package:sihalal_ecommerce_app/models/address_model/geolocation_address.dart';
+
+import 'package:http/http.dart' as http;
 
 class MapGeolocationController extends GetxController {
   LatLng currentPosition = const LatLng(-6.200000, 106.816666);
@@ -120,19 +123,52 @@ class MapGeolocationController extends GetxController {
   }
 
   Future<void> getAddressFromLatLng(double latitude, double longitude) async {
-    try {
-      // Melakukan reverse geocoding
-      List<Placemark> placemarks =
-          await placemarkFromCoordinates(latitude, longitude);
-      Placemark place = placemarks[0];
+    const String apiKey = 'AIzaSyDyz0mjJ1Y5TYQmVSEahOPHw1NvTb1uERA';
 
-      // Menampilkan hasil alamat
-      address.value = [
-        GeolocationAddress(
-          nameProvince: place.administrativeArea ?? '',
-          nameCity: place.subAdministrativeArea ?? '',
-        )
-      ];
+    final String url =
+        'https://maps.googleapis.com/maps/api/geocode/json?latlng=$latitude,$longitude&language=id&key=$apiKey';
+
+    try {
+      final response = await http.get(Uri.parse(url));
+
+      String kabupaten = '';
+      String provinsi = '';
+
+      if (response.statusCode == 200) {
+        var data = json.decode(response.body);
+        if (data['results'][0].isNotEmpty) {
+          for (var component in data['results'][0]['address_components']) {
+            if (component['types'].contains('administrative_area_level_2')) {
+              kabupaten = component['long_name'];
+            }
+
+            if (component['types'].contains('administrative_area_level_1')) {
+              provinsi = component['long_name'];
+            }
+          }
+
+          // Melakukan reverse geocoding
+          // List<Placemark> placemarks =
+          //     await placemarkFromCoordinates(latitude, longitude);
+          // Placemark place = placemarks[0];
+
+          // Menampilkan hasil alamat
+          address.value = [
+            GeolocationAddress(
+              nameProvince: provinsi,
+              nameCity: kabupaten,
+            )
+          ];
+        } else {
+          if (kDebugMode) {
+            print('Tidak ada hasil');
+          }
+        }
+      } else {
+        if (kDebugMode) {
+          print('Gagal mendapatkan alamat');
+        }
+      }
     } catch (e) {
       if (kDebugMode) {
         print("Error: $e");

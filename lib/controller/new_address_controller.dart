@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:http/http.dart' as http;
+import 'package:sihalal_ecommerce_app/controller/user_profile_controller.dart';
 import 'package:sihalal_ecommerce_app/models/address_model/city.dart';
 import 'package:sihalal_ecommerce_app/models/address_model/postal_code.dart';
 import 'package:sihalal_ecommerce_app/models/address_model/province.dart';
@@ -383,5 +384,52 @@ class NewAddressController extends GetxController {
     listCurrentLocation.value = postalCode;
     currentListPostalCode.value = postalCode;
     isGetLocationLoading.value = false;
+  }
+}
+
+class SendUserAddressController extends GetxController {
+  var isLoadingSendAddress = false.obs;
+
+  final userProfileController = Get.find<UserProfileController>();
+
+  var selecteduserAddress = RxMap(
+    {
+      'userAddress': {
+        'id_user': '',
+        'receipt_name': '',
+        'receipt_phone': '',
+        'label_address': '',
+        'province': '',
+        'id_province': '',
+        'city': '',
+        'id_city': '',
+        'postal_code': '',
+        'detail_address': '',
+        'pin_point': '',
+        'is_primary_address': false,
+        'is_store_address': false,
+      },
+    },
+  );
+
+  Future<void> sendAddress() async {
+    isLoadingSendAddress.value = true;
+
+    final idUser = userProfileController.userData[0].idUser;
+
+    selecteduserAddress['userAddress'] = {
+      'id_user': idUser,
+    };
+
+    final String uri = "";
+
+    try {
+
+      print(idUser);
+    } catch (e) {
+      if (kDebugMode) {
+        print('Error: $e');
+      }
+    }
   }
 }

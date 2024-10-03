@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:sihalal_ecommerce_app/component/color_palette.dart';
 import 'package:sihalal_ecommerce_app/controller/map_geolocation_controller.dart';
+import 'package:sihalal_ecommerce_app/controller/new_address_controller.dart';
 import 'package:sihalal_ecommerce_app/screens/account_screen/pin_point_map_screen.dart';
 
 class EditProfileButton extends StatelessWidget {
@@ -42,6 +43,30 @@ class EditProfileButton extends StatelessWidget {
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class EnableSendNewAddress extends StatelessWidget {
+  const EnableSendNewAddress({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final newAddressController = Get.find<NewAddressController>();
+    final sendUserAddressController = Get.put(SendUserAddressController());
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: AddressButtonWidget(
+        title: 'Simpan Alamat',
+        icon: Icons.save,
+        foregroundColor: Colors.white,
+        backgroundColor: ColorPalette().primary,
+        onPressed: () async {
+          await sendUserAddressController.sendAddress();
+        },
       ),
     );
   }
