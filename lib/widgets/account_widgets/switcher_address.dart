@@ -147,7 +147,7 @@ class LabelAddressSwitcher extends StatelessWidget {
                 GestureDetector(
                   onTap: () {
                     newAddressController.togglePrimaryAddress(
-                      'store',
+                      'office',
                     );
                   },
                   child: Container(
@@ -156,7 +156,7 @@ class LabelAddressSwitcher extends StatelessWidget {
                       vertical: 5,
                     ),
                     decoration: BoxDecoration(
-                      color: newAddressController.labelAddress.value == 'store'
+                      color: newAddressController.labelAddress.value == 'office'
                           ? ColorPalette().primary
                           : HexColor('#eff4f8'),
                       borderRadius: BorderRadius.circular(5),
@@ -166,7 +166,7 @@ class LabelAddressSwitcher extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 12,
                         color:
-                            newAddressController.labelAddress.value == 'store'
+                            newAddressController.labelAddress.value == 'office'
                                 ? Colors.white
                                 : Colors.black.withOpacity(0.8),
                         fontWeight: FontWeight.w400,

@@ -12,6 +12,11 @@ String priceFormat(String input) {
   return formattedNumber;
 }
 
+String ratingFormatter(String input){
+  double rating = double.parse(input);
+  return rating.toStringAsFixed(2);
+}
+
 String shortenKabupaten(String input) {
   if (input.toLowerCase().startsWith("kabupaten")) {
     return input.replaceFirst("Kabupaten", "Kab.");

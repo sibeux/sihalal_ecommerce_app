@@ -23,7 +23,7 @@ class PreviewMapButton extends StatelessWidget {
       onTap: () {},
       child: Obx(
         () => mapGeolocationController.selectedLocation.value == null
-            ? newAddressController.getIsAllDataValid()
+            ? newAddressController.isCanSetPin()
                 ? const SetPinPointEnable()
                 : const SetPinPointDisable()
             : GestureDetector(

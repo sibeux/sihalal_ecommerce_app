@@ -55,7 +55,6 @@ class EnableSendNewAddress extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final newAddressController = Get.find<NewAddressController>();
     final sendUserAddressController = Get.put(SendUserAddressController());
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),

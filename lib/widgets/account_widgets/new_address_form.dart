@@ -44,8 +44,8 @@ class ReceiptDistrict extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final newAddressController = Get.put(NewAddressController());
-    final controller =
-        newAddressController.formData['receiptDistrict']?['controller'];
+    final controller = newAddressController
+        .newAddressFormData['receiptDistrict']?['controller'];
     return GestureDetector(
       onTap: () {
         if ((controller as TextEditingController).text.isEmpty) {
@@ -99,8 +99,9 @@ class ReceiptStreet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final newAddressController = Get.put(NewAddressController());
-    final controller = newAddressController.formData['receiptDistrict']
-        ?['controller'] as TextEditingController;
+    final controller =
+        newAddressController.newAddressFormData['receiptDistrict']
+            ?['controller'] as TextEditingController;
 
     return ValueListenableBuilder(
       valueListenable: controller,
@@ -156,7 +157,8 @@ class FormBlueprint extends StatelessWidget {
   Widget build(BuildContext context) {
     final NewAddressController newAddressController =
         Get.put(NewAddressController());
-    final controller = newAddressController.formData[formType]?['controller'];
+    final controller =
+        newAddressController.newAddressFormData[formType]?['controller'];
     return Obx(
       () => Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -233,7 +235,8 @@ class FormBlueprint extends StatelessWidget {
 
 OutlineInputBorder outlineInputBorder(
     NewAddressController newAddressController, String formType) {
-  final textValue = newAddressController.formData[formType]?['text'].toString();
+  final textValue =
+      newAddressController.newAddressFormData[formType]?['text'].toString();
   final isCurrentType = newAddressController.currentType.value == formType;
 
   return OutlineInputBorder(

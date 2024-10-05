@@ -112,7 +112,7 @@ class ShopInfo extends StatelessWidget {
                           ),
                           const SizedBox(width: 5),
                           Text(
-                            rate,
+                            ratingFormatter(rate),
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               color: ColorPalette().primary,

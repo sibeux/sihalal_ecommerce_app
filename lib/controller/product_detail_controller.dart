@@ -68,11 +68,11 @@ class ShopInfoProductController extends GetxController {
           fotoUser:
               regexGdriveLink(shop['foto_user'], apiData[0]['gdrive_api']),
           namaToko: shop['nama_toko'],
-          deskripsiToko: shop['deskripsi_toko'],
+          deskripsiToko: shop['deskripsi_toko'] ?? '',
           kotaToko: shop['kota'],
           provinsiToko: shop['provinsi'],
           totalProduk: shop['total_produk'],
-          totalRating: shop['rata_rata_rating'],
+          totalRating: shop['rata_rata_rating'] ?? 0,
         );
       }).toList();
 

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:http/http.dart' as http;
+import 'package:sihalal_ecommerce_app/controller/map_geolocation_controller.dart';
 import 'package:sihalal_ecommerce_app/controller/user_profile_controller.dart';
 import 'package:sihalal_ecommerce_app/models/address_model/city.dart';
 import 'package:sihalal_ecommerce_app/models/address_model/postal_code.dart';
@@ -33,7 +34,7 @@ class NewAddressController extends GetxController {
   var currentListPostalCode = RxList<PostalCode?>([]);
   var alreadyListPostalCode = RxList<PostalCode?>([]);
 
-  var formData = RxMap(
+  var newAddressFormData = RxMap(
     {
       'receiptName': {
         'text': '',
@@ -83,9 +84,9 @@ class NewAddressController extends GetxController {
   );
 
   void onChanged(String value, String type) {
-    final currentController = formData[type]?['controller'];
+    final currentController = newAddressFormData[type]?['controller'];
     // Memperbarui referensi map
-    formData[type] = {
+    newAddressFormData[type] = {
       'text': value,
       'type': type,
       'controller': currentController!,
@@ -94,9 +95,9 @@ class NewAddressController extends GetxController {
   }
 
   void onTap(String type, bool isFocus) {
-    final currentController = formData[type]?['controller'];
-    final currentText = formData[type]?['text'];
-    formData[type] = {
+    final currentController = newAddressFormData[type]?['controller'];
+    final currentText = newAddressFormData[type]?['text'];
+    newAddressFormData[type] = {
       'text': currentText!,
       'type': type,
       'controller': currentController!,
@@ -107,9 +108,9 @@ class NewAddressController extends GetxController {
 
   void onClearController(String type) {
     final currentController =
-        formData[type]?['controller'] as TextEditingController;
+        newAddressFormData[type]?['controller'] as TextEditingController;
     currentController.clear();
-    formData[type] = {
+    newAddressFormData[type] = {
       'text': '',
       'type': type,
       'controller': currentController,
@@ -118,26 +119,26 @@ class NewAddressController extends GetxController {
   }
 
   bool getIsNameValid() {
-    final nameValue = formData['receiptName']!['text'].toString();
+    final nameValue = newAddressFormData['receiptName']!['text'].toString();
     final nameRegExp = RegExp(r'^[a-zA-Z\s]+$');
 
     return nameRegExp.hasMatch(nameValue) && nameValue.isNotEmpty;
   }
 
   bool getIsNameEmpty() {
-    final nameValue = formData['receiptName']!['text'].toString();
+    final nameValue = newAddressFormData['receiptName']!['text'].toString();
     return nameValue.isEmpty;
   }
 
   bool getIsPhoneValid() {
-    final phoneValue = formData['receiptPhone']!['text'].toString();
+    final phoneValue = newAddressFormData['receiptPhone']!['text'].toString();
     final phoneRegExp = RegExp(r'^(?:0)8[1-9][0-9]{6,15}$');
 
     return phoneRegExp.hasMatch(phoneValue) && phoneValue.isNotEmpty;
   }
 
   bool getIsPhoneEmpty() {
-    final phoneValue = formData['receiptPhone']!['text'].toString();
+    final phoneValue = newAddressFormData['receiptPhone']!['text'].toString();
     return phoneValue.isEmpty;
   }
 
@@ -147,15 +148,26 @@ class NewAddressController extends GetxController {
   }
 
   bool getIsAllDataValid() {
-    final receiptDistrictController =
-        formData['receiptDistrict']?['controller'] as TextEditingController;
+    final receiptDistrictController = newAddressFormData['receiptDistrict']
+        ?['controller'] as TextEditingController;
 
-    final receiptStreetController =
-        formData['receiptStreet']?['controller'] as TextEditingController;
+    final receiptStreetController = newAddressFormData['receiptStreet']
+        ?['controller'] as TextEditingController;
 
     return getIsNameValid() &&
         getIsPhoneValid() &&
         receiptDistrictController.text.isNotEmpty &&
+        receiptStreetController.text.isNotEmpty;
+  }
+
+  bool isCanSetPin() {
+    final receiptDistrictController = newAddressFormData['receiptDistrict']
+        ?['controller'] as TextEditingController;
+
+    final receiptStreetController = newAddressFormData['receiptStreet']
+        ?['controller'] as TextEditingController;
+
+    return receiptDistrictController.text.isNotEmpty &&
         receiptStreetController.text.isNotEmpty;
   }
 
@@ -198,9 +210,10 @@ class NewAddressController extends GetxController {
   }
 
   void setFormReceiptDistrictValue(String value) {
-    final currentController = formData['receiptDistrict']?['controller'];
+    final currentController =
+        newAddressFormData['receiptDistrict']?['controller'];
     (currentController as TextEditingController).text = value;
-    formData['receiptDistrict'] = {
+    newAddressFormData['receiptDistrict'] = {
       'text': value,
       'type': 'receiptDistrict',
       'controller': currentController,
@@ -391,6 +404,8 @@ class SendUserAddressController extends GetxController {
   var isLoadingSendAddress = false.obs;
 
   final userProfileController = Get.find<UserProfileController>();
+  final newAddressController = Get.find<NewAddressController>();
+  final mapGeolocationController = Get.find<MapGeolocationController>();
 
   var selecteduserAddress = RxMap(
     {
@@ -405,6 +420,7 @@ class SendUserAddressController extends GetxController {
         'id_city': '',
         'postal_code': '',
         'detail_address': '',
+        'street_address': '',
         'pin_point': '',
         'is_primary_address': false,
         'is_store_address': false,
@@ -415,17 +431,64 @@ class SendUserAddressController extends GetxController {
   Future<void> sendAddress() async {
     isLoadingSendAddress.value = true;
 
-    final idUser = userProfileController.userData[0].idUser;
-
     selecteduserAddress['userAddress'] = {
-      'id_user': idUser,
+      'id_user': userProfileController.userData[0].idUser,
+      'receipt_name': newAddressController
+          .newAddressFormData['receiptName']!['text'] as String,
+      'receipt_phone': newAddressController
+          .newAddressFormData['receiptPhone']!['text'] as String,
+      'label_address': newAddressController.labelAddress.value,
+      'province': newAddressController.alreadySelectedAddress['selectedAddress']
+              ?['province'] ??
+          '',
+      'id_province': newAddressController
+              .alreadySelectedAddress['selectedAddress']?['idProvince'] ??
+          '',
+      'city': newAddressController.alreadySelectedAddress['selectedAddress']
+              ?['city'] ??
+          '',
+      'id_city': newAddressController.alreadySelectedAddress['selectedAddress']
+              ?['idCity'] ??
+          '',
+      'postal_code': newAddressController
+              .alreadySelectedAddress['selectedAddress']?['postalCode'] ??
+          '',
+      'detail_address': newAddressController
+          .newAddressFormData['receiptDistrict']!['text'] as String,
+      'street_address': newAddressController
+          .newAddressFormData['receiptStreet']!['text'] as String,
+      'pin_point': mapGeolocationController.selectedLocation.value.toString(),
+      'is_primary_address':
+          newAddressController.isPrimaryAddress.value ? 'true' : 'false',
+      'is_store_address':
+          newAddressController.isStoreAddress.value ? 'true' : 'false',
     };
 
-    final String uri = "";
+    const String uri = "https://sibeux.my.id/project/sihalal/address";
 
     try {
+      final Map<String, dynamic> data = {
+        'method': 'send_user_address',
+        'address': selecteduserAddress['userAddress'],
+      };
 
-      print(idUser);
+      final response = await http.post(
+        Uri.parse(uri),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode(data),
+      );
+
+      if (response.statusCode == 200) {
+        if (kDebugMode) {
+          print('Data berhasil dikirim: ${response.body}');
+        }
+      } else {
+        if (kDebugMode) {
+          print('Gagal mengirim data: ${response.statusCode}');
+        }
+      }
     } catch (e) {
       if (kDebugMode) {
         print('Error: $e');
