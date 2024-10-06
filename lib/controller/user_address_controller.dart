@@ -9,6 +9,8 @@ import 'package:http/http.dart' as http;
 class UserAddressController extends GetxController {
   var addressList = RxList<Address?>([]);
   var isLoadingGetAddress = false.obs;
+  var isSetPrimary = false.obs;
+  var isSetStore = false.obs;
 
   @override
   void onInit() async {
@@ -31,6 +33,13 @@ class UserAddressController extends GetxController {
       final List<dynamic> listData = json.decode(response.body);
 
       final list = listData.map((address) {
+        if (address['is_utama'] == 'true') {
+          isSetPrimary.value = true;
+        }
+        if (address['is_toko'] == 'true') {
+          isSetStore.value = true;
+        }
+
         return Address(
           idAddress: address['id_alamat'],
           idUser: address['id_user'],

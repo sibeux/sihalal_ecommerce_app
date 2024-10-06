@@ -17,6 +17,7 @@ class NewAddressScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final newAddressController = Get.put(NewAddressController());
     final mapGeolocationController = Get.put(MapGeolocationController());
+    final sendUserAddressController = Get.put(SendUserAddressController());
     return Stack(
       children: [
         Scaffold(
@@ -144,13 +145,13 @@ class NewAddressScreen extends StatelessWidget {
             ),
           ),
         ),
-        Obx(() => mapGeolocationController.isLoadingMap.value
+        Obx(() => mapGeolocationController.isLoadingMap.value || sendUserAddressController.isLoadingSendAddress.value
             ? const Opacity(
                 opacity: 0.5,
                 child: ModalBarrier(dismissible: false, color: Colors.black),
               )
             : const SizedBox()),
-        Obx(() => mapGeolocationController.isLoadingMap.value
+        Obx(() => mapGeolocationController.isLoadingMap.value || sendUserAddressController.isLoadingSendAddress.value
             ? Center(
                 child: Container(
                   height: 100,

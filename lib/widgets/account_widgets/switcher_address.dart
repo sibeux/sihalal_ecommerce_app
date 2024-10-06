@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:sihalal_ecommerce_app/component/color_palette.dart';
 import 'package:sihalal_ecommerce_app/controller/new_address_controller.dart';
+import 'package:sihalal_ecommerce_app/controller/user_address_controller.dart';
 
 class PrimaryAddressSwitcher extends StatelessWidget {
   const PrimaryAddressSwitcher({
@@ -14,6 +15,7 @@ class PrimaryAddressSwitcher extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final userAddressController = Get.find<UserAddressController>();
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Row(
@@ -30,13 +32,19 @@ class PrimaryAddressSwitcher extends StatelessWidget {
           Transform.scale(
             scale: 0.8,
             child: Obx(
-              () => Switch(
-                value: newAddressController.isPrimaryAddress.value,
-                onChanged: (value) {
-                  newAddressController.isPrimaryAddress.value = value;
-                },
-                activeColor: ColorPalette().primary,
-                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              () => Opacity(
+                opacity: userAddressController.isSetPrimary.value ? 1 : 0.5,
+                child: AbsorbPointer(
+                  absorbing: !userAddressController.isSetPrimary.value,
+                  child: Switch(
+                    value: newAddressController.isPrimaryAddress.value,
+                    onChanged: (value) {
+                      newAddressController.isPrimaryAddress.value = value;
+                    },
+                    activeColor: ColorPalette().primary,
+                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  ),
+                ),
               ),
             ),
           ),
@@ -56,6 +64,7 @@ class StoreAddressSwitcher extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final userAddressController = Get.find<UserAddressController>();
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Row(
@@ -72,13 +81,19 @@ class StoreAddressSwitcher extends StatelessWidget {
           Transform.scale(
             scale: 0.8,
             child: Obx(
-              () => Switch(
-                value: newAddressController.isStoreAddress.value,
-                onChanged: (value) {
-                  newAddressController.isStoreAddress.value = value;
-                },
-                activeColor: ColorPalette().primary,
-                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              () => Opacity(
+                opacity: userAddressController.isSetStore.value ? 1 : 0.5,
+                child: AbsorbPointer(
+                  absorbing: !userAddressController.isSetStore.value,
+                  child: Switch(
+                    value: newAddressController.isStoreAddress.value,
+                    onChanged: (value) {
+                      newAddressController.isStoreAddress.value = value;
+                    },
+                    activeColor: ColorPalette().primary,
+                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  ),
+                ),
               ),
             ),
           ),

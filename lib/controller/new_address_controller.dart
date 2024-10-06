@@ -6,12 +6,15 @@ import 'package:get/get.dart';
 
 import 'package:http/http.dart' as http;
 import 'package:sihalal_ecommerce_app/controller/map_geolocation_controller.dart';
+import 'package:sihalal_ecommerce_app/controller/user_address_controller.dart';
 import 'package:sihalal_ecommerce_app/controller/user_profile_controller.dart';
 import 'package:sihalal_ecommerce_app/models/address_model/city.dart';
 import 'package:sihalal_ecommerce_app/models/address_model/postal_code.dart';
 import 'package:sihalal_ecommerce_app/models/address_model/province.dart';
 
 class NewAddressController extends GetxController {
+  final userAddressController = Get.find<UserAddressController>();
+
   var currentType = ''.obs;
   var isPrimaryAddress = false.obs;
   var isStoreAddress = false.obs;
@@ -82,6 +85,13 @@ class NewAddressController extends GetxController {
       },
     },
   );
+
+  @override
+  void onInit() async {
+    isPrimaryAddress.value = !userAddressController.isSetPrimary.value;
+    isStoreAddress.value = !userAddressController.isSetStore.value;
+    super.onInit();
+  }
 
   void onChanged(String value, String type) {
     final currentController = newAddressFormData[type]?['controller'];
@@ -406,6 +416,7 @@ class SendUserAddressController extends GetxController {
   final userProfileController = Get.find<UserProfileController>();
   final newAddressController = Get.find<NewAddressController>();
   final mapGeolocationController = Get.find<MapGeolocationController>();
+  final userAddressController = Get.find<UserAddressController>();
 
   var selecteduserAddress = RxMap(
     {
@@ -481,6 +492,8 @@ class SendUserAddressController extends GetxController {
       );
 
       if (response.statusCode == 200) {
+        Get.back();
+        await userAddressController.getUserAddress();
         if (kDebugMode) {
           print('Data berhasil dikirim: ${response.body}');
         }
