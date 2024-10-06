@@ -53,7 +53,7 @@ class AddressContainer extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Icon(
-                    label == 'kantor'
+                    label == 'office'
                         ? Ionicons.business_outline
                         : Ionicons.home_outline,
                     color: HexColor('#000000'),
@@ -61,7 +61,7 @@ class AddressContainer extends StatelessWidget {
                   ),
                   const WidthBox(10),
                   Text(
-                    label.capitalized,
+                    label == 'office' ? 'Kantor' : 'Rumah',
                     style: TextStyle(
                       color: HexColor('#000000'),
                       fontSize: 14,
@@ -141,7 +141,7 @@ class AddressContainer extends StatelessWidget {
           ),
           const HeightBox(5),
           Text(
-            '$district, $city, $province',
+            '$city, $province',
             style: TextStyle(
               color: HexColor('#000000').withOpacity(0.8),
               fontSize: 14,

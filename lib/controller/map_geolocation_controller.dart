@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -118,11 +119,37 @@ class MapGeolocationController extends GetxController {
     // Tandai bahwa peta siap untuk di-update
 
     // Setelah lokasi didapatkan, arahkan peta ke lokasi tersebut
-    await getAddressFromLatLng(
+    await getAddressFromLatLngByGeocoding(
         currentPosition.latitude, currentPosition.longitude);
+
+    // await getAddressFromLatLngByGoogleMapApi(
+    //     currentPosition.latitude, currentPosition.longitude);
   }
 
-  Future<void> getAddressFromLatLng(double latitude, double longitude) async {
+  Future<void> getAddressFromLatLngByGeocoding(
+      double latitude, double longitude) async {
+    try {
+      // Melakukan reverse geocoding
+      List<Placemark> placemarks =
+          await placemarkFromCoordinates(latitude, longitude);
+      Placemark place = placemarks[0];
+
+      // Menampilkan hasil alamat
+      address.value = [
+        GeolocationAddress(
+          nameProvince: place.administrativeArea ?? '',
+          nameCity: place.subAdministrativeArea ?? '',
+        )
+      ];
+    } catch (e) {
+      if (kDebugMode) {
+        print("Error: $e");
+      }
+    }
+  }
+
+  Future<void> getAddressFromLatLngByGoogleMapApi(
+      double latitude, double longitude) async {
     const String apiKey = 'AIzaSyDyz0mjJ1Y5TYQmVSEahOPHw1NvTb1uERA';
 
     final String url =
@@ -146,11 +173,6 @@ class MapGeolocationController extends GetxController {
               provinsi = component['long_name'];
             }
           }
-
-          // Melakukan reverse geocoding
-          // List<Placemark> placemarks =
-          //     await placemarkFromCoordinates(latitude, longitude);
-          // Placemark place = placemarks[0];
 
           // Menampilkan hasil alamat
           address.value = [

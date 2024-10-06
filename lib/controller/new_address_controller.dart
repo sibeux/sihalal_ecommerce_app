@@ -493,6 +493,8 @@ class SendUserAddressController extends GetxController {
       if (kDebugMode) {
         print('Error: $e');
       }
+    } finally {
+      isLoadingSendAddress.value = false;
     }
   }
 }
