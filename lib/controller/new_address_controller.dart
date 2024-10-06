@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_maps_flutter_platform_interface/src/types/location.dart';
 
 import 'package:http/http.dart' as http;
 import 'package:sihalal_ecommerce_app/controller/map_geolocation_controller.dart';
@@ -36,6 +37,11 @@ class NewAddressController extends GetxController {
 
   var currentListPostalCode = RxList<PostalCode?>([]);
   var alreadyListPostalCode = RxList<PostalCode?>([]);
+
+  var isLoadingSetEditAddress = false.obs;
+  var isEditAddress = false.obs;
+  var isSetPrimary = false.obs;
+  var isSetStore = false.obs;
 
   var newAddressFormData = RxMap(
     {
@@ -408,6 +414,100 @@ class NewAddressController extends GetxController {
     currentListPostalCode.value = postalCode;
     isGetLocationLoading.value = false;
   }
+
+  Future<void> setDataEditAddress(int index) async {
+    final mapGeolocationController = Get.find<MapGeolocationController>();
+
+    isLoadingSetEditAddress.value = true;
+    isEditAddress.value = true;
+
+    final name = userAddressController.addressList[index]!.name;
+    final province = userAddressController.addressList[index]!.province;
+    final idProvince = userAddressController.addressList[index]!.idProvince;
+    final city = userAddressController.addressList[index]!.city;
+    final idCity = userAddressController.addressList[index]!.idCity;
+    final postalCode = userAddressController.addressList[index]!.postalCode;
+
+    isPrimaryAddress.value =
+        userAddressController.addressList[index]!.isPrimary;
+    isStoreAddress.value = userAddressController.addressList[index]!.isOffice;
+    labelAddress.value = userAddressController.addressList[index]!.label;
+
+    isSetPrimary.value = isPrimaryAddress.value;
+    isSetStore.value = isStoreAddress.value;
+
+    // Get the string representation of LatLng
+    String pinPoint = userAddressController.addressList[index]!.pinPoint;
+
+    // Remove the 'LatLng(' and ')' part from the string and split the coordinates
+    pinPoint = pinPoint.replaceAll('LatLng(', '').replaceAll(')', '');
+    List<String> latLngValues = pinPoint.split(',');
+
+    // Convert the split values into double and create a LatLng object
+    double latitude = double.parse(latLngValues[0].trim());
+    double longitude = double.parse(latLngValues[1].trim());
+
+    mapGeolocationController.selectedLocation.value =
+        LatLng(latitude, longitude);
+    mapGeolocationController.centerPosition.value = LatLng(latitude, longitude);
+
+    newAddressFormData['receiptName'] = {
+      'text': name,
+      'type': 'receiptName',
+      'controller': TextEditingController(text: name),
+    };
+
+    newAddressFormData['receiptPhone'] = {
+      'text': userAddressController.addressList[index]!.phone,
+      'type': 'receiptPhone',
+      'controller': TextEditingController(
+        text: userAddressController.addressList[index]!.phone,
+      ),
+    };
+
+    newAddressFormData['receiptDistrict'] = {
+      'text': userAddressController.addressList[index]!.detailAddress,
+      'type': 'receiptDistrict',
+      'controller': TextEditingController(
+        text: userAddressController.addressList[index]!.detailAddress,
+      ),
+    };
+
+    newAddressFormData['receiptStreet'] = {
+      'text': userAddressController.addressList[index]!.streetAddress,
+      'type': 'receiptStreet',
+      'controller': TextEditingController(
+        text: userAddressController.addressList[index]!.streetAddress,
+      ),
+    };
+
+    currentSelectedAddress['selectedAddress'] = {
+      'province': province,
+      'idProvince': idProvince,
+      'city': city,
+      'idCity': idCity,
+      'postalCode': postalCode,
+    };
+    alreadySelectedAddress['selectedAddress'] = {
+      'province': province,
+      'idProvince': idProvince,
+      'city': city,
+      'idCity': idCity,
+      'postalCode': postalCode,
+    };
+    nowCurrentSelectedAddress.value = 'done';
+    provinceIsSet.value = true;
+    cityIsSet.value = true;
+    postalCodeIsSet.value = true;
+    isAllLocationSet.value = true;
+    setFormReceiptDistrictValue(
+      '${currentSelectedAddress['selectedAddress']?['province']}\n'
+      '${currentSelectedAddress['selectedAddress']?['city']}\n'
+      '${currentSelectedAddress['selectedAddress']?['postalCode']}',
+    );
+
+    isLoadingSetEditAddress.value = false;
+  }
 }
 
 class SendUserAddressController extends GetxController {
@@ -481,6 +581,12 @@ class SendUserAddressController extends GetxController {
       final Map<String, dynamic> data = {
         'method': 'send_user_address',
         'address': selecteduserAddress['userAddress'],
+        'id_primary': userAddressController.alreadySetPrimaryId.value,
+        'id_store': userAddressController.alreadySetStoreId.value,
+        'reset_primary':
+            newAddressController.isPrimaryAddress.value ? 'true' : 'false',
+        'reset_store':
+            newAddressController.isStoreAddress.value ? 'true' : 'false',
       };
 
       final response = await http.post(

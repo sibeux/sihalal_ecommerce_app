@@ -10,14 +10,21 @@ import 'package:sihalal_ecommerce_app/widgets/account_widgets/preview_map_button
 import 'package:sihalal_ecommerce_app/widgets/account_widgets/switcher_address.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-class NewAddressScreen extends StatelessWidget {
-  const NewAddressScreen({super.key});
+class CrudAddressScreen extends StatelessWidget {
+  const CrudAddressScreen({super.key, required this.title});
+
+  final String title;
 
   @override
   Widget build(BuildContext context) {
     final newAddressController = Get.put(NewAddressController());
     final mapGeolocationController = Get.put(MapGeolocationController());
     final sendUserAddressController = Get.put(SendUserAddressController());
+    final int index = Get.arguments ?? -1;
+
+    if (index != -1) {
+      newAddressController.setDataEditAddress(index);
+    }
     return Stack(
       children: [
         Scaffold(
@@ -33,7 +40,7 @@ class NewAddressScreen extends StatelessWidget {
                 Get.back();
               },
             ),
-            title: const Text('Tambah Alamat'),
+            title: Text(title),
             titleTextStyle: const TextStyle(
               color: Colors.black,
               fontSize: 18,
@@ -145,28 +152,34 @@ class NewAddressScreen extends StatelessWidget {
             ),
           ),
         ),
-        Obx(() => mapGeolocationController.isLoadingMap.value || sendUserAddressController.isLoadingSendAddress.value
+        Obx(() => mapGeolocationController.isLoadingMap.value ||
+                sendUserAddressController.isLoadingSendAddress.value ||
+                newAddressController.isLoadingSetEditAddress.value
             ? const Opacity(
                 opacity: 0.5,
                 child: ModalBarrier(dismissible: false, color: Colors.black),
               )
             : const SizedBox()),
-        Obx(() => mapGeolocationController.isLoadingMap.value || sendUserAddressController.isLoadingSendAddress.value
-            ? Center(
-                child: Container(
-                  height: 100,
-                  width: 100,
-                  decoration: BoxDecoration(
-                    color: Colors.black.withOpacity(0.5),
-                    borderRadius: BorderRadius.circular(10),
+        Obx(
+          () => mapGeolocationController.isLoadingMap.value ||
+                  sendUserAddressController.isLoadingSendAddress.value ||
+                  newAddressController.isLoadingSetEditAddress.value
+              ? Center(
+                  child: Container(
+                    height: 100,
+                    width: 100,
+                    decoration: BoxDecoration(
+                      color: Colors.black.withOpacity(0.5),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: LoadingAnimationWidget.threeArchedCircle(
+                      color: Colors.white,
+                      size: 50,
+                    ),
                   ),
-                  child: LoadingAnimationWidget.threeArchedCircle(
-                    color: Colors.white,
-                    size: 50,
-                  ),
-                ),
-              )
-            : const SizedBox()),
+                )
+              : const SizedBox(),
+        ),
       ],
     );
   }

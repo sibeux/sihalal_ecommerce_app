@@ -16,6 +16,7 @@ class PrimaryAddressSwitcher extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final userAddressController = Get.find<UserAddressController>();
+    final newAddressController = Get.find<NewAddressController>();
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Row(
@@ -33,9 +34,17 @@ class PrimaryAddressSwitcher extends StatelessWidget {
             scale: 0.8,
             child: Obx(
               () => Opacity(
-                opacity: userAddressController.isSetPrimary.value ? 1 : 0.5,
+                opacity: newAddressController.isEditAddress.value
+                    ? !newAddressController.isSetPrimary.value
+                        ? 1
+                        : 0.5
+                    : userAddressController.isSetPrimary.value
+                        ? 1
+                        : 0.5,
                 child: AbsorbPointer(
-                  absorbing: !userAddressController.isSetPrimary.value,
+                  absorbing: (!userAddressController.isSetPrimary.value ||
+                      (newAddressController.isEditAddress.value &&
+                          newAddressController.isSetPrimary.value)),
                   child: Switch(
                     value: newAddressController.isPrimaryAddress.value,
                     onChanged: (value) {
@@ -65,6 +74,7 @@ class StoreAddressSwitcher extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final userAddressController = Get.find<UserAddressController>();
+    final newAddressController = Get.find<NewAddressController>();
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Row(
@@ -82,9 +92,17 @@ class StoreAddressSwitcher extends StatelessWidget {
             scale: 0.8,
             child: Obx(
               () => Opacity(
-                opacity: userAddressController.isSetStore.value ? 1 : 0.5,
+                opacity: newAddressController.isEditAddress.value
+                    ? !newAddressController.isSetStore.value
+                        ? 1
+                        : 0.5
+                    : userAddressController.isSetStore.value
+                        ? 1
+                        : 0.5,
                 child: AbsorbPointer(
-                  absorbing: !userAddressController.isSetStore.value,
+                  absorbing: (!userAddressController.isSetStore.value ||
+                      (newAddressController.isEditAddress.value &&
+                          newAddressController.isSetStore.value)),
                   child: Switch(
                     value: newAddressController.isStoreAddress.value,
                     onChanged: (value) {

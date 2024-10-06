@@ -5,7 +5,7 @@ import 'package:ionicons/ionicons.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:sihalal_ecommerce_app/component/color_palette.dart';
 import 'package:sihalal_ecommerce_app/controller/user_address_controller.dart';
-import 'package:sihalal_ecommerce_app/screens/account_screen/new_address_screen.dart';
+import 'package:sihalal_ecommerce_app/screens/account_screen/crud_address_screen.dart';
 import 'package:sihalal_ecommerce_app/widgets/account_widgets/address_container.dart';
 import 'package:sihalal_ecommerce_app/widgets/account_widgets/button_widget.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -62,6 +62,7 @@ class ListAddressScreen extends StatelessWidget {
                                   userAddressController.addressList.length,
                               itemBuilder: (BuildContext context, int index) {
                                 return AddressContainer(
+                                  index: index,
                                   label: userAddressController
                                       .addressList[index]!.label,
                                   name: userAddressController
@@ -99,8 +100,12 @@ class ListAddressScreen extends StatelessWidget {
                             backgroundColor: Colors.transparent,
                             onPressed: () {
                               Get.to(
-                                () => const NewAddressScreen(),
+                                () => const CrudAddressScreen(
+                                  title: 'Tambah Alamat',
+                                ),
                                 transition: Transition.rightToLeft,
+                                popGesture: false,
+                                fullscreenDialog: true,
                               );
                             },
                           ),
@@ -135,8 +140,12 @@ class ListAddressScreen extends StatelessWidget {
                       backgroundColor: Colors.transparent,
                       onPressed: () {
                         Get.to(
-                          () => const NewAddressScreen(),
+                          () => const CrudAddressScreen(
+                            title: 'Tambah Alamat',
+                          ),
                           transition: Transition.rightToLeft,
+                          popGesture: false,
+                          fullscreenDialog: true,
                         );
                       },
                     ),
