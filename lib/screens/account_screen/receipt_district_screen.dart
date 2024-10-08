@@ -10,7 +10,9 @@ import 'package:sihalal_ecommerce_app/widgets/account_widgets/receipt_district.d
 import 'package:velocity_x/velocity_x.dart';
 
 class ReceiptDistrictScreen extends StatelessWidget {
-  const ReceiptDistrictScreen({super.key});
+  const ReceiptDistrictScreen({super.key, required this.isNewAddress});
+
+  final bool isNewAddress;
 
   @override
   Widget build(BuildContext context) {
@@ -66,16 +68,24 @@ class ReceiptDistrictScreen extends StatelessWidget {
                                     ),
                                     const Spacer(),
                                     GestureDetector(
-                                      onTap: () {
+                                      onTap: () async {
                                         newAddressController
                                             .postalCodeIsSet.value = false;
                                         newAddressController
                                             .isAllLocationSet.value = false;
                                         newAddressController
                                             .isAddressSetManual.value = false;
-                                        newAddressController
-                                                .listCurrentLocation.value =
-                                            newAddressController.listProvince;
+                                        if (isNewAddress) {
+                                          newAddressController
+                                                  .listCurrentLocation.value =
+                                              newAddressController.listProvince;
+                                        } else {
+                                          await newAddressController
+                                              .getProvinceData();
+                                          newAddressController
+                                                  .listCurrentLocation.value =
+                                              newAddressController.listProvince;
+                                        }
                                       },
                                       child: Container(
                                         height: 25,

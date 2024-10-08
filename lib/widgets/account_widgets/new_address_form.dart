@@ -39,7 +39,9 @@ class ReceiptPhone extends StatelessWidget {
 }
 
 class ReceiptDistrict extends StatelessWidget {
-  const ReceiptDistrict({super.key});
+  const ReceiptDistrict({super.key, required this.isNewAddress});
+
+  final bool isNewAddress;
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +75,9 @@ class ReceiptDistrict extends StatelessWidget {
               newAddressController.alreadyListPostalCode;
         }
         Get.to(
-          () => const ReceiptDistrictScreen(),
+          () => ReceiptDistrictScreen(
+            isNewAddress: isNewAddress,
+          ),
           transition: Transition.rightToLeft,
           fullscreenDialog: true,
           popGesture: false,

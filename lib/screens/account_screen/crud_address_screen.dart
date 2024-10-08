@@ -92,7 +92,9 @@ class CrudAddressScreen extends StatelessWidget {
                         )
                       : const SizedBox(),
                   const HeightBox(10),
-                  const ReceiptDistrict(),
+                  ReceiptDistrict(
+                    isNewAddress: title == 'Tambah Alamat',
+                  ),
                   const HeightBox(15),
                   const ReceiptStreet(),
                   const HeightBox(15),
@@ -144,7 +146,10 @@ class CrudAddressScreen extends StatelessWidget {
                     () => newAddressController.getIsAllDataValid() &&
                             mapGeolocationController.selectedLocation.value !=
                                 null
-                        ? const EnableSendNewAddress()
+                        ? EnableSendNewAddress(
+                            isNewAddress: title == 'Tambah Alamat',
+                            index: index,
+                          )
                         : const DisableSendNewAddress(),
                   ),
                 ],

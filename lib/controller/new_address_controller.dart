@@ -539,7 +539,7 @@ class SendUserAddressController extends GetxController {
     },
   );
 
-  Future<void> sendAddress() async {
+  Future<void> sendAddress(bool isNewAddress, int index) async {
     isLoadingSendAddress.value = true;
 
     selecteduserAddress['userAddress'] = {
@@ -578,16 +578,31 @@ class SendUserAddressController extends GetxController {
     const String uri = "https://sibeux.my.id/project/sihalal/address";
 
     try {
-      final Map<String, dynamic> data = {
-        'method': 'send_user_address',
-        'address': selecteduserAddress['userAddress'],
-        'id_primary': userAddressController.alreadySetPrimaryId.value,
-        'id_store': userAddressController.alreadySetStoreId.value,
-        'reset_primary':
-            newAddressController.isPrimaryAddress.value ? 'true' : 'false',
-        'reset_store':
-            newAddressController.isStoreAddress.value ? 'true' : 'false',
-      };
+      Map<String, dynamic> data = {};
+      if (isNewAddress) {
+        data = {
+          'method': 'send_user_address',
+          'address': selecteduserAddress['userAddress'],
+          'id_primary': userAddressController.alreadySetPrimaryId.value,
+          'id_store': userAddressController.alreadySetStoreId.value,
+          'reset_primary':
+              newAddressController.isPrimaryAddress.value ? 'true' : 'false',
+          'reset_store':
+              newAddressController.isStoreAddress.value ? 'true' : 'false',
+        };
+      } else {
+        data = {
+          'method': 'update_user_address',
+          'id_address': userAddressController.addressList[index]!.idAddress,
+          'address': selecteduserAddress['userAddress'],
+          'id_primary': userAddressController.alreadySetPrimaryId.value,
+          'id_store': userAddressController.alreadySetStoreId.value,
+          'reset_primary':
+              newAddressController.isPrimaryAddress.value ? 'true' : 'false',
+          'reset_store':
+              newAddressController.isStoreAddress.value ? 'true' : 'false',
+        };
+      }
 
       final response = await http.post(
         Uri.parse(uri),

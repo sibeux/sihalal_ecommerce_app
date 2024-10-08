@@ -51,7 +51,12 @@ class EditProfileButton extends StatelessWidget {
 class EnableSendNewAddress extends StatelessWidget {
   const EnableSendNewAddress({
     super.key,
+    required this.isNewAddress,
+    required this.index,
   });
+
+  final bool isNewAddress;
+  final int index;
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +69,10 @@ class EnableSendNewAddress extends StatelessWidget {
         foregroundColor: Colors.white,
         backgroundColor: ColorPalette().primary,
         onPressed: () async {
-          await sendUserAddressController.sendAddress();
+          await sendUserAddressController.sendAddress(
+            isNewAddress,
+            index,
+          );
         },
       ),
     );
