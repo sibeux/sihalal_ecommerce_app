@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:shimmer/shimmer.dart';
@@ -78,8 +79,14 @@ class StoreCentreScreen extends StatelessWidget {
                             ? Shimmer.fromColors(
                                 baseColor: Colors.grey[300]!,
                                 highlightColor: Colors.grey[100]!,
-                                child: const Text(
-                                  'Lihat Toko Saya',
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey[300],
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
+                                  child: const Text(
+                                    'Lihat Toko Saya',
+                                  ),
                                 ),
                               )
                             : GestureDetector(
@@ -92,6 +99,17 @@ class StoreCentreScreen extends StatelessWidget {
                                       fullscreenDialog: true,
                                       popGesture: false,
                                     );
+                                  } else {
+                                    Fluttertoast.showToast(
+                                      msg: 'Atur alamat toko di halaman alamat',
+                                      toastLength: Toast.LENGTH_SHORT,
+                                      gravity: ToastGravity.CENTER,
+                                      timeInSecForIosWeb: 1,
+                                      backgroundColor:
+                                          Colors.black.withOpacity(0.5),
+                                      textColor: Colors.white,
+                                      fontSize: 10.0,
+                                    );
                                   }
                                 },
                                 child: Text(
@@ -102,6 +120,7 @@ class StoreCentreScreen extends StatelessWidget {
                                                   element!.isStore == true)
                                               ?.city ??
                                           '',
+                                  maxLines: 1,
                                   style: TextStyle(
                                     fontSize: 12,
                                     fontWeight: FontWeight.w400,
@@ -113,7 +132,7 @@ class StoreCentreScreen extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                      )
+                      ),
                     ],
                   ),
                 ),
@@ -133,6 +152,40 @@ class StoreCentreScreen extends StatelessWidget {
             color: HexColor('#eff4f8'),
             height: 8,
             thickness: 8,
+          ),
+          const HeightBox(15),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Row(
+              children: [
+                const Flexible(
+                  flex: 2,
+                  fit: FlexFit.tight,
+                  child: Text(
+                    'Penjualan',
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                      color: Colors.black87,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ),
+                Flexible(
+                  flex: 1,
+                  fit: FlexFit.tight,
+                  child: Text(
+                    'Lihat Riwayat',
+                    textAlign: TextAlign.right,
+                    style: TextStyle(
+                      color: ColorPalette().primary,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                )
+              ],
+            ),
           ),
         ],
       ),

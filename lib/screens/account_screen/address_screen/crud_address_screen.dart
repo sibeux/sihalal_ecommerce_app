@@ -50,52 +50,50 @@ class CrudAddressScreen extends StatelessWidget {
               fontWeight: FontWeight.w500,
             ),
             actions: [
-              (title == 'Tambah Alamat')
-                  ? const SizedBox()
-                  : (title != 'Tambah Alamat' &&
-                          (!newAddressController.isPrimaryAddress.value &&
-                              !newAddressController.isStoreAddress.value))
-                      ? GestureDetector(
-                          onTap: () {
-                            showModalDeleteAddress(context, index);
-                          },
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 20),
-                            child: Text(
-                              'Hapus Alamat',
-                              style: TextStyle(
-                                color: ColorPalette().primary,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ),
-                        )
-                      : GestureDetector(
-                          onTap: () {
-                            Fluttertoast.showToast(
-                              msg:
-                                  'Alamat tidak dapat dihapus karena merupakan alamat utama atau alamat toko',
-                              toastLength: Toast.LENGTH_SHORT,
-                              gravity: ToastGravity.CENTER,
-                              timeInSecForIosWeb: 1,
-                              backgroundColor: Colors.black.withOpacity(0.8),
-                              textColor: Colors.white,
-                              fontSize: 10.0,
-                            );
-                          },
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 20),
-                            child: Text(
-                              'Hapus Alamat',
-                              style: TextStyle(
-                                color: Colors.black.withOpacity(0.4),
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
+              (title != 'Tambah Alamat' &&
+                      (!newAddressController.isPrimaryAddress.value &&
+                          !newAddressController.isStoreAddress.value))
+                  ? GestureDetector(
+                      onTap: () {
+                        showModalDeleteAddress(context, index);
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: Text(
+                          'Hapus Alamat',
+                          style: TextStyle(
+                            color: ColorPalette().primary,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
                           ),
                         ),
+                      ),
+                    )
+                  : GestureDetector(
+                      onTap: () {
+                        Fluttertoast.showToast(
+                          msg:
+                              'Alamat tidak dapat dihapus karena merupakan alamat utama atau alamat toko',
+                          toastLength: Toast.LENGTH_SHORT,
+                          gravity: ToastGravity.CENTER,
+                          timeInSecForIosWeb: 1,
+                          backgroundColor: Colors.black.withOpacity(0.8),
+                          textColor: Colors.white,
+                          fontSize: 10.0,
+                        );
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: Text(
+                          'Hapus Alamat',
+                          style: TextStyle(
+                            color: Colors.black.withOpacity(0.4),
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                    ),
             ],
           ),
           body: Obx(

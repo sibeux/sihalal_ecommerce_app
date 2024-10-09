@@ -80,7 +80,7 @@ class ShopInfo extends StatelessWidget {
                           maxLines: 1,
                           style: TextStyle(
                             fontSize: 14,
-                            fontWeight: FontWeight.w500,
+                            fontWeight: FontWeight.w300,
                             color: Colors.black.withOpacity(0.8),
                             overflow: TextOverflow.ellipsis,
                           ),

@@ -253,14 +253,16 @@ class ProductLocation extends StatelessWidget {
             fit: BoxFit.cover,
           ),
           const SizedBox(width: 5),
-          Text(
-            shortenKabupaten(location.capitalized),
-            maxLines: 1,
-            style: const TextStyle(
-              color: Colors.black54,
-              fontSize: 11,
-              fontWeight: FontWeight.w400,
-              overflow: TextOverflow.ellipsis,
+          Expanded(
+            child: Text(
+              shortenKabupaten(location.capitalized),
+              maxLines: 1,
+              style: const TextStyle(
+                color: Colors.black54,
+                fontSize: 10,
+                fontWeight: FontWeight.w400,
+                overflow: TextOverflow.ellipsis,
+              ),
             ),
           )
         ],
