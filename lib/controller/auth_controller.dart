@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:sihalal_ecommerce_app/controller/jwt_controller.dart';
+import 'package:sihalal_ecommerce_app/controller/user_profile_controller.dart';
 import 'package:sihalal_ecommerce_app/screens/home_screen/persistent_bar_screen.dart';
 import 'package:sihalal_ecommerce_app/screens/user_auth_screen/register_data_screen.dart';
 
@@ -199,7 +200,6 @@ class UserRegisterController extends GetxController {
         bool success = jsonResponse['status'] == 'success';
 
         if (success) {
-          isLoading.value = false;
           await generateJwtRegister(email: email, password: password);
         } else {
           if (kDebugMode) {
@@ -224,6 +224,7 @@ class UserRegisterController extends GetxController {
       {required String email, required String password}) async {
     const String url = 'https://sibeux.my.id/project/sihalal-php-jwt/login';
     final jwtController = Get.put(JwtController());
+    final userProfileController = Get.find<UserProfileController>();
 
     try {
       final response = await http.post(
@@ -245,6 +246,7 @@ class UserRegisterController extends GetxController {
           token: jsonResponse['token'],
           email: email,
         );
+        await userProfileController.getUserData();
         Get.offAll(
           () => const PersistenBarScreen(),
           transition: Transition.rightToLeftWithFade,
