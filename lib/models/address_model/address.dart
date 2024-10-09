@@ -9,7 +9,7 @@ class Address {
       idCity,
       postalCode;
   final String detailAddress, streetAddress, pinPoint;
-  final bool isPrimary, isOffice;
+  final bool isPrimary, isStore;
 
   Address({
     required this.idAddress,
@@ -26,6 +26,6 @@ class Address {
     required this.streetAddress,
     required this.pinPoint,
     required this.isPrimary,
-    required this.isOffice,
+    required this.isStore,
   });
 }

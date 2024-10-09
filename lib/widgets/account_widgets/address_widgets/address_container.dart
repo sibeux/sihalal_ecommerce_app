@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:sihalal_ecommerce_app/component/color_palette.dart';
-import 'package:sihalal_ecommerce_app/screens/account_screen/address_screen/crud_address_screen.dart';
+import 'package:sihalal_ecommerce_app/screens/account_screen/crud_address_screen.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class AddressContainer extends StatelessWidget {

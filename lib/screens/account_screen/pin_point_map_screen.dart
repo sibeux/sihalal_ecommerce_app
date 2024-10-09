@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:sihalal_ecommerce_app/component/color_palette.dart';
-import 'package:sihalal_ecommerce_app/controller/address_controller/map_geolocation_controller.dart';
+import 'package:sihalal_ecommerce_app/controller/map_geolocation_controller.dart';
 import 'package:sihalal_ecommerce_app/widgets/account_widgets/button_widget.dart';
 
 class PinPointMapScreen extends StatelessWidget {

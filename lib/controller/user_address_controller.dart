@@ -59,7 +59,7 @@ class UserAddressController extends GetxController {
           streetAddress: address['jalan_alamat'],
           pinPoint: address['pinpoint_alamat'],
           isPrimary: address['is_utama'] == 'true',
-          isOffice: address['is_toko'] == 'true',
+          isStore: address['is_toko'] == 'true',
         );
       }).toList();
 

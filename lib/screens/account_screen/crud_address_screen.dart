@@ -4,8 +4,8 @@ import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:sihalal_ecommerce_app/component/color_palette.dart';
-import 'package:sihalal_ecommerce_app/controller/address_controller/map_geolocation_controller.dart';
-import 'package:sihalal_ecommerce_app/controller/address_controller/new_address_controller.dart';
+import 'package:sihalal_ecommerce_app/controller/map_geolocation_controller.dart';
+import 'package:sihalal_ecommerce_app/controller/new_address_controller.dart';
 import 'package:sihalal_ecommerce_app/widgets/account_widgets/button_widget.dart';
 import 'package:sihalal_ecommerce_app/widgets/account_widgets/address_widgets/delete_address_modal.dart';
 import 'package:sihalal_ecommerce_app/widgets/account_widgets/address_widgets/new_address_form.dart';
@@ -50,50 +50,52 @@ class CrudAddressScreen extends StatelessWidget {
               fontWeight: FontWeight.w500,
             ),
             actions: [
-              (title != 'Tambah Alamat' &&
-                      (!newAddressController.isPrimaryAddress.value &&
-                          !newAddressController.isStoreAddress.value))
-                  ? GestureDetector(
-                      onTap: () {
-                        showModalDeleteAddress(context, index);
-                      },
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: Text(
-                          'Hapus Alamat',
-                          style: TextStyle(
-                            color: ColorPalette().primary,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
+              (title == 'Tambah Alamat')
+                  ? const SizedBox()
+                  : (title != 'Tambah Alamat' &&
+                          (!newAddressController.isPrimaryAddress.value &&
+                              !newAddressController.isStoreAddress.value))
+                      ? GestureDetector(
+                          onTap: () {
+                            showModalDeleteAddress(context, index);
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 20),
+                            child: Text(
+                              'Hapus Alamat',
+                              style: TextStyle(
+                                color: ColorPalette().primary,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                        )
+                      : GestureDetector(
+                          onTap: () {
+                            Fluttertoast.showToast(
+                              msg:
+                                  'Alamat tidak dapat dihapus karena merupakan alamat utama atau alamat toko',
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.CENTER,
+                              timeInSecForIosWeb: 1,
+                              backgroundColor: Colors.black.withOpacity(0.8),
+                              textColor: Colors.white,
+                              fontSize: 10.0,
+                            );
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 20),
+                            child: Text(
+                              'Hapus Alamat',
+                              style: TextStyle(
+                                color: Colors.black.withOpacity(0.4),
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
                           ),
                         ),
-                      ),
-                    )
-                  : GestureDetector(
-                      onTap: () {
-                        Fluttertoast.showToast(
-                          msg:
-                              'Alamat tidak dapat dihapus karena merupakan alamat utama atau alamat toko',
-                          toastLength: Toast.LENGTH_SHORT,
-                          gravity: ToastGravity.CENTER,
-                          timeInSecForIosWeb: 1,
-                          backgroundColor: Colors.black.withOpacity(0.8),
-                          textColor: Colors.white,
-                          fontSize: 10.0,
-                        );
-                      },
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: Text(
-                          'Hapus Alamat',
-                          style: TextStyle(
-                            color: Colors.black.withOpacity(0.4),
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ),
-                    ),
             ],
           ),
           body: Obx(

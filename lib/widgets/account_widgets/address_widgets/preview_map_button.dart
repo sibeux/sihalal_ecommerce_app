@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:sihalal_ecommerce_app/controller/address_controller/map_geolocation_controller.dart';
-import 'package:sihalal_ecommerce_app/controller/address_controller/new_address_controller.dart';
-import 'package:sihalal_ecommerce_app/screens/account_screen/address_screen/pin_point_map_screen.dart';
+import 'package:sihalal_ecommerce_app/controller/map_geolocation_controller.dart';
+import 'package:sihalal_ecommerce_app/controller/new_address_controller.dart';
+import 'package:sihalal_ecommerce_app/screens/account_screen/pin_point_map_screen.dart';
 import 'package:sihalal_ecommerce_app/widgets/account_widgets/button_widget.dart';
 
 class PreviewMapButton extends StatelessWidget {

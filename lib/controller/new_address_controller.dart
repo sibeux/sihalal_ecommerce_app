@@ -3,11 +3,11 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_maps_flutter_platform_interface/src/types/location.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import 'package:http/http.dart' as http;
-import 'package:sihalal_ecommerce_app/controller/address_controller/map_geolocation_controller.dart';
-import 'package:sihalal_ecommerce_app/controller/address_controller/user_address_controller.dart';
+import 'package:sihalal_ecommerce_app/controller/map_geolocation_controller.dart';
+import 'package:sihalal_ecommerce_app/controller/user_address_controller.dart';
 import 'package:sihalal_ecommerce_app/controller/user_profile_controller.dart';
 import 'package:sihalal_ecommerce_app/models/address_model/city.dart';
 import 'package:sihalal_ecommerce_app/models/address_model/postal_code.dart';
@@ -430,7 +430,7 @@ class NewAddressController extends GetxController {
 
     isPrimaryAddress.value =
         userAddressController.addressList[index]!.isPrimary;
-    isStoreAddress.value = userAddressController.addressList[index]!.isOffice;
+    isStoreAddress.value = userAddressController.addressList[index]!.isStore;
     labelAddress.value = userAddressController.addressList[index]!.label;
 
     isSetPrimary.value = isPrimaryAddress.value;
