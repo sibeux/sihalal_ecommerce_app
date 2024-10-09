@@ -631,4 +631,41 @@ class SendUserAddressController extends GetxController {
       isLoadingSendAddress.value = false;
     }
   }
+
+  Future<void> deleteUserAddress({required String idAddress}) async {
+    isLoadingSendAddress.value = true;
+
+    const String uri = "https://sibeux.my.id/project/sihalal/address";
+
+    try {
+      final response = await http.post(
+        Uri.parse(uri),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode({
+          'method': 'delete_user_address',
+          'id_address': idAddress,
+        }),
+      );
+
+      if (response.statusCode == 200) {
+        Get.back();
+        await userAddressController.getUserAddress();
+        if (kDebugMode) {
+          print('Data berhasil dihapus: ${response.body}');
+        }
+      } else {
+        if (kDebugMode) {
+          print('Gagal menghapus data: ${response.statusCode}');
+        }
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print('Error: $e');
+      }
+    } finally {
+      isLoadingSendAddress.value = false;
+    }
+  }
 }
