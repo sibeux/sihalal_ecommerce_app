@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:sihalal_ecommerce_app/component/color_palette.dart';
-import 'package:sihalal_ecommerce_app/controller/map_geolocation_controller.dart';
-import 'package:sihalal_ecommerce_app/controller/new_address_controller.dart';
+import 'package:sihalal_ecommerce_app/controller/address_controller/map_geolocation_controller.dart';
+import 'package:sihalal_ecommerce_app/controller/address_controller/new_address_controller.dart';
 import 'package:sihalal_ecommerce_app/screens/account_screen/address_screen/pin_point_map_screen.dart';
 
 class EditProfileButton extends StatelessWidget {

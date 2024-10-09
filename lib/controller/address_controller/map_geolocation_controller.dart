@@ -6,7 +6,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sihalal_ecommerce_app/component/string_formatter.dart';
-import 'package:sihalal_ecommerce_app/controller/new_address_controller.dart';
+import 'package:sihalal_ecommerce_app/controller/address_controller/new_address_controller.dart';
 import 'package:sihalal_ecommerce_app/models/address_model/geolocation_address.dart';
 
 import 'package:http/http.dart' as http;
