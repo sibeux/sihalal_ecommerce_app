@@ -6,7 +6,7 @@ import 'package:sihalal_ecommerce_app/component/color_palette.dart';
 import 'package:sihalal_ecommerce_app/controller/map_geolocation_controller.dart';
 import 'package:sihalal_ecommerce_app/controller/new_address_controller.dart';
 import 'package:sihalal_ecommerce_app/widgets/account_widgets/button_widget.dart';
-import 'package:sihalal_ecommerce_app/widgets/account_widgets/receipt_district.dart';
+import 'package:sihalal_ecommerce_app/widgets/account_widgets/address_widgets/receipt_district.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class ReceiptDistrictScreen extends StatelessWidget {
