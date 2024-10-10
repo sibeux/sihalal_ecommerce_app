@@ -25,7 +25,7 @@ class JwtController extends GetxController {
   Future<void> checkToken() async {
     final token = await storage.read(key: 'token');
     if (token != null) {
-      sendTokenToServer(token);
+      await sendTokenToServer(token);
     }
   }
 
@@ -55,7 +55,7 @@ class JwtController extends GetxController {
             (jsonResponse['exp'] == 'no')) {
           final Map<String, dynamic> decodedToken = JwtDecoder.decode(token);
           final email = decodedToken['data']['email'];
-          setToken(token: token, email: email);
+          await setToken(token: token, email: email);
         }
       }
     } catch (e) {
