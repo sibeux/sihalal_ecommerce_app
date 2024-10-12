@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:sihalal_ecommerce_app/component/regex_drive.dart';
 import 'package:sihalal_ecommerce_app/models/product.dart';
 import 'package:http/http.dart' as http;
+import 'package:sihalal_ecommerce_app/models/seller_product.dart';
 
 class SearchProductController extends GetxController {
   final controller = TextEditingController();
@@ -85,6 +86,65 @@ class GetScrollLeftProductController extends GetxController {
     } finally {
       // ini tetap dieksekusi baik berhasil atau gagal
       isLoading.value = false;
+    }
+  }
+}
+
+class GetSellerProductController extends GetxController {
+  var isGetProductLoading = false.obs;
+  var sellerProductList = RxList<SellerProduct>([]);
+
+  void getProducts({required String email}) async {
+    await getUserProduct(email: email);
+  }
+
+  Future<void> getUserProduct({required String email}) async {
+    isGetProductLoading.value = true;
+
+    String url =
+        'https://sibeux.my.id/project/sihalal/product?method=user_product&email=$email';
+    const api =
+        'https://sibeux.my.id/cloud-music-player/database/mobile-music-player/api/gdrive_api.php';
+
+    try {
+      final response = await http.get(Uri.parse(url));
+      final apiResponse = await http.get(Uri.parse(api));
+
+      final List<dynamic> listData = json.decode(response.body);
+      final List<dynamic> apiData = json.decode(apiResponse.body);
+
+      if (listData.isNotEmpty) {
+        final list = listData.map((produk) {
+          return SellerProduct(
+            uidProduct: produk['id_produk'],
+            uidKategori: produk['id_kategori'],
+            uidUser: produk['id_user'],
+            nama: produk['nama_produk'],
+            deskripsi: produk['deskripsi_produk'] ?? '--',
+            harga: produk['harga_produk'],
+            foto1: regexGdriveLink(
+                produk['foto_produk_1'], apiData[0]['gdrive_api']),
+            foto2: produk['foto_produk_2'] == null
+                ? ''
+                : regexGdriveLink(
+                    produk['foto_produk_2'], apiData[0]['gdrive_api']),
+            foto3: produk['foto_produk_3'] == null
+                ? ''
+                : regexGdriveLink(
+                    produk['foto_produk_3'], apiData[0]['gdrive_api']),
+            stok: produk['stok_produk'] ?? '0',
+            berat: produk['berat_produk'] ?? '0',
+          );
+        }).toList();
+
+        sellerProductList.value = list;
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    } finally {
+      isGetProductLoading.value = false;
     }
   }
 }

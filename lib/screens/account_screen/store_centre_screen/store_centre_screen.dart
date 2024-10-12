@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:sihalal_ecommerce_app/component/color_palette.dart';
-import 'package:sihalal_ecommerce_app/controller/user_address_controller.dart';
+import 'package:sihalal_ecommerce_app/controller/product_controller.dart';
 import 'package:sihalal_ecommerce_app/controller/user_profile_controller.dart';
-import 'package:sihalal_ecommerce_app/screens/account_screen/list_address_screen.dart';
-import 'package:sihalal_ecommerce_app/widgets/home_widgets/photo_user.dart';
+import 'package:sihalal_ecommerce_app/widgets/account_widgets/store_screen_widgets/sale_product_status.dart';
+import 'package:sihalal_ecommerce_app/widgets/account_widgets/store_screen_widgets/store_info.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class StoreCentreScreen extends StatelessWidget {
@@ -16,7 +15,10 @@ class StoreCentreScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final userProfileController = Get.find<UserProfileController>();
-    final userAddressController = Get.put(UserAddressController());
+    final getSellerProductController = Get.put(GetSellerProductController());
+    getSellerProductController.getProducts(
+      email: userProfileController.userData[0].emailuser,
+    );
     return Scaffold(
       backgroundColor: HexColor('#fefffe'),
       appBar: AppBar(
@@ -35,6 +37,23 @@ class StoreCentreScreen extends StatelessWidget {
           fontSize: 18,
           fontWeight: FontWeight.w500,
         ),
+        actions: [
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: InkWell(
+              splashFactory: InkRipple.splashFactory,
+              onTap: () {},
+              child: Text(
+                'Lihat Toko',
+                style: TextStyle(
+                  color: ColorPalette().primary,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+          )
+        ],
       ),
       body: Column(
         children: [
@@ -43,108 +62,7 @@ class StoreCentreScreen extends StatelessWidget {
             thickness: 0.5,
           ),
           const HeightBox(20),
-          Container(
-            margin: const EdgeInsets.symmetric(horizontal: 20),
-            child: Row(
-              children: [
-                Transform.translate(
-                  offset: const Offset(20, 0),
-                  child: Transform.scale(
-                    scale: 2,
-                    child: const UserPhotoAppbar(),
-                  ),
-                ),
-                const WidthBox(50),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        userProfileController.userData[0].nameShop == ''
-                            ? 'Toko ${userProfileController.userData[0].nameUser}'
-                            : userProfileController.userData[0].nameShop,
-                        maxLines: 1,
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.black.withOpacity(1),
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      Obx(
-                        () => userAddressController.isLoadingGetAddress.value
-                            ? Shimmer.fromColors(
-                                baseColor: Colors.grey[300]!,
-                                highlightColor: Colors.grey[100]!,
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: Colors.grey[300],
-                                    borderRadius: BorderRadius.circular(5),
-                                  ),
-                                  child: const Text(
-                                    'Lihat Toko Saya',
-                                  ),
-                                ),
-                              )
-                            : GestureDetector(
-                                onTap: () {
-                                  if (userAddressController
-                                      .addressList.isEmpty) {
-                                    Get.to(
-                                      () => const ListAddressScreen(),
-                                      transition: Transition.rightToLeft,
-                                      fullscreenDialog: true,
-                                      popGesture: false,
-                                    );
-                                  } else {
-                                    Fluttertoast.showToast(
-                                      msg: 'Atur alamat toko di halaman alamat',
-                                      toastLength: Toast.LENGTH_SHORT,
-                                      gravity: ToastGravity.CENTER,
-                                      timeInSecForIosWeb: 1,
-                                      backgroundColor:
-                                          Colors.black.withOpacity(0.5),
-                                      textColor: Colors.white,
-                                      fontSize: 10.0,
-                                    );
-                                  }
-                                },
-                                child: Text(
-                                  (userAddressController.addressList.isEmpty)
-                                      ? 'Tambahkan Alamat Toko'
-                                      : userAddressController.addressList
-                                              .firstWhere((element) =>
-                                                  element!.isStore == true)
-                                              ?.city ??
-                                          '',
-                                  maxLines: 1,
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w400,
-                                    color: userAddressController
-                                            .addressList.isEmpty
-                                        ? ColorPalette().primary
-                                        : Colors.black.withOpacity(0.6),
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ),
-                              ),
-                      ),
-                    ],
-                  ),
-                ),
-                const WidthBox(15),
-                Icon(
-                  Icons.edit_square,
-                  color: ColorPalette().primary,
-                  size: 18,
-                ),
-              ],
-            ),
-          ),
+          const StoreInfo(),
           const SizedBox(
             height: 20,
           ),
@@ -158,34 +76,149 @@ class StoreCentreScreen extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Row(
               children: [
-                const Flexible(
-                  flex: 2,
+                Flexible(
+                  flex: 1,
                   fit: FlexFit.tight,
                   child: Text(
                     'Penjualan',
                     textAlign: TextAlign.left,
                     style: TextStyle(
-                      color: Colors.black87,
-                      fontSize: 16,
+                      color: Colors.black.withOpacity(0.8),
+                      fontSize: 14,
                       fontWeight: FontWeight.w700,
                     ),
                   ),
                 ),
-                Flexible(
-                  flex: 1,
-                  fit: FlexFit.tight,
+                const Spacer(),
+                InkWell(
+                  onTap: () {},
                   child: Text(
                     'Lihat Riwayat',
                     textAlign: TextAlign.right,
                     style: TextStyle(
                       color: ColorPalette().primary,
-                      fontSize: 15,
+                      fontSize: 14,
                       fontWeight: FontWeight.w700,
                     ),
                   ),
                 )
               ],
             ),
+          ),
+          const HeightBox(20),
+          const SaleProductStatus(),
+          const SizedBox(
+            height: 20,
+          ),
+          Divider(
+            color: HexColor('#eff4f8'),
+            height: 8,
+            thickness: 8,
+          ),
+          const HeightBox(15),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Row(
+              children: [
+                Flexible(
+                  flex: 1,
+                  fit: FlexFit.tight,
+                  child: Text(
+                    'Produk',
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                      color: Colors.black.withOpacity(0.8),
+                      fontSize: 14,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ),
+                const Spacer(),
+                InkWell(
+                  onTap: () {},
+                  child: Text(
+                    'Tambah Produk',
+                    textAlign: TextAlign.right,
+                    style: TextStyle(
+                      color: ColorPalette().primary,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const HeightBox(20),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: InkWell(
+              onTap: () {},
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Produk Aktif',
+                        style: TextStyle(
+                          color: Colors.black.withOpacity(0.8),
+                          fontSize: 14,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      const HeightBox(5),
+                      Obx(
+                        () =>
+                            getSellerProductController.isGetProductLoading.value
+                                ? Shimmer.fromColors(
+                                    baseColor: Colors.grey[300]!,
+                                    highlightColor: Colors.grey[100]!,
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        color: Colors.grey[300],
+                                        borderRadius: BorderRadius.circular(5),
+                                      ),
+                                      child: Text(
+                                        '0 Produk',
+                                        style: TextStyle(
+                                          color: Colors.black.withOpacity(0.7),
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w300,
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                : Text(
+                                    getSellerProductController
+                                            .sellerProductList.isEmpty
+                                        ? '0 Produk'
+                                        : '${getSellerProductController.sellerProductList.length} Produk',
+                                    style: TextStyle(
+                                      color: Colors.black.withOpacity(0.7),
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w300,
+                                    ),
+                                  ),
+                      ),
+                    ],
+                  ),
+                  const Spacer(),
+                  Icon(
+                    Icons.arrow_forward_ios,
+                    color: Colors.black.withOpacity(0.7),
+                    size: 20,
+                  ),
+                ],
+              ),
+            ),
+          ),
+          const HeightBox(15),
+          Divider(
+            color: HexColor('#eff4f8'),
+            height: 8,
+            thickness: 8,
           ),
         ],
       ),
