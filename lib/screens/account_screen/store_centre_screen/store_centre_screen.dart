@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:sihalal_ecommerce_app/component/color_palette.dart';
 import 'package:sihalal_ecommerce_app/controller/product_controller.dart';
 import 'package:sihalal_ecommerce_app/controller/user_profile_controller.dart';
+import 'package:sihalal_ecommerce_app/screens/account_screen/store_centre_screen/list_product_screen.dart';
 import 'package:sihalal_ecommerce_app/widgets/account_widgets/store_screen_widgets/sale_product_status.dart';
 import 'package:sihalal_ecommerce_app/widgets/account_widgets/store_screen_widgets/store_info.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -153,7 +155,26 @@ class StoreCentreScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: InkWell(
-              onTap: () {},
+              onTap: () {
+                if (!getSellerProductController.isGetProductLoading.value) {
+                  Get.to(
+                    () => const ListProductScreen(),
+                    transition: Transition.rightToLeft,
+                    fullscreenDialog: true,
+                    popGesture: false,
+                  );
+                } else {
+                  Fluttertoast.showToast(
+                    msg: 'Tunggu Sebentar',
+                    toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.CENTER,
+                    timeInSecForIosWeb: 1,
+                    backgroundColor: Colors.black.withOpacity(0.5),
+                    textColor: Colors.white,
+                    fontSize: 10.0,
+                  );
+                }
+              },
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -161,7 +182,7 @@ class StoreCentreScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Produk Aktif',
+                        'Produk Saya',
                         style: TextStyle(
                           color: Colors.black.withOpacity(0.8),
                           fontSize: 14,

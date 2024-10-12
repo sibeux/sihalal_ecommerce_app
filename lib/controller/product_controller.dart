@@ -92,7 +92,21 @@ class GetScrollLeftProductController extends GetxController {
 
 class GetSellerProductController extends GetxController {
   var isGetProductLoading = false.obs;
+
   var sellerProductList = RxList<SellerProduct>([]);
+  var visibleProductList = RxList<SellerProduct>([]);
+  var invisibleProductList = RxList<SellerProduct>([]);
+  var outStockProductList = RxList<SellerProduct>([]);
+
+  var productVisible = 0.obs;
+  var productInvisible = 0.obs;
+  var productOutStock = 0.obs;
+  var currentFilterProductList = 0.obs;
+
+  void changeFilterProductList(int index) {
+    currentFilterProductList.value = index;
+    update();
+  }
 
   void getProducts({required String email}) async {
     await getUserProduct(email: email);
@@ -100,6 +114,10 @@ class GetSellerProductController extends GetxController {
 
   Future<void> getUserProduct({required String email}) async {
     isGetProductLoading.value = true;
+
+    productInvisible.value = 0;
+    productVisible.value = 0;
+    productOutStock.value = 0;
 
     String url =
         'https://sibeux.my.id/project/sihalal/product?method=user_product&email=$email';
@@ -115,6 +133,14 @@ class GetSellerProductController extends GetxController {
 
       if (listData.isNotEmpty) {
         final list = listData.map((produk) {
+          if (produk['is_ditampilkan'] == 'true') {
+            productVisible.value++;
+          } else {
+            productInvisible.value++;
+          }
+          if (produk['stok_produk'] == '0') {
+            productOutStock.value++;
+          }
           return SellerProduct(
             uidProduct: produk['id_produk'],
             uidKategori: produk['id_kategori'],
@@ -134,10 +160,18 @@ class GetSellerProductController extends GetxController {
                     produk['foto_produk_3'], apiData[0]['gdrive_api']),
             stok: produk['stok_produk'] ?? '0',
             berat: produk['berat_produk'] ?? '0',
+            isVisible: produk['is_ditampilkan'] == 'true',
+            countReview: produk['jumlah_ulasan'] ?? '0',
           );
         }).toList();
 
         sellerProductList.value = list;
+        visibleProductList.value =
+            list.where((element) => element.isVisible).toList();
+        invisibleProductList.value =
+            list.where((element) => !element.isVisible).toList();
+        outStockProductList.value =
+            list.where((element) => element.stok == '0').toList();
       }
     } catch (e) {
       if (kDebugMode) {
