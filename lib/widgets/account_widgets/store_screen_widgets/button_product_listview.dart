@@ -5,9 +5,11 @@ class ChangeStatusButton extends StatelessWidget {
   const ChangeStatusButton({
     super.key,
     required this.onPressed,
+    required this.title,
   });
 
   final void Function() onPressed;
+  final String title;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +25,7 @@ class ChangeStatusButton extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
           side: BorderSide(
-            color: Colors.black.withOpacity(0.5),
+            color: Colors.black.withOpacity(0.3),
           ),
         ),
         minimumSize: const Size(
@@ -31,9 +33,9 @@ class ChangeStatusButton extends StatelessWidget {
           40,
         ),
       ),
-      child: const Text(
-        'Tampilkan',
-        style: TextStyle(
+      child: Text(
+        title,
+        style: const TextStyle(
           fontSize: 12,
           fontWeight: FontWeight.bold,
         ),

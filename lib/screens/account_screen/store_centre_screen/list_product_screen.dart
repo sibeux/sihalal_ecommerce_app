@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:sihalal_ecommerce_app/component/color_palette.dart';
 import 'package:sihalal_ecommerce_app/controller/product_controller.dart';
+import 'package:sihalal_ecommerce_app/screens/account_screen/store_centre_screen/add_product_screen.dart';
 import 'package:sihalal_ecommerce_app/widgets/account_widgets/store_screen_widgets/product_listview.dart';
 import 'package:sihalal_ecommerce_app/widgets/account_widgets/store_screen_widgets/status_product_filter.dart';
 
@@ -58,6 +59,30 @@ class _ListProductScreenState extends State<ListProductScreen>
             fontSize: 18,
             fontWeight: FontWeight.w500,
           ),
+          actions: [
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: InkWell(
+                splashFactory: InkRipple.splashFactory,
+                onTap: () {
+                  Get.to(
+                    () => const AddProductScreen(),
+                    transition: Transition.rightToLeft,
+                    fullscreenDialog: true,
+                    popGesture: false,
+                  );
+                },
+                child: Text(
+                  'Tambah Produk',
+                  style: TextStyle(
+                    color: ColorPalette().primary,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+            )
+          ],
           bottom: TabBar(
             indicatorColor: ColorPalette().primary,
             labelColor: ColorPalette().primary,

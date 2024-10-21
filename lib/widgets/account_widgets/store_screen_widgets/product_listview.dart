@@ -128,8 +128,12 @@ class ProductListview extends StatelessWidget {
                       children: [
                         Expanded(
                           child: ChangeStatusButton(
+                            title: listData[index].isVisible
+                                ? 'Arsipkan'
+                                : 'Tampilkan',
                             onPressed: () {
-                              // Add to cart
+                              if (listData[index].isVisible) {
+                              } else {}
                             },
                           ),
                         ),

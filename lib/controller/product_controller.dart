@@ -182,3 +182,37 @@ class GetSellerProductController extends GetxController {
     }
   }
 }
+
+class AddNewProductController extends GetxController {
+  var countImage = 0.obs;
+
+  var urlImage1 = ''.obs;
+  var urlImage2 = ''.obs;
+  var urlImage3 = ''.obs;
+
+  var nameProduct = ''.obs;
+
+  var nameProductTextController = TextEditingController();
+
+  var isInsertImageLoading = false.obs;
+
+  Future<void> insertImage() async {
+    isInsertImageLoading.value = true;
+
+    await Future.delayed(const Duration(seconds: 2));
+
+    if (countImage.value == 0) {
+      urlImage1.value =
+          'https://ik.imagekit.io/dcjlghyytp1/f4645e42e825dc85dcbbce576feaeb31?tr=f-auto,w-1000';
+    } else if (countImage.value == 1) {
+      urlImage2.value =
+          'https://ik.imagekit.io/dcjlghyytp1/f4645e42e825dc85dcbbce576feaeb31?tr=f-auto,w-1000';
+    } else if (countImage.value == 2) {
+      urlImage3.value =
+          'https://ik.imagekit.io/dcjlghyytp1/f4645e42e825dc85dcbbce576feaeb31?tr=f-auto,w-1000';
+    }
+
+    countImage.value++;
+    isInsertImageLoading.value = false;
+  }
+}
