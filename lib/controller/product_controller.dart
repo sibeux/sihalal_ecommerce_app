@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sihalal_ecommerce_app/component/regex_drive.dart';
+import 'package:sihalal_ecommerce_app/component/string_formatter.dart';
 import 'package:sihalal_ecommerce_app/models/product.dart';
 import 'package:http/http.dart' as http;
 import 'package:sihalal_ecommerce_app/models/seller_product.dart';
@@ -55,9 +56,9 @@ class GetScrollLeftProductController extends GetxController {
       final list = listData.map((produk) {
         return Product(
           uidProduct: produk['id_produk'],
-          uidKategori: produk['id_kategori'],
           uidUser: produk['id_user'],
           nama: produk['nama_produk'],
+          kategori: produk['kategori_produk'],
           deskripsi: produk['deskripsi_produk'] ?? '--',
           rating: produk['rating_produk'],
           harga: produk['harga_produk'],
@@ -143,9 +144,9 @@ class GetSellerProductController extends GetxController {
           }
           return SellerProduct(
             uidProduct: produk['id_produk'],
-            uidKategori: produk['id_kategori'],
             uidUser: produk['id_user'],
             nama: produk['nama_produk'],
+            kategori: produk['kategori_produk'],
             deskripsi: produk['deskripsi_produk'] ?? '--',
             harga: produk['harga_produk'],
             foto1: regexGdriveLink(
@@ -191,8 +192,13 @@ class AddNewProductController extends GetxController {
   var urlImage3 = ''.obs;
 
   var nameProduct = ''.obs;
+  var descriptionProduct = ''.obs;
+  var categoryProduct = 'Gula'.obs;
+  var priceProduct = ''.obs;
 
   var nameProductTextController = TextEditingController();
+  var descriptionProductTextController = TextEditingController();
+  var priceProductTextController = TextEditingController();
 
   var isInsertImageLoading = false.obs;
 
@@ -214,5 +220,26 @@ class AddNewProductController extends GetxController {
 
     countImage.value++;
     isInsertImageLoading.value = false;
+  }
+
+  void formatPrice(String value) {
+    if (value.isEmpty) {
+      priceProduct.value = '';
+      return;
+    }
+    if (value.isNotEmpty) {
+      value = value.replaceAll('Rp', '');
+      value = value.replaceAll('.', '');
+      value = value.replaceAll(',', '');
+      value = value.replaceAll(' ', '');
+    }
+    if (value.isNotEmpty) {
+      priceProduct.value = value;
+      priceProductTextController.text = priceFormat(value);
+      update();
+    } else {
+      priceProduct.value = '';
+      priceProductTextController.clear();
+    }
   }
 }

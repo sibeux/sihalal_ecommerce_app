@@ -11,6 +11,7 @@ class AddProductScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: HexColor('#f4f4f5'),
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: HexColor('#fefffe'),
         surfaceTintColor: Colors.transparent,
@@ -30,13 +31,21 @@ class AddProductScreen extends StatelessWidget {
       ),
       body: Stack(
         children: [
-          const Column(
-            children: [
-              HeightBox(15),
-              InsertImage(),
-              HeightBox(15),
-              InsertNameProduct()
-            ],
+          const SingleChildScrollView(
+            child: Column(
+              children: [
+                HeightBox(10),
+                InsertImageProduct(),
+                HeightBox(10),
+                InsertNameProduct(),
+                HeightBox(10),
+                InsertDescriptionProduct(),
+                HeightBox(10),
+                InsertCategoryProduct(),
+                HeightBox(10),
+                InsertStockPriceProduct(),
+              ],
+            ),
           ),
           Container(
             margin: const EdgeInsets.only(top: 1),

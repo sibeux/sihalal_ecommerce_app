@@ -2,11 +2,12 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:sihalal_ecommerce_app/controller/product_controller.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-class InsertImage extends StatelessWidget {
-  const InsertImage({
+class InsertImageProduct extends StatelessWidget {
+  const InsertImageProduct({
     super.key,
   });
 
@@ -198,14 +199,16 @@ class InsertNameProduct extends StatelessWidget {
                 ),
               ),
               const Spacer(),
-              Obx(() => Text(
-                    '${addNewProductController.nameProduct.value.length}/225',
-                    style: const TextStyle(
-                      color: Colors.grey,
-                      fontSize: 12,
-                      fontWeight: FontWeight.w400,
-                    ),
-                  )),
+              Obx(
+                () => Text(
+                  '${addNewProductController.nameProduct.value.length}/225',
+                  style: const TextStyle(
+                    color: Colors.grey,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+              ),
             ],
           ),
           const HeightBox(15),
@@ -217,6 +220,11 @@ class InsertNameProduct extends StatelessWidget {
                   onChanged: (value) {
                     addNewProductController.nameProduct.value = value;
                   },
+                  style: const TextStyle(
+                    color: Colors.black,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                  ),
                   maxLines: 1,
                   maxLength: 225,
                   buildCounter: (context,
@@ -251,6 +259,291 @@ class InsertNameProduct extends StatelessWidget {
                       ),
               ),
             ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class InsertDescriptionProduct extends StatelessWidget {
+  const InsertDescriptionProduct({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final addNewProductController = Get.find<AddNewProductController>();
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+      margin: const EdgeInsets.symmetric(horizontal: 10),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              const Text(
+                'Deskripsi Produk',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+              const Text(
+                ' *',
+                style: TextStyle(
+                  color: Colors.red,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              const Spacer(),
+              Obx(
+                () => Text(
+                  '${addNewProductController.descriptionProduct.value.length}/3000',
+                  style: const TextStyle(
+                    color: Colors.grey,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const HeightBox(15),
+          Row(
+            children: [
+              Expanded(
+                child: TextFormField(
+                  controller:
+                      addNewProductController.descriptionProductTextController,
+                  onChanged: (value) {
+                    addNewProductController.descriptionProduct.value = value;
+                  },
+                  style: const TextStyle(
+                    color: Colors.black,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                  ),
+                  maxLines: null, // auto menambah baris
+                  maxLength: 3000,
+                  buildCounter: (context,
+                      {int? currentLength, int? maxLength, bool? isFocused}) {
+                    return null; // Menghilangkan teks maxLength
+                  },
+                  decoration: const InputDecoration.collapsed(
+                    hintText: 'Masukkan Deskripsi Produk',
+                    hintStyle: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                ),
+              ),
+              const WidthBox(5),
+              Obx(
+                () => addNewProductController.descriptionProduct.value.isEmpty
+                    ? const SizedBox()
+                    : GestureDetector(
+                        onTap: () {
+                          addNewProductController
+                              .descriptionProductTextController
+                              .clear();
+                          addNewProductController.descriptionProduct.value = '';
+                        },
+                        child: const Icon(
+                          Icons.cancel,
+                          color: Colors.grey,
+                          size: 20,
+                        ),
+                      ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class InsertCategoryProduct extends StatelessWidget {
+  const InsertCategoryProduct({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final addNewProductController = Get.find<AddNewProductController>();
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+      margin: const EdgeInsets.symmetric(horizontal: 10),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: GestureDetector(
+        onTap: () {},
+        child: Row(
+          children: [
+            const Icon(
+              Ionicons.list_outline,
+              color: Colors.black,
+              size: 20,
+            ),
+            const WidthBox(8),
+            const Text(
+              'Kategori',
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 14,
+                fontWeight: FontWeight.w400,
+              ),
+            ),
+            const Text(
+              ' *',
+              style: TextStyle(
+                color: Colors.red,
+                fontSize: 14,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            const Spacer(),
+            Text(
+              addNewProductController.categoryProduct.value,
+              style: const TextStyle(
+                color: Colors.black,
+                fontSize: 14,
+                fontWeight: FontWeight.w400,
+              ),
+            ),
+            const WidthBox(5),
+            const Icon(
+              Icons.arrow_forward_ios,
+              color: Colors.grey,
+              size: 20,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class InsertStockPriceProduct extends StatelessWidget {
+  const InsertStockPriceProduct({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final addNewProductController = Get.find<AddNewProductController>();
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      margin: const EdgeInsets.symmetric(horizontal: 10),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Row(
+              children: [
+                const Icon(
+                  Ionicons.pricetags_outline,
+                  color: Colors.black,
+                  size: 20,
+                ),
+                const WidthBox(8),
+                const Text(
+                  'Harga',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+                const Text(
+                  ' *',
+                  style: TextStyle(
+                    color: Colors.red,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                Expanded(
+                  child: TextFormField(
+                    textAlign: TextAlign.end,
+                    controller:
+                        addNewProductController.priceProductTextController,
+                    onChanged: (value) {
+                      addNewProductController.formatPrice(value);
+                    },
+                    keyboardType: TextInputType.number,
+                    maxLines: 1,
+                    maxLength: 16,
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                    ),
+                    buildCounter: (context,
+                        {int? currentLength, int? maxLength, bool? isFocused}) {
+                      return null;
+                    },
+                    decoration: const InputDecoration.collapsed(
+                      hintText: 'Atur',
+                      hintStyle: TextStyle(
+                        color: Colors.grey,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const HeightBox(10),
+          const Divider(
+            thickness: 0.3,
+            height: 0.3,
+          ),
+          const HeightBox(10),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10),
+            child: Row(
+              children: [
+                Icon(
+                  Ionicons.layers_outline,
+                  color: Colors.black,
+                  size: 20,
+                ),
+                WidthBox(8),
+                Text(
+                  'Stock',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+                Text(
+                  ' *',
+                  style: TextStyle(
+                    color: Colors.red,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ],
+            ),
           ),
         ],
       ),
