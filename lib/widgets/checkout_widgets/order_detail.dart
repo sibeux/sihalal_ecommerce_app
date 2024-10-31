@@ -58,7 +58,7 @@ class OrderDetail extends StatelessWidget {
                 ),
               ),
               Text(
-                priceFormat(product.harga),
+                priceFormatter(product.harga),
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w400,
@@ -80,7 +80,7 @@ class OrderDetail extends StatelessWidget {
                 ),
               ),
               Text(
-                priceFormat('20000'),
+                priceFormatter('20000'),
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w400,
@@ -107,7 +107,7 @@ class OrderDetail extends StatelessWidget {
                 ),
               ),
               Text(
-                priceFormat(product.harga),
+                priceFormatter(product.harga),
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w700,

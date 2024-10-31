@@ -94,7 +94,7 @@ class ProductInfo extends StatelessWidget {
                       ),
                       const HeightBox(15),
                       Text(
-                        priceFormat(product.harga),
+                        priceFormatter(product.harga),
                         maxLines: 1,
                         style: TextStyle(
                           color: Colors.black.withOpacity(0.8),

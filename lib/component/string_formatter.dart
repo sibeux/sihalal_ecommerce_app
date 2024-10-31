@@ -1,6 +1,6 @@
 import 'package:intl/intl.dart';
 
-String priceFormat(String input) {
+String priceFormatter(String input) {
   int number = int.parse(input);
 
   // Create a NumberFormat for thousands with dots
@@ -12,7 +12,17 @@ String priceFormat(String input) {
   return formattedNumber;
 }
 
-String ratingFormatter(String input){
+String stockFormatter(String input) {
+  int number = int.parse(input);
+
+  var formatter =
+      NumberFormat.currency(locale: 'id', symbol: '', decimalDigits: 0);
+
+  String formattedNumber = formatter.format(number);
+  return formattedNumber;
+}
+
+String ratingFormatter(String input) {
   double rating = double.parse(input);
   return rating.toStringAsFixed(2);
 }

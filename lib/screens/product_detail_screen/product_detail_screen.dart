@@ -199,7 +199,7 @@ class ProductDetailScreen extends StatelessWidget {
                     alignment: Alignment.centerLeft,
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: Text(
-                      priceFormat(product.harga),
+                      priceFormatter(product.harga),
                       style: TextStyle(
                         color: ColorPalette().primary,
                         fontSize: 20,
@@ -359,8 +359,8 @@ class ProductDetailScreen extends StatelessWidget {
                         Get.to(
                           () => CheckoutScreen(
                             product: product,
-                            shopName: shopInfoProductController
-                                .shopInfo[0]!.namaToko,
+                            shopName:
+                                shopInfoProductController.shopInfo[0]!.namaToko,
                           ),
                           transition: Transition.rightToLeft,
                         );

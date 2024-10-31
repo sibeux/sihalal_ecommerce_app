@@ -220,6 +220,7 @@ class InsertNameProduct extends StatelessWidget {
                   onChanged: (value) {
                     addNewProductController.nameProduct.value = value;
                   },
+                  onTapOutside: (event) => FocusScope.of(context).unfocus(),
                   style: const TextStyle(
                     color: Colors.black,
                     fontSize: 14,
@@ -326,6 +327,7 @@ class InsertDescriptionProduct extends StatelessWidget {
                   onChanged: (value) {
                     addNewProductController.descriptionProduct.value = value;
                   },
+                  onTapOutside: (event) => FocusScope.of(context).unfocus(),
                   style: const TextStyle(
                     color: Colors.black,
                     fontSize: 14,
@@ -373,63 +375,178 @@ class InsertDescriptionProduct extends StatelessWidget {
   }
 }
 
-class InsertCategoryProduct extends StatelessWidget {
-  const InsertCategoryProduct({super.key});
+class InsertCategorySHProduct extends StatelessWidget {
+  const InsertCategorySHProduct({super.key});
 
   @override
   Widget build(BuildContext context) {
     final addNewProductController = Get.find<AddNewProductController>();
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+      padding: const EdgeInsets.symmetric(vertical: 10),
       margin: const EdgeInsets.symmetric(horizontal: 10),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),
       ),
-      child: GestureDetector(
-        onTap: () {},
-        child: Row(
-          children: [
-            const Icon(
-              Ionicons.list_outline,
-              color: Colors.black,
-              size: 20,
-            ),
-            const WidthBox(8),
-            const Text(
-              'Kategori',
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
+      child: Column(
+        children: [
+          GestureDetector(
+            onTap: () {},
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Row(
+                children: [
+                  const Icon(
+                    Ionicons.list_outline,
+                    color: Colors.black,
+                    size: 20,
+                  ),
+                  const WidthBox(8),
+                  const Text(
+                    'Kategori',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                  const Text(
+                    ' *',
+                    style: TextStyle(
+                      color: Colors.red,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  const Spacer(),
+                  Text(
+                    addNewProductController.categoryProduct.value,
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                  const WidthBox(5),
+                  const Icon(
+                    Icons.arrow_forward_ios,
+                    color: Colors.grey,
+                    size: 20,
+                  ),
+                ],
               ),
             ),
-            const Text(
-              ' *',
-              style: TextStyle(
-                color: Colors.red,
-                fontSize: 14,
-                fontWeight: FontWeight.w600,
+          ),
+          const HeightBox(10),
+          const Divider(
+            thickness: 0.3,
+            height: 0.3,
+          ),
+          const HeightBox(10),
+          GestureDetector(
+            onTap: () {},
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Row(
+                children: [
+                  const Icon(
+                    Ionicons.diamond_outline,
+                    color: Colors.black,
+                    size: 20,
+                  ),
+                  const WidthBox(8),
+                  const Text(
+                    'Merek',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                  const Text(
+                    ' *',
+                    style: TextStyle(
+                      color: Colors.red,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  const Spacer(),
+                  Text(
+                    addNewProductController.merkProduct.value,
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                  const WidthBox(5),
+                  const Icon(
+                    Icons.arrow_forward_ios,
+                    color: Colors.grey,
+                    size: 20,
+                  ),
+                ],
               ),
             ),
-            const Spacer(),
-            Text(
-              addNewProductController.categoryProduct.value,
-              style: const TextStyle(
-                color: Colors.black,
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
+          ),
+          const HeightBox(10),
+          const Divider(
+            thickness: 0.3,
+            height: 0.3,
+          ),
+          const HeightBox(10),
+          GestureDetector(
+            onTap: () {},
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Row(
+                children: [
+                  const Icon(
+                    Ionicons.document_outline,
+                    color: Colors.black,
+                    size: 20,
+                  ),
+                  const WidthBox(8),
+                  const Text(
+                    'Nomor Halal',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                  const Text(
+                    ' *',
+                    style: TextStyle(
+                      color: Colors.red,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  const Spacer(),
+                  Text(
+                    addNewProductController.noHalalProduct.value,
+                    maxLines: 1,
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                  const WidthBox(5),
+                  const Icon(
+                    Icons.arrow_forward_ios,
+                    color: Colors.grey,
+                    size: 20,
+                  ),
+                ],
               ),
             ),
-            const WidthBox(5),
-            const Icon(
-              Icons.arrow_forward_ios,
-              color: Colors.grey,
-              size: 20,
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -485,6 +602,7 @@ class InsertStockPriceProduct extends StatelessWidget {
                     onChanged: (value) {
                       addNewProductController.formatPrice(value);
                     },
+                    onTapOutside: (event) => FocusScope.of(context).unfocus(),
                     keyboardType: TextInputType.number,
                     maxLines: 1,
                     maxLength: 16,
@@ -516,25 +634,25 @@ class InsertStockPriceProduct extends StatelessWidget {
             height: 0.3,
           ),
           const HeightBox(10),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Row(
               children: [
-                Icon(
+                const Icon(
                   Ionicons.layers_outline,
                   color: Colors.black,
                   size: 20,
                 ),
-                WidthBox(8),
-                Text(
-                  'Stock',
+                const WidthBox(8),
+                const Text(
+                  'Stok',
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 14,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
-                Text(
+                const Text(
                   ' *',
                   style: TextStyle(
                     color: Colors.red,
@@ -542,10 +660,103 @@ class InsertStockPriceProduct extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
+                Expanded(
+                  child: TextFormField(
+                    textAlign: TextAlign.end,
+                    controller:
+                        addNewProductController.stockProductTextController,
+                    onChanged: (value) {
+                      addNewProductController.formatStock(value);
+                    },
+                    onTapOutside: (event) => FocusScope.of(context).unfocus(),
+                    keyboardType: TextInputType.number,
+                    maxLines: 1,
+                    maxLength: 16,
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                    ),
+                    buildCounter: (context,
+                        {int? currentLength, int? maxLength, bool? isFocused}) {
+                      return null;
+                    },
+                    decoration: const InputDecoration.collapsed(
+                      hintText: '0',
+                      hintStyle: TextStyle(
+                        color: Colors.grey,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class InsertDeliveryPriceProduct extends StatelessWidget {
+  const InsertDeliveryPriceProduct({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final addNewProductController = Get.find<AddNewProductController>();
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+      margin: const EdgeInsets.symmetric(horizontal: 10),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: GestureDetector(
+        onTap: () {},
+        child: const Row(
+          children: [
+            Icon(
+              Icons.local_shipping_outlined,
+              color: Colors.black,
+              size: 20,
+            ),
+            WidthBox(8),
+            Text(
+              'Ongkos Kirim',
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 14,
+                fontWeight: FontWeight.w400,
+              ),
+            ),
+            Text(
+              ' *',
+              style: TextStyle(
+                color: Colors.red,
+                fontSize: 14,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            Spacer(),
+            Text(
+              'Rp. 16.000',
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 14,
+                fontWeight: FontWeight.w400,
+              ),
+            ),
+            WidthBox(5),
+            Icon(
+              Icons.arrow_forward_ios,
+              color: Colors.grey,
+              size: 20,
+            ),
+          ],
+        ),
       ),
     );
   }

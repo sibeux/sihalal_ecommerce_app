@@ -11,7 +11,7 @@ class AddProductScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: HexColor('#f4f4f5'),
-      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: true,
       appBar: AppBar(
         backgroundColor: HexColor('#fefffe'),
         surfaceTintColor: Colors.transparent,
@@ -41,9 +41,11 @@ class AddProductScreen extends StatelessWidget {
                 HeightBox(10),
                 InsertDescriptionProduct(),
                 HeightBox(10),
-                InsertCategoryProduct(),
+                InsertCategorySHProduct(),
                 HeightBox(10),
                 InsertStockPriceProduct(),
+                HeightBox(10),
+                InsertDeliveryPriceProduct(),
               ],
             ),
           ),

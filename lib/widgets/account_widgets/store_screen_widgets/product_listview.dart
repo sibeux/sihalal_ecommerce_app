@@ -76,7 +76,7 @@ class ProductListview extends StatelessWidget {
                               ),
                               const HeightBox(10),
                               Text(
-                                priceFormat(listData[index].harga),
+                                priceFormatter(listData[index].harga),
                                 style: const TextStyle(
                                   color: Colors.black,
                                   fontSize: 14,

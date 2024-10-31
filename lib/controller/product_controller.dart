@@ -194,13 +194,24 @@ class AddNewProductController extends GetxController {
   var nameProduct = ''.obs;
   var descriptionProduct = ''.obs;
   var categoryProduct = 'Gula'.obs;
+  var merkProduct = 'Bimoli 2 L'.obs;
   var priceProduct = ''.obs;
+  var stockProduct = ''.obs;
+  var noHalalProduct = 'ID721836318367632'.obs;
 
   var nameProductTextController = TextEditingController();
   var descriptionProductTextController = TextEditingController();
   var priceProductTextController = TextEditingController();
+  var stockProductTextController = TextEditingController();
 
   var isInsertImageLoading = false.obs;
+
+  @override
+  void onInit() {
+    stockProduct.value = '0';
+    stockProductTextController.text = stockProduct.value;
+    super.onInit();
+  }
 
   Future<void> insertImage() async {
     isInsertImageLoading.value = true;
@@ -223,10 +234,6 @@ class AddNewProductController extends GetxController {
   }
 
   void formatPrice(String value) {
-    if (value.isEmpty) {
-      priceProduct.value = '';
-      return;
-    }
     if (value.isNotEmpty) {
       value = value.replaceAll('Rp', '');
       value = value.replaceAll('.', '');
@@ -235,11 +242,29 @@ class AddNewProductController extends GetxController {
     }
     if (value.isNotEmpty) {
       priceProduct.value = value;
-      priceProductTextController.text = priceFormat(value);
-      update();
+      priceProductTextController.text = priceFormatter(value);
     } else {
       priceProduct.value = '';
       priceProductTextController.clear();
+      return;
     }
+    update();
+  }
+
+  void formatStock(String value) {
+    if (value.isNotEmpty) {
+      value = value.replaceAll('.', '');
+      value = value.replaceAll(',', '');
+      value = value.replaceAll(' ', '');
+    }
+    if (value.isNotEmpty) {
+      stockProduct.value = value;
+      stockProductTextController.text = stockFormatter(value);
+    } else {
+      stockProduct.value = '0';
+      stockProductTextController.text = stockProduct.value;
+      return;
+    }
+    update();
   }
 }
