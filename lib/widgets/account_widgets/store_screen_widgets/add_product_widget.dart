@@ -3,6 +3,7 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:sihalal_ecommerce_app/component/string_formatter.dart';
 import 'package:sihalal_ecommerce_app/controller/product_controller.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -716,15 +717,15 @@ class InsertDeliveryPriceProduct extends StatelessWidget {
       ),
       child: GestureDetector(
         onTap: () {},
-        child: const Row(
+        child: Row(
           children: [
-            Icon(
+            const Icon(
               Icons.local_shipping_outlined,
               color: Colors.black,
               size: 20,
             ),
-            WidthBox(8),
-            Text(
+            const WidthBox(8),
+            const Text(
               'Ongkos Kirim',
               style: TextStyle(
                 color: Colors.black,
@@ -732,7 +733,7 @@ class InsertDeliveryPriceProduct extends StatelessWidget {
                 fontWeight: FontWeight.w400,
               ),
             ),
-            Text(
+            const Text(
               ' *',
               style: TextStyle(
                 color: Colors.red,
@@ -740,17 +741,18 @@ class InsertDeliveryPriceProduct extends StatelessWidget {
                 fontWeight: FontWeight.w600,
               ),
             ),
-            Spacer(),
+            const Spacer(),
             Text(
-              'Rp. 16.000',
-              style: TextStyle(
+              priceFormatter(
+                  addNewProductController.deliveryPriceProduct.value),
+              style: const TextStyle(
                 color: Colors.black,
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
               ),
             ),
-            WidthBox(5),
-            Icon(
+            const WidthBox(5),
+            const Icon(
               Icons.arrow_forward_ios,
               color: Colors.grey,
               size: 20,

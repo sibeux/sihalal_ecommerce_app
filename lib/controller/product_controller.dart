@@ -57,8 +57,8 @@ class GetScrollLeftProductController extends GetxController {
         return Product(
           uidProduct: produk['id_produk'],
           uidUser: produk['id_user'],
+          uidShhalal: produk['id_shhalal'],
           nama: produk['nama_produk'],
-          kategori: produk['kategori_produk'],
           deskripsi: produk['deskripsi_produk'] ?? '--',
           rating: produk['rating_produk'],
           harga: produk['harga_produk'],
@@ -145,8 +145,8 @@ class GetSellerProductController extends GetxController {
           return SellerProduct(
             uidProduct: produk['id_produk'],
             uidUser: produk['id_user'],
+            uidShhalal: produk['id_shhalal'],
             nama: produk['nama_produk'],
-            kategori: produk['kategori_produk'],
             deskripsi: produk['deskripsi_produk'] ?? '--',
             harga: produk['harga_produk'],
             foto1: regexGdriveLink(
@@ -195,9 +195,11 @@ class AddNewProductController extends GetxController {
   var descriptionProduct = ''.obs;
   var categoryProduct = 'Gula'.obs;
   var merkProduct = 'Bimoli 2 L'.obs;
+  var noHalalProduct = 'ID721836318367632'.obs;
   var priceProduct = ''.obs;
   var stockProduct = ''.obs;
-  var noHalalProduct = 'ID721836318367632'.obs;
+  var weightProduct = ''.obs;
+  var deliveryPriceProduct = '16000'.obs;
 
   var nameProductTextController = TextEditingController();
   var descriptionProductTextController = TextEditingController();
