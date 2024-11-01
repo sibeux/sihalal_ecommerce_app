@@ -1,10 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:sihalal_ecommerce_app/component/color_palette.dart';
 import 'package:sihalal_ecommerce_app/component/string_formatter.dart';
 import 'package:sihalal_ecommerce_app/controller/product_controller.dart';
+import 'package:sihalal_ecommerce_app/screens/account_screen/store_centre_screen/add_product_screen/add_category_screen.dart';
+import 'package:sihalal_ecommerce_app/screens/account_screen/store_centre_screen/add_product_screen/add_merksh_screen.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class InsertImageProduct extends StatelessWidget {
@@ -93,71 +97,72 @@ class ImagePlaceholder extends StatelessWidget {
   Widget build(BuildContext context) {
     final addNewProductController = Get.find<AddNewProductController>();
     return Obx(
-      () =>
-          addNewProductController.isInsertImageLoading.value && urlImage.isEmpty
-              ? DottedBorder(
-                  color: Colors.red,
-                  strokeWidth: 1,
-                  dashPattern: const [3, 3],
-                  borderType: BorderType.RRect,
-                  radius: const Radius.circular(5),
-                  child: const SizedBox(
-                    width: 70,
-                    height: 70,
-                    child: Center(
-                      child: CircularProgressIndicator(
-                        valueColor: AlwaysStoppedAnimation<Color>(Colors.red),
+      () => addNewProductController.isInsertImageLoading.value &&
+              urlImage.isEmpty
+          ? DottedBorder(
+              color: ColorPalette().primary,
+              strokeWidth: 1,
+              dashPattern: const [3, 3],
+              borderType: BorderType.RRect,
+              radius: const Radius.circular(5),
+              child: SizedBox(
+                width: 70,
+                height: 70,
+                child: Center(
+                  child: CircularProgressIndicator(
+                    valueColor:
+                        AlwaysStoppedAnimation<Color>(ColorPalette().primary),
+                  ),
+                ),
+              ),
+            )
+          : urlImage.isNotEmpty
+              ? Container(
+                  clipBehavior: Clip.antiAlias,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                    border: Border.all(
+                      strokeAlign: BorderSide.strokeAlignCenter,
+                      color: Colors.black.withOpacity(0.3),
+                      width: 0.3,
+                    ),
+                  ),
+                  child: CachedNetworkImage(
+                    imageUrl: urlImage,
+                    height: 75,
+                    width: 75,
+                    filterQuality: FilterQuality.medium,
+                    fit: BoxFit.cover,
+                    maxHeightDiskCache: 200,
+                    maxWidthDiskCache: 200,
+                  ),
+                )
+              : GestureDetector(
+                  onTap: () async {
+                    await addNewProductController.insertImage();
+                  },
+                  child: DottedBorder(
+                    color: ColorPalette().primary,
+                    strokeWidth: 1,
+                    dashPattern: const [3, 3],
+                    borderType: BorderType.RRect,
+                    radius: const Radius.circular(5),
+                    child: SizedBox(
+                      width: 70,
+                      height: 70,
+                      child: Center(
+                        child: Text(
+                          '+ Tambah Foto',
+                          style: TextStyle(
+                            color: ColorPalette().primary, // Warna teks
+                            fontSize: 10,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
                       ),
                     ),
                   ),
-                )
-              : urlImage.isNotEmpty
-                  ? Container(
-                      clipBehavior: Clip.antiAlias,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        border: Border.all(
-                          strokeAlign: BorderSide.strokeAlignCenter,
-                          color: Colors.black.withOpacity(0.3),
-                          width: 0.3,
-                        ),
-                      ),
-                      child: CachedNetworkImage(
-                        imageUrl: urlImage,
-                        height: 75,
-                        width: 75,
-                        filterQuality: FilterQuality.medium,
-                        fit: BoxFit.cover,
-                        maxHeightDiskCache: 200,
-                        maxWidthDiskCache: 200,
-                      ),
-                    )
-                  : GestureDetector(
-                      onTap: () async {
-                        await addNewProductController.insertImage();
-                      },
-                      child: DottedBorder(
-                        color: Colors.red,
-                        strokeWidth: 1,
-                        dashPattern: const [3, 3],
-                        borderType: BorderType.RRect,
-                        radius: const Radius.circular(5),
-                        child: const SizedBox(
-                          width: 70,
-                          height: 70,
-                          child: Center(
-                            child: Text(
-                              '+ Tambah Foto',
-                              style: TextStyle(
-                                color: Colors.red, // Warna teks
-                                fontSize: 10,
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
+                ),
     );
   }
 }
@@ -392,8 +397,15 @@ class InsertCategorySHProduct extends StatelessWidget {
       ),
       child: Column(
         children: [
-          GestureDetector(
-            onTap: () {},
+          InkWell(
+            onTap: () {
+              Get.to(
+                () => const AddCategoryScreen(),
+                transition: Transition.rightToLeftWithFade,
+                fullscreenDialog: true,
+                popGesture: false,
+              );
+            },
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Row(
@@ -421,12 +433,17 @@ class InsertCategorySHProduct extends StatelessWidget {
                     ),
                   ),
                   const Spacer(),
-                  Text(
-                    addNewProductController.categoryProduct.value,
-                    style: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
+                  Obx(
+                    () => Text(
+                      addNewProductController.categoryProduct.value.isEmpty
+                          ? ''
+                          : addNewProductController
+                              .categoryProduct.value.capitalized,
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                      ),
                     ),
                   ),
                   const WidthBox(5),
@@ -445,8 +462,27 @@ class InsertCategorySHProduct extends StatelessWidget {
             height: 0.3,
           ),
           const HeightBox(10),
-          GestureDetector(
-            onTap: () {},
+          InkWell(
+            onTap: () {
+              if (addNewProductController.categoryProduct.value.isEmpty) {
+                Fluttertoast.showToast(
+                  msg: 'Harap pilih kategori terlebih dahulu',
+                  toastLength: Toast.LENGTH_SHORT,
+                  gravity: ToastGravity.CENTER,
+                  timeInSecForIosWeb: 1,
+                  backgroundColor: Colors.black.withOpacity(0.5),
+                  textColor: Colors.white,
+                  fontSize: 10.0,
+                );
+              } else {
+                Get.to(
+                  () => const AddMerkshScreen(),
+                  transition: Transition.rightToLeft,
+                  fullscreenDialog: true,
+                  popGesture: false,
+                );
+              }
+            },
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Row(
@@ -474,12 +510,14 @@ class InsertCategorySHProduct extends StatelessWidget {
                     ),
                   ),
                   const Spacer(),
-                  Text(
-                    addNewProductController.merkProduct.value,
-                    style: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
+                  Obx(
+                    () => Text(
+                      addNewProductController.merkProduct.value,
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                      ),
                     ),
                   ),
                   const WidthBox(5),
@@ -498,8 +536,27 @@ class InsertCategorySHProduct extends StatelessWidget {
             height: 0.3,
           ),
           const HeightBox(10),
-          GestureDetector(
-            onTap: () {},
+          InkWell(
+            onTap: () {
+              if (addNewProductController.categoryProduct.value.isEmpty) {
+                Fluttertoast.showToast(
+                  msg: 'Harap pilih kategori terlebih dahulu',
+                  toastLength: Toast.LENGTH_SHORT,
+                  gravity: ToastGravity.CENTER,
+                  timeInSecForIosWeb: 1,
+                  backgroundColor: Colors.black.withOpacity(0.5),
+                  textColor: Colors.white,
+                  fontSize: 10.0,
+                );
+              } else {
+                Get.to(
+                  () => const AddMerkshScreen(),
+                  transition: Transition.rightToLeft,
+                  fullscreenDialog: true,
+                  popGesture: false,
+                );
+              }
+            },
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Row(
@@ -527,14 +584,16 @@ class InsertCategorySHProduct extends StatelessWidget {
                     ),
                   ),
                   const Spacer(),
-                  Text(
-                    addNewProductController.noHalalProduct.value,
-                    maxLines: 1,
-                    style: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      overflow: TextOverflow.ellipsis,
+                  Obx(
+                    () => Text(
+                      addNewProductController.noHalalProduct.value,
+                      maxLines: 1,
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
                   ),
                   const WidthBox(5),
@@ -668,6 +727,16 @@ class InsertStockPriceProduct extends StatelessWidget {
                         addNewProductController.stockProductTextController,
                     onChanged: (value) {
                       addNewProductController.formatStock(value);
+                    },
+                    onTap: () {
+                      if (addNewProductController.stockProduct.value == "0") {
+                        addNewProductController.stockProductTextController
+                            .selection = TextSelection.fromPosition(
+                          TextPosition(
+                              offset: addNewProductController
+                                  .stockProductTextController.text.length),
+                        );
+                      }
                     },
                     onTapOutside: (event) => FocusScope.of(context).unfocus(),
                     keyboardType: TextInputType.number,

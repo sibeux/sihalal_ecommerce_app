@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sihalal_ecommerce_app/component/regex_drive.dart';
 import 'package:sihalal_ecommerce_app/component/string_formatter.dart';
+import 'package:sihalal_ecommerce_app/models/merksh.dart';
 import 'package:sihalal_ecommerce_app/models/product.dart';
 import 'package:http/http.dart' as http;
 import 'package:sihalal_ecommerce_app/models/seller_product.dart';
@@ -168,11 +169,11 @@ class GetSellerProductController extends GetxController {
 
         sellerProductList.value = list;
         visibleProductList.value =
-            list.where((element) => element.isVisible).toList();
+            list.where((data) => data.isVisible).toList();
         invisibleProductList.value =
-            list.where((element) => !element.isVisible).toList();
+            list.where((data) => !data.isVisible).toList();
         outStockProductList.value =
-            list.where((element) => element.stok == '0').toList();
+            list.where((data) => data.stok == '0').toList();
       }
     } catch (e) {
       if (kDebugMode) {
@@ -193,20 +194,23 @@ class AddNewProductController extends GetxController {
 
   var nameProduct = ''.obs;
   var descriptionProduct = ''.obs;
-  var categoryProduct = 'Gula'.obs;
-  var merkProduct = 'Bimoli 2 L'.obs;
-  var noHalalProduct = 'ID721836318367632'.obs;
+  var categoryProduct = ''.obs;
+  var merkProduct = ''.obs;
+  var noHalalProduct = ''.obs;
   var priceProduct = ''.obs;
   var stockProduct = ''.obs;
   var weightProduct = ''.obs;
   var deliveryPriceProduct = '16000'.obs;
 
+  var isGetMerkshLoading = false.obs;
+  var isInsertImageLoading = false.obs;
+
+  var listMerkshProduct = RxList<Merksh>([]);
+
   var nameProductTextController = TextEditingController();
   var descriptionProductTextController = TextEditingController();
   var priceProductTextController = TextEditingController();
   var stockProductTextController = TextEditingController();
-
-  var isInsertImageLoading = false.obs;
 
   @override
   void onInit() {
@@ -254,6 +258,11 @@ class AddNewProductController extends GetxController {
   }
 
   void formatStock(String value) {
+    if (value == '0') {
+      stockProductTextController.selection = TextSelection.fromPosition(
+        TextPosition(offset: stockProductTextController.text.length),
+      );
+    }
     if (value.isNotEmpty) {
       value = value.replaceAll('.', '');
       value = value.replaceAll(',', '');
@@ -268,5 +277,39 @@ class AddNewProductController extends GetxController {
       return;
     }
     update();
+  }
+
+  Future<void> getMerkshProduct() async {
+    isGetMerkshLoading.value = true;
+
+    final String url =
+        'https://sibeux.my.id/project/sihalal/product?method=merksh&category=${categoryProduct.value}';
+
+    try {
+      final response = await http.get(Uri.parse(url));
+
+      final List<dynamic> listData = json.decode(response.body);
+
+      if (listData.isNotEmpty) {
+        final list = listData.map((data) {
+          return Merksh(
+            idSh: data['id_shhalal'],
+            categorySh: data['kategori_shhalal'],
+            numberSh: data['nomor_shhalal'],
+            nameMerkSh: data['merek_shhalal'],
+          );
+        }).toList();
+
+        listMerkshProduct.value = list;
+      } else {
+        listMerkshProduct.value = [];
+      }
+    } catch (error) {
+      if (kDebugMode) {
+        print('Error getMerkshProduct: $error');
+      }
+    } finally {
+      isGetMerkshLoading.value = false;
+    }
   }
 }
