@@ -28,12 +28,12 @@ class Categories extends StatelessWidget {
         'title': 'Minyak',
       },
       {
-        'icon': "assets/images/icon-category/oil.png",
-        'title': 'Minyak',
+        'icon': "assets/images/icon-category/pasta.png",
+        'title': 'Pasta',
       },
       {
-        'icon': "assets/images/icon-category/oil.png",
-        'title': 'Minyak',
+        'icon': "assets/images/icon-category/olahan.png",
+        'title': 'Olahan',
       },
     ];
 
@@ -48,23 +48,23 @@ class Categories extends StatelessWidget {
       },
       {
         'icon': "assets/images/icon-category/sirup.jpg",
-        'title': 'Sirup',
+        'title': 'Pemanis',
       },
       {
         'icon': "assets/images/icon-category/salt.jpg",
         'title': 'Garam',
       },
       {
-        'icon': "assets/images/icon-category/salt.jpg",
-        'title': 'Sambal',
+        'icon': "assets/images/icon-category/sauce.png",
+        'title': 'Saus',
       },
       {
-        'icon': "assets/images/icon-category/salt.jpg",
-        'title': 'Garam',
+        'icon': "assets/images/icon-category/cheese.png",
+        'title': 'Keju',
       },
       {
-        'icon': "assets/images/icon-category/salt.jpg",
-        'title': 'Garam',
+        'icon': "assets/images/icon-category/other.png",
+        'title': 'Lainnya',
       },
     ];
 
@@ -172,6 +172,9 @@ class CategoryCard extends StatelessWidget {
             Text(
               text,
               textAlign: TextAlign.center,
+              style: const TextStyle(
+                fontSize: 13,
+              ),
             ),
           ],
         ),

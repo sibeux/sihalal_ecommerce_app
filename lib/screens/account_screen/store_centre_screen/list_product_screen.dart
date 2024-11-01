@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:sihalal_ecommerce_app/component/color_palette.dart';
 import 'package:sihalal_ecommerce_app/controller/product_controller.dart';
-import 'package:sihalal_ecommerce_app/screens/account_screen/store_centre_screen/add_product_screen.dart';
+import 'package:sihalal_ecommerce_app/screens/account_screen/store_centre_screen/add_product_screen/add_product_screen.dart';
 import 'package:sihalal_ecommerce_app/widgets/account_widgets/store_screen_widgets/product_listview.dart';
 import 'package:sihalal_ecommerce_app/widgets/account_widgets/store_screen_widgets/status_product_filter.dart';
 
