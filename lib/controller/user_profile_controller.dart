@@ -13,13 +13,13 @@ class UserProfileController extends GetxController {
   var isLoading = false.obs;
 
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
-    isLoading.value = true;
-    getUserData();
+    await getUserData();
   }
 
   Future<void> getUserData() async {
+    isLoading.value = true;
     final box = GetStorage();
     final email = box.read('email');
 

@@ -44,27 +44,38 @@ class AccountScreen extends StatelessWidget {
                       child: const UserPhotoAppbar(),
                     ),
                     const SizedBox(height: 20),
-                    Text(
-                      userProfileController.userData[0].nameUser,
-                      maxLines: 1,
-                      style: TextStyle(
-                        overflow: TextOverflow.ellipsis,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.black.withOpacity(0.7),
+                    Obx(
+                      () => Text(
+                        (userProfileController.isLoading.value ||
+                                userProfileController.userData.isEmpty)
+                            ? 'Mengambil data...'
+                            : userProfileController.userData[0].nameUser,
+                        maxLines: 1,
+                        style: TextStyle(
+                          overflow: TextOverflow.ellipsis,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.black.withOpacity(0.7),
+                        ),
                       ),
                     ),
                     const SizedBox(
                       height: 2,
                     ),
-                    Text(
-                      maskEmail(userProfileController.userData[0].emailuser),
-                      maxLines: 1,
-                      style: TextStyle(
-                        overflow: TextOverflow.ellipsis,
-                        fontSize: 12,
-                        fontWeight: FontWeight.w300,
-                        color: Colors.black.withOpacity(0.6),
+                    Obx(
+                      () => Text(
+                        (userProfileController.isLoading.value ||
+                                userProfileController.userData.isEmpty)
+                            ? 'Mengambil data...'
+                            : maskEmail(
+                                userProfileController.userData[0].emailuser),
+                        maxLines: 1,
+                        style: TextStyle(
+                          overflow: TextOverflow.ellipsis,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w300,
+                          color: Colors.black.withOpacity(0.6),
+                        ),
                       ),
                     ),
                     const SizedBox(height: 15),
@@ -158,20 +169,26 @@ class AccountScreen extends StatelessWidget {
             ],
           ),
         ),
-        Obx(() => userLogoutController.isLoggingOut.value
-            ? const Opacity(
-                opacity: 0.8,
-                child: ModalBarrier(dismissible: false, color: Colors.black),
-              )
-            : const SizedBox()),
-        Obx(() => userLogoutController.isLoggingOut.value
-            ? Center(
-                child: LoadingAnimationWidget.fourRotatingDots(
-                  color: Colors.white,
-                  size: 50,
-                ),
-              )
-            : const SizedBox()),
+        Obx(
+          () => userLogoutController.isLoggingOut.value ||
+                  userProfileController.isLoading.value
+              ? const Opacity(
+                  opacity: 0.8,
+                  child: ModalBarrier(dismissible: false, color: Colors.black),
+                )
+              : const SizedBox(),
+        ),
+        Obx(
+          () => userLogoutController.isLoggingOut.value ||
+                  userProfileController.isLoading.value
+              ? Center(
+                  child: LoadingAnimationWidget.fourRotatingDots(
+                    color: Colors.white,
+                    size: 50,
+                  ),
+                )
+              : const SizedBox(),
+        ),
       ],
     );
   }

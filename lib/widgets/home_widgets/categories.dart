@@ -35,10 +35,6 @@ class Categories extends StatelessWidget {
         'icon': "assets/images/icon-category/oil.png",
         'title': 'Minyak',
       },
-      {
-        'icon': "assets/images/icon-category/oil.png",
-        'title': 'Minyak',
-      },
     ];
 
     List<Map<String, dynamic>> categories2 = [
@@ -51,10 +47,6 @@ class Categories extends StatelessWidget {
         'title': 'Santan',
       },
       {
-        'icon': "assets/images/icon-category/fish.jpg",
-        'title': 'Ikan',
-      },
-      {
         'icon': "assets/images/icon-category/sirup.jpg",
         'title': 'Sirup',
       },
@@ -64,7 +56,7 @@ class Categories extends StatelessWidget {
       },
       {
         'icon': "assets/images/icon-category/salt.jpg",
-        'title': 'Garam',
+        'title': 'Sambal',
       },
       {
         'icon': "assets/images/icon-category/salt.jpg",
