@@ -3,12 +3,13 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:sihalal_ecommerce_app/component/color_palette.dart';
-import 'package:sihalal_ecommerce_app/component/string_formatter.dart';
 import 'package:sihalal_ecommerce_app/controller/product_controller.dart';
 import 'package:sihalal_ecommerce_app/screens/account_screen/store_centre_screen/add_product_screen/add_category_screen.dart';
 import 'package:sihalal_ecommerce_app/screens/account_screen/store_centre_screen/add_product_screen/add_merksh_screen.dart';
+import 'package:sihalal_ecommerce_app/widgets/account_widgets/button_widget.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class InsertImageProduct extends StatelessWidget {
@@ -226,7 +227,8 @@ class InsertNameProduct extends StatelessWidget {
                   onChanged: (value) {
                     addNewProductController.nameProduct.value = value;
                   },
-                  onTapOutside: (event) => FocusScope.of(context).unfocus(),
+                  onTapOutside: (event) =>
+                      FocusManager.instance.primaryFocus?.unfocus(),
                   style: const TextStyle(
                     color: Colors.black,
                     fontSize: 14,
@@ -333,7 +335,8 @@ class InsertDescriptionProduct extends StatelessWidget {
                   onChanged: (value) {
                     addNewProductController.descriptionProduct.value = value;
                   },
-                  onTapOutside: (event) => FocusScope.of(context).unfocus(),
+                  onTapOutside: (event) =>
+                      FocusManager.instance.primaryFocus?.unfocus(),
                   style: const TextStyle(
                     color: Colors.black,
                     fontSize: 14,
@@ -662,7 +665,8 @@ class InsertStockPriceProduct extends StatelessWidget {
                     onChanged: (value) {
                       addNewProductController.formatPrice(value);
                     },
-                    onTapOutside: (event) => FocusScope.of(context).unfocus(),
+                    onTapOutside: (event) =>
+                        FocusManager.instance.primaryFocus?.unfocus(),
                     keyboardType: TextInputType.number,
                     maxLines: 1,
                     maxLength: 16,
@@ -738,7 +742,8 @@ class InsertStockPriceProduct extends StatelessWidget {
                         );
                       }
                     },
-                    onTapOutside: (event) => FocusScope.of(context).unfocus(),
+                    onTapOutside: (event) =>
+                        FocusManager.instance.primaryFocus?.unfocus(),
                     keyboardType: TextInputType.number,
                     maxLines: 1,
                     maxLength: 16,
@@ -789,13 +794,13 @@ class InsertDeliveryPriceProduct extends StatelessWidget {
         child: Row(
           children: [
             const Icon(
-              Icons.local_shipping_outlined,
+              Ionicons.cube_outline,
               color: Colors.black,
               size: 20,
             ),
             const WidthBox(8),
             const Text(
-              'Ongkos Kirim',
+              'Berat',
               style: TextStyle(
                 color: Colors.black,
                 fontSize: 14,
@@ -810,24 +815,95 @@ class InsertDeliveryPriceProduct extends StatelessWidget {
                 fontWeight: FontWeight.w600,
               ),
             ),
-            const Spacer(),
-            Text(
-              priceFormatter(
-                  addNewProductController.deliveryPriceProduct.value),
-              style: const TextStyle(
-                color: Colors.black,
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
+            Expanded(
+              child: TextFormField(
+                textAlign: TextAlign.end,
+                controller: addNewProductController.weightProductTextController,
+                onChanged: (value) {
+                  addNewProductController.formatWeight(value);
+                },
+                onTapOutside: (event) =>
+                    FocusManager.instance.primaryFocus?.unfocus(),
+                keyboardType: TextInputType.number,
+                maxLines: 1,
+                maxLength: 16,
+                style: const TextStyle(
+                  color: Colors.black,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                ),
+                buildCounter: (context,
+                    {int? currentLength, int? maxLength, bool? isFocused}) {
+                  return null;
+                },
+                decoration: const InputDecoration.collapsed(
+                  hintText: 'Atur Berat',
+                  hintStyle: TextStyle(
+                    color: Colors.grey,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
               ),
             ),
-            const WidthBox(5),
-            const Icon(
-              Icons.arrow_forward_ios,
-              color: Colors.grey,
-              size: 20,
-            ),
+            Obx(
+              () => addNewProductController.weightProduct.value.isNotEmpty
+                  ? const Text(
+                      ' g',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    )
+                  : const SizedBox(),
+            )
           ],
         ),
+      ),
+    );
+  }
+}
+
+class ButtonSaveNewProduct extends StatelessWidget {
+  const ButtonSaveNewProduct({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final addNewProductController = Get.find<AddNewProductController>();
+    return Container(
+      width: double.infinity,
+      height: 60,
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 7),
+      decoration: BoxDecoration(
+        color: HexColor('#fefeff'),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.2),
+            spreadRadius: 1,
+            blurRadius: 1,
+            offset: const Offset(0, -1),
+          ),
+        ],
+      ),
+      child: Obx(
+        () => addNewProductController.isAllDataValid()
+            ? AddressButtonWidget(
+                onPressed: () {},
+                title: 'Tambah Produk',
+                icon: Icons.save,
+                foregroundColor: Colors.white,
+                backgroundColor: ColorPalette().primary,
+              )
+            : AbsorbPointer(
+                child: AddressButtonWidget(
+                  onPressed: () {},
+                  title: 'Tambah Produk',
+                  icon: Icons.save,
+                  foregroundColor: HexColor('#a8b5c8'),
+                  backgroundColor: HexColor('#e5eaf5'),
+                ),
+              ),
       ),
     );
   }

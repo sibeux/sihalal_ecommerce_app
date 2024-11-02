@@ -200,7 +200,6 @@ class AddNewProductController extends GetxController {
   var priceProduct = ''.obs;
   var stockProduct = ''.obs;
   var weightProduct = ''.obs;
-  var deliveryPriceProduct = '16000'.obs;
 
   var isGetMerkshLoading = false.obs;
   var isInsertImageLoading = false.obs;
@@ -211,12 +210,25 @@ class AddNewProductController extends GetxController {
   var descriptionProductTextController = TextEditingController();
   var priceProductTextController = TextEditingController();
   var stockProductTextController = TextEditingController();
+  var weightProductTextController = TextEditingController();
 
   @override
   void onInit() {
     stockProduct.value = '0';
     stockProductTextController.text = stockProduct.value;
     super.onInit();
+  }
+
+  bool isAllDataValid() {
+    return urlImage1.isNotEmpty &&
+        nameProduct.isNotEmpty &&
+        descriptionProduct.isNotEmpty &&
+        categoryProduct.isNotEmpty &&
+        merkProduct.isNotEmpty &&
+        noHalalProduct.isNotEmpty &&
+        priceProduct.isNotEmpty &&
+        stockProduct.isNotEmpty &&
+        weightProduct.isNotEmpty;
   }
 
   Future<void> insertImage() async {
@@ -274,6 +286,23 @@ class AddNewProductController extends GetxController {
     } else {
       stockProduct.value = '0';
       stockProductTextController.text = stockProduct.value;
+      return;
+    }
+    update();
+  }
+
+  void formatWeight(String value) {
+    if (value.isNotEmpty) {
+      value = value.replaceAll('.', '');
+      value = value.replaceAll(',', '');
+      value = value.replaceAll(' ', '');
+    }
+    if (value.isNotEmpty) {
+      weightProduct.value = value;
+      weightProductTextController.text = stockFormatter(value);
+    } else {
+      weightProduct.value = '';
+      weightProductTextController.text = weightProduct.value;
       return;
     }
     update();

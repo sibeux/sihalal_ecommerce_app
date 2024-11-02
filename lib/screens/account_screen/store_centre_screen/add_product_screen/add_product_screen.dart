@@ -9,66 +9,76 @@ class AddProductScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: HexColor('#f4f4f5'),
-      resizeToAvoidBottomInset: true,
-      appBar: AppBar(
-        backgroundColor: HexColor('#fefffe'),
-        surfaceTintColor: Colors.transparent,
-        titleSpacing: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Get.back();
-          },
-        ),
-        title: const Text('Tambah Produk'),
-        titleTextStyle: const TextStyle(
-          color: Colors.black,
-          fontSize: 18,
-          fontWeight: FontWeight.w500,
-        ),
-      ),
-      body: Stack(
-        children: [
-          const SingleChildScrollView(
-            child: Column(
-              children: [
-                HeightBox(10),
-                InsertImageProduct(),
-                HeightBox(10),
-                InsertNameProduct(),
-                HeightBox(10),
-                InsertDescriptionProduct(),
-                HeightBox(10),
-                InsertCategorySHProduct(),
-                HeightBox(10),
-                InsertStockPriceProduct(),
-                HeightBox(10),
-                InsertDeliveryPriceProduct(),
-              ],
+    return Stack(
+      children: [
+        Scaffold(
+          backgroundColor: HexColor('#f4f4f5'),
+          resizeToAvoidBottomInset: true,
+          appBar: AppBar(
+            backgroundColor: HexColor('#fefffe'),
+            surfaceTintColor: Colors.transparent,
+            titleSpacing: 0,
+            leading: IconButton(
+              icon: const Icon(Icons.arrow_back),
+              onPressed: () {
+                Get.back();
+              },
+            ),
+            title: const Text('Tambah Produk'),
+            titleTextStyle: const TextStyle(
+              color: Colors.black,
+              fontSize: 18,
+              fontWeight: FontWeight.w500,
             ),
           ),
-          Container(
-            margin: const EdgeInsets.only(top: 1),
-            decoration: BoxDecoration(
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.3),
-                  spreadRadius: 2,
-                  blurRadius: 2,
-                  offset: const Offset(0, 1), // changes position of shadow
+          body: Stack(
+            children: [
+              const SingleChildScrollView(
+                child: Column(
+                  children: [
+                    HeightBox(10),
+                    InsertImageProduct(),
+                    HeightBox(10),
+                    InsertNameProduct(),
+                    HeightBox(10),
+                    InsertDescriptionProduct(),
+                    HeightBox(10),
+                    InsertCategorySHProduct(),
+                    HeightBox(10),
+                    InsertStockPriceProduct(),
+                    HeightBox(10),
+                    InsertDeliveryPriceProduct(),
+                  ],
                 ),
-              ],
-            ),
-            child: Divider(
-              color: Colors.grey.withOpacity(0.3),
-              thickness: 2,
-              height: 0,
-            ),
+              ),
+              Container(
+                margin: const EdgeInsets.only(top: 1),
+                decoration: BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.3),
+                      spreadRadius: 2,
+                      blurRadius: 2,
+                      offset: const Offset(0, 1), // changes position of shadow
+                    ),
+                  ],
+                ),
+                child: Divider(
+                  color: Colors.grey.withOpacity(0.3),
+                  thickness: 2,
+                  height: 0,
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
+        ),
+        const Positioned(
+          bottom: 0,
+          left: 0,
+          right: 0,
+          child: ButtonSaveNewProduct(),
+        )
+      ],
     );
   }
 }
