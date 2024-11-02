@@ -9,6 +9,7 @@ import 'package:sihalal_ecommerce_app/models/merksh.dart';
 import 'package:sihalal_ecommerce_app/models/product.dart';
 import 'package:http/http.dart' as http;
 import 'package:sihalal_ecommerce_app/models/seller_product.dart';
+import 'package:image_picker/image_picker.dart';
 
 class SearchProductController extends GetxController {
   final controller = TextEditingController();
@@ -232,22 +233,23 @@ class AddNewProductController extends GetxController {
   }
 
   Future<void> insertImage() async {
-    isInsertImageLoading.value = true;
+    final ImagePicker picker = ImagePicker();
 
-    await Future.delayed(const Duration(milliseconds: 500));
+    final XFile? pickedFile =
+        await picker.pickImage(source: ImageSource.gallery);
 
     if (countImage.value == 0) {
-      urlImage1.value =
-          'https://ik.imagekit.io/dcjlghyytp1/f4645e42e825dc85dcbbce576feaeb31?tr=f-auto,w-1000';
+      urlImage1.value = pickedFile != null ? pickedFile.path : '';
     } else if (countImage.value == 1) {
-      urlImage2.value =
-          'https://ik.imagekit.io/dcjlghyytp1/f4645e42e825dc85dcbbce576feaeb31?tr=f-auto,w-1000';
+      urlImage2.value = pickedFile != null ? pickedFile.path : '';
     } else if (countImage.value == 2) {
-      urlImage3.value =
-          'https://ik.imagekit.io/dcjlghyytp1/f4645e42e825dc85dcbbce576feaeb31?tr=f-auto,w-1000';
+      urlImage3.value = pickedFile != null ? pickedFile.path : '';
     }
 
-    countImage.value++;
+    if (pickedFile != null) {
+      isInsertImageLoading.value = true;
+      countImage.value++;
+    }
     isInsertImageLoading.value = false;
   }
 

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
@@ -135,15 +137,23 @@ class ImagePlaceholder extends StatelessWidget {
                           width: 0.3,
                         ),
                       ),
-                      child: CachedNetworkImage(
-                        imageUrl: urlImage,
-                        height: 75,
-                        width: 75,
-                        filterQuality: FilterQuality.medium,
-                        fit: BoxFit.cover,
-                        maxHeightDiskCache: 200,
-                        maxWidthDiskCache: 200,
-                      ),
+                      child: urlImage.contains('http')
+                          ? CachedNetworkImage(
+                              imageUrl: urlImage,
+                              height: 75,
+                              width: 75,
+                              filterQuality: FilterQuality.medium,
+                              fit: BoxFit.cover,
+                              maxHeightDiskCache: 200,
+                              maxWidthDiskCache: 200,
+                            )
+                          : Image.file(
+                              File(urlImage),
+                              height: 75,
+                              width: 75,
+                              fit: BoxFit.cover,
+                              filterQuality: FilterQuality.medium,
+                            ),
                     ),
                     if (addNewProductController.countImage.value == index)
                       Positioned(
