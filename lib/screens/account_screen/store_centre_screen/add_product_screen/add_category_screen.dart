@@ -26,7 +26,7 @@ class AddCategoryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final addNewProductController = Get.find<AddNewProductController>();
+    final sellerProductController = Get.find<SellerProductController>();
     return Scaffold(
       backgroundColor: HexColor('#fefffe'),
       appBar: AppBar(
@@ -76,14 +76,14 @@ class AddCategoryScreen extends StatelessWidget {
                   for (CategoryType category in CategoryType.values)
                     InkWell(
                       onTap: () {
-                        if (addNewProductController
+                        if (sellerProductController
                                 .merkProduct.value.isNotEmpty &&
-                            addNewProductController.categoryProduct.value !=
+                            sellerProductController.categoryProduct.value !=
                                 category.toString().split('.').last) {
-                          addNewProductController.merkProduct.value = '';
-                          addNewProductController.noHalalProduct.value = '';
+                          sellerProductController.merkProduct.value = '';
+                          sellerProductController.noHalalProduct.value = '';
                         }
-                        addNewProductController.categoryProduct.value =
+                        sellerProductController.categoryProduct.value =
                             category.toString().split('.').last;
                         Get.back();
                       },
@@ -97,7 +97,7 @@ class AddCategoryScreen extends StatelessWidget {
                               // perlu di-split karena hasilnya: 'CategoryType.gula'
                               category.toString().split('.').last.capitalize!,
                               style: TextStyle(
-                                color: addNewProductController
+                                color: sellerProductController
                                             .categoryProduct.value ==
                                         category.toString().split('.').last
                                     ? ColorPalette().primary

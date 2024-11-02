@@ -21,7 +21,7 @@ class InsertImageProduct extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final addNewProductController = Get.put(AddNewProductController());
+    final sellerProductController = Get.find<SellerProductController>();
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       margin: const EdgeInsets.symmetric(horizontal: 10),
@@ -67,24 +67,55 @@ class InsertImageProduct extends StatelessWidget {
             () => Row(
               children: [
                 ImagePlaceholder(
-                  urlImage: addNewProductController.urlImage1.value,
+                  urlImage: sellerProductController.urlImage1.value,
                   index: 1,
                 ),
                 const WidthBox(10),
-                if (addNewProductController.countImage.value >= 1)
+                if (sellerProductController.countImage.value >= 1)
                   ImagePlaceholder(
-                    urlImage: addNewProductController.urlImage2.value,
+                    urlImage: sellerProductController.urlImage2.value,
                     index: 2,
                   ),
                 const WidthBox(10),
-                if (addNewProductController.countImage.value >= 2)
+                if (sellerProductController.countImage.value >= 2)
                   ImagePlaceholder(
-                    urlImage: addNewProductController.urlImage3.value,
+                    urlImage: sellerProductController.urlImage3.value,
                     index: 3,
                   ),
               ],
             ),
           ),
+          Obx(
+            () => !sellerProductController.isImageFileTooLarge.value
+                ? const SizedBox()
+                : Container(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                    margin: const EdgeInsets.only(top: 10),
+                    decoration: BoxDecoration(
+                      color: HexColor('#fff9f8'),
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.info_outline,
+                          color: HexColor('#cd7a7d'),
+                          size: 15,
+                        ),
+                        const WidthBox(5),
+                        Text(
+                          'Maksimal ukuran gambar 2 MB',
+                          style: TextStyle(
+                            color: HexColor('#cd7a7d'),
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+          )
         ],
       ),
     );
@@ -103,9 +134,9 @@ class ImagePlaceholder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final addNewProductController = Get.find<AddNewProductController>();
+    final sellerProductController = Get.find<SellerProductController>();
     return Obx(
-      () => addNewProductController.isInsertImageLoading.value &&
+      () => sellerProductController.isInsertImageLoading.value &&
               urlImage.isEmpty
           ? DottedBorder(
               color: ColorPalette().primary,
@@ -155,13 +186,15 @@ class ImagePlaceholder extends StatelessWidget {
                               filterQuality: FilterQuality.medium,
                             ),
                     ),
-                    if (addNewProductController.countImage.value == index)
+                    if (sellerProductController.countImage.value == index)
                       Positioned(
                         top: 0,
                         right: 0,
                         child: GestureDetector(
                           onTap: () {
-                            addNewProductController.deleteImage(index);
+                            sellerProductController.deleteImage(index);
+                            sellerProductController.isImageFileTooLarge.value =
+                                false;
                           },
                           child: Container(
                             padding: const EdgeInsets.all(2),
@@ -181,7 +214,7 @@ class ImagePlaceholder extends StatelessWidget {
                 )
               : GestureDetector(
                   onTap: () async {
-                    await addNewProductController.insertImage();
+                    await sellerProductController.insertImage();
                   },
                   child: DottedBorder(
                     color: ColorPalette().primary,
@@ -216,7 +249,7 @@ class InsertNameProduct extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final addNewProductController = Get.find<AddNewProductController>();
+    final sellerProductController = Get.find<SellerProductController>();
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -249,7 +282,7 @@ class InsertNameProduct extends StatelessWidget {
               const Spacer(),
               Obx(
                 () => Text(
-                  '${addNewProductController.nameProduct.value.length}/225',
+                  '${sellerProductController.nameProduct.value.length}/225',
                   style: const TextStyle(
                     color: Colors.grey,
                     fontSize: 12,
@@ -264,9 +297,9 @@ class InsertNameProduct extends StatelessWidget {
             children: [
               Expanded(
                 child: TextFormField(
-                  controller: addNewProductController.nameProductTextController,
+                  controller: sellerProductController.nameProductTextController,
                   onChanged: (value) {
-                    addNewProductController.nameProduct.value = value;
+                    sellerProductController.nameProduct.value = value;
                   },
                   onTapOutside: (event) =>
                       FocusManager.instance.primaryFocus?.unfocus(),
@@ -293,13 +326,13 @@ class InsertNameProduct extends StatelessWidget {
               ),
               const WidthBox(5),
               Obx(
-                () => addNewProductController.nameProduct.value.isEmpty
+                () => sellerProductController.nameProduct.value.isEmpty
                     ? const SizedBox()
                     : GestureDetector(
                         onTap: () {
-                          addNewProductController.nameProductTextController
+                          sellerProductController.nameProductTextController
                               .clear();
-                          addNewProductController.nameProduct.value = '';
+                          sellerProductController.nameProduct.value = '';
                         },
                         child: const Icon(
                           Icons.cancel,
@@ -323,7 +356,7 @@ class InsertDescriptionProduct extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final addNewProductController = Get.find<AddNewProductController>();
+    final sellerProductController = Get.find<SellerProductController>();
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -356,7 +389,7 @@ class InsertDescriptionProduct extends StatelessWidget {
               const Spacer(),
               Obx(
                 () => Text(
-                  '${addNewProductController.descriptionProduct.value.length}/3000',
+                  '${sellerProductController.descriptionProduct.value.length}/3000',
                   style: const TextStyle(
                     color: Colors.grey,
                     fontSize: 12,
@@ -372,9 +405,9 @@ class InsertDescriptionProduct extends StatelessWidget {
               Expanded(
                 child: TextFormField(
                   controller:
-                      addNewProductController.descriptionProductTextController,
+                      sellerProductController.descriptionProductTextController,
                   onChanged: (value) {
-                    addNewProductController.descriptionProduct.value = value;
+                    sellerProductController.descriptionProduct.value = value;
                   },
                   onTapOutside: (event) =>
                       FocusManager.instance.primaryFocus?.unfocus(),
@@ -401,14 +434,14 @@ class InsertDescriptionProduct extends StatelessWidget {
               ),
               const WidthBox(5),
               Obx(
-                () => addNewProductController.descriptionProduct.value.isEmpty
+                () => sellerProductController.descriptionProduct.value.isEmpty
                     ? const SizedBox()
                     : GestureDetector(
                         onTap: () {
-                          addNewProductController
+                          sellerProductController
                               .descriptionProductTextController
                               .clear();
-                          addNewProductController.descriptionProduct.value = '';
+                          sellerProductController.descriptionProduct.value = '';
                         },
                         child: const Icon(
                           Icons.cancel,
@@ -430,7 +463,7 @@ class InsertCategorySHProduct extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final addNewProductController = Get.find<AddNewProductController>();
+    final sellerProductController = Get.find<SellerProductController>();
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.symmetric(vertical: 10),
@@ -479,9 +512,9 @@ class InsertCategorySHProduct extends StatelessWidget {
                   const Spacer(),
                   Obx(
                     () => Text(
-                      addNewProductController.categoryProduct.value.isEmpty
+                      sellerProductController.categoryProduct.value.isEmpty
                           ? ''
-                          : addNewProductController
+                          : sellerProductController
                               .categoryProduct.value.capitalized,
                       style: const TextStyle(
                         color: Colors.black,
@@ -508,7 +541,7 @@ class InsertCategorySHProduct extends StatelessWidget {
           const HeightBox(10),
           InkWell(
             onTap: () {
-              if (addNewProductController.categoryProduct.value.isEmpty) {
+              if (sellerProductController.categoryProduct.value.isEmpty) {
                 Fluttertoast.showToast(
                   msg: 'Harap pilih kategori terlebih dahulu',
                   toastLength: Toast.LENGTH_SHORT,
@@ -556,7 +589,7 @@ class InsertCategorySHProduct extends StatelessWidget {
                   const Spacer(),
                   Obx(
                     () => Text(
-                      addNewProductController.merkProduct.value,
+                      sellerProductController.merkProduct.value,
                       style: const TextStyle(
                         color: Colors.black,
                         fontSize: 14,
@@ -582,7 +615,7 @@ class InsertCategorySHProduct extends StatelessWidget {
           const HeightBox(10),
           InkWell(
             onTap: () {
-              if (addNewProductController.categoryProduct.value.isEmpty) {
+              if (sellerProductController.categoryProduct.value.isEmpty) {
                 Fluttertoast.showToast(
                   msg: 'Harap pilih kategori terlebih dahulu',
                   toastLength: Toast.LENGTH_SHORT,
@@ -630,7 +663,7 @@ class InsertCategorySHProduct extends StatelessWidget {
                   const Spacer(),
                   Obx(
                     () => Text(
-                      addNewProductController.noHalalProduct.value,
+                      sellerProductController.noHalalProduct.value,
                       maxLines: 1,
                       style: const TextStyle(
                         color: Colors.black,
@@ -661,7 +694,7 @@ class InsertStockPriceProduct extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final addNewProductController = Get.find<AddNewProductController>();
+    final sellerProductController = Get.find<SellerProductController>();
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.symmetric(vertical: 10),
@@ -702,9 +735,9 @@ class InsertStockPriceProduct extends StatelessWidget {
                   child: TextFormField(
                     textAlign: TextAlign.end,
                     controller:
-                        addNewProductController.priceProductTextController,
+                        sellerProductController.priceProductTextController,
                     onChanged: (value) {
-                      addNewProductController.formatPrice(value);
+                      sellerProductController.formatPrice(value);
                     },
                     onTapOutside: (event) =>
                         FocusManager.instance.primaryFocus?.unfocus(),
@@ -769,16 +802,16 @@ class InsertStockPriceProduct extends StatelessWidget {
                   child: TextFormField(
                     textAlign: TextAlign.end,
                     controller:
-                        addNewProductController.stockProductTextController,
+                        sellerProductController.stockProductTextController,
                     onChanged: (value) {
-                      addNewProductController.formatStock(value);
+                      sellerProductController.formatStock(value);
                     },
                     onTap: () {
-                      if (addNewProductController.stockProduct.value == "0") {
-                        addNewProductController.stockProductTextController
+                      if (sellerProductController.stockProduct.value == "0") {
+                        sellerProductController.stockProductTextController
                             .selection = TextSelection.fromPosition(
                           TextPosition(
-                              offset: addNewProductController
+                              offset: sellerProductController
                                   .stockProductTextController.text.length),
                         );
                       }
@@ -821,7 +854,7 @@ class InsertDeliveryPriceProduct extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final addNewProductController = Get.find<AddNewProductController>();
+    final sellerProductController = Get.find<SellerProductController>();
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
@@ -859,9 +892,9 @@ class InsertDeliveryPriceProduct extends StatelessWidget {
             Expanded(
               child: TextFormField(
                 textAlign: TextAlign.end,
-                controller: addNewProductController.weightProductTextController,
+                controller: sellerProductController.weightProductTextController,
                 onChanged: (value) {
-                  addNewProductController.formatWeight(value);
+                  sellerProductController.formatWeight(value);
                 },
                 onTapOutside: (event) =>
                     FocusManager.instance.primaryFocus?.unfocus(),
@@ -888,7 +921,7 @@ class InsertDeliveryPriceProduct extends StatelessWidget {
               ),
             ),
             Obx(
-              () => addNewProductController.weightProduct.value.isNotEmpty
+              () => sellerProductController.weightProduct.value.isNotEmpty
                   ? const Text(
                       ' g',
                       style: TextStyle(
@@ -911,7 +944,7 @@ class ButtonSaveNewProduct extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final addNewProductController = Get.find<AddNewProductController>();
+    final sellerProductController = Get.find<SellerProductController>();
     return Container(
       width: double.infinity,
       height: 60,
@@ -928,9 +961,11 @@ class ButtonSaveNewProduct extends StatelessWidget {
         ],
       ),
       child: Obx(
-        () => addNewProductController.isAllDataValid()
+        () => sellerProductController.isAllDataValid()
             ? AddressButtonWidget(
-                onPressed: () {},
+                onPressed: () async {
+                  await sellerProductController.sendNewSellerProduct();
+                },
                 title: 'Tambah Produk',
                 icon: Icons.save,
                 foregroundColor: Colors.white,

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sihalal_ecommerce_app/component/regex_drive.dart';
 import 'package:sihalal_ecommerce_app/component/string_formatter.dart';
+import 'package:sihalal_ecommerce_app/controller/user_profile_controller.dart';
 import 'package:sihalal_ecommerce_app/models/merksh.dart';
 import 'package:sihalal_ecommerce_app/models/product.dart';
 import 'package:http/http.dart' as http;
@@ -186,7 +187,7 @@ class GetSellerProductController extends GetxController {
   }
 }
 
-class AddNewProductController extends GetxController {
+class SellerProductController extends GetxController {
   var countImage = 0.obs;
 
   var urlImage1 = ''.obs;
@@ -204,6 +205,8 @@ class AddNewProductController extends GetxController {
 
   var isGetMerkshLoading = false.obs;
   var isInsertImageLoading = false.obs;
+  var isSendSellerProductLoading = false.obs;
+  var isImageFileTooLarge = false.obs;
 
   var listMerkshProduct = RxList<Merksh>([]);
 
@@ -235,20 +238,27 @@ class AddNewProductController extends GetxController {
   Future<void> insertImage() async {
     final ImagePicker picker = ImagePicker();
 
+    isInsertImageLoading.value = true;
+
     final XFile? pickedFile =
         await picker.pickImage(source: ImageSource.gallery);
 
-    if (countImage.value == 0) {
-      urlImage1.value = pickedFile != null ? pickedFile.path : '';
-    } else if (countImage.value == 1) {
-      urlImage2.value = pickedFile != null ? pickedFile.path : '';
-    } else if (countImage.value == 2) {
-      urlImage3.value = pickedFile != null ? pickedFile.path : '';
-    }
-
     if (pickedFile != null) {
-      isInsertImageLoading.value = true;
-      countImage.value++;
+      final size = await pickedFile.length();
+      if (size > 2000000) {
+        isImageFileTooLarge.value = true;
+      } else {
+        isImageFileTooLarge.value = false;
+
+        if (countImage.value == 0) {
+          urlImage1.value = pickedFile.path;
+        } else if (countImage.value == 1) {
+          urlImage2.value = pickedFile.path;
+        } else if (countImage.value == 2) {
+          urlImage3.value = pickedFile.path;
+        }
+        countImage.value++;
+      }
     }
     isInsertImageLoading.value = false;
   }
@@ -352,6 +362,94 @@ class AddNewProductController extends GetxController {
       }
     } finally {
       isGetMerkshLoading.value = false;
+    }
+  }
+
+  Future<void> sendNewSellerProduct() async {
+    isSendSellerProductLoading.value = true;
+
+    final userProfileController = Get.find<UserProfileController>();
+
+    const String url = 'https://sibeux.my.id/project/sihalal/seller/product';
+    const String imageUploadUrl = 'https://sibeux.my.id/project/sihalal/upload';
+
+    final idShalal = listMerkshProduct
+        .where((shhalal) => shhalal.numberSh == noHalalProduct.value);
+
+    try {
+      final request = http.MultipartRequest('POST', Uri.parse(imageUploadUrl));
+
+      if (urlImage1.isNotEmpty) {
+        request.files.add(
+          await http.MultipartFile.fromPath('file', urlImage1.value),
+        );
+      }
+      if (urlImage2.isNotEmpty) {
+        request.files.add(
+          await http.MultipartFile.fromPath('file', urlImage2.value),
+        );
+      }
+      if (urlImage3.isNotEmpty) {
+        request.files.add(
+          await http.MultipartFile.fromPath('file', urlImage3.value),
+        );
+      }
+
+      final responseUpload = await request.send();
+
+      if (responseUpload.statusCode == 200) {
+        if (kDebugMode) {
+          print('Image berhasil diupload');
+        }
+
+        final response = await http.post(
+          Uri.parse(url),
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          body: {
+            'method': 'new',
+            'id_user': userProfileController.userData[0].idUser,
+            'id_shhalal': idShalal.first.idSh,
+            'foto_produk_1':
+                'https://sibeux.my.id/sihalal/upload/${urlImage1.value.split('/').last}',
+            'foto_produk_2':
+                'https://sibeux.my.id/sihalal/upload/${urlImage2.value.split('/').last}',
+            'foto_produk_3':
+                'https://sibeux.my.id/sihalal/upload/${urlImage3.value.split('/').last}',
+            'nama_produk': nameProduct.value,
+            'deskripsi_produk': descriptionProduct.value,
+            'harga_produk': priceProduct.value,
+            'stok_produk': stockProduct.value,
+            'berat_produk': weightProduct.value,
+          },
+        );
+
+        if (response.statusCode == 200) {
+          if (kDebugMode) {
+            print('Data berhasil dikirim: ${response.body}');
+          }
+
+          await Get.find<GetSellerProductController>().getUserProduct(
+            email: userProfileController.userData[0].emailuser,
+          );
+          Get.back();
+        } else {
+          if (kDebugMode) {
+            print('Data gagal dikirim: ${response.body}');
+          }
+        }
+      } else {
+        if (kDebugMode) {
+          print('Image gagal diupload: ${responseUpload.statusCode}');
+        }
+      }
+    } catch (error) {
+      if (kDebugMode) {
+        print('Error sendNewSellerProduct: $error');
+      }
+    } finally {
+      isSendSellerProductLoading.value = false;
     }
   }
 }

@@ -10,8 +10,8 @@ class AddMerkshScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final addNewProductController = Get.find<AddNewProductController>();
-    addNewProductController.getMerkshProduct();
+    final sellerProductController = Get.find<SellerProductController>();
+    sellerProductController.getMerkshProduct();
     return Stack(
       children: [
         Scaffold(
@@ -46,9 +46,9 @@ class AddMerkshScreen extends StatelessWidget {
                 alignment: Alignment.centerLeft,
                 color: HexColor('#f4f4f5'),
                 child: Text(
-                  addNewProductController.categoryProduct.value == 'lainnya'
+                  sellerProductController.categoryProduct.value == 'lainnya'
                       ? 'Semua Merek'
-                      : 'Merek ${addNewProductController.categoryProduct.value.capitalize}',
+                      : 'Merek ${sellerProductController.categoryProduct.value.capitalize}',
                   textAlign: TextAlign.start,
                   style: const TextStyle(
                     color: Colors.black,
@@ -58,7 +58,7 @@ class AddMerkshScreen extends StatelessWidget {
                 ),
               ),
               Obx(
-                () => addNewProductController.isGetMerkshLoading.value
+                () => sellerProductController.isGetMerkshLoading.value
                     ? const Text(
                         'Mengambil Data...',
                         style: TextStyle(
@@ -75,18 +75,18 @@ class AddMerkshScreen extends StatelessWidget {
                               children: [
                                 for (int i = 0;
                                     i <
-                                        addNewProductController
+                                        sellerProductController
                                             .listMerkshProduct.length;
                                     i++)
                                   InkWell(
                                     onTap: () {
-                                      addNewProductController
+                                      sellerProductController
                                               .merkProduct.value =
-                                          addNewProductController
+                                          sellerProductController
                                               .listMerkshProduct[i].nameMerkSh;
-                                      addNewProductController
+                                      sellerProductController
                                               .noHalalProduct.value =
-                                          addNewProductController
+                                          sellerProductController
                                               .listMerkshProduct[i].numberSh;
                                       Get.back();
                                     },
@@ -100,14 +100,14 @@ class AddMerkshScreen extends StatelessWidget {
                                           child: Row(
                                             children: [
                                               Text(
-                                                addNewProductController
+                                                sellerProductController
                                                     .listMerkshProduct[i]
                                                     .nameMerkSh,
                                                 style: TextStyle(
-                                                  color: addNewProductController
+                                                  color: sellerProductController
                                                               .merkProduct
                                                               .value ==
-                                                          addNewProductController
+                                                          sellerProductController
                                                               .listMerkshProduct[
                                                                   i]
                                                               .nameMerkSh
@@ -119,7 +119,7 @@ class AddMerkshScreen extends StatelessWidget {
                                               ),
                                               const Spacer(),
                                               Text(
-                                                addNewProductController
+                                                sellerProductController
                                                     .listMerkshProduct[i]
                                                     .numberSh,
                                                 style: TextStyle(
@@ -138,7 +138,7 @@ class AddMerkshScreen extends StatelessWidget {
                                       ],
                                     ),
                                   ),
-                                if (addNewProductController
+                                if (sellerProductController
                                     .listMerkshProduct.isEmpty)
                                   const Padding(
                                     padding: EdgeInsets.symmetric(
@@ -162,7 +162,7 @@ class AddMerkshScreen extends StatelessWidget {
           ),
         ),
         Obx(
-          () => addNewProductController.isGetMerkshLoading.value
+          () => sellerProductController.isGetMerkshLoading.value
               ? const Opacity(
                   opacity: 0.8,
                   child: ModalBarrier(dismissible: false, color: Colors.black),
@@ -170,7 +170,7 @@ class AddMerkshScreen extends StatelessWidget {
               : const SizedBox(),
         ),
         Obx(
-          () => addNewProductController.isGetMerkshLoading.value
+          () => sellerProductController.isGetMerkshLoading.value
               ? Center(
                   child: LoadingAnimationWidget.fourRotatingDots(
                     color: Colors.white,

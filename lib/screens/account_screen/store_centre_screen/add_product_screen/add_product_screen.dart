@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:sihalal_ecommerce_app/controller/product_controller.dart';
 import 'package:sihalal_ecommerce_app/widgets/account_widgets/store_screen_widgets/add_product_widget.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -9,6 +11,7 @@ class AddProductScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final sellerProductController = Get.put(SellerProductController());
     return Stack(
       children: [
         Scaffold(
@@ -77,7 +80,25 @@ class AddProductScreen extends StatelessWidget {
           left: 0,
           right: 0,
           child: ButtonSaveNewProduct(),
-        )
+        ),
+        Obx(
+          () => sellerProductController.isSendSellerProductLoading.value
+              ? const Opacity(
+                  opacity: 0.8,
+                  child: ModalBarrier(dismissible: false, color: Colors.black),
+                )
+              : const SizedBox(),
+        ),
+        Obx(
+          () => sellerProductController.isSendSellerProductLoading.value
+              ? Center(
+                  child: LoadingAnimationWidget.fourRotatingDots(
+                    color: Colors.white,
+                    size: 50,
+                  ),
+                )
+              : const SizedBox(),
+        ),
       ],
     );
   }
