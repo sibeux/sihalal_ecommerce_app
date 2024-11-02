@@ -66,16 +66,19 @@ class InsertImageProduct extends StatelessWidget {
               children: [
                 ImagePlaceholder(
                   urlImage: addNewProductController.urlImage1.value,
+                  index: 1,
                 ),
                 const WidthBox(10),
                 if (addNewProductController.countImage.value >= 1)
                   ImagePlaceholder(
                     urlImage: addNewProductController.urlImage2.value,
+                    index: 2,
                   ),
                 const WidthBox(10),
                 if (addNewProductController.countImage.value >= 2)
                   ImagePlaceholder(
                     urlImage: addNewProductController.urlImage3.value,
+                    index: 3,
                   ),
               ],
             ),
@@ -90,9 +93,11 @@ class ImagePlaceholder extends StatelessWidget {
   const ImagePlaceholder({
     super.key,
     required this.urlImage,
+    required this.index,
   });
 
   final String urlImage;
+  final int index;
 
   @override
   Widget build(BuildContext context) {
@@ -118,25 +123,51 @@ class ImagePlaceholder extends StatelessWidget {
               ),
             )
           : urlImage.isNotEmpty
-              ? Container(
-                  clipBehavior: Clip.antiAlias,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    border: Border.all(
-                      strokeAlign: BorderSide.strokeAlignCenter,
-                      color: Colors.black.withOpacity(0.3),
-                      width: 0.3,
+              ? Stack(
+                  children: [
+                    Container(
+                      clipBehavior: Clip.antiAlias,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        border: Border.all(
+                          strokeAlign: BorderSide.strokeAlignCenter,
+                          color: Colors.black.withOpacity(0.3),
+                          width: 0.3,
+                        ),
+                      ),
+                      child: CachedNetworkImage(
+                        imageUrl: urlImage,
+                        height: 75,
+                        width: 75,
+                        filterQuality: FilterQuality.medium,
+                        fit: BoxFit.cover,
+                        maxHeightDiskCache: 200,
+                        maxWidthDiskCache: 200,
+                      ),
                     ),
-                  ),
-                  child: CachedNetworkImage(
-                    imageUrl: urlImage,
-                    height: 75,
-                    width: 75,
-                    filterQuality: FilterQuality.medium,
-                    fit: BoxFit.cover,
-                    maxHeightDiskCache: 200,
-                    maxWidthDiskCache: 200,
-                  ),
+                    if (addNewProductController.countImage.value == index)
+                      Positioned(
+                        top: 0,
+                        right: 0,
+                        child: GestureDetector(
+                          onTap: () {
+                            addNewProductController.deleteImage(index);
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.all(2),
+                            decoration: BoxDecoration(
+                              color: Colors.black.withOpacity(0.5),
+                              borderRadius: BorderRadius.circular(50),
+                            ),
+                            child: const Icon(
+                              Icons.cancel,
+                              color: Colors.white,
+                              size: 15,
+                            ),
+                          ),
+                        ),
+                      ),
+                  ],
                 )
               : GestureDetector(
                   onTap: () async {

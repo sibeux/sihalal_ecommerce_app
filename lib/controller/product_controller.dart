@@ -234,7 +234,7 @@ class AddNewProductController extends GetxController {
   Future<void> insertImage() async {
     isInsertImageLoading.value = true;
 
-    await Future.delayed(const Duration(seconds: 2));
+    await Future.delayed(const Duration(milliseconds: 500));
 
     if (countImage.value == 0) {
       urlImage1.value =
@@ -249,6 +249,17 @@ class AddNewProductController extends GetxController {
 
     countImage.value++;
     isInsertImageLoading.value = false;
+  }
+
+  void deleteImage(int index) {
+    if (index == 1) {
+      urlImage1.value = '';
+    } else if (index == 2) {
+      urlImage2.value = '';
+    } else if (index == 3) {
+      urlImage3.value = '';
+    }
+    countImage.value--;
   }
 
   void formatPrice(String value) {
