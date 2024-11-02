@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -331,6 +332,20 @@ class SellerProductController extends GetxController {
     update();
   }
 
+  String generateImageName(String idUser) {
+    final now = DateTime.now();
+    final formattedDate =
+        "${now.year}${now.month.toString().padLeft(2, '0')}${now.day.toString().padLeft(2, '0')}"
+        "${now.hour.toString().padLeft(2, '0')}${now.minute.toString().padLeft(2, '0')}${now.second.toString().padLeft(2, '0')}";
+
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    final random = Random();
+    final randomString =
+        List.generate(4, (index) => chars[random.nextInt(chars.length)]).join();
+
+    return "${idUser}_IMG_${formattedDate}_$randomString.jpg";
+  }
+
   Future<void> getMerkshProduct() async {
     isGetMerkshLoading.value = true;
 
@@ -376,22 +391,44 @@ class SellerProductController extends GetxController {
     final idShalal = listMerkshProduct
         .where((shhalal) => shhalal.numberSh == noHalalProduct.value);
 
+    var nameImage1 = '';
+    var nameImage2 = '';
+    var nameImage3 = '';
+
     try {
       final request = http.MultipartRequest('POST', Uri.parse(imageUploadUrl));
 
       if (urlImage1.isNotEmpty) {
+        nameImage1 =
+            generateImageName(userProfileController.userData[0].idUser);
         request.files.add(
-          await http.MultipartFile.fromPath('file', urlImage1.value),
+          await http.MultipartFile.fromPath(
+            'file[]',
+            urlImage1.value,
+            filename: nameImage1,
+          ),
         );
       }
       if (urlImage2.isNotEmpty) {
+        nameImage2 =
+            generateImageName(userProfileController.userData[0].idUser);
         request.files.add(
-          await http.MultipartFile.fromPath('file', urlImage2.value),
+          await http.MultipartFile.fromPath(
+            'file[]',
+            urlImage2.value,
+            filename: nameImage2,
+          ),
         );
       }
       if (urlImage3.isNotEmpty) {
+        nameImage3 =
+            generateImageName(userProfileController.userData[0].idUser);
         request.files.add(
-          await http.MultipartFile.fromPath('file', urlImage3.value),
+          await http.MultipartFile.fromPath(
+            'file[]',
+            urlImage3.value,
+            filename: nameImage3,
+          ),
         );
       }
 
@@ -412,11 +449,13 @@ class SellerProductController extends GetxController {
             'id_user': userProfileController.userData[0].idUser,
             'id_shhalal': idShalal.first.idSh,
             'foto_produk_1':
-                'https://sibeux.my.id/sihalal/upload/${urlImage1.value.split('/').last}',
-            'foto_produk_2':
-                'https://sibeux.my.id/sihalal/upload/${urlImage2.value.split('/').last}',
-            'foto_produk_3':
-                'https://sibeux.my.id/sihalal/upload/${urlImage3.value.split('/').last}',
+                'https://sibeux.my.id/project/sihalal/uploads/$nameImage1',
+            'foto_produk_2': urlImage2.isEmpty
+                ? ''
+                : 'https://sibeux.my.id/project/sihalal/uploads/$nameImage2',
+            'foto_produk_3': urlImage3.isEmpty
+                ? ''
+                : 'https://sibeux.my.id/project/sihalal/uploads/$nameImage3',
             'nama_produk': nameProduct.value,
             'deskripsi_produk': descriptionProduct.value,
             'harga_produk': priceProduct.value,
