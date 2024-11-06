@@ -82,7 +82,7 @@ class AddProductScreen extends StatelessWidget {
           child: ButtonSaveNewProduct(),
         ),
         Obx(
-          () => sellerProductController.isSendSellerProductLoading.value
+          () => sellerProductController.isNeedLoading.value
               ? const Opacity(
                   opacity: 0.8,
                   child: ModalBarrier(dismissible: false, color: Colors.black),
@@ -90,7 +90,7 @@ class AddProductScreen extends StatelessWidget {
               : const SizedBox(),
         ),
         Obx(
-          () => sellerProductController.isSendSellerProductLoading.value
+          () => sellerProductController.isNeedLoading.value
               ? Center(
                   child: LoadingAnimationWidget.fourRotatingDots(
                     color: Colors.white,

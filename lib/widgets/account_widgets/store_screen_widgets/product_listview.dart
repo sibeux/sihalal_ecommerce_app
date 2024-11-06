@@ -146,7 +146,9 @@ class ProductListview extends StatelessWidget {
                           ),
                         ),
                         const WidthBox(10),
-                        const MoreButton(),
+                        DeleteButton(
+                          idProduct: listData[index].uidProduct,
+                        ),
                       ],
                     )
                   ],

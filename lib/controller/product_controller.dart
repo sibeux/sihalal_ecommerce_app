@@ -208,7 +208,7 @@ class SellerProductController extends GetxController {
 
   var isGetMerkshLoading = false.obs;
   var isInsertImageLoading = false.obs;
-  var isSendSellerProductLoading = false.obs;
+  var isNeedLoading = false.obs;
   var isImageFileTooLarge = false.obs;
 
   var listMerkshProduct = RxList<Merksh>([]);
@@ -383,7 +383,7 @@ class SellerProductController extends GetxController {
   }
 
   Future<void> sendNewSellerProduct() async {
-    isSendSellerProductLoading.value = true;
+    isNeedLoading.value = true;
 
     final userProfileController = Get.find<UserProfileController>();
 
@@ -492,7 +492,49 @@ class SellerProductController extends GetxController {
         print('Error sendNewSellerProduct: $error');
       }
     } finally {
-      isSendSellerProductLoading.value = false;
+      isNeedLoading.value = false;
+    }
+  }
+
+  Future<void> deleteSellerProduct({required String idProduct}) async {
+    final userProfileController = Get.find<UserProfileController>();
+    final getSellerProductController = Get.find<GetSellerProductController>();
+
+    const String uri = "https://sibeux.my.id/project/sihalal/seller/product";
+
+    getSellerProductController.isGetProductLoading.value = true;
+
+    try {
+      final response = await http.post(
+        Uri.parse(uri),
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: {
+          'method': 'delete',
+          'id_produk': idProduct,
+        },
+      );
+
+      if (response.statusCode == 200) {
+        if (kDebugMode) {
+          print('Data berhasil dihapus: ${response.body}');
+        }
+
+        await Get.find<GetSellerProductController>().getUserProduct(
+          email: userProfileController.userData[0].emailuser,
+        );
+      } else {
+        if (kDebugMode) {
+          print('Gagal menghapus data: ${response.statusCode}');
+        }
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print('Error deleteSellerProduct: $e');
+      }
+    } finally {
+      getSellerProductController.isGetProductLoading.value = false;
     }
   }
 }

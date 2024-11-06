@@ -86,14 +86,18 @@ class EditButton extends StatelessWidget {
   }
 }
 
-class MoreButton extends StatelessWidget {
-  const MoreButton({super.key});
+class DeleteButton extends StatelessWidget {
+  const DeleteButton({super.key, required this.idProduct});
+
+  final String idProduct;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        showModalDeleteProduct(context);
+        showModalDeleteProduct(
+          idProduct,
+        );
       },
       child: Container(
         width: 40,
