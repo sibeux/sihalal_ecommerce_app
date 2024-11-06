@@ -849,8 +849,8 @@ class InsertStockPriceProduct extends StatelessWidget {
   }
 }
 
-class InsertDeliveryPriceProduct extends StatelessWidget {
-  const InsertDeliveryPriceProduct({super.key});
+class InsertWeightProduct extends StatelessWidget {
+  const InsertWeightProduct({super.key});
 
   @override
   Widget build(BuildContext context) {

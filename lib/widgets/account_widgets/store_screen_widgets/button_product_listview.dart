@@ -1,22 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:sihalal_ecommerce_app/component/color_palette.dart';
-import 'package:sihalal_ecommerce_app/widgets/account_widgets/store_screen_widgets/delete_product_modal.dart';
+import 'package:sihalal_ecommerce_app/widgets/account_widgets/store_screen_widgets/alert_modal/change_visibility_modal.dart';
+import 'package:sihalal_ecommerce_app/widgets/account_widgets/store_screen_widgets/alert_modal/delete_product_modal.dart';
 
 class ChangeStatusButton extends StatelessWidget {
   const ChangeStatusButton({
     super.key,
-    required this.onPressed,
     required this.title,
+    required this.idProduct,
   });
 
-  final void Function() onPressed;
+  final String idProduct;
   final String title;
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
-        onPressed();
+        if (title == 'Tampilkan') {
+          showModalChangeVisibiltyProduct(
+            idProduct: idProduct,
+            title: 'Yakin untuk tampilkan produk?',
+            visibility: 'true',
+          );
+        } else {
+          showModalChangeVisibiltyProduct(
+            idProduct: idProduct,
+            title: 'Yakin untuk arsipkan produk?',
+            visibility: 'false',
+          );
+        }
       },
       style: ElevatedButton.styleFrom(
         foregroundColor: Colors.black,

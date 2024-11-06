@@ -537,4 +537,48 @@ class SellerProductController extends GetxController {
       getSellerProductController.isGetProductLoading.value = false;
     }
   }
+
+  Future<void> changeViewSellerProduct(
+      {required String idProduct, required String visibility}) async {
+    final userProfileController = Get.find<UserProfileController>();
+    final getSellerProductController = Get.find<GetSellerProductController>();
+
+    const String uri = "https://sibeux.my.id/project/sihalal/seller/product";
+
+    getSellerProductController.isGetProductLoading.value = true;
+
+    try {
+      final response = await http.post(
+        Uri.parse(uri),
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: {
+          'method': 'view',
+          'is_ditampilkan': visibility,
+          'id_produk': idProduct,
+        },
+      );
+
+      if (response.statusCode == 200) {
+        if (kDebugMode) {
+          print('Data berhasil diperbarui: ${response.body}');
+        }
+
+        await Get.find<GetSellerProductController>().getUserProduct(
+          email: userProfileController.userData[0].emailuser,
+        );
+      } else {
+        if (kDebugMode) {
+          print('Gagal memperbarui data: ${response.statusCode}');
+        }
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print('Error changeViewSellerProduct: $e');
+      }
+    } finally {
+      getSellerProductController.isGetProductLoading.value = false;
+    }
+  }
 }

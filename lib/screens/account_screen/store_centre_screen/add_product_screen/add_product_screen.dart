@@ -50,7 +50,7 @@ class AddProductScreen extends StatelessWidget {
                     HeightBox(10),
                     InsertStockPriceProduct(),
                     HeightBox(10),
-                    InsertDeliveryPriceProduct(),
+                    InsertWeightProduct(),
                   ],
                 ),
               ),

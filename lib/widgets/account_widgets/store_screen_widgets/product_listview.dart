@@ -128,13 +128,10 @@ class ProductListview extends StatelessWidget {
                       children: [
                         Expanded(
                           child: ChangeStatusButton(
+                            idProduct: listData[index].uidProduct,
                             title: listData[index].isVisible
                                 ? 'Arsipkan'
                                 : 'Tampilkan',
-                            onPressed: () {
-                              if (listData[index].isVisible) {
-                              } else {}
-                            },
                           ),
                         ),
                         const WidthBox(10),
