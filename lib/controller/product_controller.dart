@@ -97,6 +97,7 @@ class GetScrollLeftProductController extends GetxController {
 
 class GetSellerProductController extends GetxController {
   var isGetProductLoading = false.obs;
+  var needRefresh = false.obs;
 
   var sellerProductList = RxList<SellerProduct>([]);
   var visibleProductList = RxList<SellerProduct>([]);
@@ -184,6 +185,7 @@ class GetSellerProductController extends GetxController {
       }
     } finally {
       isGetProductLoading.value = false;
+      needRefresh.value = !needRefresh.value;
     }
   }
 }
@@ -403,6 +405,8 @@ class SellerProductController extends GetxController {
             generateImageName(userProfileController.userData[0].idUser);
         request.files.add(
           await http.MultipartFile.fromPath(
+            // 'file[]' adalah array notation
+            // php akan menganggap ini sebagai array
             'file[]',
             urlImage1.value,
             filename: nameImage1,

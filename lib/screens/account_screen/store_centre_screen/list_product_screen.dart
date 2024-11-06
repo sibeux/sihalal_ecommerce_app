@@ -91,43 +91,54 @@ class _ListProductScreenState extends State<ListProductScreen>
               getSellerProductController.changeFilterProductList(value);
             },
             tabs: [
-              Tab(
-                child: FilterStatusProduct(
-                  title: 'Ditampilkan',
-                  count: getSellerProductController.productVisible.value,
-                  index: 0,
+              Obx(
+                () => Tab(
+                  child: FilterStatusProduct(
+                    title: 'Ditampilkan',
+                    count: getSellerProductController.productVisible.value,
+                    index: 0,
+                  ),
                 ),
               ),
-              Tab(
-                child: FilterStatusProduct(
-                  title: 'Diarsipkan',
-                  count: getSellerProductController.productInvisible.value,
-                  index: 1,
+              Obx(
+                () => Tab(
+                  child: FilterStatusProduct(
+                    title: 'Diarsipkan',
+                    count: getSellerProductController.productInvisible.value,
+                    index: 1,
+                  ),
                 ),
               ),
-              Tab(
-                child: FilterStatusProduct(
-                  title: 'Habis',
-                  count: getSellerProductController.productOutStock.value,
-                  index: 2,
+              Obx(
+                () => Tab(
+                  child: FilterStatusProduct(
+                    title: 'Habis',
+                    count: getSellerProductController.productOutStock.value,
+                    index: 2,
+                  ),
                 ),
               ),
             ],
           ),
         ),
-        body: TabBarView(
-          controller: _tabController,
-          children: <Widget>[
-            ProductListview(
-              listData: getSellerProductController.visibleProductList,
-            ),
-            ProductListview(
-              listData: getSellerProductController.invisibleProductList,
-            ),
-            ProductListview(
-              listData: getSellerProductController.outStockProductList,
-            ),
-          ],
+        body: Obx(
+          () => getSellerProductController.needRefresh.value ||
+                  !getSellerProductController.needRefresh.value
+              ? TabBarView(
+                  controller: _tabController,
+                  children: <Widget>[
+                    ProductListview(
+                      listData: getSellerProductController.visibleProductList,
+                    ),
+                    ProductListview(
+                      listData: getSellerProductController.invisibleProductList,
+                    ),
+                    ProductListview(
+                      listData: getSellerProductController.outStockProductList,
+                    ),
+                  ],
+                )
+              : const SizedBox(),
         ),
       ),
     );

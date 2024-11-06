@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sihalal_ecommerce_app/component/color_palette.dart';
+import 'package:sihalal_ecommerce_app/widgets/account_widgets/store_screen_widgets/delete_product_modal.dart';
 
 class ChangeStatusButton extends StatelessWidget {
   const ChangeStatusButton({
@@ -91,7 +92,9 @@ class MoreButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        showModalDeleteProduct(context);
+      },
       child: Container(
         width: 40,
         height: 40,
@@ -102,9 +105,9 @@ class MoreButton extends StatelessWidget {
             color: Colors.black.withOpacity(0.5),
           ),
         ),
-        child: const Icon(
-          Icons.more_vert,
-          color: Colors.black,
+        child: Icon(
+          Icons.delete_forever_outlined,
+          color: Colors.red.withOpacity(0.7),
         ),
       ),
     );
