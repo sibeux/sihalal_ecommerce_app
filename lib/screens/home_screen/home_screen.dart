@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:sihalal_ecommerce_app/component/color_palette.dart';
+import 'package:sihalal_ecommerce_app/controller/product_controller.dart';
 import 'package:sihalal_ecommerce_app/controller/user_profile_controller.dart';
 import 'package:sihalal_ecommerce_app/widgets/home_widgets/banner_slider.dart';
 import 'package:sihalal_ecommerce_app/widgets/home_widgets/categories.dart';
@@ -29,6 +31,8 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     Get.put(UserProfileController());
+    final getScrollLeftProductController =
+        Get.put(GetScrollLeftProductController());
     return Scaffold(
       backgroundColor: HexColor(colorWhite),
       appBar: AppBar(
@@ -94,37 +98,68 @@ class _HomeScreenState extends State<HomeScreen> {
             child: const ClipRRect(
               borderRadius: BorderRadius.all(Radius.circular(100)),
               child: UserPhotoAppbar(),
-              ),
             ),
-          
+          ),
         ],
         toolbarHeight: 80,
         scrolledUnderElevation: 0,
         elevation: 0,
       ),
-      body: ScrollConfiguration(
-        behavior: NoGlowScrollBehavior(),
-        child: GlowingOverscrollIndicator(
-          axisDirection: AxisDirection.down,
-          color: ColorPalette().primary,
-          child: SingleChildScrollView(
-            child: Column(
-              children: <Widget>[
-                const SizedBox(
-                  height: 5,
-                ),
-                const BannerSlider(),
-                const SizedBox(
-                  height: 20,
-                ),
-                const Categories(),
-                const SizedBox(height: 25),
-                ProductCardRowScroll(
-                  color: HexColor('#ecffef'),
-                  cardHeader: "Cek Produk Terbaru di SiHALAL",
-                  sort: 'recent',
-                ),
-              ],
+      body: SmartRefresher(
+        controller: getScrollLeftProductController.refreshController,
+        onRefresh: getScrollLeftProductController.onRefresh,
+        // onLoading itu ketika pull up / footer ditarik
+        onLoading: getScrollLeftProductController.onLoading,
+        enablePullDown: true,
+        enablePullUp: false,
+        header: ClassicHeader(
+          height: 40,
+          refreshStyle: RefreshStyle.Follow,
+          refreshingIcon: SizedBox(
+            width: 25,
+            height: 25,
+            child: CircularProgressIndicator(
+              color: ColorPalette().primary,
+              strokeWidth: 2,
+            ),
+          ),
+          releaseText: 'Lepaskan untuk memuat ulang',
+          refreshingText: 'Memuat ulang...',
+          completeText: 'Selesai',
+          idleText: 'Tarik ke bawah untuk memuat ulang',
+          failedText: 'Gagal memuat ulang',
+          textStyle: TextStyle(
+            color: ColorPalette().primary,
+            fontSize: 12,
+          ),
+        ),
+        child: ScrollConfiguration(
+          // aslinya ini agar tidak ada efek meregang
+          // tapi karena pakai refresh pull, maka percuma
+          // Mirip saat discroll mentok ke kanan atau ke kiri
+          behavior: NoGlowScrollBehavior(),
+          child: GlowingOverscrollIndicator(
+            axisDirection: AxisDirection.down,
+            color: ColorPalette().primary,
+            child: SingleChildScrollView(
+              child: Column(
+                children: <Widget>[
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  const BannerSlider(),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  const Categories(),
+                  const SizedBox(height: 25),
+                  ProductCardRowScroll(
+                    color: HexColor('#ecffef'),
+                    cardHeader: "Cek Produk Terbaru di SiHALAL",
+                    sort: 'recent',
+                  ),
+                ],
+              ),
             ),
           ),
         ),

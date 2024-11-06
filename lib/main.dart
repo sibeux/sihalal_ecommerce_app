@@ -6,6 +6,7 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:sihalal_ecommerce_app/screens/splash_screen/splash_screen.dart';
 
@@ -35,23 +36,37 @@ class MyApp extends StatelessWidget {
         statusBarColor: Colors.white,
       ),
     );
-    return GetMaterialApp(
-      theme: theme,
-      debugShowCheckedModeBanner: false,
-      showPerformanceOverlay: false,
-      title: 'SiHALAL',
-      initialRoute: '/',
-      getPages: [
-        GetPage(
-          name: '/',
-          page: () => const SplashScreen(),
-        ),
-      ],
-      builder: (context, child) {
-        // create multiple builders
-        child = FToastBuilder()(context, child);
-        return child;
+    return RefreshConfiguration(
+      footerTriggerDistance: 15,
+      headerTriggerDistance: 50,
+      dragSpeedRatio: 0.91,
+      headerBuilder: () => const MaterialClassicHeader(),
+      footerBuilder: () => const ClassicFooter(),
+      enableLoadingWhenNoData: false,
+      enableRefreshVibrate: false,
+      enableLoadMoreVibrate: false,
+      shouldFooterFollowWhenNotFull: (state) {
+        // If you want load more with noMoreData state ,may be you should return false
+        return false;
       },
+      child: GetMaterialApp(
+        theme: theme,
+        debugShowCheckedModeBanner: false,
+        showPerformanceOverlay: false,
+        title: 'SiHALAL',
+        initialRoute: '/',
+        getPages: [
+          GetPage(
+            name: '/',
+            page: () => const SplashScreen(),
+          ),
+        ],
+        builder: (context, child) {
+          // create multiple builders
+          child = FToastBuilder()(context, child);
+          return child;
+        },
+      ),
     );
   }
 }

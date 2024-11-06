@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sihalal_ecommerce_app/component/color_palette.dart';
-import 'package:sihalal_ecommerce_app/widgets/account_widgets/store_screen_widgets/alert_modal/change_visibility_modal.dart';
-import 'package:sihalal_ecommerce_app/widgets/account_widgets/store_screen_widgets/alert_modal/delete_product_modal.dart';
+import 'package:sihalal_ecommerce_app/widgets/store_screen_widgets/alert_modal/change_visibility_modal.dart';
+import 'package:sihalal_ecommerce_app/widgets/store_screen_widgets/alert_modal/delete_product_modal.dart';
 
 class ChangeStatusButton extends StatelessWidget {
   const ChangeStatusButton({

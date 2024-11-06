@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:sihalal_ecommerce_app/component/string_formatter.dart';
-import 'package:sihalal_ecommerce_app/widgets/account_widgets/store_screen_widgets/button_product_listview.dart';
+import 'package:sihalal_ecommerce_app/widgets/store_screen_widgets/button_product_listview.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 

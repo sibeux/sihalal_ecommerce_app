@@ -8,8 +8,8 @@ import 'package:sihalal_ecommerce_app/controller/product_controller.dart';
 import 'package:sihalal_ecommerce_app/controller/user_profile_controller.dart';
 import 'package:sihalal_ecommerce_app/screens/account_screen/store_centre_screen/add_product_screen/add_product_screen.dart';
 import 'package:sihalal_ecommerce_app/screens/account_screen/store_centre_screen/list_product_screen.dart';
-import 'package:sihalal_ecommerce_app/widgets/account_widgets/store_screen_widgets/sale_product_status.dart';
-import 'package:sihalal_ecommerce_app/widgets/account_widgets/store_screen_widgets/store_info.dart';
+import 'package:sihalal_ecommerce_app/widgets/store_screen_widgets/sale_product_status.dart';
+import 'package:sihalal_ecommerce_app/widgets/store_screen_widgets/store_info.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class StoreCentreScreen extends StatelessWidget {

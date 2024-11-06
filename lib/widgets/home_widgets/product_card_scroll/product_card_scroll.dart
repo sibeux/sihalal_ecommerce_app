@@ -35,7 +35,7 @@ class _ProductCardRowScrollState extends State<ProductCardRowScroll> {
   get cardHeader => widget.cardHeader;
   get color => widget.color;
   final getScrollLeftProductController =
-      Get.put(GetScrollLeftProductController());
+      Get.find<GetScrollLeftProductController>();
 
   @override
   Widget build(BuildContext context) {

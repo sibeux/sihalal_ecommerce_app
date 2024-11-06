@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:sihalal_ecommerce_app/component/regex_drive.dart';
 import 'package:sihalal_ecommerce_app/component/string_formatter.dart';
 import 'package:sihalal_ecommerce_app/controller/user_profile_controller.dart';
@@ -41,6 +42,26 @@ class SearchProductController extends GetxController {
 class GetScrollLeftProductController extends GetxController {
   var recentProduct = RxList<Product?>([]);
   var isLoading = false.obs;
+
+  final RefreshController refreshController =
+      RefreshController(initialRefresh: false);
+
+  void onRefresh() async {
+    // monitor network fetch
+    await Future.delayed(const Duration(milliseconds: 500));
+    // ** tidak perlu await karena biar bisa dijalankan bersamaan
+    getLeftProduct('recent');
+    // if failed,use refreshFailed()
+    refreshController.refreshCompleted();
+  }
+
+  void onLoading() async {
+    // ** ini untuk footer load more
+    // monitor network fetch
+    await Future.delayed(const Duration(milliseconds: 1000));
+    // if failed,use loadFailed(),if no data return,use LoadNodata()
+    refreshController.loadComplete();
+  }
 
   Future<void> getLeftProduct(String sort) async {
     isLoading.value = true;
