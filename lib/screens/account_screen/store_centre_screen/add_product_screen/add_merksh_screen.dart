@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:sihalal_ecommerce_app/component/color_palette.dart';
-import 'package:sihalal_ecommerce_app/controller/product_controller.dart';
+import 'package:sihalal_ecommerce_app/controller/seller_product_controller.dart';
 
 class AddMerkshScreen extends StatelessWidget {
   const AddMerkshScreen({super.key});

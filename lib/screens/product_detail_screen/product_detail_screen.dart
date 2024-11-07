@@ -6,6 +6,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:sihalal_ecommerce_app/component/color_palette.dart';
 import 'package:sihalal_ecommerce_app/component/string_formatter.dart';
 import 'package:sihalal_ecommerce_app/controller/product_detail_controller.dart';
+import 'package:sihalal_ecommerce_app/controller/shop_info_product_controller.dart';
 import 'package:sihalal_ecommerce_app/models/product.dart';
 import 'package:sihalal_ecommerce_app/screens/checkout_screen/checkout_screen.dart';
 import 'package:sihalal_ecommerce_app/widgets/detail_product_widgets/button.dart';

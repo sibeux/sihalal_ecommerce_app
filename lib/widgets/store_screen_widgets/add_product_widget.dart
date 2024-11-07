@@ -8,7 +8,7 @@ import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:sihalal_ecommerce_app/component/color_palette.dart';
-import 'package:sihalal_ecommerce_app/controller/product_controller.dart';
+import 'package:sihalal_ecommerce_app/controller/seller_product_controller.dart';
 import 'package:sihalal_ecommerce_app/screens/account_screen/store_centre_screen/add_product_screen/add_category_screen.dart';
 import 'package:sihalal_ecommerce_app/screens/account_screen/store_centre_screen/add_product_screen/add_merksh_screen.dart';
 import 'package:sihalal_ecommerce_app/widgets/account_widgets/button_widget.dart';

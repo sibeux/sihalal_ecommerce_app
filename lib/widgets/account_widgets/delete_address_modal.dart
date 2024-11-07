@@ -15,6 +15,8 @@ void showModalDeleteAddress(BuildContext context, int index) {
     builder: (BuildContext context) {
       return AlertDialog(
         backgroundColor: HexColor('#fefffe'),
+        
+        surfaceTintColor: Colors.transparent,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
         ),
