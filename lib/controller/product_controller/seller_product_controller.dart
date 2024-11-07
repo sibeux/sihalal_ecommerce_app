@@ -17,6 +17,9 @@ class SellerProductController extends GetxController {
   var urlImage1 = ''.obs;
   var urlImage2 = ''.obs;
   var urlImage3 = ''.obs;
+  var oldUrlImage1 = '';
+  var oldUrlImage2 = '';
+  var oldUrlImage3 = '';
 
   var currentIdProduct = '';
   var idShhalal = '';
@@ -60,6 +63,9 @@ class SellerProductController extends GetxController {
     urlImage1.value = product.foto1;
     urlImage2.value = product.foto2;
     urlImage3.value = product.foto3;
+    oldUrlImage1 = product.foto1;
+    oldUrlImage2 = product.foto2;
+    oldUrlImage3 = product.foto3;
 
     currentIdProduct = product.uidProduct;
     idShhalal = product.uidShhalal;
@@ -237,6 +243,72 @@ class SellerProductController extends GetxController {
     }
   }
 
+  Future<void> deleteImageFromCpanel({
+    required String idProduct,
+    required String method,
+    List<String> deletedImages = const [],
+  }) async {
+    const String imageDeleteUrl = 'https://sibeux.my.id/project/sihalal/delete';
+
+    var nameImage1 = '';
+    var nameImage2 = '';
+    var nameImage3 = '';
+
+    try {
+      if (method == 'update') {
+        if (oldUrlImage1 != urlImage1.value && oldUrlImage1.isNotEmpty) {
+          nameImage1 = oldUrlImage1.split('/').last;
+        }
+        if (oldUrlImage2 != urlImage2.value && oldUrlImage2.isNotEmpty) {
+          nameImage2 = oldUrlImage2.split('/').last;
+        }
+        if (oldUrlImage2 != urlImage3.value && oldUrlImage3.isNotEmpty) {
+          nameImage3 = oldUrlImage3.split('/').last;
+        }
+      } else {
+        for (var i = 0; i < deletedImages.length; i++) {
+          if (i == 0) {
+            nameImage1 = deletedImages[i];
+          } else if (i == 1) {
+            nameImage2 = deletedImages[i];
+          } else if (i == 2) {
+            nameImage3 = deletedImages[i];
+          }
+        }
+      }
+
+      final response = await http.post(
+        Uri.parse(imageDeleteUrl),
+        body: jsonEncode({
+          'filenames': [nameImage1, nameImage2, nameImage3],
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      );
+
+      final data = jsonDecode(response.body);
+
+      if (kDebugMode) {
+        print(response.body);
+      }
+
+      if (response.statusCode == 200 && data['status'] == 'success') {
+        if (kDebugMode) {
+          print('Image berhasil dihapus: ${data['message']}');
+        }
+      } else {
+        if (kDebugMode) {
+          print('Image gagal dihapus: ${data['message']}');
+        }
+      }
+    } catch (error) {
+      if (kDebugMode) {
+        print('Error deleteImageFromCpanel: $error');
+      }
+    } finally {}
+  }
+
   Future<void> sendDataSellerProduct({required bool isNew}) async {
     isNeedLoading.value = true;
 
@@ -250,12 +322,14 @@ class SellerProductController extends GetxController {
     var nameImage3 = '';
 
     try {
-      final request = http.MultipartRequest('POST', Uri.parse(imageUploadUrl));
+      final requestUploadImage =
+          http.MultipartRequest('POST', Uri.parse(imageUploadUrl));
 
+      // ** Upload Image
       if (urlImage1.isNotEmpty && !urlImage1.value.contains('sibeux.my.id')) {
         nameImage1 =
             generateImageName(userProfileController.userData[0].idUser);
-        request.files.add(
+        requestUploadImage.files.add(
           await http.MultipartFile.fromPath(
             // 'file[]' adalah array notation
             // php akan menganggap ini sebagai array
@@ -268,7 +342,7 @@ class SellerProductController extends GetxController {
       if (urlImage2.isNotEmpty && !urlImage2.value.contains('sibeux.my.id')) {
         nameImage2 =
             generateImageName(userProfileController.userData[0].idUser);
-        request.files.add(
+        requestUploadImage.files.add(
           await http.MultipartFile.fromPath(
             'file[]',
             urlImage2.value,
@@ -279,7 +353,7 @@ class SellerProductController extends GetxController {
       if (urlImage3.isNotEmpty && !urlImage3.value.contains('sibeux.my.id')) {
         nameImage3 =
             generateImageName(userProfileController.userData[0].idUser);
-        request.files.add(
+        requestUploadImage.files.add(
           await http.MultipartFile.fromPath(
             'file[]',
             urlImage3.value,
@@ -288,13 +362,14 @@ class SellerProductController extends GetxController {
         );
       }
 
-      var responseUpload = http.StreamedResponse(const Stream.empty(), 500);
+      var responseUploadImage =
+          http.StreamedResponse(const Stream.empty(), 500);
 
       if (isImageChanged) {
-        responseUpload = await request.send();
+        responseUploadImage = await requestUploadImage.send();
       }
 
-      if (responseUpload.statusCode == 200 || !isImageChanged) {
+      if (responseUploadImage.statusCode == 200 || !isImageChanged) {
         if (isImageChanged) {
           if (kDebugMode) {
             print('Image berhasil diupload');
@@ -341,6 +416,12 @@ class SellerProductController extends GetxController {
           await Get.find<GetSellerProductController>().getUserProduct(
             email: userProfileController.userData[0].emailuser,
           );
+
+          if (!isNew) {
+            deleteImageFromCpanel(
+                idProduct: currentIdProduct, method: 'update');
+          }
+
           Get.back();
         } else {
           if (kDebugMode) {
@@ -349,7 +430,7 @@ class SellerProductController extends GetxController {
         }
       } else {
         if (kDebugMode) {
-          print('Image gagal diupload: ${responseUpload.statusCode}');
+          print('Image gagal diupload: ${responseUploadImage.statusCode}');
         }
       }
     } catch (error, stackTrace) {
@@ -386,6 +467,13 @@ class SellerProductController extends GetxController {
         if (kDebugMode) {
           print('Data berhasil dihapus: ${response.body}');
         }
+
+        final deletedImages = getSellerProductController.sellerProductList
+            .where((p0) => p0.uidProduct == idProduct)
+            .map((e) => [e.foto1, e.foto2, e.foto3])
+            .toList()[0];
+
+        deleteImageFromCpanel(idProduct: idProduct, method: 'delete', deletedImages: deletedImages);
 
         await Get.find<GetSellerProductController>().getUserProduct(
           email: userProfileController.userData[0].emailuser,
