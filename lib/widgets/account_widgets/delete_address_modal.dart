@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:sihalal_ecommerce_app/component/color_palette.dart';
-import 'package:sihalal_ecommerce_app/controller/new_address_controller.dart';
+import 'package:sihalal_ecommerce_app/controller/send_user_address_controller.dart';
 import 'package:sihalal_ecommerce_app/controller/user_address_controller.dart';
 
 void showModalDeleteAddress(BuildContext context, int index) {

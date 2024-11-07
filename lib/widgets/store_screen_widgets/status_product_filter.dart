@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sihalal_ecommerce_app/component/color_palette.dart';
-import 'package:sihalal_ecommerce_app/controller/product_controller.dart';
+import 'package:sihalal_ecommerce_app/controller/get_seller_product_controller.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class FilterStatusProduct extends StatelessWidget {
