@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:sihalal_ecommerce_app/component/color_palette.dart';
-import 'package:sihalal_ecommerce_app/controller/get_seller_product_controller.dart';
+import 'package:sihalal_ecommerce_app/controller/product_controller/get_seller_product_controller.dart';
 import 'package:sihalal_ecommerce_app/controller/user_profile_controller.dart';
 import 'package:sihalal_ecommerce_app/screens/account_screen/store_centre_screen/add_product_screen/add_product_screen.dart';
 import 'package:sihalal_ecommerce_app/screens/account_screen/store_centre_screen/list_product_screen.dart';

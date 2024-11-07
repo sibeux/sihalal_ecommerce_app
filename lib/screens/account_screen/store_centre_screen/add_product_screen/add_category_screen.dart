@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:sihalal_ecommerce_app/component/color_palette.dart';
-// ignore: unused_import
-import 'package:sihalal_ecommerce_app/controller/product_controller.dart';
-import 'package:sihalal_ecommerce_app/controller/seller_product_controller.dart';
+import 'package:sihalal_ecommerce_app/controller/product_controller/seller_product_controller.dart';
 
 enum CategoryType {
   gula,

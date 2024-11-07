@@ -1,8 +1,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sihalal_ecommerce_app/controller/product_review_controller.dart';
-import 'package:sihalal_ecommerce_app/controller/shop_info_product_controller.dart';
+import 'package:sihalal_ecommerce_app/controller/product_controller/product_review_controller.dart';
+import 'package:sihalal_ecommerce_app/controller/product_controller/shop_info_product_controller.dart';
 
 class ProductDetailController extends GetxController {
   var imageIndex = 1.obs;

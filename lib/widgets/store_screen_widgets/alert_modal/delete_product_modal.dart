@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:sihalal_ecommerce_app/component/color_palette.dart';
-import 'package:sihalal_ecommerce_app/controller/seller_product_controller.dart';
+import 'package:sihalal_ecommerce_app/controller/product_controller/seller_product_controller.dart';
 
 void showModalDeleteProduct(String idProduct) {
   final sellerProductController = Get.put(SellerProductController());

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sihalal_ecommerce_app/component/color_palette.dart';
-import 'package:sihalal_ecommerce_app/controller/get_scroll_left_product_controller.dart';
+import 'package:sihalal_ecommerce_app/controller/product_controller/get_scroll_left_product_controller.dart';
 import 'package:sihalal_ecommerce_app/widgets/home_widgets/product_card_scroll/shimmer_product_card.dart';
 import 'package:sihalal_ecommerce_app/widgets/home_widgets/product_card_scroll/shrink_tap_card.dart';
 import 'package:hexcolor/hexcolor.dart';
