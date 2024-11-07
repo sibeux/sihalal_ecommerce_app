@@ -80,6 +80,8 @@ class AddMerkshScreen extends StatelessWidget {
                                     i++)
                                   InkWell(
                                     onTap: () {
+                                      sellerProductController.idShhalal = sellerProductController
+                                              .listMerkshProduct[i].idSh;
                                       sellerProductController
                                               .merkProduct.value =
                                           sellerProductController

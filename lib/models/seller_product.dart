@@ -4,6 +4,8 @@ class SellerProduct {
   final String harga, stok, berat, countReview;
   final bool isVisible;
 
+  final String kategori, nomorSH, merek;
+
   SellerProduct({
     required this.uidProduct,
     required this.uidShhalal,
@@ -18,5 +20,8 @@ class SellerProduct {
     required this.berat,
     required this.isVisible,
     required this.countReview,
+    required this.kategori,
+    required this.nomorSH,
+    required this.merek,
   });
 }

@@ -137,9 +137,7 @@ class ProductListview extends StatelessWidget {
                         const WidthBox(10),
                         Expanded(
                           child: EditButton(
-                            onPressed: () {
-                              // Add to cart
-                            },
+                            sellerProduct: listData[index],
                           ),
                         ),
                         const WidthBox(10),

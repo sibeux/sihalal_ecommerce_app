@@ -40,7 +40,7 @@ class InsertImageProduct extends StatelessWidget {
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 14,
-                  fontWeight: FontWeight.w400,
+                  fontWeight: FontWeight.w500,
                 ),
               ),
               Text(
@@ -268,7 +268,7 @@ class InsertNameProduct extends StatelessWidget {
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 14,
-                  fontWeight: FontWeight.w400,
+                  fontWeight: FontWeight.w500,
                 ),
               ),
               const Text(
@@ -375,7 +375,7 @@ class InsertDescriptionProduct extends StatelessWidget {
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 14,
-                  fontWeight: FontWeight.w400,
+                  fontWeight: FontWeight.w500,
                 ),
               ),
               const Text(
@@ -939,8 +939,12 @@ class InsertWeightProduct extends StatelessWidget {
   }
 }
 
-class ButtonSaveNewProduct extends StatelessWidget {
-  const ButtonSaveNewProduct({super.key});
+class ButtonSaveProduct extends StatelessWidget {
+  const ButtonSaveProduct(
+      {super.key, required this.title, required this.isNew});
+
+  final String title;
+  final bool isNew;
 
   @override
   Widget build(BuildContext context) {
@@ -964,9 +968,11 @@ class ButtonSaveNewProduct extends StatelessWidget {
         () => sellerProductController.isAllDataValid()
             ? AddressButtonWidget(
                 onPressed: () async {
-                  await sellerProductController.sendNewSellerProduct();
+                  await sellerProductController.sendDataSellerProduct(
+                    isNew: isNew,
+                  );
                 },
-                title: 'Tambah Produk',
+                title: title,
                 icon: Icons.save,
                 foregroundColor: Colors.white,
                 backgroundColor: ColorPalette().primary,
@@ -974,7 +980,7 @@ class ButtonSaveNewProduct extends StatelessWidget {
             : AbsorbPointer(
                 child: AddressButtonWidget(
                   onPressed: () {},
-                  title: 'Tambah Produk',
+                  title: title,
                   icon: Icons.save,
                   foregroundColor: HexColor('#a8b5c8'),
                   backgroundColor: HexColor('#e5eaf5'),

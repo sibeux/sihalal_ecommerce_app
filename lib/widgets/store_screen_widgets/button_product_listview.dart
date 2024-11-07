@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:sihalal_ecommerce_app/component/color_palette.dart';
+import 'package:sihalal_ecommerce_app/models/seller_product.dart';
+import 'package:sihalal_ecommerce_app/screens/account_screen/store_centre_screen/add_product_screen/add_product_screen.dart';
 import 'package:sihalal_ecommerce_app/widgets/store_screen_widgets/alert_modal/change_visibility_modal.dart';
 import 'package:sihalal_ecommerce_app/widgets/store_screen_widgets/alert_modal/delete_product_modal.dart';
 
@@ -61,16 +64,22 @@ class ChangeStatusButton extends StatelessWidget {
 class EditButton extends StatelessWidget {
   const EditButton({
     super.key,
-    required this.onPressed,
+    required this.sellerProduct,
   });
 
-  final void Function() onPressed;
+  final SellerProduct sellerProduct;
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
-        onPressed();
+        Get.to(
+          () => const AddProductScreen(),
+          transition: Transition.rightToLeft,
+          fullscreenDialog: true,
+          popGesture: false,
+          arguments: sellerProduct,
+        );
       },
       style: ElevatedButton.styleFrom(
         foregroundColor: ColorPalette().primary,

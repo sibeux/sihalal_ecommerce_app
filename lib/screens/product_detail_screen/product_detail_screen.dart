@@ -43,6 +43,9 @@ class ProductDetailScreen extends StatelessWidget {
     final productDetailController = Get.put(ProductDetailController());
     final shopInfoProductController = Get.put(ShopInfoProductController());
 
+    
+    productDetailController.getProductDetailData(product.uidProduct);
+
     return Scaffold(
       backgroundColor: HexColor('#fefeff'),
       appBar: AppBar(

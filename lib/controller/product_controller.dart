@@ -189,6 +189,9 @@ class GetSellerProductController extends GetxController {
             berat: produk['berat_produk'] ?? '0',
             isVisible: produk['is_ditampilkan'] == 'true',
             countReview: produk['jumlah_ulasan'] ?? '0',
+            kategori: produk['kategori_shhalal'],
+            nomorSH: produk['nomor_shhalal'],
+            merek: produk['merek_shhalal'],
           );
         }).toList();
 
@@ -218,6 +221,8 @@ class SellerProductController extends GetxController {
   var urlImage2 = ''.obs;
   var urlImage3 = ''.obs;
 
+  var currentIdProduct = '';
+  var idShhalal = '';
   var nameProduct = ''.obs;
   var descriptionProduct = ''.obs;
   var categoryProduct = ''.obs;
@@ -231,6 +236,7 @@ class SellerProductController extends GetxController {
   var isInsertImageLoading = false.obs;
   var isNeedLoading = false.obs;
   var isImageFileTooLarge = false.obs;
+  var isImageChanged = false;
 
   var listMerkshProduct = RxList<Merksh>([]);
 
@@ -245,6 +251,35 @@ class SellerProductController extends GetxController {
     stockProduct.value = '0';
     stockProductTextController.text = stockProduct.value;
     super.onInit();
+  }
+
+  void setValueChangeProduct({required SellerProduct product}) {
+    countImage.value = product.foto2.isEmpty
+        ? 1
+        : product.foto3.isEmpty
+            ? 2
+            : 3;
+
+    urlImage1.value = product.foto1;
+    urlImage2.value = product.foto2;
+    urlImage3.value = product.foto3;
+
+    currentIdProduct = product.uidProduct;
+    idShhalal = product.uidShhalal;
+    nameProduct.value = product.nama;
+    descriptionProduct.value = product.deskripsi;
+    categoryProduct.value = product.kategori;
+    noHalalProduct.value = product.nomorSH;
+    merkProduct.value = product.merek;
+    priceProduct.value = product.harga;
+    stockProduct.value = product.stok;
+    weightProduct.value = product.berat;
+
+    nameProductTextController.text = nameProduct.value;
+    descriptionProductTextController.text = descriptionProduct.value;
+    priceProductTextController.text = priceFormatter(priceProduct.value);
+    stockProductTextController.text = stockFormatter(stockProduct.value);
+    weightProductTextController.text = stockFormatter(weightProduct.value);
   }
 
   bool isAllDataValid() {
@@ -282,6 +317,7 @@ class SellerProductController extends GetxController {
           urlImage3.value = pickedFile.path;
         }
         countImage.value++;
+        isImageChanged = true;
       }
     }
     isInsertImageLoading.value = false;
@@ -296,6 +332,7 @@ class SellerProductController extends GetxController {
       urlImage3.value = '';
     }
     countImage.value--;
+    isImageChanged = true;
   }
 
   void formatPrice(String value) {
@@ -403,16 +440,13 @@ class SellerProductController extends GetxController {
     }
   }
 
-  Future<void> sendNewSellerProduct() async {
+  Future<void> sendDataSellerProduct({required bool isNew}) async {
     isNeedLoading.value = true;
 
     final userProfileController = Get.find<UserProfileController>();
 
     const String url = 'https://sibeux.my.id/project/sihalal/seller/product';
     const String imageUploadUrl = 'https://sibeux.my.id/project/sihalal/upload';
-
-    final idShalal = listMerkshProduct
-        .where((shhalal) => shhalal.numberSh == noHalalProduct.value);
 
     var nameImage1 = '';
     var nameImage2 = '';
@@ -421,7 +455,7 @@ class SellerProductController extends GetxController {
     try {
       final request = http.MultipartRequest('POST', Uri.parse(imageUploadUrl));
 
-      if (urlImage1.isNotEmpty) {
+      if (urlImage1.isNotEmpty && !urlImage1.value.contains('sibeux.my.id')) {
         nameImage1 =
             generateImageName(userProfileController.userData[0].idUser);
         request.files.add(
@@ -434,7 +468,7 @@ class SellerProductController extends GetxController {
           ),
         );
       }
-      if (urlImage2.isNotEmpty) {
+      if (urlImage2.isNotEmpty && !urlImage2.value.contains('sibeux.my.id')) {
         nameImage2 =
             generateImageName(userProfileController.userData[0].idUser);
         request.files.add(
@@ -445,7 +479,7 @@ class SellerProductController extends GetxController {
           ),
         );
       }
-      if (urlImage3.isNotEmpty) {
+      if (urlImage3.isNotEmpty && !urlImage3.value.contains('sibeux.my.id')) {
         nameImage3 =
             generateImageName(userProfileController.userData[0].idUser);
         request.files.add(
@@ -457,11 +491,17 @@ class SellerProductController extends GetxController {
         );
       }
 
-      final responseUpload = await request.send();
+      var responseUpload = http.StreamedResponse(const Stream.empty(), 500);
 
-      if (responseUpload.statusCode == 200) {
-        if (kDebugMode) {
-          print('Image berhasil diupload');
+      if (isImageChanged) {
+        responseUpload = await request.send();
+      }
+
+      if (responseUpload.statusCode == 200 || !isImageChanged) {
+        if (isImageChanged) {
+          if (kDebugMode) {
+            print('Image berhasil diupload');
+          }
         }
 
         final response = await http.post(
@@ -470,17 +510,24 @@ class SellerProductController extends GetxController {
             'Content-Type': 'application/x-www-form-urlencoded',
           },
           body: {
-            'method': 'new',
+            'method': isNew ? 'new' : 'update',
             'id_user': userProfileController.userData[0].idUser,
-            'id_shhalal': idShalal.first.idSh,
+            'id_shhalal': idShhalal,
+            'id_produk': isNew ? '' : currentIdProduct,
             'foto_produk_1':
-                'https://sibeux.my.id/project/sihalal/uploads/$nameImage1',
+                isImageChanged && !urlImage1.value.contains('sibeux.my.id')
+                    ? 'https://sibeux.my.id/project/sihalal/uploads/$nameImage1'
+                    : urlImage1.value,
             'foto_produk_2': urlImage2.isEmpty
                 ? ''
-                : 'https://sibeux.my.id/project/sihalal/uploads/$nameImage2',
+                : isImageChanged && !urlImage2.value.contains('sibeux.my.id')
+                    ? 'https://sibeux.my.id/project/sihalal/uploads/$nameImage2'
+                    : urlImage2.value,
             'foto_produk_3': urlImage3.isEmpty
                 ? ''
-                : 'https://sibeux.my.id/project/sihalal/uploads/$nameImage3',
+                : isImageChanged && !urlImage3.value.contains('sibeux.my.id')
+                    ? 'https://sibeux.my.id/project/sihalal/uploads/$nameImage3'
+                    : urlImage3.value,
             'nama_produk': nameProduct.value,
             'deskripsi_produk': descriptionProduct.value,
             'harga_produk': priceProduct.value,
@@ -508,9 +555,10 @@ class SellerProductController extends GetxController {
           print('Image gagal diupload: ${responseUpload.statusCode}');
         }
       }
-    } catch (error) {
+    } catch (error, stackTrace) {
       if (kDebugMode) {
         print('Error sendNewSellerProduct: $error');
+        print(stackTrace);
       }
     } finally {
       isNeedLoading.value = false;

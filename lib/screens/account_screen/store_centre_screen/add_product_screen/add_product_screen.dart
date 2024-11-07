@@ -12,6 +12,19 @@ class AddProductScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final sellerProductController = Get.put(SellerProductController());
+    final product = Get.arguments;
+
+    var titlebar = '';
+    var titleButton = '';
+
+    if (product != null) {
+      titlebar = 'Ubah Produk';
+      titleButton = 'Simpan Perubahan';
+      sellerProductController.setValueChangeProduct(product: product);
+    } else {
+      titlebar = 'Tambah Produk';
+      titleButton = 'Tambah Produk';
+    }
     return Stack(
       children: [
         Scaffold(
@@ -27,17 +40,17 @@ class AddProductScreen extends StatelessWidget {
                 Get.back();
               },
             ),
-            title: const Text('Tambah Produk'),
+            title: Text(titlebar),
             titleTextStyle: const TextStyle(
               color: Colors.black,
               fontSize: 18,
               fontWeight: FontWeight.w500,
             ),
           ),
-          body: Stack(
-            children: [
-              const SingleChildScrollView(
-                child: Column(
+          body: SingleChildScrollView(
+            child: Stack(
+              children: [
+                const Column(
                   children: [
                     HeightBox(10),
                     InsertImageProduct(),
@@ -51,35 +64,40 @@ class AddProductScreen extends StatelessWidget {
                     InsertStockPriceProduct(),
                     HeightBox(10),
                     InsertWeightProduct(),
+                    HeightBox(80),
                   ],
                 ),
-              ),
-              Container(
-                margin: const EdgeInsets.only(top: 1),
-                decoration: BoxDecoration(
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.3),
-                      spreadRadius: 2,
-                      blurRadius: 2,
-                      offset: const Offset(0, 1), // changes position of shadow
-                    ),
-                  ],
+                Container(
+                  margin: const EdgeInsets.only(top: 1),
+                  decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.3),
+                        spreadRadius: 2,
+                        blurRadius: 2,
+                        offset:
+                            const Offset(0, 1), // changes position of shadow
+                      ),
+                    ],
+                  ),
+                  child: Divider(
+                    color: Colors.grey.withOpacity(0.3),
+                    thickness: 2,
+                    height: 0,
+                  ),
                 ),
-                child: Divider(
-                  color: Colors.grey.withOpacity(0.3),
-                  thickness: 2,
-                  height: 0,
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
-        const Positioned(
+        Positioned(
           bottom: 0,
           left: 0,
           right: 0,
-          child: ButtonSaveNewProduct(),
+          child: ButtonSaveProduct(
+            title: titleButton,
+            isNew: product == null,
+          ),
         ),
         Obx(
           () => sellerProductController.isNeedLoading.value
