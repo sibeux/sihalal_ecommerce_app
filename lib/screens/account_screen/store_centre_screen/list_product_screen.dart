@@ -5,8 +5,8 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:sihalal_ecommerce_app/component/color_palette.dart';
 import 'package:sihalal_ecommerce_app/controller/product_controller/get_seller_product_controller.dart';
 import 'package:sihalal_ecommerce_app/screens/account_screen/store_centre_screen/add_product_screen/add_product_screen.dart';
-import 'package:sihalal_ecommerce_app/widgets/store_screen_widgets/product_listview.dart';
-import 'package:sihalal_ecommerce_app/widgets/store_screen_widgets/status_product_filter.dart';
+import 'package:sihalal_ecommerce_app/widgets/store_widgets/product_listview.dart';
+import 'package:sihalal_ecommerce_app/widgets/store_widgets/status_product_filter.dart';
 
 class ListProductScreen extends StatefulWidget {
   const ListProductScreen({super.key});
