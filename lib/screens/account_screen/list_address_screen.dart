@@ -4,7 +4,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:sihalal_ecommerce_app/component/color_palette.dart';
-import 'package:sihalal_ecommerce_app/controller/user_address_controller.dart';
+import 'package:sihalal_ecommerce_app/controller/address_controller/user_address_controller.dart';
 import 'package:sihalal_ecommerce_app/screens/account_screen/crud_address_screen.dart';
 import 'package:sihalal_ecommerce_app/widgets/account_widgets/address_container.dart';
 import 'package:sihalal_ecommerce_app/widgets/account_widgets/button_widget.dart';

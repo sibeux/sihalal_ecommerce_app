@@ -2,9 +2,9 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:sihalal_ecommerce_app/controller/map_geolocation_controller.dart';
-import 'package:sihalal_ecommerce_app/controller/new_address_controller.dart';
-import 'package:sihalal_ecommerce_app/controller/user_address_controller.dart';
+import 'package:sihalal_ecommerce_app/controller/address_controller/map_geolocation_controller.dart';
+import 'package:sihalal_ecommerce_app/controller/address_controller/new_address_controller.dart';
+import 'package:sihalal_ecommerce_app/controller/address_controller/user_address_controller.dart';
 import 'package:sihalal_ecommerce_app/controller/user_profile_controller.dart';
 
 class SendUserAddressController extends GetxController {
