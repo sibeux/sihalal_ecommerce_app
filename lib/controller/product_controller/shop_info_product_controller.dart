@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
+import 'package:html_unescape/html_unescape.dart';
 import 'package:http/http.dart' as http;
 import 'package:sihalal_ecommerce_app/component/regex_drive.dart';
 import 'package:sihalal_ecommerce_app/models/shop.dart';
@@ -11,6 +12,7 @@ class ShopInfoProductController extends GetxController {
 
   Future<void> getShopInfo(String idProduk) async {
     isLoading.value = true;
+    var unescape = HtmlUnescape();
 
     String url =
         'https://sibeux.my.id/project/sihalal/product?method=shop_info&id_produk=$idProduk';
@@ -27,14 +29,15 @@ class ShopInfoProductController extends GetxController {
       final list = listData.map((shop) {
         return Shop(
           idUser: shop['id_user'],
-          fotoUser:
-              regexGdriveLink(shop['foto_user'], apiData[0]['gdrive_api']),
-          namaToko: shop['nama_toko'],
-          deskripsiToko: shop['deskripsi_toko'] ?? '',
+          fotoUser: shop['foto_user'] == null
+              ? ''
+              : regexGdriveLink(shop['foto_user'], apiData[0]['gdrive_api']),
+          namaToko: unescape.convert(shop['nama_toko']),
+          deskripsiToko: shop['deskripsi_toko'] == null ? '' : unescape.convert(shop['deskripsi_toko']),
           kotaToko: shop['kota'],
           provinsiToko: shop['provinsi'],
           totalProduk: shop['total_produk'],
-          totalRating: shop['rata_rata_rating'] ?? 0,
+          totalRating: shop['rata_rata_rating'] ?? '0',
         );
       }).toList();
 

@@ -48,7 +48,7 @@ class Categories extends StatelessWidget {
       },
       {
         'icon': "assets/images/icon-category/sirup.jpg",
-        'title': 'Pemanis',
+        'title': 'Sirup',
       },
       {
         'icon': "assets/images/icon-category/salt.jpg",

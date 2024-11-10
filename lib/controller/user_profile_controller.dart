@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:html_unescape/html_unescape.dart';
 
 import 'package:http/http.dart' as http;
 import 'package:sihalal_ecommerce_app/component/regex_drive.dart';
@@ -11,6 +12,7 @@ import 'package:sihalal_ecommerce_app/models/user.dart';
 class UserProfileController extends GetxController {
   var userData = RxList<User>([]);
   var isLoading = false.obs;
+  var unescape = HtmlUnescape();
 
   @override
   void onInit() async {
@@ -42,8 +44,12 @@ class UserProfileController extends GetxController {
             emailuser: user['email_user'],
             passUser: user['pass_user'],
             nameUser: user['nama_user'],
-            nameShop: user['nama_toko'] ?? '',
-            descShop: user['deskripsi_toko'] ?? '',
+            nameShop: user['nama_toko'] == null
+                ? ''
+                : unescape.convert(user['nama_toko']),
+            descShop: user['deskripsi_toko'] == null
+                ? ''
+                : unescape.convert(user['deskripsi_toko']),
             fotoUser: user['foto_user'] == null
                 ? ''
                 : regexGdriveLink(user['foto_user'], apiData[0]['gdrive_api']),

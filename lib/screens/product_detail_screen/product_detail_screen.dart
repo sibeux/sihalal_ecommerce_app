@@ -44,7 +44,6 @@ class ProductDetailScreen extends StatelessWidget {
     final productDetailController = Get.put(ProductDetailController());
     final shopInfoProductController = Get.put(ShopInfoProductController());
 
-    
     productDetailController.getProductDetailData(product.uidProduct);
 
     return Scaffold(
@@ -166,7 +165,7 @@ class ProductDetailScreen extends StatelessWidget {
                         Flexible(
                           fit: FlexFit.tight,
                           child: Text(
-                            product.nama,
+                            product.nama.trim(),
                             maxLines: 3,
                             style: const TextStyle(
                               color: Colors.black,
@@ -241,7 +240,7 @@ class ProductDetailScreen extends StatelessWidget {
                           height: 10,
                         ),
                         AutoSizeText(
-                          product.deskripsi,
+                          product.deskripsi.trim(),
                           maxLines: 5,
                           maxFontSize: 13,
                           minFontSize: 13,
@@ -256,7 +255,7 @@ class ProductDetailScreen extends StatelessWidget {
                             children: [
                               Obx(
                                 () => Text(
-                                  product.deskripsi,
+                                  product.deskripsi.trim(),
                                   maxLines: productDetailController.maxLine,
                                   overflow: productDetailController.overflow[0],
                                   style: TextStyle(

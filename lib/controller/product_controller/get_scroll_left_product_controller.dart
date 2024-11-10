@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:sihalal_ecommerce_app/component/regex_drive.dart';
+import 'package:html_unescape/html_unescape.dart';
 import 'package:sihalal_ecommerce_app/models/product.dart';
 
 class GetScrollLeftProductController extends GetxController {
@@ -38,6 +39,8 @@ class GetScrollLeftProductController extends GetxController {
     const api =
         'https://sibeux.my.id/cloud-music-player/database/mobile-music-player/api/gdrive_api.php';
 
+    var unescape = HtmlUnescape();
+
     try {
       final response = await http.get(Uri.parse(url));
       final apiResponse = await http.get(Uri.parse(api));
@@ -50,8 +53,12 @@ class GetScrollLeftProductController extends GetxController {
           uidProduct: produk['id_produk'],
           uidUser: produk['id_user'],
           uidShhalal: produk['id_shhalal'],
-          nama: produk['nama_produk'],
-          deskripsi: produk['deskripsi_produk'] ?? '--',
+          nama: produk['nama_produk'] == null
+              ? ''
+              : unescape.convert(produk['nama_produk']),
+          deskripsi: produk['deskripsi_produk'] == null
+              ? ''
+              : unescape.convert(produk['deskripsi_produk']),
           rating: produk['rating_produk'],
           harga: produk['harga_produk'],
           foto1: regexGdriveLink(

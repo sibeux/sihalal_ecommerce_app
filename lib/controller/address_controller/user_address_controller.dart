@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
+import 'package:html_unescape/html_unescape.dart';
 import 'package:sihalal_ecommerce_app/controller/user_profile_controller.dart';
 import 'package:sihalal_ecommerce_app/models/address_model/address.dart';
 import 'package:http/http.dart' as http;
@@ -22,6 +23,7 @@ class UserAddressController extends GetxController {
 
   Future<void> getUserAddress() async {
     isLoadingGetAddress.value = true;
+    var unescape = HtmlUnescape();
 
     final userProfileController = Get.find<UserProfileController>();
     final idUser = userProfileController.userData[0].idUser;
@@ -56,7 +58,7 @@ class UserAddressController extends GetxController {
           idCity: address['id_kota'],
           postalCode: address['kode_pos'],
           detailAddress: address['detail_alamat'],
-          streetAddress: address['jalan_alamat'],
+          streetAddress: unescape.convert(address['jalan_alamat']),
           pinPoint: address['pinpoint_alamat'],
           isPrimary: address['is_utama'] == 'true',
           isStore: address['is_toko'] == 'true',

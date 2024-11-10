@@ -10,7 +10,7 @@ enum CategoryType {
   tepung,
   santan,
   susu,
-  pemanis,
+  sirup,
   daging,
   garam,
   minyak,

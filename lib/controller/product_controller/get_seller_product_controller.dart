@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
+import 'package:html_unescape/html_unescape.dart';
 import 'package:http/http.dart' as http;
 import 'package:sihalal_ecommerce_app/component/regex_drive.dart';
 import 'package:sihalal_ecommerce_app/models/seller_product.dart';
@@ -30,6 +31,7 @@ class GetSellerProductController extends GetxController {
 
   Future<void> getUserProduct({required String email}) async {
     isGetProductLoading.value = true;
+    var unescape = HtmlUnescape();
 
     productInvisible.value = 0;
     productVisible.value = 0;
@@ -61,8 +63,12 @@ class GetSellerProductController extends GetxController {
             uidProduct: produk['id_produk'],
             uidUser: produk['id_user'],
             uidShhalal: produk['id_shhalal'],
-            nama: produk['nama_produk'],
-            deskripsi: produk['deskripsi_produk'] ?? '--',
+            nama: produk['nama_produk'] == null
+                ? ''
+                : unescape.convert(produk['nama_produk']),
+            deskripsi: produk['deskripsi_produk'] == null
+                ? ''
+                : unescape.convert(produk['deskripsi_produk']),
             harga: produk['harga_produk'],
             foto1: regexGdriveLink(
                 produk['foto_produk_1'], apiData[0]['gdrive_api']),
@@ -91,6 +97,11 @@ class GetSellerProductController extends GetxController {
             list.where((data) => !data.isVisible).toList();
         outStockProductList.value =
             list.where((data) => data.stok == '0').toList();
+      } else {
+        sellerProductList.value = [];
+        visibleProductList.value = [];
+        invisibleProductList.value = [];
+        outStockProductList.value = [];
       }
     } catch (e) {
       if (kDebugMode) {

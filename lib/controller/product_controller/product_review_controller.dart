@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
+import 'package:html_unescape/html_unescape.dart';
 import 'package:http/http.dart' as http;
 import 'package:sihalal_ecommerce_app/component/regex_drive.dart';
 import 'package:sihalal_ecommerce_app/models/review.dart';
@@ -11,6 +12,7 @@ class ProductReviewController extends GetxController {
 
   Future<void> getProductReview(String idProduk) async {
     isLoading.value = true;
+    var unescape = HtmlUnescape();
 
     String url =
         'https://sibeux.my.id/project/sihalal/product?method=get_ulasan&id_produk=$idProduk';
@@ -31,7 +33,9 @@ class ProductReviewController extends GetxController {
           idUser: review['id_user'],
           idPesanan: review['id_pesanan'],
           rating: review['bintang_rating'],
-          ulasan: review['pesan_rating'] ?? '',
+          ulasan: review['pesan_rating'] == null
+              ? ''
+              : unescape.convert(review['pesan_rating']),
           tanggal: review['tanggal_rating'],
           namaUser: review['nama_user'],
           fotoUser: review['foto_user'] == null
