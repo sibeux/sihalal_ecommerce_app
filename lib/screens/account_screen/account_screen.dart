@@ -8,6 +8,7 @@ import 'package:sihalal_ecommerce_app/controller/auth_controller.dart';
 import 'package:sihalal_ecommerce_app/controller/user_profile_controller.dart';
 import 'package:sihalal_ecommerce_app/screens/account_screen/list_address_screen.dart';
 import 'package:sihalal_ecommerce_app/screens/account_screen/store_centre_screen/store_centre_screen.dart';
+import 'package:sihalal_ecommerce_app/screens/user_auth_screen/login_screen.dart';
 import 'package:sihalal_ecommerce_app/widgets/account_widgets/button_widget.dart';
 import 'package:sihalal_ecommerce_app/widgets/account_widgets/logout_confirm_modal.dart';
 import 'package:sihalal_ecommerce_app/widgets/account_widgets/text_tile.dart';
@@ -15,7 +16,9 @@ import 'package:sihalal_ecommerce_app/widgets/home_widgets/photo_user.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class AccountScreen extends StatelessWidget {
-  const AccountScreen({super.key});
+  const AccountScreen({super.key, required this.login});
+
+  final bool login;
 
   @override
   Widget build(BuildContext context) {
@@ -44,44 +47,48 @@ class AccountScreen extends StatelessWidget {
                       child: const UserPhotoAppbar(),
                     ),
                     const SizedBox(height: 20),
-                    Obx(
-                      () => Text(
-                        (userProfileController.isLoading.value ||
-                                userProfileController.userData.isEmpty)
-                            ? 'Mengambil data...'
-                            : userProfileController.userData[0].nameUser,
-                        maxLines: 1,
-                        style: TextStyle(
-                          overflow: TextOverflow.ellipsis,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.black.withOpacity(0.7),
+                    if (login)
+                      Obx(
+                        () => Text(
+                          (userProfileController.isLoading.value ||
+                                  userProfileController.userData.isEmpty)
+                              ? 'Mengambil data...'
+                              : userProfileController.userData[0].nameUser,
+                          maxLines: 1,
+                          style: TextStyle(
+                            overflow: TextOverflow.ellipsis,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.black.withOpacity(0.7),
+                          ),
                         ),
                       ),
-                    ),
                     const SizedBox(
                       height: 2,
                     ),
-                    Obx(
-                      () => Text(
-                        (userProfileController.isLoading.value ||
-                                userProfileController.userData.isEmpty)
-                            ? 'Mengambil data...'
-                            : maskEmail(
-                                userProfileController.userData[0].emailuser),
-                        maxLines: 1,
-                        style: TextStyle(
-                          overflow: TextOverflow.ellipsis,
-                          fontSize: 12,
-                          fontWeight: FontWeight.w300,
-                          color: Colors.black.withOpacity(0.6),
+                    if (login)
+                      Obx(
+                        () => Text(
+                          (userProfileController.isLoading.value ||
+                                  userProfileController.userData.isEmpty)
+                              ? 'Mengambil data...'
+                              : maskEmail(
+                                  userProfileController.userData[0].emailuser),
+                          maxLines: 1,
+                          style: TextStyle(
+                            overflow: TextOverflow.ellipsis,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w300,
+                            color: Colors.black.withOpacity(0.6),
+                          ),
                         ),
                       ),
-                    ),
                     const SizedBox(height: 15),
                     Transform.scale(
                       scale: 0.9,
-                      child: const EditProfileButton(),
+                      child: login
+                          ? const EditProfileButton()
+                          : const LoginRegisterProfileButton(),
                     ),
                   ],
                 ),
@@ -122,6 +129,15 @@ class AccountScreen extends StatelessWidget {
                       title: 'Toko Saya',
                       icon: Ionicons.storefront_outline,
                       action: () {
+                        if (!login) {
+                          Get.to(
+                            () => const LoginScreen(),
+                            transition: Transition.rightToLeft,
+                            fullscreenDialog: true,
+                            popGesture: false,
+                          );
+                          return;
+                        }
                         Get.to(
                           () => const StoreCentreScreen(),
                           transition: Transition.downToUp,
@@ -141,6 +157,15 @@ class AccountScreen extends StatelessWidget {
                       title: 'Daftar Alamat',
                       icon: Ionicons.map_outline,
                       action: () {
+                        if (!login) {
+                          Get.to(
+                            () => const LoginScreen(),
+                            transition: Transition.rightToLeft,
+                            fullscreenDialog: true,
+                            popGesture: false,
+                          );
+                          return;
+                        }
                         Get.to(
                           () => const ListAddressScreen(),
                           transition: Transition.downToUp,
@@ -155,14 +180,15 @@ class AccountScreen extends StatelessWidget {
                       icon: Ionicons.star_outline,
                       action: () {},
                     ),
-                    const SpaceDivider(),
-                    TextTile(
-                      title: 'Keluar',
-                      icon: Ionicons.log_out_outline,
-                      action: () {
-                        showModalConfirmLogout(context);
-                      },
-                    )
+                    if (login) const SpaceDivider(),
+                    if (login)
+                      TextTile(
+                        title: 'Keluar',
+                        icon: Ionicons.log_out_outline,
+                        action: () {
+                          showModalConfirmLogout(context);
+                        },
+                      )
                   ],
                 ),
               ),

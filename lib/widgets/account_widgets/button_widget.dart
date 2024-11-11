@@ -5,6 +5,8 @@ import 'package:sihalal_ecommerce_app/component/color_palette.dart';
 import 'package:sihalal_ecommerce_app/controller/address_controller/map_geolocation_controller.dart';
 import 'package:sihalal_ecommerce_app/controller/address_controller/send_user_address_controller.dart';
 import 'package:sihalal_ecommerce_app/screens/account_screen/pin_point_map_screen.dart';
+import 'package:sihalal_ecommerce_app/screens/user_auth_screen/login_screen.dart';
+import 'package:sihalal_ecommerce_app/screens/user_auth_screen/register_email_screen.dart';
 
 class EditProfileButton extends StatelessWidget {
   const EditProfileButton({
@@ -43,6 +45,95 @@ class EditProfileButton extends StatelessWidget {
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class LoginRegisterProfileButton extends StatelessWidget {
+  const LoginRegisterProfileButton({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      child: Row(
+        children: [
+          Expanded(
+            child: ElevatedButton(
+              onPressed: () {
+                Get.to(
+                  () => const LoginScreen(),
+                  transition: Transition.native,
+                  popGesture: false,
+                  fullscreenDialog: true,
+                );
+              },
+              style: ElevatedButton.styleFrom(
+                foregroundColor: Colors.white,
+                backgroundColor: ColorPalette().primary,
+                elevation: 0, // Menghilangkan shadow
+                splashFactory: InkRipple.splashFactory,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+              child: const Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 10.0,
+                  vertical: 12.0,
+                ),
+                child: Text(
+                  'Masuk',
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(width: 10),
+          Expanded(
+            child: ElevatedButton(
+              onPressed: () {
+                Get.to(
+                  () => const RegisterEmailScreen(),
+                  transition: Transition.native,
+                  popGesture: false,
+                  fullscreenDialog: true,
+                );
+              },
+              style: ElevatedButton.styleFrom(
+                foregroundColor: ColorPalette().primary,
+                backgroundColor: Colors.transparent,
+                elevation: 0, // Menghilangkan shadow
+                splashFactory: InkRipple.splashFactory,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  side: BorderSide(
+                    color: ColorPalette().primary,
+                  ),
+                ),
+              ),
+              child: const Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 10.0,
+                  vertical: 12.0,
+                ),
+                child: Text(
+                  'Daftar',
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

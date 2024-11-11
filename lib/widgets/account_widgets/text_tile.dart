@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:sihalal_ecommerce_app/component/color_palette.dart';
@@ -19,6 +20,9 @@ class TextTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final box = GetStorage();
+    final login = box.read('login');
+
     return GestureDetector(
       onTap: () {
         action();
@@ -70,7 +74,7 @@ class TextTile extends StatelessWidget {
             ),
           ),
           const WidthBox(10),
-          if (title.toLowerCase() == 'toko saya')
+          if (title.toLowerCase() == 'toko saya' && login)
             Container(
               alignment: Alignment.center,
               height: 25,
