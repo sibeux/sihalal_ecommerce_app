@@ -473,7 +473,11 @@ class SellerProductController extends GetxController {
             .map((e) => [e.foto1, e.foto2, e.foto3])
             .toList()[0];
 
-        deleteImageFromCpanel(idProduct: idProduct, method: 'delete', deletedImages: deletedImages);
+        deleteImageFromCpanel(
+          idProduct: idProduct,
+          method: 'delete',
+          deletedImages: deletedImages,
+        );
 
         await Get.find<GetSellerProductController>().getUserProduct(
           email: userProfileController.userData[0].emailuser,

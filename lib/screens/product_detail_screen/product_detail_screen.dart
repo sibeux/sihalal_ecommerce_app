@@ -44,8 +44,8 @@ class ProductDetailScreen extends StatelessWidget {
       product.foto2,
       product.foto3,
     ];
-    final productDetailController = Get.put(ProductDetailController());
     final shopInfoProductController = Get.put(ShopInfoProductController());
+    final productDetailController = Get.put(ProductDetailController());
     final userProfileController = Get.find<UserProfileController>();
 
     final box = GetStorage();
@@ -327,18 +327,20 @@ class ProductDetailScreen extends StatelessWidget {
                   Obx(
                     () => shopInfoProductController.isLoading.value
                         ? const ShopInfoShimmer()
-                        : ShopInfo(
-                            namaToko:
-                                shopInfoProductController.shopInfo[0]!.namaToko,
-                            lokasiToko:
-                                shopInfoProductController.shopInfo[0]!.kotaToko,
-                            image:
-                                shopInfoProductController.shopInfo[0]!.fotoUser,
-                            rating: shopInfoProductController
-                                .shopInfo[0]!.totalRating,
-                            jumlahProduk: shopInfoProductController
-                                .shopInfo[0]!.totalProduk,
-                          ),
+                        : shopInfoProductController.shopInfo.isNotEmpty
+                            ? ShopInfo(
+                                namaToko: shopInfoProductController
+                                    .shopInfo[0]!.namaToko,
+                                lokasiToko: shopInfoProductController
+                                    .shopInfo[0]!.kotaToko,
+                                image: shopInfoProductController
+                                    .shopInfo[0]!.fotoUser,
+                                rating: shopInfoProductController
+                                    .shopInfo[0]!.totalRating,
+                                jumlahProduk: shopInfoProductController
+                                    .shopInfo[0]!.totalProduk,
+                              )
+                            : const ShopInfoShimmer(),
                   ),
                   Divider(
                     color: HexColor('#eff4f8'),

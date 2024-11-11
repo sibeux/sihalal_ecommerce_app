@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:sihalal_ecommerce_app/component/color_palette.dart';
+import 'package:sihalal_ecommerce_app/controller/address_controller/user_address_controller.dart';
 import 'package:sihalal_ecommerce_app/models/seller_product.dart';
 import 'package:sihalal_ecommerce_app/screens/account_screen/store_centre_screen/add_product_screen/add_product_screen.dart';
 import 'package:sihalal_ecommerce_app/widgets/store_widgets/alert_modal/change_visibility_modal.dart';
@@ -18,8 +20,21 @@ class ChangeStatusButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final userAddressController = Get.find<UserAddressController>();
     return ElevatedButton(
       onPressed: () {
+        if (userAddressController.addressList.isEmpty) {
+          Fluttertoast.showToast(
+            msg: 'Tambahkan alamat toko terlebih dahulu',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.black.withOpacity(1),
+            textColor: Colors.white,
+            fontSize: 10.0,
+          );
+          return;
+        }
         if (title == 'Tampilkan') {
           showModalChangeVisibiltyProduct(
             idProduct: idProduct,

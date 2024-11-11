@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sihalal_ecommerce_app/controller/product_controller/product_review_controller.dart';
@@ -10,7 +9,7 @@ class ProductDetailController extends GetxController {
   var useMaxLine = 5.obs;
   var useOverflow = RxList<TextOverflow>([TextOverflow.ellipsis]).obs;
 
-  final shopInfoProductController = Get.put(ShopInfoProductController());
+  final shopInfoProductController = Get.find<ShopInfoProductController>();
   final productReviewController = Get.put(ProductReviewController());
 
   void changeImageIndex(int index) {
