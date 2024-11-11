@@ -18,7 +18,6 @@ enum CategoryType {
   pasta,
   keju,
   olahan,
-  lainnya,
 }
 
 class AddCategoryScreen extends StatelessWidget {

@@ -92,13 +92,11 @@ class _PersistenBarScreenState extends State<PersistenBarScreen> {
         controller: _controller,
         screens: _buildScreens(),
         items: _navBarsItems(),
-        confineToSafeArea: true,
         backgroundColor: Colors.white,
         handleAndroidBackButtonPress: false, // Mengatur tombol back di Android
         resizeToAvoidBottomInset: true,
         stateManagement: true, // Untuk manajemen state dari tiap halaman
-        hideNavigationBarWhenKeyboardAppears:
-            false, // Sembunyikan nav bar saat keyboard muncul
+        hideNavigationBarWhenKeyboardAppears: false,
         decoration: NavBarDecoration(
           boxShadow: [
             const BoxShadow(
@@ -111,7 +109,7 @@ class _PersistenBarScreenState extends State<PersistenBarScreen> {
           borderRadius: BorderRadius.circular(0),
           colorBehindNavBar: Colors.white,
         ),
-        onWillPop: (p0) {
+        onWillPop: (p0) async {
           // Kode ini akan dijalankan saat tombol back ditekan
           final now = DateTime.now();
           const maxDuration = Duration(seconds: 2);
@@ -135,8 +133,8 @@ class _PersistenBarScreenState extends State<PersistenBarScreen> {
           }
 
           // Keluar dari aplikasi
-          SystemNavigator.pop();
-          return Future.value(true);
+          SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+          return Future.value(false);
         },
         navBarStyle: NavBarStyle.style3,
         padding: const EdgeInsets.only(

@@ -2,13 +2,16 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:sihalal_ecommerce_app/component/color_palette.dart';
 import 'package:sihalal_ecommerce_app/component/string_formatter.dart';
 import 'package:sihalal_ecommerce_app/controller/product_controller/product_detail_controller.dart';
 import 'package:sihalal_ecommerce_app/controller/product_controller/shop_info_product_controller.dart';
+import 'package:sihalal_ecommerce_app/controller/user_profile_controller.dart';
 import 'package:sihalal_ecommerce_app/models/product.dart';
 import 'package:sihalal_ecommerce_app/screens/checkout_screen/checkout_screen.dart';
+import 'package:sihalal_ecommerce_app/screens/user_auth_screen/login_screen.dart';
 import 'package:sihalal_ecommerce_app/widgets/detail_product_widgets/button.dart';
 import 'package:sihalal_ecommerce_app/widgets/detail_product_widgets/product_review.dart';
 import 'package:sihalal_ecommerce_app/widgets/detail_product_widgets/shop_info.dart';
@@ -43,6 +46,10 @@ class ProductDetailScreen extends StatelessWidget {
     ];
     final productDetailController = Get.put(ProductDetailController());
     final shopInfoProductController = Get.put(ShopInfoProductController());
+    final userProfileController = Get.find<UserProfileController>();
+
+    final box = GetStorage();
+    final login = box.read('login');
 
     productDetailController.getProductDetailData(product.uidProduct);
 
@@ -87,6 +94,21 @@ class ProductDetailScreen extends StatelessWidget {
       ),
       body: Column(
         children: [
+          if (userProfileController.idUser == product.uidUser)
+            Container(
+              height: 20,
+              width: double.infinity,
+              color: Colors.yellow.withOpacity(0.4),
+              alignment: Alignment.center,
+              child: const Text(
+                'Anda sedang melihat produk dari toko anda',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 12,
+                  fontWeight: FontWeight.normal,
+                ),
+              ),
+            ),
           Expanded(
             child: SingleChildScrollView(
               child: Column(
@@ -338,50 +360,70 @@ class ProductDetailScreen extends StatelessWidget {
               ),
             ),
           ),
-          Container(
-            width: double.infinity,
-            height: 60,
-            decoration: BoxDecoration(
-              color: HexColor('#fefeff'),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.15),
-                  spreadRadius: 1,
-                  blurRadius: 1,
-                  offset: const Offset(0, -1),
-                ),
-              ],
-            ),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: BuyButton(
-                      onPressed: () {
-                        Get.to(
-                          () => CheckoutScreen(
-                            product: product,
-                            shopName:
-                                shopInfoProductController.shopInfo[0]!.namaToko,
-                          ),
-                          transition: Transition.rightToLeft,
-                        );
-                      },
-                    ),
-                  ),
-                  const WidthBox(10),
-                  Expanded(
-                    child: CartButton(
-                      onPressed: () {
-                        // Do something
-                      },
-                    ),
+          if (userProfileController.idUser != product.uidUser)
+            Container(
+              width: double.infinity,
+              height: 60,
+              decoration: BoxDecoration(
+                color: HexColor('#fefeff'),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.15),
+                    spreadRadius: 1,
+                    blurRadius: 1,
+                    offset: const Offset(0, -1),
                   ),
                 ],
               ),
-            ),
-          )
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: BuyButton(
+                        onPressed: () {
+                          if (login) {
+                            Get.to(
+                              () => CheckoutScreen(
+                                product: product,
+                                shopName: shopInfoProductController
+                                    .shopInfo[0]!.namaToko,
+                              ),
+                              transition: Transition.rightToLeft,
+                              fullscreenDialog: true,
+                              popGesture: false,
+                            );
+                          } else {
+                            Get.to(
+                              () => const LoginScreen(),
+                              transition: Transition.rightToLeft,
+                              fullscreenDialog: true,
+                              popGesture: false,
+                            );
+                          }
+                        },
+                      ),
+                    ),
+                    const WidthBox(10),
+                    Expanded(
+                      child: CartButton(
+                        onPressed: () {
+                          if (login) {
+                          } else {
+                            Get.to(
+                              () => const LoginScreen(),
+                              transition: Transition.rightToLeft,
+                              fullscreenDialog: true,
+                              popGesture: false,
+                            );
+                          }
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            )
         ],
       ),
     );

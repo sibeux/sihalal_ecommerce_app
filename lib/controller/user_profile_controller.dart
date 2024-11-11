@@ -13,6 +13,7 @@ class UserProfileController extends GetxController {
   var userData = RxList<User>([]);
   var isLoading = false.obs;
   var unescape = HtmlUnescape();
+  var idUser = '';
 
   @override
   void onInit() async {
@@ -56,7 +57,11 @@ class UserProfileController extends GetxController {
           );
         }).toList();
 
+        idUser = list[0].idUser;
+
         userData.value = list;
+      } else {
+        userData.value = [];
       }
     } catch (e) {
       if (kDebugMode) {
