@@ -123,7 +123,7 @@ class OrderDetail extends StatelessWidget {
                 () => Text(
                   priceFormatter(((int.parse(product.harga) *
                               checkoutController.quantity.value +
-                          20000)
+                          int.parse(shippingCost(checkoutController)))
                       .toString())),
                   style: TextStyle(
                     fontSize: 14,
