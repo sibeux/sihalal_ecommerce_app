@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-enum Expedition  {jne, jnt, tiki, pos}
+enum Expedition  {jne, tiki, pos, jnt}
 class CheckoutController extends GetxController {
   var quantity = 1.obs;
   var expedition = Expedition.jne.obs;

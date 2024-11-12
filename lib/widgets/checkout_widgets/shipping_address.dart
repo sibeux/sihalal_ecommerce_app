@@ -3,6 +3,7 @@ import 'package:ionicons/ionicons.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:sihalal_ecommerce_app/component/color_palette.dart';
 import 'package:sihalal_ecommerce_app/screens/account_screen/address_screen/crud_address_screen.dart';
+import 'package:sihalal_ecommerce_app/screens/account_screen/address_screen/list_address_screen.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:sihalal_ecommerce_app/controller/address_controller/user_address_controller.dart';
 import 'package:get/get.dart';
@@ -137,6 +138,14 @@ class ShippingAddress extends StatelessWidget {
                   transition: Transition.rightToLeft,
                   popGesture: false,
                   fullscreenDialog: true,
+                );
+              } else {
+                Get.to(
+                  () => const ListAddressScreen(),
+                  transition: Transition.rightToLeft,
+                  popGesture: false,
+                  fullscreenDialog: true,
+                  
                 );
               }
             },

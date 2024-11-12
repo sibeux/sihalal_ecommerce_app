@@ -72,6 +72,7 @@ class GetScrollLeftProductController extends GetxController {
               : regexGdriveLink(
                   produk['foto_produk_3'], apiData[0]['gdrive_api']),
           stok: produk['stok_produk'],
+          berat: produk['berat_produk'],
           jumlahUlasan: produk['jumlah_ulasan'],
           jumlahRating: produk['jumlah_rating'],
           kota: produk['kota'],
