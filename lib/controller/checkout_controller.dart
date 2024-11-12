@@ -1,5 +1,3 @@
-
-
 import 'package:get/get.dart';
 enum Expedition  {jne, jnt, tiki, pos}
 class CheckoutController extends GetxController {

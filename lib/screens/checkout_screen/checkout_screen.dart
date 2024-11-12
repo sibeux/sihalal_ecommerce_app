@@ -12,6 +12,13 @@ import 'package:sihalal_ecommerce_app/widgets/checkout_widgets/shipping_address.
 import 'package:sihalal_ecommerce_app/widgets/checkout_widgets/shipping_method.dart';
 import 'package:velocity_x/velocity_x.dart';
 
+class NoGlowScrollBehavior extends ScrollBehavior {
+  Widget buildViewportChrome(
+      BuildContext context, Widget child, AxisDirection axisDirection) {
+    return child;
+  }
+}
+
 class CheckoutScreen extends StatelessWidget {
   const CheckoutScreen(
       {super.key, required this.product, required this.shopName});
@@ -48,48 +55,55 @@ class CheckoutScreen extends StatelessWidget {
             thickness: 0.5,
           ),
           Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  const HeightBox(15),
-                  const ShippingAddress(),
-                  const HeightBox(15),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    height: 5,
-                    child: CustomPaint(
-                      painter: DiagonalStripedPainter(),
-                    ),
+            child: ScrollConfiguration(
+              behavior: NoGlowScrollBehavior(),
+              child: GlowingOverscrollIndicator(
+                axisDirection: AxisDirection.down,
+                color: ColorPalette().primary,
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      const HeightBox(15),
+                      const ShippingAddress(),
+                      const HeightBox(15),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width,
+                        height: 5,
+                        child: CustomPaint(
+                          painter: DiagonalStripedPainter(),
+                        ),
+                      ),
+                      const HeightBox(15),
+                      ProductInfo(
+                        product: product,
+                        shopName: shopName,
+                      ),
+                      const HeightBox(15),
+                      Divider(
+                        color: HexColor('#eff4f8'),
+                        height: 8,
+                        thickness: 8,
+                      ),
+                      const HeightBox(15),
+                      const ShippingMethod(),
+                      const HeightBox(15),
+                      Divider(
+                        color: HexColor('#eff4f8'),
+                        height: 8,
+                        thickness: 8,
+                      ),
+                      const PaymentMethod(),
+                      Divider(
+                        color: HexColor('#eff4f8'),
+                        height: 8,
+                        thickness: 8,
+                      ),
+                      OrderDetail(
+                        product: product,
+                      )
+                    ],
                   ),
-                  const HeightBox(15),
-                  ProductInfo(
-                    product: product,
-                    shopName: shopName,
-                  ),
-                  const HeightBox(15),
-                  Divider(
-                    color: HexColor('#eff4f8'),
-                    height: 8,
-                    thickness: 8,
-                  ),
-                  const HeightBox(15),
-                  const ShippingMethod(),
-                  const HeightBox(15),
-                  Divider(
-                    color: HexColor('#eff4f8'),
-                    height: 8,
-                    thickness: 8,
-                  ),
-                  const PaymentMethod(),
-                  Divider(
-                    color: HexColor('#eff4f8'),
-                    height: 8,
-                    thickness: 8,
-                  ),
-                  OrderDetail(
-                    product: product,
-                  )
-                ],
+                ),
               ),
             ),
           ),

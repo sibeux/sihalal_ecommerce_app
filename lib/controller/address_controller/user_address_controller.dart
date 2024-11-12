@@ -36,36 +36,40 @@ class UserAddressController extends GetxController {
 
       final List<dynamic> listData = json.decode(response.body);
 
-      final list = listData.map((address) {
-        if (address['is_utama'] == 'true') {
-          isSetPrimary.value = true;
-          alreadySetPrimaryId.value = address['id_alamat'];
-        }
-        if (address['is_toko'] == 'true') {
-          isSetStore.value = true;
-          alreadySetStoreId.value = address['id_alamat'];
-        }
+      if (listData.isNotEmpty) {
+        final list = listData.map((address) {
+          if (address['is_utama'] == 'true') {
+            isSetPrimary.value = true;
+            alreadySetPrimaryId.value = address['id_alamat'];
+          }
+          if (address['is_toko'] == 'true') {
+            isSetStore.value = true;
+            alreadySetStoreId.value = address['id_alamat'];
+          }
 
-        return Address(
-          idAddress: address['id_alamat'],
-          idUser: address['id_user'],
-          name: address['nama_penerima'],
-          phone: address['nomor_penerima'],
-          label: address['label_alamat'],
-          province: address['provinsi'],
-          idProvince: address['id_provinsi'],
-          city: address['kota'],
-          idCity: address['id_kota'],
-          postalCode: address['kode_pos'],
-          detailAddress: address['detail_alamat'],
-          streetAddress: unescape.convert(address['jalan_alamat']),
-          pinPoint: address['pinpoint_alamat'],
-          isPrimary: address['is_utama'] == 'true',
-          isStore: address['is_toko'] == 'true',
-        );
-      }).toList();
+          return Address(
+            idAddress: address['id_alamat'],
+            idUser: address['id_user'],
+            name: address['nama_penerima'],
+            phone: address['nomor_penerima'],
+            label: address['label_alamat'],
+            province: address['provinsi'],
+            idProvince: address['id_provinsi'],
+            city: address['kota'],
+            idCity: address['id_kota'],
+            postalCode: address['kode_pos'],
+            detailAddress: address['detail_alamat'],
+            streetAddress: unescape.convert(address['jalan_alamat']),
+            pinPoint: address['pinpoint_alamat'],
+            isPrimary: address['is_utama'] == 'true',
+            isStore: address['is_toko'] == 'true',
+          );
+        }).toList();
 
-      addressList.value = list;
+        addressList.value = list;
+      } else {
+        addressList.value = [];
+      }
     } catch (e) {
       if (kDebugMode) {
         print('Error getUserAddress: $e');
