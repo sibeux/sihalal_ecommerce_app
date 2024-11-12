@@ -238,6 +238,9 @@ class SetPinPointEnable extends StatelessWidget {
           await mapGeolocationController.getCurrentLatLng(
             needFetchMap: true,
           );
+          if (mapGeolocationController.address.isEmpty) {
+            return;
+          }
           Get.to(
             () => const PinPointMapScreen(),
             transition: Transition.native,
