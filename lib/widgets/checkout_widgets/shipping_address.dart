@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:sihalal_ecommerce_app/component/color_palette.dart';
-import 'package:sihalal_ecommerce_app/screens/account_screen/crud_address_screen.dart';
+import 'package:sihalal_ecommerce_app/screens/account_screen/address_screen/crud_address_screen.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:sihalal_ecommerce_app/controller/address_controller/user_address_controller.dart';
 import 'package:get/get.dart';
@@ -126,10 +126,28 @@ class ShippingAddress extends StatelessWidget {
             ),
           ),
           const WidthBox(15),
-          Icon(
-            Icons.arrow_forward_ios,
-            color: Colors.black.withOpacity(0.5),
-            size: 18,
+          InkWell(
+            borderRadius: BorderRadius.circular(50),
+            onTap: () {
+              if (userAddressController.addressList.isEmpty) {
+                Get.to(
+                  () => const CrudAddressScreen(
+                    title: 'Tambah Alamat',
+                  ),
+                  transition: Transition.rightToLeft,
+                  popGesture: false,
+                  fullscreenDialog: true,
+                );
+              }
+            },
+            child: Container(
+              padding: const EdgeInsets.all(5),
+              child: Icon(
+                Icons.arrow_forward_ios,
+                color: Colors.black.withOpacity(0.5),
+                size: 18,
+              ),
+            ),
           ),
         ],
       ),

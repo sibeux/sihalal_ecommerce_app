@@ -4,7 +4,8 @@ import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:sihalal_ecommerce_app/component/color_palette.dart';
 import 'package:sihalal_ecommerce_app/controller/address_controller/new_address_controller.dart';
-import 'package:sihalal_ecommerce_app/screens/account_screen/receipt_district_screen.dart';
+
+import '../../screens/account_screen/address_screen/receipt_district_screen.dart';
 
 class ReceiptName extends StatelessWidget {
   const ReceiptName({super.key});

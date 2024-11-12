@@ -21,7 +21,7 @@ class TextTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final box = GetStorage();
-    final login = box.read('login');
+    final login = box.read('login') == true;
 
     return GestureDetector(
       onTap: () {

@@ -49,7 +49,7 @@ class ProductDetailScreen extends StatelessWidget {
     final userProfileController = Get.find<UserProfileController>();
 
     final box = GetStorage();
-    final login = box.read('login');
+    final login = box.read('login') == true;
 
     productDetailController.getProductDetailData(product.uidProduct);
 
@@ -385,22 +385,6 @@ class ProductDetailScreen extends StatelessWidget {
                       child: BuyButton(
                         onPressed: () {
                           if (login) {
-                            ever(shopInfoProductController.isLoading,
-                                (callback) {
-                              if (!callback) {
-                                Get.to(
-                                  () => CheckoutScreen(
-                                    product: product,
-                                    shopName: shopInfoProductController
-                                        .shopInfo[0]!.namaToko,
-                                  ),
-                                  transition: Transition.rightToLeft,
-                                  fullscreenDialog: true,
-                                  popGesture: false,
-                                );
-                              }
-                            });
-
                             // ** Ini dipakai ketika shopinfo sudah selesai di-load
                             if (!shopInfoProductController.isLoading.value) {
                               Get.to(
@@ -415,6 +399,22 @@ class ProductDetailScreen extends StatelessWidget {
                               );
                             } else {
                               shopInfoProductController.needAwait.value = true;
+
+                              ever(shopInfoProductController.needAwait,
+                                  (callback) {
+                                if (!callback) {
+                                  Get.to(
+                                    () => CheckoutScreen(
+                                      product: product,
+                                      shopName: shopInfoProductController
+                                          .shopInfo[0]!.namaToko,
+                                    ),
+                                    transition: Transition.rightToLeft,
+                                    fullscreenDialog: true,
+                                    popGesture: false,
+                                  );
+                                }
+                              });
                             }
                           } else {
                             Get.to(
