@@ -11,6 +11,7 @@ import 'package:sihalal_ecommerce_app/models/shop.dart';
 class ShopInfoProductController extends GetxController {
   var isLoading = false.obs;
   var shopInfo = RxList<Shop?>([]);
+  var needAwait = false.obs;
 
   Future<void> getShopInfo(String idProduk) async {
     isLoading.value = true;
@@ -69,6 +70,7 @@ class ShopInfoProductController extends GetxController {
     } finally {
       // ini tetap dieksekusi baik berhasil atau gagal
       isLoading.value = false;
+      needAwait.value = false;
     }
   }
 }

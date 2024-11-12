@@ -385,16 +385,37 @@ class ProductDetailScreen extends StatelessWidget {
                       child: BuyButton(
                         onPressed: () {
                           if (login) {
-                            Get.to(
-                              () => CheckoutScreen(
-                                product: product,
-                                shopName: shopInfoProductController
-                                    .shopInfo[0]!.namaToko,
-                              ),
-                              transition: Transition.rightToLeft,
-                              fullscreenDialog: true,
-                              popGesture: false,
-                            );
+                            ever(shopInfoProductController.isLoading,
+                                (callback) {
+                              if (!callback) {
+                                Get.to(
+                                  () => CheckoutScreen(
+                                    product: product,
+                                    shopName: shopInfoProductController
+                                        .shopInfo[0]!.namaToko,
+                                  ),
+                                  transition: Transition.rightToLeft,
+                                  fullscreenDialog: true,
+                                  popGesture: false,
+                                );
+                              }
+                            });
+
+                            // ** Ini dipakai ketika shopinfo sudah selesai di-load
+                            if (!shopInfoProductController.isLoading.value) {
+                              Get.to(
+                                () => CheckoutScreen(
+                                  product: product,
+                                  shopName: shopInfoProductController
+                                      .shopInfo[0]!.namaToko,
+                                ),
+                                transition: Transition.rightToLeft,
+                                fullscreenDialog: true,
+                                popGesture: false,
+                              );
+                            } else {
+                              shopInfoProductController.needAwait.value = true;
+                            }
                           } else {
                             Get.to(
                               () => const LoginScreen(),

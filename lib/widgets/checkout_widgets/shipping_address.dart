@@ -109,7 +109,15 @@ class ShippingAddress extends StatelessWidget {
                           ),
                         )
                       : userAddressController.addressList.isEmpty
-                          ? const SizedBox()
+                          ? const Text(
+                              'Harap tambahkan alamat pengiriman terlebih dahulu',
+                              style: TextStyle(
+                                fontSize: 12,
+                                overflow: TextOverflow.ellipsis,
+                                fontStyle: FontStyle.italic,
+                                fontWeight: FontWeight.w200,
+                              ),
+                            )
                           : CityStreetSelected(
                               userAddressController: userAddressController,
                             ),
