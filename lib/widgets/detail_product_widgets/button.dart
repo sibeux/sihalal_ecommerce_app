@@ -16,36 +16,37 @@ class BuyButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final shopInfoProductController = Get.find<ShopInfoProductController>();
     return ElevatedButton(
-        onPressed: () {
-          onPressed();
-        },
-        style: ElevatedButton.styleFrom(
-          foregroundColor: Colors.white,
-          backgroundColor: ColorPalette().primary,
-          elevation: 0, // Menghilangkan shadow
-          splashFactory: InkRipple.splashFactory,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-          minimumSize: const Size(
-            double.infinity,
-            40,
-          ),
+      onPressed: () {
+        onPressed();
+      },
+      style: ElevatedButton.styleFrom(
+        foregroundColor: Colors.white,
+        backgroundColor: ColorPalette().primary,
+        elevation: 0, // Menghilangkan shadow
+        splashFactory: InkRipple.splashFactory,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
         ),
-        child: Obx(
-          () => shopInfoProductController.needAwait.value
-              ? LoadingAnimationWidget.waveDots(
-                  color: Colors.white,
-                  size: 40,
-                )
-              : const Text(
-                  'Beli Sekarang',
-                  style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
-                  ),
+        minimumSize: const Size(
+          double.infinity,
+          40,
+        ),
+      ),
+      child: Obx(
+        () => shopInfoProductController.needAwait.value
+            ? LoadingAnimationWidget.waveDots(
+                color: Colors.white,
+                size: 40,
+              )
+            : const Text(
+                'Beli Sekarang',
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
                 ),
-        ));
+              ),
+      ),
+    );
   }
 }
 

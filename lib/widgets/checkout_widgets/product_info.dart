@@ -80,33 +80,34 @@ class ProductInfo extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Expanded(
-                        child: Text(
-                          product.nama,
-                          maxLines: 2,
-                          style: TextStyle(
-                            color: Colors.black.withOpacity(0.8),
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                      ),
-                      const HeightBox(15),
                       Text(
-                        priceFormatter(product.harga),
-                        maxLines: 1,
+                        product.nama,
+                        maxLines: 2,
                         style: TextStyle(
                           color: Colors.black.withOpacity(0.8),
                           fontSize: 14,
-                          fontWeight: FontWeight.w800,
+                          fontWeight: FontWeight.w400,
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
-                      const HeightBox(15),
-                      const Expanded(
-                        child: ButtonQuantity(),
-                      )
+                      // const Spacer(),
+                      Expanded(
+                        child: Container(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            priceFormatter(product.harga),
+                            maxLines: 1,
+                            style: TextStyle(
+                              color: Colors.black.withOpacity(0.8),
+                              fontSize: 14,
+                              fontWeight: FontWeight.w800,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                        ),
+                      ),
+                      // const Spacer(),
+                      const ButtonQuantity()
                     ],
                   ),
                 )
