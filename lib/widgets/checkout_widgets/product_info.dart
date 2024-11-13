@@ -90,7 +90,6 @@ class ProductInfo extends StatelessWidget {
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
-                      // const Spacer(),
                       Expanded(
                         child: Container(
                           alignment: Alignment.centerLeft,
@@ -106,7 +105,6 @@ class ProductInfo extends StatelessWidget {
                           ),
                         ),
                       ),
-                      // const Spacer(),
                       const ButtonQuantity()
                     ],
                   ),
