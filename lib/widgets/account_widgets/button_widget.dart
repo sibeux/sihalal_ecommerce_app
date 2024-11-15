@@ -26,6 +26,7 @@ class EditProfileButton extends StatelessWidget {
             () => EditProfilScreen(
               name: userProfileController.userData[0].nameUser,
               email: userProfileController.userData[0].emailuser,
+              photoUri: userProfileController.userData[0].fotoUser,
             ),
             transition: Transition.downToUp,
             popGesture: false,

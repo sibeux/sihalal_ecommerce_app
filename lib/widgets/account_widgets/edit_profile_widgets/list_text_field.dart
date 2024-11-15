@@ -45,6 +45,8 @@ class ListTextField extends StatelessWidget {
                 flex: 8,
                 child: TextFormField(
                   enabled: title.toLowerCase() == 'email' ? false : true,
+                  autofillHints:
+                      title.toLowerCase() == 'nama' ? ['name'] : null,
                   controller: controller,
                   onChanged: (value) {
                     stringObs.value = value;
