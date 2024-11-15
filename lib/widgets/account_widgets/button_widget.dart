@@ -4,7 +4,9 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:sihalal_ecommerce_app/component/color_palette.dart';
 import 'package:sihalal_ecommerce_app/controller/address_controller/map_geolocation_controller.dart';
 import 'package:sihalal_ecommerce_app/controller/address_controller/send_user_address_controller.dart';
+import 'package:sihalal_ecommerce_app/controller/user_profile_controller.dart';
 import 'package:sihalal_ecommerce_app/screens/account_screen/address_screen/pin_point_map_screen.dart';
+import 'package:sihalal_ecommerce_app/screens/account_screen/edit_profile_screen.dart';
 import 'package:sihalal_ecommerce_app/screens/user_auth_screen/login_screen.dart';
 import 'package:sihalal_ecommerce_app/screens/user_auth_screen/register_email_screen.dart';
 
@@ -15,10 +17,21 @@ class EditProfileButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final userProfileController = Get.find<UserProfileController>();
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 90),
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: () {
+          Get.to(
+            () => EditProfilScreen(
+              name: userProfileController.userData[0].nameUser,
+              email: userProfileController.userData[0].emailuser,
+            ),
+            transition: Transition.downToUp,
+            popGesture: false,
+            fullscreenDialog: true,
+          );
+        },
         style: ElevatedButton.styleFrom(
           foregroundColor: Colors.white,
           backgroundColor: ColorPalette().primary,
