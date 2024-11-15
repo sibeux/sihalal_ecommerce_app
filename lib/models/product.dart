@@ -2,6 +2,7 @@ class Product {
   final String uidProduct, uidShhalal, uidUser, nama, deskripsi, kota;
   final String foto1, foto2, foto3;
   final String harga, rating, stok, berat, jumlahUlasan, jumlahRating;
+  final String kategori, merek, nomorHalal;
 
   Product({
     required this.uidProduct,
@@ -19,5 +20,8 @@ class Product {
     required this.jumlahUlasan,
     required this.jumlahRating,
     required this.kota,
+    required this.kategori,
+    required this.merek,
+    required this.nomorHalal,
   });
 }
