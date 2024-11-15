@@ -12,11 +12,11 @@ import 'package:sihalal_ecommerce_app/controller/user_profile_controller.dart';
 import 'package:sihalal_ecommerce_app/models/product.dart';
 import 'package:sihalal_ecommerce_app/screens/checkout_screen/checkout_screen.dart';
 import 'package:sihalal_ecommerce_app/screens/user_auth_screen/login_screen.dart';
-import 'package:sihalal_ecommerce_app/widgets/detail_product_widgets/button.dart';
-import 'package:sihalal_ecommerce_app/widgets/detail_product_widgets/merk_stok_weight_product.dart';
-import 'package:sihalal_ecommerce_app/widgets/detail_product_widgets/product_review.dart';
-import 'package:sihalal_ecommerce_app/widgets/detail_product_widgets/shop_info.dart';
-import 'package:sihalal_ecommerce_app/widgets/detail_product_widgets/shop_info_shimmer.dart';
+import 'package:sihalal_ecommerce_app/widgets/product_detail_widgets/button.dart';
+import 'package:sihalal_ecommerce_app/widgets/product_detail_widgets/merk_stok_weight_product.dart';
+import 'package:sihalal_ecommerce_app/widgets/product_detail_widgets/product_review.dart';
+import 'package:sihalal_ecommerce_app/widgets/product_detail_widgets/shop_info.dart';
+import 'package:sihalal_ecommerce_app/widgets/product_detail_widgets/shop_info_shimmer.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 final _pageController = PageController(initialPage: 0, viewportFraction: 1);
