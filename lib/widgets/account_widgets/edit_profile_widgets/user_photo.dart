@@ -27,8 +27,9 @@ class UserPhoto extends StatelessWidget {
                 width: 90,
                 child: CupertinoActivityIndicator(),
               )
-            : editProfileController.photoUri.value.contains('http') &&
-                    editProfileController.photoUri.value.contains('://')
+            : (editProfileController.photoUri.value.contains('http') &&
+                        editProfileController.photoUri.value.contains('://')) ||
+                    editProfileController.photoUri.value.isEmpty
                 ? ClipRRect(
                     borderRadius: BorderRadius.circular(50),
                     child: CachedNetworkImage(
