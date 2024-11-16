@@ -124,20 +124,24 @@ class LoginScreen extends StatelessWidget {
             ],
           ),
         ),
-        Obx(() => userLoginController.isRedirecting.value
-            ? const Opacity(
-                opacity: 0.8,
-                child: ModalBarrier(dismissible: false, color: Colors.black),
-              )
-            : const SizedBox()),
-        Obx(() => userLoginController.isRedirecting.value
-            ? Center(
-                child: LoadingAnimationWidget.fourRotatingDots(
-                  color: Colors.white,
-                  size: 50,
-                ),
-              )
-            : const SizedBox()),
+        Obx(
+          () => userLoginController.isRedirecting.value
+              ? const Opacity(
+                  opacity: 0.8,
+                  child: ModalBarrier(dismissible: false, color: Colors.black),
+                )
+              : const SizedBox(),
+        ),
+        Obx(
+          () => userLoginController.isRedirecting.value
+              ? Center(
+                  child: LoadingAnimationWidget.fourRotatingDots(
+                    color: Colors.white,
+                    size: 50,
+                  ),
+                )
+              : const SizedBox(),
+        ),
       ],
     );
   }

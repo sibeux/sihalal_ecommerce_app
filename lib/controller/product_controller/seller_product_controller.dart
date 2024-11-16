@@ -244,6 +244,7 @@ class SellerProductController extends GetxController {
   }
 
   Future<void> deleteImageFromCpanel({
+    // sepertinya idProduct tidak berguna
     required String idProduct,
     required String method,
     List<String> deletedImages = const [],

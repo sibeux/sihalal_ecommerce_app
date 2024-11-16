@@ -32,24 +32,27 @@ class UserImage extends StatelessWidget {
             width: 1,
           ),
         ),
-        child: CachedNetworkImage(
-          imageUrl: (userProfileController.isLoading.value ||
-                  userProfileController.userData.isEmpty)
-              ? ''
-              : userProfileController.userData[0].fotoUser,
-          fit: BoxFit.cover,
-          height: 35,
-          width: 35,
-          maxHeightDiskCache: 200,
-          maxWidthDiskCache: 200,
-          filterQuality: FilterQuality.low,
-          placeholder: (context, url) => Image.asset(
-            'assets/images/shimmer/profile/profile_shimmer.png',
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(50),
+          child: CachedNetworkImage(
+            imageUrl: (userProfileController.isLoading.value ||
+                    userProfileController.userData.isEmpty)
+                ? ''
+                : userProfileController.userData[0].fotoUser,
             fit: BoxFit.cover,
-          ),
-          errorWidget: (context, url, error) => Image.asset(
-            'assets/images/shimmer/profile/profile_shimmer.png',
-            fit: BoxFit.cover,
+            height: 35,
+            width: 35,
+            maxHeightDiskCache: 200,
+            maxWidthDiskCache: 200,
+            filterQuality: FilterQuality.low,
+            placeholder: (context, url) => Image.asset(
+              'assets/images/shimmer/profile/profile_shimmer.png',
+              fit: BoxFit.cover,
+            ),
+            errorWidget: (context, url, error) => Image.asset(
+              'assets/images/shimmer/profile/profile_shimmer.png',
+              fit: BoxFit.cover,
+            ),
           ),
         ),
       ),

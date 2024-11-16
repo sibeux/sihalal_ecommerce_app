@@ -29,21 +29,24 @@ class UserPhoto extends StatelessWidget {
               )
             : editProfileController.photoUri.value.contains('http') &&
                     editProfileController.photoUri.value.contains('://')
-                ? CachedNetworkImage(
-                    imageUrl: editProfileController.photoUri.value,
-                    fit: BoxFit.cover,
-                    height: 90,
-                    width: 90,
-                    maxHeightDiskCache: 300,
-                    maxWidthDiskCache: 300,
-                    filterQuality: FilterQuality.medium,
-                    placeholder: (context, url) => Image.asset(
-                      'assets/images/shimmer/profile/profile_shimmer.png',
+                ? ClipRRect(
+                    borderRadius: BorderRadius.circular(50),
+                    child: CachedNetworkImage(
+                      imageUrl: editProfileController.photoUri.value,
                       fit: BoxFit.cover,
-                    ),
-                    errorWidget: (context, url, error) => Image.asset(
-                      'assets/images/shimmer/profile/profile_shimmer.png',
-                      fit: BoxFit.cover,
+                      height: 90,
+                      width: 90,
+                      maxHeightDiskCache: 300,
+                      maxWidthDiskCache: 300,
+                      filterQuality: FilterQuality.medium,
+                      placeholder: (context, url) => Image.asset(
+                        'assets/images/shimmer/profile/profile_shimmer.png',
+                        fit: BoxFit.cover,
+                      ),
+                      errorWidget: (context, url, error) => Image.asset(
+                        'assets/images/shimmer/profile/profile_shimmer.png',
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   )
                 : ClipRRect(
