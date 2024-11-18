@@ -12,6 +12,12 @@ class ProductDetailController extends GetxController {
   final shopInfoProductController = Get.find<ShopInfoProductController>();
   final productReviewController = Get.put(ProductReviewController());
 
+  @override
+  void onClose() {
+    shopInfoProductController.needMoveScreen.value = false;
+    super.onClose();
+  }
+
   void changeImageIndex(int index) {
     imageIndex.value = index;
   }

@@ -12,6 +12,7 @@ class ShopInfoProductController extends GetxController {
   var isLoading = false.obs;
   var shopInfo = RxList<Shop?>([]);
   var needAwait = false.obs;
+  var needMoveScreen = false.obs;
 
   Future<void> getShopInfo(String idProduk) async {
     isLoading.value = true;

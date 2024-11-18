@@ -414,12 +414,12 @@ class ProductDetailScreen extends StatelessWidget {
                               );
                             } else {
                               shopInfoProductController.needAwait.value = true;
+                              shopInfoProductController.needMoveScreen.value = true;
 
                               ever(shopInfoProductController.needAwait,
                                   (callback) {
-                                if (!callback &
-                                    Get.isRegistered<
-                                        ProductDetailController>()) {
+                                if (!callback &&
+                                    shopInfoProductController.needMoveScreen.value) {
                                   Get.to(
                                     () => CheckoutScreen(
                                       product: product,
