@@ -417,7 +417,9 @@ class ProductDetailScreen extends StatelessWidget {
 
                               ever(shopInfoProductController.needAwait,
                                   (callback) {
-                                if (!callback) {
+                                if (!callback &
+                                    Get.isRegistered<
+                                        ProductDetailController>()) {
                                   Get.to(
                                     () => CheckoutScreen(
                                       product: product,

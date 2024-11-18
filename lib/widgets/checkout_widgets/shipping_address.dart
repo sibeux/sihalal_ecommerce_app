@@ -44,48 +44,51 @@ class ShippingAddress extends StatelessWidget {
                       size: 18,
                     ),
                     const WidthBox(5),
-                    Obx(
-                      () => userAddressController.isLoadingGetAddress.value
-                          ? Shimmer.fromColors(
-                              baseColor: Colors.grey[300]!,
-                              highlightColor: Colors.grey[100]!,
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.grey[300],
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                                child: const Text(
-                                  'M Nasrul Wahabi | (+62) 81234567890',
-                                  style: TextStyle(
-                                    fontSize: 12,
+                    Expanded(
+                      child: Obx(
+                        () => userAddressController.isLoadingGetAddress.value
+                            ? Shimmer.fromColors(
+                                baseColor: Colors.grey[300]!,
+                                highlightColor: Colors.grey[100]!,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey[300],
+                                    borderRadius: BorderRadius.circular(5),
                                   ),
-                                ),
-                              ),
-                            )
-                          : userAddressController.addressList.isEmpty
-                              ? InkWell(
-                                  onTap: () {
-                                    Get.to(
-                                      () => const CrudAddressScreen(
-                                        title: 'Tambah Alamat',
-                                      ),
-                                      transition: Transition.rightToLeft,
-                                      popGesture: false,
-                                      fullscreenDialog: true,
-                                    );
-                                  },
-                                  child: Text(
-                                    'Tambah Alamat',
+                                  child: const Text(
+                                    'M Nasrul Wahabi | (+62) 81234567890',
                                     style: TextStyle(
                                       fontSize: 12,
-                                      color: ColorPalette().primary,
-                                      fontWeight: FontWeight.w600,
                                     ),
                                   ),
-                                )
-                              : NamePhoneSelected(
-                                  userAddressController: userAddressController,
                                 ),
+                              )
+                            : userAddressController.addressList.isEmpty
+                                ? InkWell(
+                                    onTap: () {
+                                      Get.to(
+                                        () => const CrudAddressScreen(
+                                          title: 'Tambah Alamat',
+                                        ),
+                                        transition: Transition.rightToLeft,
+                                        popGesture: false,
+                                        fullscreenDialog: true,
+                                      );
+                                    },
+                                    child: Text(
+                                      'Tambah Alamat',
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                        color: ColorPalette().primary,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                  )
+                                : NamePhoneSelected(
+                                    userAddressController:
+                                        userAddressController,
+                                  ),
+                      ),
                     ),
                   ],
                 ),
@@ -145,7 +148,6 @@ class ShippingAddress extends StatelessWidget {
                   transition: Transition.rightToLeft,
                   popGesture: false,
                   fullscreenDialog: true,
-                  
                 );
               }
             },
@@ -180,10 +182,12 @@ class NamePhoneSelected extends StatelessWidget {
     final phone = adress.first!.phone;
     return Text(
       '$name | (+62) $phone',
+      maxLines: 1,
       style: TextStyle(
         fontSize: 12,
         fontWeight: FontWeight.w800,
         color: Colors.black.withOpacity(0.7),
+        overflow: TextOverflow.ellipsis,
       ),
     );
   }
