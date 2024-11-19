@@ -28,7 +28,7 @@ class ReviewBuyButton extends StatelessWidget {
             child: const Padding(
               padding: EdgeInsets.symmetric(
                 horizontal: 10.0,
-                vertical: 12.0,
+                vertical: 10.0,
               ),
               child: Text(
                 'Lihat Ulasan',
@@ -56,7 +56,7 @@ class ReviewBuyButton extends StatelessWidget {
             child: const Padding(
               padding: EdgeInsets.symmetric(
                 horizontal: 10.0,
-                vertical: 12.0,
+                vertical: 10.0,
               ),
               child: Text(
                 'Beli Lagi',

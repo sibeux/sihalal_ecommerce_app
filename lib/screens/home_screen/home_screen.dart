@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -95,18 +96,21 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
         actions: [
-          GestureDetector(
-            onTap: () {
-              Get.to(
-                () => const OrderPlacedScreen(),
-                transition: Transition.rightToLeft,
-              );
-            },
-            child: Container(
-              margin: const EdgeInsets.only(right: 20),
-              child: const ClipRRect(
-                borderRadius: BorderRadius.all(Radius.circular(100)),
-                child: UserPhotoAppbar(),
+          AbsorbPointer(
+            absorbing: true,
+            child: GestureDetector(
+              onTap: () {
+                Get.to(
+                  () => const OrderPlacedScreen(),
+                  transition: Transition.rightToLeft,
+                );
+              },
+              child: Container(
+                margin: const EdgeInsets.only(right: 20),
+                child: const ClipRRect(
+                  borderRadius: BorderRadius.all(Radius.circular(100)),
+                  child: UserPhotoAppbar(),
+                ),
               ),
             ),
           ),

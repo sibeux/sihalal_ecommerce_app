@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 import 'package:sihalal_ecommerce_app/component/color_palette.dart';
 import 'package:sihalal_ecommerce_app/controller/auth_controller.dart';
@@ -11,6 +12,7 @@ import 'package:sihalal_ecommerce_app/screens/home_screen/home_screen.dart';
 import 'package:sihalal_ecommerce_app/screens/order_screen/order_screen.dart';
 import 'package:sihalal_ecommerce_app/screens/user_auth_screen/check_valid_login.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:sihalal_ecommerce_app/screens/user_auth_screen/login_screen.dart';
 
 class PersistenBarScreen extends StatefulWidget {
   const PersistenBarScreen({super.key});
@@ -22,6 +24,7 @@ class PersistenBarScreen extends StatefulWidget {
 class _PersistenBarScreenState extends State<PersistenBarScreen> {
   late PersistentTabController _controller;
   DateTime? lastPressed;
+  int lastSelectedIndex = 0;
 
   @override
   void initState() {
@@ -92,6 +95,22 @@ class _PersistenBarScreenState extends State<PersistenBarScreen> {
         controller: _controller,
         screens: _buildScreens(),
         items: _navBarsItems(),
+        onItemSelected: (index) async {
+          final box = GetStorage();
+          final isLogin = box.read('login') == true;
+          if (index == 3 && !isLogin) {
+            _controller.jumpToTab(lastSelectedIndex);
+
+            await Get.to(
+              () => const LoginScreen(),
+              transition: Transition.rightToLeft,
+              fullscreenDialog: true,
+              popGesture: false,
+            );
+          } else {
+            lastSelectedIndex = index;
+          }
+        },
         backgroundColor: Colors.white,
         handleAndroidBackButtonPress: false, // Mengatur tombol back di Android
         resizeToAvoidBottomInset: true,

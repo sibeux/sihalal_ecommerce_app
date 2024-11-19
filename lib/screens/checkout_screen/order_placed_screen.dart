@@ -80,7 +80,7 @@ class OrderPlacedScreen extends StatelessWidget {
                       vertical: 10.0,
                     ),
                     child: Text(
-                      'Beli Lagi',
+                      'Lihat Detail Pesanan',
                       style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.bold,
