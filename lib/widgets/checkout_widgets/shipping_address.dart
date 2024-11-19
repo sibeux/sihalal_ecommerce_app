@@ -176,10 +176,10 @@ class NamePhoneSelected extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final adress = userAddressController.addressList
+    final address = userAddressController.addressList
         .where((element) => element!.isPrimary);
-    final name = adress.first!.name;
-    final phone = adress.first!.phone;
+    final name = address.first!.name;
+    final phone = address.first!.phone;
     return Text(
       '$name | (+62) $phone',
       maxLines: 1,

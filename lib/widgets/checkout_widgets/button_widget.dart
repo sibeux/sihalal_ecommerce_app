@@ -3,21 +3,30 @@ import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:sihalal_ecommerce_app/component/color_palette.dart';
 import 'package:sihalal_ecommerce_app/controller/address_controller/user_address_controller.dart';
+import 'package:sihalal_ecommerce_app/controller/checkout_controller.dart';
 
 class ButtonCreateOrder extends StatelessWidget {
   const ButtonCreateOrder({
     super.key,
+    required this.idProduct,
   });
+
+  final String idProduct;
 
   @override
   Widget build(BuildContext context) {
     final userAddressController = Get.find<UserAddressController>();
+    final checkoutController = Get.find<CheckoutController>();
     return Obx(
       () => AbsorbPointer(
         absorbing: userAddressController.addressList.isEmpty ||
             userAddressController.isLoadingGetAddress.value,
         child: ElevatedButton(
-          onPressed: () {},
+          onPressed: () async {
+            await checkoutController.createOrder(
+              idProduct: idProduct,
+            );
+          },
           style: ElevatedButton.styleFrom(
             foregroundColor: userAddressController.addressList.isEmpty ||
                     userAddressController.isLoadingGetAddress.value

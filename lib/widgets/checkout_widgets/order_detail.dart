@@ -64,17 +64,21 @@ class OrderDetail extends StatelessWidget {
                 ),
               ),
               Obx(
-                () => Text(
-                  priceFormatter((int.parse(product.harga) *
-                          checkoutController.quantity.value)
-                      .toString()),
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                    color: Colors.black.withOpacity(0.7),
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
+                () {
+                  checkoutController.subTotalPrice = int.parse(product.harga) *
+                      checkoutController.quantity.value;
+                  return Text(
+                    priceFormatter((int.parse(product.harga) *
+                            checkoutController.quantity.value)
+                        .toString()),
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.black.withOpacity(0.7),
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  );
+                },
               ),
             ],
           ),
@@ -91,14 +95,19 @@ class OrderDetail extends StatelessWidget {
                 ),
               ),
               Obx(
-                () => Text(
-                  priceFormatter(shippingCost(checkoutController)),
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                    color: Colors.black.withOpacity(0.7),
-                  ),
-                ),
+                () {
+                  checkoutController.subTotalShipping = int.parse(
+                    shippingCost(checkoutController),
+                  );
+                  return Text(
+                    priceFormatter(shippingCost(checkoutController)),
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.black.withOpacity(0.7),
+                    ),
+                  );
+                },
               ),
             ],
           ),
@@ -120,18 +129,25 @@ class OrderDetail extends StatelessWidget {
                 ),
               ),
               Obx(
-                () => Text(
-                  priceFormatter(((int.parse(product.harga) *
-                              checkoutController.quantity.value +
-                          int.parse(shippingCost(checkoutController)))
-                      .toString())),
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w700,
-                    color: ColorPalette().primary,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
+                () {
+                  checkoutController.totalPrice = ((int.parse(product.harga) *
+                          checkoutController.quantity.value +
+                      int.parse(
+                        shippingCost(checkoutController),
+                      )));
+                  return Text(
+                    priceFormatter(((int.parse(product.harga) *
+                                checkoutController.quantity.value +
+                            int.parse(shippingCost(checkoutController)))
+                        .toString())),
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w700,
+                      color: ColorPalette().primary,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  );
+                },
               ),
             ],
           ),

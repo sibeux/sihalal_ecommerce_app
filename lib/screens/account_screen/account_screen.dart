@@ -148,7 +148,7 @@ class AccountScreen extends StatelessWidget {
                     ),
                     const SpaceDivider(),
                     TextTile(
-                      title: 'Daftar Pesanan',
+                      title: 'Riwayat Pesanan',
                       icon: Ionicons.document_text_outline,
                       action: () {},
                     ),
