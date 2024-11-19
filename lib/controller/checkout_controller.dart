@@ -9,6 +9,7 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:sihalal_ecommerce_app/controller/address_controller/user_address_controller.dart';
 import 'package:sihalal_ecommerce_app/controller/user_profile_controller.dart';
+import 'package:sihalal_ecommerce_app/screens/checkout_screen/order_placed_screen.dart';
 
 enum Expedition { jne, tiki, pos, jnt }
 
@@ -107,6 +108,13 @@ class CheckoutController extends GetxController {
       final responseBody = jsonDecode(response.body);
 
       if (responseBody['status'] == 'success') {
+        Get.off(
+          () => const OrderPlacedScreen(),
+          transition: Transition.rightToLeft,
+          fullscreenDialog: true,
+          popGesture: false,
+        );
+
         debugPrint('Success create order: $responseBody');
       } else {
         debugPrint('Failed create order: $responseBody');

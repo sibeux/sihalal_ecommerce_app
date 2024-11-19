@@ -125,7 +125,7 @@ class ButtonQuantity extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final checkoutController = Get.put(CheckoutController());
+    final checkoutController = Get.find<CheckoutController>();
     return Row(
       children: [
         GestureDetector(
