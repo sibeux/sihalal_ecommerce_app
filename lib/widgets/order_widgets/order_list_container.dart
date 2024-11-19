@@ -156,11 +156,11 @@ class OrderListContainer extends StatelessWidget {
                 const HeightBox(10),
                 const ReviewBuyButton(),
                 const HeightBox(15),
-                CustomPaint(
-                  painter: StripLine(),
-                  child: Container(
-                    height: 1,
-                    width: MediaQuery.of(context).size.width,
+                SizedBox(
+                  height: 1,
+                  width: MediaQuery.of(context).size.width,
+                  child: CustomPaint(
+                    painter: StripLine(),
                   ),
                 )
               ],
