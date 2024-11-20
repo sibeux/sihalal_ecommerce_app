@@ -10,18 +10,14 @@ class OrderController extends GetxController {
   var selectedOrderStatusFilter = 'Semua'.obs;
   var isLoadingGetOrder = false.obs;
   var orderList = RxList<Order>([]);
-
-  @override
-  void onInit() async {
-    super.onInit();
-    await getOrderHistory();
-  }
+  var orderHistoryCount = 0.obs;
 
   void changeOrderStatusFilter(String status) {
     selectedOrderStatusFilter.value = status;
   }
 
-  Future<void> changeOrderStatus({required String idPesanan, required String orderStatus}) async {
+  Future<void> changeOrderStatus(
+      {required String idPesanan, required String orderStatus}) async {
     isLoadingGetOrder.value = true;
 
     const String url = "https://sibeux.my.id/project/sihalal/order";
@@ -47,11 +43,13 @@ class OrderController extends GetxController {
       final responseBody = jsonDecode(response.body);
 
       if (responseBody['status'] == 'success') {
+        final userProfileController = Get.find<UserProfileController>();
         await getOrderHistory();
+        await getOrderHistoryCount(userProfileController.idUser);
 
-        debugPrint('Success create order: $responseBody');
+        debugPrint('Success change status order: $responseBody');
       } else {
-        debugPrint('Failed create order: $responseBody');
+        debugPrint('Failed change status order: $responseBody');
       }
     } catch (e) {
       debugPrint('Error: $e');
@@ -63,6 +61,7 @@ class OrderController extends GetxController {
   Future<void> getOrderHistory() async {
     final userProfileController = Get.find<UserProfileController>();
 
+    selectedOrderStatusFilter.value = 'Semua';
     isLoadingGetOrder.value = true;
     final String idUser = userProfileController.idUser;
 
@@ -108,6 +107,28 @@ class OrderController extends GetxController {
         orderList.value = list;
       } else {
         orderList.value = [];
+      }
+    } catch (e) {
+      debugPrint('Error: $e');
+    } finally {
+      isLoadingGetOrder.value = false;
+    }
+  }
+
+  Future<void> getOrderHistoryCount(String idUser) async {
+    isLoadingGetOrder.value = true;
+    final String url =
+        "https://sibeux.my.id/project/sihalal/order?method=get_order_history_count&id_user=$idUser";
+
+    try {
+      final response = await http.get(Uri.parse(url));
+
+      final List<dynamic> listData = json.decode(response.body);
+
+      if (listData.isNotEmpty) {
+        orderHistoryCount.value = int.parse(listData[0]['jumlah_pesanan']);
+      } else {
+        orderHistoryCount.value = 0;
       }
     } catch (e) {
       debugPrint('Error: $e');

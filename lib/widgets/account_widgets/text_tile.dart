@@ -1,9 +1,11 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:sihalal_ecommerce_app/component/color_palette.dart';
+import 'package:sihalal_ecommerce_app/controller/order_controller.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class TextTile extends StatelessWidget {
@@ -22,6 +24,8 @@ class TextTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final box = GetStorage();
     final login = box.read('login') == true;
+
+    final orderController = Get.find<OrderController>();
 
     return GestureDetector(
       onTap: () {
@@ -74,27 +78,38 @@ class TextTile extends StatelessWidget {
             ),
           ),
           const WidthBox(10),
-          if (title.toLowerCase() == 'toko saya' && login)
-            Container(
-              alignment: Alignment.center,
-              height: 25,
-              width: 25,
-              decoration: BoxDecoration(
-                color: ColorPalette().primary,
-                borderRadius: BorderRadius.circular(100),
-              ),
-              child: const AutoSizeText(
-                '21',
-                maxLines: 1,
-                minFontSize: 5,
-                maxFontSize: 12,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ),
+          Obx(
+            () => orderController.isLoadingGetOrder.value
+                ? const SizedBox()
+                : ((title.toLowerCase() == 'toko saya' ||
+                            (title.toLowerCase() == 'riwayat pesanan' &&
+                                orderController.orderHistoryCount.value !=
+                                    0)) &&
+                        login)
+                    ? Container(
+                        alignment: Alignment.center,
+                        height: 25,
+                        width: 25,
+                        decoration: BoxDecoration(
+                          color: ColorPalette().primary,
+                          borderRadius: BorderRadius.circular(100),
+                        ),
+                        child: AutoSizeText(
+                          title.toLowerCase() == 'riwayat pesanan'
+                              ? '${orderController.orderHistoryCount.value}'
+                              : '21',
+                          maxLines: 1,
+                          minFontSize: 5,
+                          maxFontSize: 12,
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      )
+                    : const SizedBox(),
+          ),
           Expanded(
             child: (title.toLowerCase() != 'keluar')
                 ? Container(

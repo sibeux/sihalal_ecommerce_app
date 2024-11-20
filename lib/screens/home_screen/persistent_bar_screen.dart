@@ -110,7 +110,7 @@ class _PersistenBarScreenState extends State<PersistenBarScreen> {
             );
           } else if (index == 3 && isLogin && lastSelectedIndex != 3) {
             lastSelectedIndex = index;
-            await Get.put(OrderController()).getOrderHistory();
+            await Get.find<OrderController>().getOrderHistory();
           } else {
             lastSelectedIndex = index;
           }

@@ -209,14 +209,16 @@ class CrudAddressScreen extends StatelessWidget {
             ),
           ),
         ),
-        Obx(() => mapGeolocationController.isLoadingMap.value ||
-                sendUserAddressController.isLoadingSendAddress.value ||
-                newAddressController.isLoadingSetEditAddress.value
-            ? const Opacity(
-                opacity: 0.5,
-                child: ModalBarrier(dismissible: false, color: Colors.black),
-              )
-            : const SizedBox()),
+        Obx(
+          () => mapGeolocationController.isLoadingMap.value ||
+                  sendUserAddressController.isLoadingSendAddress.value ||
+                  newAddressController.isLoadingSetEditAddress.value
+              ? const Opacity(
+                  opacity: 0.5,
+                  child: ModalBarrier(dismissible: false, color: Colors.black),
+                )
+              : const SizedBox(),
+        ),
         Obx(
           () => mapGeolocationController.isLoadingMap.value ||
                   sendUserAddressController.isLoadingSendAddress.value ||

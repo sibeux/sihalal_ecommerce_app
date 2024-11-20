@@ -5,9 +5,11 @@ import 'package:ionicons/ionicons.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:sihalal_ecommerce_app/component/string_formatter.dart';
 import 'package:sihalal_ecommerce_app/controller/auth_controller.dart';
+import 'package:sihalal_ecommerce_app/controller/order_controller.dart';
 import 'package:sihalal_ecommerce_app/controller/user_profile_controller.dart';
 import 'package:sihalal_ecommerce_app/screens/account_screen/address_screen/list_address_screen.dart';
 import 'package:sihalal_ecommerce_app/screens/account_screen/store_centre_screen/store_centre_screen.dart';
+import 'package:sihalal_ecommerce_app/screens/order_screen/order_screen.dart';
 import 'package:sihalal_ecommerce_app/screens/user_auth_screen/login_screen.dart';
 import 'package:sihalal_ecommerce_app/widgets/account_widgets/button_widget.dart';
 import 'package:sihalal_ecommerce_app/widgets/account_widgets/logout_confirm_modal.dart';
@@ -24,6 +26,7 @@ class AccountScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final userLogoutController = Get.put(UserLogoutController());
     final userProfileController = Get.find<UserProfileController>();
+    final orderController = Get.find<OrderController>();
     return Stack(
       children: [
         Scaffold(
@@ -150,7 +153,16 @@ class AccountScreen extends StatelessWidget {
                     TextTile(
                       title: 'Riwayat Pesanan',
                       icon: Ionicons.document_text_outline,
-                      action: () {},
+                      action: () {
+                        Get.to(
+                          () => const OrderScreen(),
+                          transition: Transition.downToUp,
+                          fullscreenDialog: true,
+                          popGesture: false,
+                          arguments: {'isFromAccountScreen': true},
+                        );
+                        orderController.getOrderHistory();
+                      },
                     ),
                     const SpaceDivider(),
                     TextTile(

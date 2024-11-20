@@ -7,6 +7,7 @@ import 'package:html_unescape/html_unescape.dart';
 
 import 'package:http/http.dart' as http;
 import 'package:sihalal_ecommerce_app/component/regex_drive.dart';
+import 'package:sihalal_ecommerce_app/controller/order_controller.dart';
 import 'package:sihalal_ecommerce_app/models/user.dart';
 
 class UserProfileController extends GetxController {
@@ -25,6 +26,8 @@ class UserProfileController extends GetxController {
     isLoading.value = true;
     final box = GetStorage();
     final email = box.read('email');
+
+    final orderController = Get.put(OrderController());
 
     final String url =
         'https://sibeux.my.id/project/sihalal/user?method=get_user_data&email=$email';
@@ -58,6 +61,8 @@ class UserProfileController extends GetxController {
         }).toList();
 
         idUser = list[0].idUser;
+
+        await orderController.getOrderHistoryCount(idUser);
 
         userData.value = list;
       } else {
