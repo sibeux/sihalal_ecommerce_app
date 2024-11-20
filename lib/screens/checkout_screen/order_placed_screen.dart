@@ -1,6 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:sihalal_ecommerce_app/component/color_palette.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -94,7 +93,9 @@ class OrderPlacedScreen extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 15),
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.back();
+                  },
                   style: ElevatedButton.styleFrom(
                     foregroundColor: ColorPalette().primary,
                     backgroundColor: Colors.transparent,

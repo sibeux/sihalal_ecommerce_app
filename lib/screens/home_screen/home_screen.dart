@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -97,7 +95,8 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         actions: [
           AbsorbPointer(
-            absorbing: true,
+            // absorbing: true,
+            absorbing: false,
             child: GestureDetector(
               onTap: () {
                 Get.to(

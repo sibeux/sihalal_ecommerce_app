@@ -12,7 +12,6 @@ void showModalConfirmLogout(BuildContext context) {
     builder: (BuildContext context) {
       return AlertDialog(
         backgroundColor: HexColor('#fefffe'),
-        
         surfaceTintColor: Colors.transparent,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
@@ -34,6 +33,7 @@ void showModalConfirmLogout(BuildContext context) {
         ),
         content: Text(
           'Jika Anda keluar, akan perlu masuk kembali untuk melanjutkan.',
+          textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: 13,
             color: Colors.black.withOpacity(0.6),

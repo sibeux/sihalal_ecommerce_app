@@ -6,7 +6,6 @@ import 'package:get/get.dart';
 
 import 'package:http/http.dart' as http;
 import 'package:intl/date_symbol_data_local.dart';
-import 'package:intl/intl.dart';
 import 'package:sihalal_ecommerce_app/controller/address_controller/user_address_controller.dart';
 import 'package:sihalal_ecommerce_app/controller/user_profile_controller.dart';
 import 'package:sihalal_ecommerce_app/screens/checkout_screen/order_placed_screen.dart';
@@ -65,7 +64,7 @@ class CheckoutController extends GetxController {
     try {
       await initializeDateFormatting('id_ID', null);
       DateTime now = DateTime.now();
-      String formattedDate = DateFormat('d MMMM yyyy', 'id_ID').format(now);
+      // String formattedDate = DateFormat('d MMMM yyyy', 'id_ID').format(now);
 
       final address = userAddressController.addressList
           .where((element) => element!.isPrimary);
@@ -95,7 +94,7 @@ class CheckoutController extends GetxController {
           'subtotal_harga_barang': subTotalPrice.toString(),
           'subtotal_pengiriman': subTotalShipping.toString(),
           'total_pembayaran': totalPrice.toString(),
-          'tanggal_pesanan': formattedDate,
+          'tanggal_pesanan': now.toString(),
           'status_pesanan': 'tunggu',
         },
       );
