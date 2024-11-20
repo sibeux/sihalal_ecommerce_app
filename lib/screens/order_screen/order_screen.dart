@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:sihalal_ecommerce_app/controller/order_controller.dart';
 import 'package:sihalal_ecommerce_app/widgets/order_widgets/order_list_container.dart';
-import 'package:sihalal_ecommerce_app/widgets/order_widgets/order_status_button.dart';
+import 'package:sihalal_ecommerce_app/widgets/order_widgets/order_status_filter_button.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class OrderScreen extends StatelessWidget {
@@ -27,16 +27,16 @@ class OrderScreen extends StatelessWidget {
             const Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                OrderStatusButton(
+                OrderStatusFilterButton(
                   title: 'Diproses',
                 ),
-                OrderStatusButton(
+                OrderStatusFilterButton(
                   title: 'Dikirim',
                 ),
-                OrderStatusButton(
+                OrderStatusFilterButton(
                   title: 'Selesai',
                 ),
-                OrderStatusButton(
+                OrderStatusFilterButton(
                   title: 'Dibatalkan',
                 ),
               ],

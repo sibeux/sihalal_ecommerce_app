@@ -3,8 +3,8 @@ import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:sihalal_ecommerce_app/controller/order_controller.dart';
 
-class OrderStatusButton extends StatelessWidget {
-  const OrderStatusButton({
+class OrderStatusFilterButton extends StatelessWidget {
+  const OrderStatusFilterButton({
     super.key,
     required this.title,
   });
