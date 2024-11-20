@@ -22,7 +22,7 @@ class UserImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final userProfileController = Get.put(UserProfileController());
+    final userProfileController = Get.find<UserProfileController>();
     return Obx(
       () => Container(
         decoration: BoxDecoration(

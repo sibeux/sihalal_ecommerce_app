@@ -13,7 +13,7 @@ class OrderStatusButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final orderController = Get.put(OrderController());
+    final orderController = Get.find<OrderController>();
     return GestureDetector(
       onTap: () {
         if (orderController.selectedOrderStatus.value != title) {

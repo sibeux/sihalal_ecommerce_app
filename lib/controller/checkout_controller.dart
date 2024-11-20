@@ -1,14 +1,13 @@
 import 'dart:convert';
-import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:http/http.dart' as http;
-import 'package:intl/date_symbol_data_local.dart';
 import 'package:sihalal_ecommerce_app/controller/address_controller/user_address_controller.dart';
 import 'package:sihalal_ecommerce_app/controller/user_profile_controller.dart';
 import 'package:sihalal_ecommerce_app/screens/checkout_screen/order_placed_screen.dart';
+import 'package:uuid/uuid.dart';
 
 enum Expedition { jne, tiki, pos, jnt }
 
@@ -44,13 +43,13 @@ class CheckoutController extends GetxController {
     final now = DateTime.now();
     final formattedDate =
         "${now.year}${now.month.toString().padLeft(2, '0')}${now.day.toString().padLeft(2, '0')}";
+    final formattedHour =
+        "${now.hour.toString().padLeft(2, '0')}${now.minute.toString().padLeft(2, '0')}${now.second.toString().padLeft(2, '0')}";
 
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-    final random = Random();
-    final randomString =
-        List.generate(4, (index) => chars[random.nextInt(chars.length)]).join();
+    const uuid = Uuid();
+    final randomString = uuid.v4().replaceAll('-', '').substring(0, 4);
 
-    return "SHL/$formattedDate/$idUser$idProduct$randomString";
+    return "SHL/$formattedDate/$idUser$idProduct/$formattedHour$randomString";
   }
 
   Future<void> createOrder({required String idProduct}) async {
@@ -62,9 +61,7 @@ class CheckoutController extends GetxController {
     const String uri = "https://sibeux.my.id/project/sihalal/order";
 
     try {
-      await initializeDateFormatting('id_ID', null);
       DateTime now = DateTime.now();
-      // String formattedDate = DateFormat('d MMMM yyyy', 'id_ID').format(now);
 
       final address = userAddressController.addressList
           .where((element) => element!.isPrimary);

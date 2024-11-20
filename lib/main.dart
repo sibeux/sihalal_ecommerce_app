@@ -6,6 +6,7 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:sihalal_ecommerce_app/screens/splash_screen/splash_screen.dart';
@@ -21,7 +22,8 @@ void main() async {
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((fn) {
-    runApp(const ProviderScope(child: MyApp()));
+    initializeDateFormatting('id_ID', null)
+        .then((_) => runApp(const ProviderScope(child: MyApp())));
   });
 }
 

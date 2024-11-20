@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:jwt_decoder/jwt_decoder.dart';
+import 'package:sihalal_ecommerce_app/controller/user_profile_controller.dart';
 
 AndroidOptions _getAndroidOptions() => const AndroidOptions(
       encryptedSharedPreferences: true,
@@ -20,6 +21,8 @@ class JwtController extends GetxController {
     await storage.write(key: 'token', value: token);
     box.write('login', true);
     box.write('email', email);
+
+    Get.put(UserProfileController());
   }
 
   Future<void> checkToken() async {
