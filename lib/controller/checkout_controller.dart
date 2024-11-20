@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 
 import 'package:http/http.dart' as http;
 import 'package:sihalal_ecommerce_app/controller/address_controller/user_address_controller.dart';
+import 'package:sihalal_ecommerce_app/controller/product_controller/product_detail_controller.dart';
 import 'package:sihalal_ecommerce_app/controller/user_profile_controller.dart';
 import 'package:sihalal_ecommerce_app/screens/checkout_screen/order_placed_screen.dart';
 import 'package:uuid/uuid.dart';
@@ -58,6 +59,7 @@ class CheckoutController extends GetxController {
 
     final userProfileController = Get.find<UserProfileController>();
     final userAddressController = Get.find<UserAddressController>();
+    final productDetailController = Get.find<ProductDetailController>();
 
     const String uri = "https://sibeux.my.id/project/sihalal/order";
 
@@ -105,6 +107,7 @@ class CheckoutController extends GetxController {
       final responseBody = jsonDecode(response.body);
 
       if (responseBody['status'] == 'success') {
+        productDetailController.stockProduct.value -= quantity.value;
         Get.off(
           () => const OrderPlacedScreen(),
           transition: Transition.rightToLeft,

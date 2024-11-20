@@ -22,16 +22,21 @@ class NoGlowScrollBehavior extends ScrollBehavior {
 }
 
 class CheckoutScreen extends StatelessWidget {
-  const CheckoutScreen(
-      {super.key, required this.product, required this.shopName});
+  const CheckoutScreen({
+    super.key,
+    required this.product,
+    required this.shopName,
+    required this.stockProduct,
+  });
 
   final Product product;
   final String shopName;
+  final int stockProduct;
 
   @override
   Widget build(BuildContext context) {
     final checkoutController = Get.put(CheckoutController());
-    checkoutController.productStock = int.parse(product.stok);
+    checkoutController.productStock = stockProduct;
     return Stack(
       children: [
         Scaffold(

@@ -95,8 +95,8 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         actions: [
           AbsorbPointer(
-            // absorbing: true,
-            absorbing: false,
+            absorbing: true,
+            // absorbing: false,
             child: GestureDetector(
               onTap: () {
                 Get.to(

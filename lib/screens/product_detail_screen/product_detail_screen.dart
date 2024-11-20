@@ -53,6 +53,7 @@ class ProductDetailScreen extends StatelessWidget {
     final login = box.read('login') == true;
     
     productDetailController.getProductDetailData(product.uidProduct);
+    productDetailController.stockProduct.value = int.parse(product.stok);
 
     return Scaffold(
       backgroundColor: HexColor('#fefeff'),
@@ -407,6 +408,7 @@ class ProductDetailScreen extends StatelessWidget {
                                   product: product,
                                   shopName: shopInfoProductController
                                       .shopInfo[0]!.namaToko,
+                                  stockProduct: productDetailController.stockProduct.value,
                                 ),
                                 transition: Transition.rightToLeft,
                                 fullscreenDialog: true,
@@ -425,6 +427,7 @@ class ProductDetailScreen extends StatelessWidget {
                                       product: product,
                                       shopName: shopInfoProductController
                                           .shopInfo[0]!.namaToko,
+                                      stockProduct: productDetailController.stockProduct.value,
                                     ),
                                     transition: Transition.rightToLeft,
                                     fullscreenDialog: true,

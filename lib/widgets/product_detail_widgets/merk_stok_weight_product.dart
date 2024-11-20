@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sihalal_ecommerce_app/component/color_palette.dart';
+import 'package:sihalal_ecommerce_app/controller/product_controller/product_detail_controller.dart';
 import 'package:sihalal_ecommerce_app/models/product.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -14,12 +15,22 @@ class MerkStokWeightProduct extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final productDetailController = Get.find<ProductDetailController>();
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(
         children: [
           ListTextFomat(title: 'Berat Satuan', value: "${product.berat} g"),
-          ListTextFomat(title: 'Stok', value: product.stok),
+          // Masih ada bug di bagian stok.
+          // Bug di mana stok tidak berkurang dari segi tampilan,
+          // karena tidak di-refresh dari database setelah pembelian.
+          // * 2 lazy 2 fix it :D (sudah tau solusinya)
+          Obx(
+            () => ListTextFomat(
+              title: 'Stok',
+              value: productDetailController.stockProduct.toString(),
+            ),
+          ),
           ListTextFomat(
               title: 'Kategori', value: product.kategori.capitalizeFirst!),
           ListTextFomat(title: 'Merek', value: product.merek.capitalized),

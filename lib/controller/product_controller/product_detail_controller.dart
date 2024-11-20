@@ -8,6 +8,7 @@ class ProductDetailController extends GetxController {
   var isShowAllDescription = false.obs;
   var useMaxLine = 5.obs;
   var useOverflow = RxList<TextOverflow>([TextOverflow.ellipsis]).obs;
+  var stockProduct = 0.obs;
 
   final shopInfoProductController = Get.find<ShopInfoProductController>();
   final productReviewController = Get.put(ProductReviewController());
