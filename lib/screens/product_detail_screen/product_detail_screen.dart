@@ -51,7 +51,7 @@ class ProductDetailScreen extends StatelessWidget {
 
     final box = GetStorage();
     final login = box.read('login') == true;
-
+    
     productDetailController.getProductDetailData(product.uidProduct);
 
     return Scaffold(

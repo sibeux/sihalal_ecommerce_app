@@ -18,6 +18,7 @@ class CheckoutController extends GetxController {
   var subTotalPrice = 0;
   var subTotalShipping = 0;
   var totalPrice = 0;
+  var productStock = 0;
 
   @override
   void onInit() {
@@ -27,7 +28,7 @@ class CheckoutController extends GetxController {
   }
 
   void increment() {
-    if (quantity.value < 99) {
+    if (quantity.value < 99 && quantity.value < productStock) {
       quantity.value++;
     }
   }

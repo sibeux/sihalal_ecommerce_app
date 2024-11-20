@@ -31,6 +31,7 @@ class CheckoutScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final checkoutController = Get.put(CheckoutController());
+    checkoutController.productStock = int.parse(product.stok);
     return Stack(
       children: [
         Scaffold(

@@ -16,10 +16,10 @@ class OrderStatusButton extends StatelessWidget {
     final orderController = Get.find<OrderController>();
     return GestureDetector(
       onTap: () {
-        if (orderController.selectedOrderStatus.value != title) {
-          orderController.changeOrderStatus(title);
+        if (orderController.selectedOrderStatusFilter.value != title) {
+          orderController.changeOrderStatusFilter(title);
         } else {
-          orderController.changeOrderStatus('Semua');
+          orderController.changeOrderStatusFilter('Semua');
         }
       },
       child: Obx(
@@ -28,7 +28,7 @@ class OrderStatusButton extends StatelessWidget {
           height: 30,
           alignment: Alignment.center,
           decoration: BoxDecoration(
-            color: orderController.selectedOrderStatus.value == title
+            color: orderController.selectedOrderStatusFilter.value == title
                 ? Colors.black.withOpacity(0.8)
                 : HexColor('#f1f3f9'),
             borderRadius: BorderRadius.circular(50),
@@ -38,7 +38,7 @@ class OrderStatusButton extends StatelessWidget {
               title,
               style: TextStyle(
                 fontSize: 12,
-                color: orderController.selectedOrderStatus.value == title
+                color: orderController.selectedOrderStatusFilter.value == title
                     ? Colors.white
                     : HexColor('#6c6c6c'),
                 fontWeight: FontWeight.w500,

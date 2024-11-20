@@ -118,61 +118,59 @@ class _HomeScreenState extends State<HomeScreen> {
         scrolledUnderElevation: 0,
         elevation: 0,
       ),
-      body: SmartRefresher(
-        controller: getScrollLeftProductController.refreshController,
-        onRefresh: getScrollLeftProductController.onRefresh,
-        // onLoading itu ketika pull up / footer ditarik
-        onLoading: getScrollLeftProductController.onLoading,
-        enablePullDown: true,
-        enablePullUp: false,
-        header: ClassicHeader(
-          height: 40,
-          refreshStyle: RefreshStyle.Follow,
-          refreshingIcon: SizedBox(
-            width: 25,
-            height: 25,
-            child: CircularProgressIndicator(
-              color: ColorPalette().primary,
-              strokeWidth: 2,
-            ),
-          ),
-          releaseText: 'Lepaskan untuk memuat ulang',
-          refreshingText: 'Memuat ulang...',
-          completeText: 'Selesai',
-          idleText: 'Tarik ke bawah untuk memuat ulang',
-          failedText: 'Gagal memuat ulang',
-          textStyle: TextStyle(
-            color: ColorPalette().primary,
-            fontSize: 12,
-          ),
-        ),
-        child: ScrollConfiguration(
-          // aslinya ini agar tidak ada efek meregang
-          // tapi karena pakai refresh pull, maka percuma
-          // Mirip saat discroll mentok ke kanan atau ke kiri
-          behavior: NoGlowScrollBehavior(),
-          child: GlowingOverscrollIndicator(
-            axisDirection: AxisDirection.down,
-            color: ColorPalette().primary,
-            child: SingleChildScrollView(
-              child: Column(
-                children: <Widget>[
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  const BannerSlider(),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  const Categories(),
-                  const SizedBox(height: 25),
-                  ProductCardRowScroll(
-                    color: HexColor('#ecffef'),
-                    cardHeader: "Cek Produk Terbaru di SiHALAL",
-                    sort: 'recent',
-                  ),
-                ],
+      body: ScrollConfiguration(
+        behavior: NoGlowScrollBehavior(),
+        child: GlowingOverscrollIndicator(
+          axisDirection: AxisDirection.down,
+          color: ColorPalette().primary,
+          child: SmartRefresher(
+            controller: getScrollLeftProductController.refreshController,
+            onRefresh: getScrollLeftProductController.onRefresh,
+            // onLoading itu ketika pull up / footer ditarik
+            onLoading: getScrollLeftProductController.onLoading,
+            enablePullDown: true,
+            enablePullUp: false,
+            header: ClassicHeader(
+              height: 40,
+              refreshStyle: RefreshStyle.Follow,
+              refreshingIcon: SizedBox(
+                width: 25,
+                height: 25,
+                child: CircularProgressIndicator(
+                  color: ColorPalette().primary,
+                  strokeWidth: 2,
+                ),
               ),
+              releaseText: 'Lepaskan untuk memuat ulang',
+              refreshingText: 'Memuat ulang...',
+              completeText: 'Selesai',
+              idleText: 'Tarik ke bawah untuk memuat ulang',
+              failedText: 'Gagal memuat ulang',
+              textStyle: TextStyle(
+                color: ColorPalette().primary,
+                fontSize: 12,
+              ),
+            ),
+            // Awalnya pakai SingleChildScrollView,
+            // tapi karena ada SmartRefresher, maka pakai ListView,
+            // agar ScrollConfiguration bisa berfungsi.
+            child: ListView(
+              children: <Widget>[
+                const SizedBox(
+                  height: 5,
+                ),
+                const BannerSlider(),
+                const SizedBox(
+                  height: 20,
+                ),
+                const Categories(),
+                const SizedBox(height: 25),
+                ProductCardRowScroll(
+                  color: HexColor('#ecffef'),
+                  cardHeader: "Cek Produk Terbaru di SiHALAL",
+                  sort: 'recent',
+                ),
+              ],
             ),
           ),
         ),

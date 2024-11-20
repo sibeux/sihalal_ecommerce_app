@@ -180,14 +180,18 @@ class ButtonQuantity extends StatelessWidget {
                 width: 30,
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
-                  color: checkoutController.quantity.value == 99
+                  color: checkoutController.quantity.value == 99 ||
+                          checkoutController.quantity.value ==
+                              checkoutController.productStock
                       ? Colors.grey.withOpacity(0.1)
                       : Colors.blue.withOpacity(0.1),
                   borderRadius: BorderRadius.circular(5),
                 ),
                 child: Icon(
                   Icons.add,
-                  color: checkoutController.quantity.value == 99
+                  color: checkoutController.quantity.value == 99 ||
+                          checkoutController.quantity.value ==
+                              checkoutController.productStock
                       ? Colors.grey
                       : Colors.blue,
                   size: 16,

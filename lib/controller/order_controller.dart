@@ -7,7 +7,7 @@ import 'package:sihalal_ecommerce_app/controller/user_profile_controller.dart';
 import 'package:sihalal_ecommerce_app/models/order.dart';
 
 class OrderController extends GetxController {
-  var selectedOrderStatus = 'Semua'.obs;
+  var selectedOrderStatusFilter = 'Semua'.obs;
   var isLoadingGetOrder = false.obs;
   var orderList = RxList<Order>([]);
 
@@ -17,8 +17,47 @@ class OrderController extends GetxController {
     await getOrderHistory();
   }
 
-  void changeOrderStatus(String status) {
-    selectedOrderStatus.value = status;
+  void changeOrderStatusFilter(String status) {
+    selectedOrderStatusFilter.value = status;
+  }
+
+  Future<void> changeOrderStatus({required String idPesanan, required String orderStatus}) async {
+    isLoadingGetOrder.value = true;
+
+    const String url = "https://sibeux.my.id/project/sihalal/order";
+
+    try {
+      final response = await http.post(
+        Uri.parse(url),
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: {
+          'method': 'change_order_status',
+          'id_pesanan': idPesanan,
+          'status_pesanan': orderStatus,
+        },
+      );
+
+      if (response.body.isEmpty) {
+        debugPrint('Error: Response body is empty');
+        return;
+      }
+
+      final responseBody = jsonDecode(response.body);
+
+      if (responseBody['status'] == 'success') {
+        await getOrderHistory();
+
+        debugPrint('Success create order: $responseBody');
+      } else {
+        debugPrint('Failed create order: $responseBody');
+      }
+    } catch (e) {
+      debugPrint('Error: $e');
+    } finally {
+      isLoadingGetOrder.value = false;
+    }
   }
 
   Future<void> getOrderHistory() async {
