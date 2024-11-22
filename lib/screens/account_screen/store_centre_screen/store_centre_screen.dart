@@ -21,6 +21,7 @@ class StoreCentreScreen extends StatelessWidget {
     final getSellerProductController = Get.put(GetSellerProductController());
     getSellerProductController.getProducts(
       email: userProfileController.userData[0].emailuser,
+      idUser: userProfileController.userData[0].idUser,
     );
     return Scaffold(
       backgroundColor: HexColor('#fefffe'),

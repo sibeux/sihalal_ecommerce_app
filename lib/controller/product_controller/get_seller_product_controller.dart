@@ -4,16 +4,23 @@ import 'package:get/get.dart';
 import 'package:html_unescape/html_unescape.dart';
 import 'package:http/http.dart' as http;
 import 'package:sihalal_ecommerce_app/component/regex_drive.dart';
+import 'package:sihalal_ecommerce_app/models/seller_order.dart';
 import 'package:sihalal_ecommerce_app/models/seller_product.dart';
 
 class GetSellerProductController extends GetxController {
   var isGetProductLoading = false.obs;
+  var isGetOrderLoading = false.obs;
   var needRefresh = false.obs;
 
   var sellerProductList = RxList<SellerProduct>([]);
   var visibleProductList = RxList<SellerProduct>([]);
   var invisibleProductList = RxList<SellerProduct>([]);
   var outStockProductList = RxList<SellerProduct>([]);
+
+  var allOrderList = RxList<SellerOrder>([]);
+  var needSendOrderList = RxList<SellerOrder>([]);
+  var processSendOrderList = RxList<SellerOrder>([]);
+  var receivedOrderList = RxList<SellerOrder>([]);
 
   var productVisible = 0.obs;
   var productInvisible = 0.obs;
@@ -25,7 +32,8 @@ class GetSellerProductController extends GetxController {
     update();
   }
 
-  void getProducts({required String email}) async {
+  void getProducts({required String email, String idUser = '0'}) async {
+    getSellerOrder(idUserToko: idUser);
     await getUserProduct(email: email);
   }
 
@@ -110,6 +118,66 @@ class GetSellerProductController extends GetxController {
     } finally {
       isGetProductLoading.value = false;
       needRefresh.value = !needRefresh.value;
+    }
+  }
+
+  Future<void> getSellerOrder({required String idUserToko}) async {
+    isGetOrderLoading.value = true;
+    var unescape = HtmlUnescape();
+
+    String url =
+        'https://sibeux.my.id/project/sihalal/seller/order?method=get_order&id_user=$idUserToko';
+
+    try {
+      final response = await http.get(Uri.parse(url));
+
+      final List<dynamic> listData = json.decode(response.body);
+
+      if (listData.isNotEmpty) {
+        final list = listData.map((order) {
+          return SellerOrder(
+            idPesanan: order['id_pesanan'],
+            noPesanan: order['no_pesanan'],
+            idUserPenerima: order['id_user'],
+            idProduk: order['id_produk'],
+            jumlah: order['jumlah'],
+            pengiriman: order['pengiriman'],
+            namaNoPenerima: order['nama_no_penerima'],
+            alamatPenerima: unescape.convert(order['alamat_penerima']),
+            subtotalHargaBarang: order['subtotal_harga_barang'],
+            subtotalPengiriman: order['subtotal_pengiriman'],
+            totalPembayaran: order['total_pembayaran'],
+            tanggalPesanan: order['tanggal_pesanan'],
+            statusPesanan: order['status_pesanan'],
+            idUserToko: order['id_user_toko'],
+            namaToko: unescape.convert(order['nama_toko']),
+            namaProduk: unescape.convert(order['nama_produk']),
+            fotoProduk: order['foto_produk_1'],
+          );
+        }).toList();
+
+        allOrderList.value = list;
+        needSendOrderList.value = list
+            .where((data) =>
+                data.statusPesanan == 'tunggu' ||
+                data.statusPesanan == 'proses')
+            .toList();
+        processSendOrderList.value =
+            list.where((data) => data.statusPesanan == 'kirim').toList();
+        receivedOrderList.value =
+            list.where((data) => data.statusPesanan == 'selesai').toList();
+      } else {
+        allOrderList.value = [];
+        needSendOrderList.value = [];
+        processSendOrderList.value = [];
+        receivedOrderList.value = [];
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print('Error: $e');
+      }
+    } finally {
+      isGetOrderLoading.value = false;
     }
   }
 }
