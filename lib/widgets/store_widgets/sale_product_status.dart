@@ -127,28 +127,35 @@ class StatusContainer extends StatelessWidget {
                       ),
                     ),
                   )
-                : Positioned(
-                    child: Container(
-                      alignment: Alignment.center,
-                      height: 20,
-                      width: 20,
-                      decoration: BoxDecoration(
-                        color: ColorPalette().primary,
-                        borderRadius: BorderRadius.circular(100),
-                      ),
-                      child: AutoSizeText(
-                        count.toString(),
-                        maxLines: 1,
-                        minFontSize: 5,
-                        maxFontSize: 11,
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w700,
+                : (title == 'Perlu\nDikirim' &&
+                            getSellerProductController
+                                .needSendOrderList.isEmpty) ||
+                        (title == 'Dalam\nPengiriman' &&
+                            getSellerProductController
+                                .processSendOrderList.isEmpty)
+                    ? const SizedBox()
+                    : Positioned(
+                        child: Container(
+                          alignment: Alignment.center,
+                          height: 20,
+                          width: 20,
+                          decoration: BoxDecoration(
+                            color: ColorPalette().primary,
+                            borderRadius: BorderRadius.circular(100),
+                          ),
+                          child: AutoSizeText(
+                            count.toString(),
+                            maxLines: 1,
+                            minFontSize: 5,
+                            maxFontSize: 11,
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
                         ),
                       ),
-                    ),
-                  ),
           ),
       ],
     );
