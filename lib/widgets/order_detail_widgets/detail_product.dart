@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:html_unescape/html_unescape.dart';
 import 'package:sihalal_ecommerce_app/component/string_formatter.dart';
 import 'package:sihalal_ecommerce_app/models/order.dart';
-import 'package:sihalal_ecommerce_app/screens/order_detail_screen/buy_again_button.dart';
+import 'package:sihalal_ecommerce_app/widgets/order_detail_widgets/buy_again_button.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class DetailProduct extends StatelessWidget {
