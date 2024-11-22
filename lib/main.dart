@@ -22,8 +22,13 @@ void main() async {
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((fn) {
-    initializeDateFormatting('id_ID', null)
-        .then((_) => runApp(const ProviderScope(child: MyApp())));
+    initializeDateFormatting('id_ID', null).then(
+      (_) => runApp(
+        const ProviderScope(
+          child: MyApp(),
+        ),
+      ),
+    );
   });
 }
 

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:sihalal_ecommerce_app/component/color_palette.dart';
+import 'package:sihalal_ecommerce_app/screens/home_screen/persistent_bar_screen.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class OrderPlacedScreen extends StatelessWidget {
@@ -16,6 +17,12 @@ class OrderPlacedScreen extends StatelessWidget {
         surfaceTintColor: Colors.transparent,
         automaticallyImplyLeading: false,
         toolbarHeight: 100,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Get.back();
+          },
+        ),
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -63,7 +70,12 @@ class OrderPlacedScreen extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 15),
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.offAll(
+                      () => const PersistenBarScreen(),
+                      transition: Transition.rightToLeftWithFade,
+                    );
+                  },
                   style: ElevatedButton.styleFrom(
                     foregroundColor: Colors.white,
                     backgroundColor: ColorPalette().primary,
@@ -79,7 +91,7 @@ class OrderPlacedScreen extends StatelessWidget {
                       vertical: 10.0,
                     ),
                     child: Text(
-                      'Lihat Detail Pesanan',
+                      'Kembali ke Beranda',
                       style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.bold,
@@ -93,9 +105,7 @@ class OrderPlacedScreen extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 15),
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: () {
-                    Get.back();
-                  },
+                  onPressed: () {},
                   style: ElevatedButton.styleFrom(
                     foregroundColor: ColorPalette().primary,
                     backgroundColor: Colors.transparent,
@@ -114,7 +124,7 @@ class OrderPlacedScreen extends StatelessWidget {
                       vertical: 10.0,
                     ),
                     child: Text(
-                      'Lanjut Belanja',
+                      'Lihat Detail Pesanan',
                       style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.bold,

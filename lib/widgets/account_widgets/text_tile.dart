@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:sihalal_ecommerce_app/component/color_palette.dart';
 import 'package:sihalal_ecommerce_app/controller/order_controller.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -79,9 +80,23 @@ class TextTile extends StatelessWidget {
           ),
           const WidthBox(10),
           Obx(
-            () => orderController.isLoadingGetOrder.value
-                ? const SizedBox()
-                : ((title.toLowerCase() == 'toko saya' ||
+            () => orderController.isLoadingGetOrderCount.value &&
+                    login &&
+                    (title.toLowerCase() == 'toko saya' ||
+                        title.toLowerCase() == 'riwayat pesanan')
+                ? SizedBox(
+                    height: 25,
+                    width: 25,
+                    child: Center(
+                      child: LoadingAnimationWidget.fourRotatingDots(
+                        color: ColorPalette().primary,
+                        size: 20,
+                      ),
+                    ),
+                  )
+                : (((title.toLowerCase() == 'toko saya' &&
+                                orderController.orderHistoryStoreCount.value !=
+                                    0) ||
                             (title.toLowerCase() == 'riwayat pesanan' &&
                                 orderController.orderHistoryCount.value !=
                                     0)) &&
@@ -97,7 +112,7 @@ class TextTile extends StatelessWidget {
                         child: AutoSizeText(
                           title.toLowerCase() == 'riwayat pesanan'
                               ? '${orderController.orderHistoryCount.value}'
-                              : '21',
+                              : '${orderController.orderHistoryStoreCount.value}',
                           maxLines: 1,
                           minFontSize: 5,
                           maxFontSize: 12,

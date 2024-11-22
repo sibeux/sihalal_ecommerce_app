@@ -8,9 +8,12 @@ import 'package:sihalal_ecommerce_app/models/order.dart';
 
 class OrderController extends GetxController {
   var selectedOrderStatusFilter = 'Semua'.obs;
-  var isLoadingGetOrder = false.obs;
   var orderList = RxList<Order>([]);
   var orderHistoryCount = 0.obs;
+  var orderHistoryStoreCount = 0.obs;
+
+  var isLoadingGetOrder = false.obs;
+  var isLoadingGetOrderCount = false.obs;
 
   void changeOrderStatusFilter(String status) {
     selectedOrderStatusFilter.value = status;
@@ -44,8 +47,8 @@ class OrderController extends GetxController {
 
       if (responseBody['status'] == 'success') {
         final userProfileController = Get.find<UserProfileController>();
+        getOrderHistoryCount(userProfileController.idUser);
         await getOrderHistory();
-        await getOrderHistoryCount(userProfileController.idUser);
 
         debugPrint('Success change status order: $responseBody');
       } else {
@@ -60,6 +63,8 @@ class OrderController extends GetxController {
 
   Future<void> getOrderHistory() async {
     final userProfileController = Get.find<UserProfileController>();
+
+    getOrderHistoryCount(userProfileController.idUser);
 
     selectedOrderStatusFilter.value = 'Semua';
     isLoadingGetOrder.value = true;
@@ -116,7 +121,7 @@ class OrderController extends GetxController {
   }
 
   Future<void> getOrderHistoryCount(String idUser) async {
-    isLoadingGetOrder.value = true;
+    isLoadingGetOrderCount.value = true;
     final String url =
         "https://sibeux.my.id/project/sihalal/order?method=get_order_history_count&id_user=$idUser";
 
@@ -127,13 +132,16 @@ class OrderController extends GetxController {
 
       if (listData.isNotEmpty) {
         orderHistoryCount.value = int.parse(listData[0]['jumlah_pesanan']);
+        orderHistoryStoreCount.value =
+            int.parse(listData[0]['jumlah_pesanan_toko']);
       } else {
         orderHistoryCount.value = 0;
+        orderHistoryStoreCount.value = 0;
       }
     } catch (e) {
       debugPrint('Error: $e');
     } finally {
-      isLoadingGetOrder.value = false;
+      isLoadingGetOrderCount.value = false;
     }
   }
 }

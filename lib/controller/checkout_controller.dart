@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 
 import 'package:http/http.dart' as http;
 import 'package:sihalal_ecommerce_app/controller/address_controller/user_address_controller.dart';
+import 'package:sihalal_ecommerce_app/controller/order_controller.dart';
 import 'package:sihalal_ecommerce_app/controller/product_controller/product_detail_controller.dart';
 import 'package:sihalal_ecommerce_app/controller/user_profile_controller.dart';
 import 'package:sihalal_ecommerce_app/screens/checkout_screen/order_placed_screen.dart';
@@ -108,11 +109,13 @@ class CheckoutController extends GetxController {
 
       if (responseBody['status'] == 'success') {
         productDetailController.stockProduct.value -= quantity.value;
-        Get.off(
-          () => const OrderPlacedScreen(),
-          transition: Transition.rightToLeft,
-          fullscreenDialog: true,
-          popGesture: false,
+        Get.find<OrderController>().getOrderHistoryCount(userProfileController.idUser);
+        Get.offUntil(
+          MaterialPageRoute(
+            builder: (_) => const OrderPlacedScreen(),
+            fullscreenDialog: true,
+          ),
+          (route) => route.isFirst,
         );
 
         debugPrint('Success create order: $responseBody');

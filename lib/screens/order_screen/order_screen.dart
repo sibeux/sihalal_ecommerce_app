@@ -14,7 +14,7 @@ class OrderScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final orderController = Get.find<OrderController>();
-    final bool isFromAccountScreen = Get.arguments == null
+    final bool isFromAnotherScreen = Get.arguments == null
         ? false
         : Get.arguments['isFromAccountScreen'] == true
             ? true
@@ -26,8 +26,8 @@ class OrderScreen extends StatelessWidget {
           appBar: AppBar(
             backgroundColor: HexColor('#fefffe'),
             surfaceTintColor: Colors.transparent,
-            toolbarHeight: isFromAccountScreen ? 60 : 40,
-            leading: !isFromAccountScreen
+            toolbarHeight: isFromAnotherScreen ? 60 : 40,
+            leading: !isFromAnotherScreen
                 ? const SizedBox()
                 : IconButton(
                     icon: const Icon(Icons.arrow_back),
@@ -36,7 +36,7 @@ class OrderScreen extends StatelessWidget {
                     },
                   ),
             title: Text(
-              !isFromAccountScreen ? '' : 'Riwayat Pesanan',
+              !isFromAnotherScreen ? '' : 'Riwayat Pesanan',
             ),
             titleTextStyle: const TextStyle(
               color: Colors.black,
