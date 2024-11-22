@@ -5,7 +5,6 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:sihalal_ecommerce_app/component/color_palette.dart';
 import 'package:sihalal_ecommerce_app/controller/product_controller/get_scroll_left_product_controller.dart';
 import 'package:sihalal_ecommerce_app/controller/user_profile_controller.dart';
-import 'package:sihalal_ecommerce_app/screens/checkout_screen/order_placed_screen.dart';
 import 'package:sihalal_ecommerce_app/widgets/home_widgets/banner_slider.dart';
 import 'package:sihalal_ecommerce_app/widgets/home_widgets/categories.dart';
 import 'package:sihalal_ecommerce_app/widgets/home_widgets/product_card_scroll/product_card_scroll.dart';
@@ -99,10 +98,7 @@ class _HomeScreenState extends State<HomeScreen> {
             // absorbing: false,
             child: GestureDetector(
               onTap: () {
-                Get.to(
-                  () => const OrderPlacedScreen(),
-                  transition: Transition.rightToLeft,
-                );
+                
               },
               child: Container(
                 margin: const EdgeInsets.only(right: 20),

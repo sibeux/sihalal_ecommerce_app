@@ -1,10 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:intl/intl.dart';
 import 'package:sihalal_ecommerce_app/component/color_palette.dart';
 import 'package:sihalal_ecommerce_app/component/string_formatter.dart';
 import 'package:sihalal_ecommerce_app/models/order.dart';
+import 'package:sihalal_ecommerce_app/screens/order_detail_screen/order_detail_screen.dart';
 import 'package:sihalal_ecommerce_app/widgets/order_widgets/button/cancel_order_button.dart';
 import 'package:sihalal_ecommerce_app/widgets/order_widgets/button/review_buy_button.dart';
 import 'package:sihalal_ecommerce_app/widgets/order_widgets/strip_line.dart';
@@ -20,8 +22,19 @@ class OrderListContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {},
+    return InkWell(
+      splashColor: Colors.transparent,
+      highlightColor: Colors.transparent,
+      onTap: () {
+        Get.to(
+          () => OrderDetailScreen(
+            order: order,
+          ),
+          transition: Transition.rightToLeft,
+          fullscreenDialog: true,
+          popGesture: false,
+        );
+      },
       child: Padding(
         padding: const EdgeInsets.only(top: 15),
         child: Column(
@@ -183,8 +196,8 @@ class OrderListContainer extends StatelessWidget {
                     idPesanan: order.idPesanan,
                   )
                 : ReviewBuyButton(
-                  statusPesanan: order.statusPesanan,
-                ),
+                    statusPesanan: order.statusPesanan,
+                  ),
             const HeightBox(15),
             SizedBox(
               height: 1,
