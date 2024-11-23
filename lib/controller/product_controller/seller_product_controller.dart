@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:math';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -10,6 +9,7 @@ import 'package:sihalal_ecommerce_app/controller/product_controller/get_seller_p
 import 'package:sihalal_ecommerce_app/controller/user_profile_controller.dart';
 import 'package:sihalal_ecommerce_app/models/merksh.dart';
 import 'package:sihalal_ecommerce_app/models/seller_product.dart';
+import 'package:uuid/uuid.dart';
 
 class SellerProductController extends GetxController {
   var countImage = 0.obs;
@@ -196,17 +196,9 @@ class SellerProductController extends GetxController {
   }
 
   String generateImageName(String idUser) {
-    final now = DateTime.now();
-    final formattedDate =
-        "${now.year}${now.month.toString().padLeft(2, '0')}${now.day.toString().padLeft(2, '0')}"
-        "${now.hour.toString().padLeft(2, '0')}${now.minute.toString().padLeft(2, '0')}${now.second.toString().padLeft(2, '0')}";
+    const uuid = Uuid();
 
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-    final random = Random();
-    final randomString =
-        List.generate(4, (index) => chars[random.nextInt(chars.length)]).join();
-
-    return "${idUser}_IMG_${formattedDate}_$randomString.jpg";
+    return "IMG_${uuid.v4()}.jpg";
   }
 
   Future<void> getMerkshProduct() async {
@@ -370,10 +362,16 @@ class SellerProductController extends GetxController {
         responseUploadImage = await requestUploadImage.send();
       }
 
-      if (responseUploadImage.statusCode == 200 || !isImageChanged) {
+      final responseString = await responseUploadImage.stream.bytesToString();
+      final jsonResponse = json.decode(responseString);
+      final status = jsonResponse['uploaded_files'][0]['status'];
+
+      if ((responseUploadImage.statusCode == 200 && status == 'success') ||
+          !isImageChanged) {
         if (isImageChanged) {
           if (kDebugMode) {
             print('Image berhasil diupload');
+            print(responseString);
           }
         }
 

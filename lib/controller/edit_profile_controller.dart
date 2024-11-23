@@ -1,11 +1,11 @@
 import 'dart:convert';
-import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
 import 'package:sihalal_ecommerce_app/controller/user_profile_controller.dart';
+import 'package:uuid/uuid.dart';
 
 class EditProfileController extends GetxController {
   var name = ''.obs;
@@ -44,12 +44,9 @@ class EditProfileController extends GetxController {
   }
 
   String generateImageName(String idUser) {
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-    final random = Random();
-    final randomString =
-        List.generate(4, (index) => chars[random.nextInt(chars.length)]).join();
+    const uuid = Uuid();
 
-    return "${idUser}_profile_$randomString.jpg";
+    return "profile_${uuid.v4()}.jpg";
   }
 
   Future<void> sendChangeProfileData() async {
