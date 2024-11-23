@@ -34,7 +34,8 @@ class OrderController extends GetxController {
           .toList();
     } else if (status == 'Selesai') {
       orderList.value = fixAllOrderList
-          .where((order) => order.statusPesanan == 'selesai')
+          .where((order) =>
+              order.statusPesanan == 'selesai' || order.statusPesanan == 'ulas')
           .toList();
     } else if (status == 'Dibatalkan') {
       orderList.value = fixAllOrderList

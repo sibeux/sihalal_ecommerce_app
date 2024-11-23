@@ -23,7 +23,7 @@ class SaleProductStatus extends StatelessWidget {
           Obx(
             () => StatusContainer(
               title: 'Perlu\nDikirim',
-              count: getSellerProductController.needSendOrderList.length,
+              count: getSellerProductController.allNeedSendOrderList.length,
             ),
           ),
           Obx(
@@ -58,15 +58,13 @@ class StatusContainer extends StatelessWidget {
       children: [
         GestureDetector(
           onTap: () {
-            Get.to(
-              () => const StoreOrderScreen(),
-              transition: Transition.downToUp,
-              popGesture: false,
-              fullscreenDialog: true,
-              arguments: {
-                'title': title,
-              }
-            );
+            Get.to(() => const StoreOrderScreen(),
+                transition: Transition.downToUp,
+                popGesture: false,
+                fullscreenDialog: true,
+                arguments: {
+                  'title': title,
+                });
           },
           child: Container(
             width: 100,
@@ -130,7 +128,7 @@ class StatusContainer extends StatelessWidget {
                   )
                 : (title == 'Perlu\nDikirim' &&
                             getSellerProductController
-                                .needSendOrderList.isEmpty) ||
+                                .allNeedSendOrderList.isEmpty) ||
                         (title == 'Dalam\nPengiriman' &&
                             getSellerProductController
                                 .processSendOrderList.isEmpty)

@@ -11,14 +11,15 @@ class DetailProduct extends StatelessWidget {
     super.key,
     required this.order,
     required this.unescape,
+    required this.isBuyer,
   });
 
   final Order order;
   final HtmlUnescape unescape;
+  final bool isBuyer;
 
   @override
   Widget build(BuildContext context) {
-    // remove .0 from hargaBarangSatuan
     final hargaBarangSatuan =
         double.parse(order.subtotalHargaBarang) / double.parse(order.jumlah);
     return Column(
@@ -169,7 +170,7 @@ class DetailProduct extends StatelessWidget {
                     ],
                   ),
                   const Spacer(),
-                  const BuyAgainButton(),
+                  if (isBuyer) const BuyAgainButton(),
                 ],
               )
             ],

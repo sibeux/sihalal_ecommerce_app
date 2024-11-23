@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:html_unescape/html_unescape.dart';
 import 'package:sihalal_ecommerce_app/component/color_palette.dart';
+import 'package:sihalal_ecommerce_app/models/order.dart';
 import 'package:sihalal_ecommerce_app/widgets/order_detail_widgets/detail_product.dart';
 import 'package:sihalal_ecommerce_app/widgets/order_detail_widgets/payment_detail.dart';
 import 'package:sihalal_ecommerce_app/widgets/order_detail_widgets/shipping_info.dart';
@@ -17,9 +18,11 @@ class NoGlowScrollBehavior extends ScrollBehavior {
 }
 
 class OrderDetailScreen extends StatelessWidget {
-  const OrderDetailScreen({super.key, required this.order});
+  const OrderDetailScreen(
+      {super.key, required this.order, required this.isBuyer});
 
-  final dynamic order;
+  final Order order;
+  final bool isBuyer;
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +85,11 @@ class OrderDetailScreen extends StatelessWidget {
                   ),
                   const HeightBox(20),
                   // * Detail Produk
-                  DetailProduct(order: order, unescape: unescape),
+                  DetailProduct(
+                    order: order,
+                    unescape: unescape,
+                    isBuyer: isBuyer,
+                  ),
                   const HeightBox(30),
                   SizedBox(
                     width: MediaQuery.of(context).size.width,

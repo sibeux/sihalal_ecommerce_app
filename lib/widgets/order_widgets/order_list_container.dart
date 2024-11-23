@@ -8,7 +8,9 @@ import 'package:sihalal_ecommerce_app/component/string_formatter.dart';
 import 'package:sihalal_ecommerce_app/models/order.dart';
 import 'package:sihalal_ecommerce_app/screens/order_detail_screen/order_detail_screen.dart';
 import 'package:sihalal_ecommerce_app/widgets/order_widgets/button/cancel_order_button.dart';
+import 'package:sihalal_ecommerce_app/widgets/order_widgets/button/complete_order_button.dart';
 import 'package:sihalal_ecommerce_app/widgets/order_widgets/button/review_buy_button.dart';
+import 'package:sihalal_ecommerce_app/widgets/order_widgets/button/review_order_button.dart';
 import 'package:sihalal_ecommerce_app/widgets/order_widgets/button/send_order_button.dart';
 import 'package:sihalal_ecommerce_app/widgets/order_widgets/button/track_order_button.dart';
 import 'package:sihalal_ecommerce_app/widgets/order_widgets/strip_line.dart';
@@ -33,6 +35,7 @@ class OrderListContainer extends StatelessWidget {
         Get.to(
           () => OrderDetailScreen(
             order: order,
+            isBuyer: isBuyer,
           ),
           transition: Transition.rightToLeft,
           fullscreenDialog: true,
@@ -114,7 +117,8 @@ class OrderListContainer extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: order.statusPesanan == 'tunggu'
                         ? Colors.blue.withOpacity(0.2)
-                        : order.statusPesanan == 'proses'
+                        : order.statusPesanan == 'proses' ||
+                                order.statusPesanan == 'kirim'
                             ? Colors.amber.withOpacity(0.2)
                             : order.statusPesanan.contains('batal')
                                 ? Colors.red.withOpacity(0.2)
@@ -130,14 +134,17 @@ class OrderListContainer extends StatelessWidget {
                                 ? order.statusPesanan == 'batal_toko'
                                     ? 'Dibatalkan Penjual'
                                     : 'Dibatalkan'
-                                : 'Selesai',
+                                : order.statusPesanan == 'kirim'
+                                    ? 'Sedang Dikirim'
+                                    : 'Selesai',
                     maxLines: 1,
                     style: TextStyle(
                       fontSize: 11,
                       color: order.statusPesanan == 'tunggu'
                           ? const Color.fromARGB(255, 46, 139, 246)
                               .withOpacity(0.8)
-                          : order.statusPesanan == 'proses'
+                          : order.statusPesanan == 'proses' ||
+                                  order.statusPesanan == 'kirim'
                               ? const Color.fromARGB(255, 196, 130, 23)
                                   .withOpacity(0.8)
                               : order.statusPesanan.contains('batal')
@@ -204,11 +211,18 @@ class OrderListContainer extends StatelessWidget {
                   )
                 : order.statusPesanan == 'proses' && !isBuyer
                     ? SendOrderButton(idPesanan: order.idPesanan)
-                    : order.statusPesanan == 'proses' && isBuyer
+                    : (order.statusPesanan == 'proses' && isBuyer) ||
+                            (order.statusPesanan == 'kirim' && !isBuyer)
                         ? TrackOrderButton(idPesanan: order.idPesanan)
-                        : ReviewBuyButton(
-                            statusPesanan: order.statusPesanan,
-                          ),
+                        : order.statusPesanan == 'kirim' && isBuyer
+                            ? CompleteOrderButton(idPesanan: order.idPesanan)
+                            : order.statusPesanan == 'selesai' && isBuyer
+                                ? ReviewOrderButton(idPesanan: order.idPesanan)
+                                : order.statusPesanan == 'ulas' && isBuyer
+                                    ? ReviewBuyButton(
+                                        statusPesanan: order.statusPesanan,
+                                      )
+                                    : const SizedBox(),
             const HeightBox(15),
             SizedBox(
               height: 1,

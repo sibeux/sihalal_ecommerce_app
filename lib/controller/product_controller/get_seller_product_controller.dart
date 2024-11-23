@@ -20,6 +20,7 @@ class GetSellerProductController extends GetxController {
 
   var allOrderList = RxList<SellerOrder>([]);
   var needSendOrderList = RxList<SellerOrder>([]);
+  var allNeedSendOrderList = RxList<SellerOrder>([]);
   var processSendOrderList = RxList<SellerOrder>([]);
   var receivedOrderList = RxList<SellerOrder>([]);
 
@@ -34,6 +35,17 @@ class GetSellerProductController extends GetxController {
 
   void changeOrderStatusFilter(String status) {
     selectedOrderStatusFilter.value = status;
+    if (status == 'Perlu Konfirmasi') {
+      needSendOrderList.value = allNeedSendOrderList
+          .where((order) => order.statusPesanan == 'tunggu')
+          .toList();
+    } else if (status == 'Perlu Dikirim') {
+      needSendOrderList.value = allNeedSendOrderList
+          .where((order) => order.statusPesanan == 'proses')
+          .toList();
+    } else {
+      needSendOrderList.value = allNeedSendOrderList;
+    }
   }
 
   void changeFilterProductList(int index) {
@@ -169,18 +181,22 @@ class GetSellerProductController extends GetxController {
         }).toList();
 
         allOrderList.value = list;
-        needSendOrderList.value = list
+        allNeedSendOrderList.value = list
             .where((data) =>
                 data.statusPesanan == 'tunggu' ||
                 data.statusPesanan == 'proses')
             .toList();
+        needSendOrderList.assignAll(allNeedSendOrderList);
         processSendOrderList.value =
             list.where((data) => data.statusPesanan == 'kirim').toList();
-        receivedOrderList.value =
-            list.where((data) => data.statusPesanan == 'selesai').toList();
+        receivedOrderList.value = list
+            .where((data) =>
+                data.statusPesanan == 'selesai' || data.statusPesanan == 'ulas')
+            .toList();
       } else {
         allOrderList.value = [];
         needSendOrderList.value = [];
+        allNeedSendOrderList.value = [];
         processSendOrderList.value = [];
         receivedOrderList.value = [];
       }
