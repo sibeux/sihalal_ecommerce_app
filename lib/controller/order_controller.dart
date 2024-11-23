@@ -44,8 +44,10 @@ class OrderController extends GetxController {
     isLoadingGetOrder.value = false;
   }
 
-  Future<void> changeOrderStatus(
-      {required String idPesanan, required String orderStatus}) async {
+  Future<void> changeOrderStatus({
+    required String idPesanan,
+    required String orderStatus,
+  }) async {
     final GetSellerProductController getSellerProductController =
         Get.isRegistered<GetSellerProductController>()
             ? Get.find<GetSellerProductController>()

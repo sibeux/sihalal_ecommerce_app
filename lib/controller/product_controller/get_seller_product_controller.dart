@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:html_unescape/html_unescape.dart';
 import 'package:http/http.dart' as http;
 import 'package:sihalal_ecommerce_app/component/regex_drive.dart';
+import 'package:sihalal_ecommerce_app/models/order.dart';
 import 'package:sihalal_ecommerce_app/models/seller_order.dart';
 import 'package:sihalal_ecommerce_app/models/seller_product.dart';
 
@@ -21,6 +22,8 @@ class GetSellerProductController extends GetxController {
   var needSendOrderList = RxList<SellerOrder>([]);
   var processSendOrderList = RxList<SellerOrder>([]);
   var receivedOrderList = RxList<SellerOrder>([]);
+
+  var orders = RxList<Order>([]);
 
   var productVisible = 0.obs;
   var productInvisible = 0.obs;
@@ -186,6 +189,110 @@ class GetSellerProductController extends GetxController {
       }
     } finally {
       isGetOrderLoading.value = false;
+    }
+  }
+
+  List<Order> getStoreOrderList(String title) {
+    if (title == 'Perlu\nDikirim') {
+      return needSendOrderList
+          .map(
+            (order) => Order(
+              idPesanan: order.idPesanan,
+              noPesanan: order.noPesanan,
+              idUser: order.idUserPenerima,
+              idProduk: order.idProduk,
+              jumlah: order.jumlah,
+              pengiriman: order.pengiriman,
+              namaNoPenerima: order.namaNoPenerima,
+              alamatPenerima: order.alamatPenerima,
+              subtotalHargaBarang: order.subtotalHargaBarang,
+              subtotalPengiriman: order.subtotalPengiriman,
+              totalPembayaran: order.totalPembayaran,
+              tanggalPesanan: order.tanggalPesanan,
+              statusPesanan: order.statusPesanan,
+              idUserToko: order.idUserToko,
+              namaUserToko: order.namaUserToko,
+              namaToko: order.namaToko,
+              namaProduk: order.namaProduk,
+              fotoProduk: order.fotoProduk,
+            ),
+          )
+          .toList();
+    } else if (title == 'Dalam\nPengiriman') {
+      return processSendOrderList
+          .map(
+            (order) => Order(
+              idPesanan: order.idPesanan,
+              noPesanan: order.noPesanan,
+              idUser: order.idUserPenerima,
+              idProduk: order.idProduk,
+              jumlah: order.jumlah,
+              pengiriman: order.pengiriman,
+              namaNoPenerima: order.namaNoPenerima,
+              alamatPenerima: order.alamatPenerima,
+              subtotalHargaBarang: order.subtotalHargaBarang,
+              subtotalPengiriman: order.subtotalPengiriman,
+              totalPembayaran: order.totalPembayaran,
+              tanggalPesanan: order.tanggalPesanan,
+              statusPesanan: order.statusPesanan,
+              idUserToko: order.idUserToko,
+              namaUserToko: order.namaUserToko,
+              namaToko: order.namaToko,
+              namaProduk: order.namaProduk,
+              fotoProduk: order.fotoProduk,
+            ),
+          )
+          .toList();
+    } else if (title == 'Pesanan\nSelesai') {
+      return receivedOrderList
+          .map(
+            (order) => Order(
+              idPesanan: order.idPesanan,
+              noPesanan: order.noPesanan,
+              idUser: order.idUserPenerima,
+              idProduk: order.idProduk,
+              jumlah: order.jumlah,
+              pengiriman: order.pengiriman,
+              namaNoPenerima: order.namaNoPenerima,
+              alamatPenerima: order.alamatPenerima,
+              subtotalHargaBarang: order.subtotalHargaBarang,
+              subtotalPengiriman: order.subtotalPengiriman,
+              totalPembayaran: order.totalPembayaran,
+              tanggalPesanan: order.tanggalPesanan,
+              statusPesanan: order.statusPesanan,
+              idUserToko: order.idUserToko,
+              namaUserToko: order.namaUserToko,
+              namaToko: order.namaToko,
+              namaProduk: order.namaProduk,
+              fotoProduk: order.fotoProduk,
+            ),
+          )
+          .toList();
+    } else {
+      return allOrderList
+          .map(
+            (order) => Order(
+              idPesanan: order.idPesanan,
+              noPesanan: order.noPesanan,
+              idUser: order.idUserPenerima,
+              idProduk: order.idProduk,
+              jumlah: order.jumlah,
+              pengiriman: order.pengiriman,
+              namaNoPenerima: order.namaNoPenerima,
+              alamatPenerima: order.alamatPenerima,
+              subtotalHargaBarang: order.subtotalHargaBarang,
+              subtotalPengiriman: order.subtotalPengiriman,
+              totalPembayaran: order.totalPembayaran,
+              tanggalPesanan: order.tanggalPesanan,
+              statusPesanan: order.statusPesanan,
+              idUserToko: order.idUserToko,
+              namaUserToko: order.namaUserToko,
+              namaToko: order.namaToko,
+              namaProduk: order.namaProduk,
+              fotoProduk: order.fotoProduk,
+            ),
+          )
+          .toList();
     }
   }
 }
