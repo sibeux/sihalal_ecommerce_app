@@ -1,11 +1,10 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:sihalal_ecommerce_app/component/color_palette.dart';
 import 'package:sihalal_ecommerce_app/controller/product_controller/get_seller_product_controller.dart';
+import 'package:sihalal_ecommerce_app/screens/account_screen/store_centre_screen/store_order_screen.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class SaleProductStatus extends StatelessWidget {
@@ -23,20 +22,17 @@ class SaleProductStatus extends StatelessWidget {
         children: [
           Obx(
             () => StatusContainer(
-              onTap: () {},
               title: 'Perlu\nDikirim',
               count: getSellerProductController.needSendOrderList.length,
             ),
           ),
           Obx(
             () => StatusContainer(
-              onTap: () {},
               title: 'Dalam\nPengiriman',
               count: getSellerProductController.processSendOrderList.length,
             ),
           ),
-          StatusContainer(
-            onTap: () {},
+          const StatusContainer(
             title: 'Pesanan\nSelesai',
             count: 0,
           ),
@@ -49,12 +45,9 @@ class SaleProductStatus extends StatelessWidget {
 class StatusContainer extends StatelessWidget {
   const StatusContainer({
     super.key,
-    required this.onTap,
     required this.title,
     required this.count,
   });
-
-  final void Function() onTap;
   final String title;
   final int count;
 
@@ -65,7 +58,15 @@ class StatusContainer extends StatelessWidget {
       children: [
         GestureDetector(
           onTap: () {
-            onTap();
+            Get.to(
+              () => const StoreOrderScreen(),
+              transition: Transition.downToUp,
+              popGesture: false,
+              fullscreenDialog: true,
+              arguments: {
+                'title': title,
+              }
+            );
           },
           child: Container(
             width: 100,

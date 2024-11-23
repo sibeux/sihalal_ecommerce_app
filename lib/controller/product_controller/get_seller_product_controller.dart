@@ -27,14 +27,20 @@ class GetSellerProductController extends GetxController {
   var productOutStock = 0.obs;
   var currentFilterProductList = 0.obs;
 
+  var selectedOrderStatusFilter = 'Semua'.obs;
+
+  void changeOrderStatusFilter(String status) {
+    selectedOrderStatusFilter.value = status;
+  }
+
   void changeFilterProductList(int index) {
     currentFilterProductList.value = index;
     update();
   }
 
-  void getProducts({required String email, String idUser = '0'}) async {
+  void getProducts({required String email, String idUser = '0'}) {
     getSellerOrder(idUserToko: idUser);
-    await getUserProduct(email: email);
+    getUserProduct(email: email);
   }
 
   Future<void> getUserProduct({required String email}) async {
@@ -150,7 +156,9 @@ class GetSellerProductController extends GetxController {
             tanggalPesanan: order['tanggal_pesanan'],
             statusPesanan: order['status_pesanan'],
             idUserToko: order['id_user_toko'],
-            namaToko: unescape.convert(order['nama_toko']),
+            namaUserToko: order['nama_user'],
+            namaToko: unescape
+                .convert(order['nama_toko'] ?? 'Toko ${order['nama_user']}'),
             namaProduk: unescape.convert(order['nama_produk']),
             fotoProduk: order['foto_produk_1'],
           );

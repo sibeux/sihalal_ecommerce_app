@@ -3,7 +3,7 @@ class Order {
   final String jumlah, pengiriman, namaNoPenerima, alamatPenerima;
   final String subtotalHargaBarang, subtotalPengiriman, totalPembayaran;
   final String tanggalPesanan, statusPesanan;
-  final String idUserToko, namaToko, namaProduk, fotoProduk;
+  final String idUserToko, namaUserToko, namaToko, namaProduk, fotoProduk;
 
   Order({
     required this.idPesanan,
@@ -20,6 +20,7 @@ class Order {
     required this.tanggalPesanan,
     required this.statusPesanan,
     required this.idUserToko,
+    required this.namaUserToko,
     required this.namaToko,
     required this.namaProduk,
     required this.fotoProduk,

@@ -16,9 +16,11 @@ class OrderListContainer extends StatelessWidget {
   const OrderListContainer({
     super.key,
     required this.order,
+    required this.isBuyer,
   });
 
   final Order order;
+  final bool isBuyer;
 
   @override
   Widget build(BuildContext context) {
@@ -112,7 +114,7 @@ class OrderListContainer extends StatelessWidget {
                         ? Colors.blue.withOpacity(0.2)
                         : order.statusPesanan == 'proses'
                             ? Colors.amber.withOpacity(0.2)
-                            : order.statusPesanan == 'batal'
+                            : order.statusPesanan.contains('batal')
                                 ? Colors.red.withOpacity(0.2)
                                 : HexColor('#d8fddf'),
                     borderRadius: BorderRadius.circular(5),
@@ -122,8 +124,10 @@ class OrderListContainer extends StatelessWidget {
                         ? 'Menunggu Konfirmasi'
                         : order.statusPesanan == 'proses'
                             ? 'Dikemas Penjual'
-                            : order.statusPesanan == 'batal'
-                                ? 'Dibatalkan'
+                            : order.statusPesanan.contains('batal')
+                                ? order.statusPesanan == 'batal_toko'
+                                    ? 'Dibatalkan Penjual'
+                                    : 'Dibatalkan'
                                 : 'Selesai',
                     maxLines: 1,
                     style: TextStyle(
@@ -134,7 +138,7 @@ class OrderListContainer extends StatelessWidget {
                           : order.statusPesanan == 'proses'
                               ? const Color.fromARGB(255, 196, 130, 23)
                                   .withOpacity(0.8)
-                              : order.statusPesanan == 'batal'
+                              : order.statusPesanan.contains('batal')
                                   ? const Color.fromARGB(255, 196, 23, 23)
                                   : ColorPalette().primary,
                       fontWeight: FontWeight.w700,
@@ -194,6 +198,7 @@ class OrderListContainer extends StatelessWidget {
             order.statusPesanan == 'tunggu'
                 ? CancelOrderButton(
                     idPesanan: order.idPesanan,
+                    isBuyer: isBuyer,
                   )
                 : ReviewBuyButton(
                     statusPesanan: order.statusPesanan,

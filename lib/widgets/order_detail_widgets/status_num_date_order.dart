@@ -22,8 +22,10 @@ class StatusNumDateOrder extends StatelessWidget {
             Text(
               order.statusPesanan == 'tunggu'
                   ? 'Menunggu Konfirmasi'
-                  : order.statusPesanan == 'batal'
-                      ? 'Dibatalkan'
+                  : order.statusPesanan.contains('batal')
+                      ? order.statusPesanan == 'batal_toko'
+                          ? 'Dibatalkan Penjual'
+                          : 'Dibatalkan'
                       : 'Selesai',
               style: TextStyle(
                 color: Colors.black.withOpacity(0.9),
@@ -32,7 +34,7 @@ class StatusNumDateOrder extends StatelessWidget {
               ),
             ),
             const Spacer(),
-            if (order.statusPesanan != 'batal')
+            if (!order.statusPesanan.contains('batal'))
               InkWell(
                 onTap: () {},
                 child: Text(

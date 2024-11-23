@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:sihalal_ecommerce_app/controller/product_controller/get_seller_product_controller.dart';
 import 'package:sihalal_ecommerce_app/controller/user_profile_controller.dart';
 import 'package:sihalal_ecommerce_app/models/order.dart';
 
@@ -47,8 +48,15 @@ class OrderController extends GetxController {
 
       if (responseBody['status'] == 'success') {
         final userProfileController = Get.find<UserProfileController>();
+        final GetSellerProductController getSellerProductController =
+            Get.isRegistered<GetSellerProductController>()
+                ? Get.find<GetSellerProductController>()
+                : Get.put(GetSellerProductController());
+
         getOrderHistoryCount(userProfileController.idUser);
-        await getOrderHistory();
+        getSellerProductController.getSellerOrder(
+            idUserToko: userProfileController.idUser);
+        getOrderHistory();
 
         debugPrint('Success change status order: $responseBody');
       } else {
@@ -102,7 +110,8 @@ class OrderController extends GetxController {
                 tanggalPesanan: order['tanggal_pesanan'],
                 statusPesanan: order['status_pesanan'],
                 idUserToko: order['id_user_toko'],
-                namaToko: order['nama_toko'],
+                namaUserToko: order['nama_user'],
+                namaToko: order['nama_toko'] ?? 'Toko ${order['nama_user']}',
                 namaProduk: order['nama_produk'],
                 fotoProduk: order['foto_produk_1'],
               ),

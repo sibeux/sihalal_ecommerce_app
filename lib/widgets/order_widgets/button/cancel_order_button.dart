@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:sihalal_ecommerce_app/widgets/order_widgets/cancel_order_dialog.dart';
+import 'package:sihalal_ecommerce_app/widgets/store_widgets/store_confirm_order_button.dart';
 
 class CancelOrderButton extends StatelessWidget {
-  const CancelOrderButton({super.key, required this.idPesanan});
+  const CancelOrderButton({
+    super.key,
+    required this.idPesanan,
+    required this.isBuyer,
+  });
 
   final String idPesanan;
+  final bool isBuyer;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +21,7 @@ class CancelOrderButton extends StatelessWidget {
           onPressed: () {
             showCancelOrderDialog(
               idPesanan: idPesanan,
-              statusPesanan: 'batal',
+              statusPesanan: isBuyer ? 'batal' : 'batal_toko',
             );
           },
           style: ElevatedButton.styleFrom(
@@ -44,6 +50,8 @@ class CancelOrderButton extends StatelessWidget {
             ),
           ),
         ),
+        if (!isBuyer) const SizedBox(width: 10),
+        if (!isBuyer) const Expanded(child: StoreConfirmOrderButton()),
       ],
     );
   }

@@ -27,6 +27,7 @@ class OrderScreen extends StatelessWidget {
             backgroundColor: HexColor('#fefffe'),
             surfaceTintColor: Colors.transparent,
             toolbarHeight: isFromAnotherScreen ? 60 : 40,
+            titleSpacing: 0,
             leading: !isFromAnotherScreen
                 ? const SizedBox()
                 : IconButton(
@@ -83,6 +84,7 @@ class OrderScreen extends StatelessWidget {
                                     )
                                   : OrderListContainer(
                                       order: orderController.orderList[index],
+                                      isBuyer: true,
                                     );
                             }),
                   ),

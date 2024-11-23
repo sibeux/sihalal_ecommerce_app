@@ -79,7 +79,7 @@ class ShippingInfo extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    order.namaNoPenerima.split('|')[0],
+                    order.namaNoPenerima.split('|')[0].trim(),
                     style: TextStyle(
                       color: Colors.black.withOpacity(1),
                       fontSize: 12,
@@ -88,7 +88,7 @@ class ShippingInfo extends StatelessWidget {
                   ),
                   const HeightBox(3),
                   Text(
-                    order.namaNoPenerima.split('|')[1],
+                    order.namaNoPenerima.split('|')[1].trim(),
                     style: TextStyle(
                       color: Colors.black.withOpacity(1),
                       fontSize: 12,
@@ -97,7 +97,7 @@ class ShippingInfo extends StatelessWidget {
                   ),
                   const HeightBox(3),
                   Text(
-                    order.alamatPenerima,
+                    order.alamatPenerima.trim(),
                     maxLines: null,
                     style: TextStyle(
                       color: Colors.black.withOpacity(1),
