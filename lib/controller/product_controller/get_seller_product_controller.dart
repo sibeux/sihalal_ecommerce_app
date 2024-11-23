@@ -160,8 +160,9 @@ class GetSellerProductController extends GetxController {
             statusPesanan: order['status_pesanan'],
             idUserToko: order['id_user_toko'],
             namaUserToko: order['nama_user'],
-            namaToko: unescape
-                .convert(order['nama_toko'] ?? 'Toko ${order['nama_user']}'),
+            namaToko: order['nama_toko'] != null
+                ? unescape.convert(order['nama_toko'])
+                : 'Toko ${order['nama_user']}',
             namaProduk: unescape.convert(order['nama_produk']),
             fotoProduk: order['foto_produk_1'],
           );

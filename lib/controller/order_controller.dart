@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:html_unescape/html_unescape.dart';
 import 'package:http/http.dart' as http;
 import 'package:sihalal_ecommerce_app/controller/product_controller/get_seller_product_controller.dart';
 import 'package:sihalal_ecommerce_app/controller/user_profile_controller.dart';
@@ -130,6 +131,7 @@ class OrderController extends GetxController {
 
     try {
       final response = await http.get(Uri.parse(url));
+      var unescape = HtmlUnescape();
 
       final List<dynamic> listData = json.decode(response.body);
 
@@ -144,7 +146,7 @@ class OrderController extends GetxController {
                 jumlah: order['jumlah'],
                 pengiriman: order['pengiriman'],
                 namaNoPenerima: order['nama_no_penerima'],
-                alamatPenerima: order['alamat_penerima'],
+                alamatPenerima: unescape.convert(order['alamat_penerima']),
                 subtotalHargaBarang: order['subtotal_harga_barang'],
                 subtotalPengiriman: order['subtotal_pengiriman'],
                 totalPembayaran: order['total_pembayaran'],
@@ -152,8 +154,10 @@ class OrderController extends GetxController {
                 statusPesanan: order['status_pesanan'],
                 idUserToko: order['id_user_toko'],
                 namaUserToko: order['nama_user'],
-                namaToko: order['nama_toko'] ?? 'Toko ${order['nama_user']}',
-                namaProduk: order['nama_produk'],
+                namaToko: order['nama_toko'] != null
+                    ? unescape.convert(order['nama_toko'])
+                    : 'Toko ${order['nama_user']}',
+                namaProduk: unescape.convert(order['nama_produk']),
                 fotoProduk: order['foto_produk_1'],
               ),
             )

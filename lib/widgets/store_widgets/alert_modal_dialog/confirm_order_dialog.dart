@@ -24,7 +24,7 @@ void confirmOrderDialog(BuildContext context, String idPesanan) {
           bottom: 15,
         ),
         title: Image.asset(
-          'assets/images/icon-general/tas_confirm.png',
+          'assets/images/icon-general/confirm.png',
           height: 120,
           width: 120,
         ),

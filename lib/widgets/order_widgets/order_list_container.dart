@@ -10,6 +10,7 @@ import 'package:sihalal_ecommerce_app/screens/order_detail_screen/order_detail_s
 import 'package:sihalal_ecommerce_app/widgets/order_widgets/button/cancel_order_button.dart';
 import 'package:sihalal_ecommerce_app/widgets/order_widgets/button/review_buy_button.dart';
 import 'package:sihalal_ecommerce_app/widgets/order_widgets/button/send_order_button.dart';
+import 'package:sihalal_ecommerce_app/widgets/order_widgets/button/track_order_button.dart';
 import 'package:sihalal_ecommerce_app/widgets/order_widgets/strip_line.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -201,11 +202,13 @@ class OrderListContainer extends StatelessWidget {
                     idPesanan: order.idPesanan,
                     isBuyer: isBuyer,
                   )
-                : order.statusPesanan == 'proses'
+                : order.statusPesanan == 'proses' && !isBuyer
                     ? SendOrderButton(idPesanan: order.idPesanan)
-                    : ReviewBuyButton(
-                        statusPesanan: order.statusPesanan,
-                      ),
+                    : order.statusPesanan == 'proses' && isBuyer
+                        ? TrackOrderButton(idPesanan: order.idPesanan)
+                        : ReviewBuyButton(
+                            statusPesanan: order.statusPesanan,
+                          ),
             const HeightBox(15),
             SizedBox(
               height: 1,

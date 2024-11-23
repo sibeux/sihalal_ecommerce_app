@@ -26,7 +26,11 @@ class StatusNumDateOrder extends StatelessWidget {
                       ? order.statusPesanan == 'batal_toko'
                           ? 'Dibatalkan Penjual'
                           : 'Dibatalkan'
-                      : 'Selesai',
+                      : order.statusPesanan == 'proses'
+                          ? 'Dikemas'
+                          : order.statusPesanan == 'kirim'
+                              ? 'Sedang Dikirim'
+                              : 'Selesai',
               style: TextStyle(
                 color: Colors.black.withOpacity(0.9),
                 fontSize: 14,
