@@ -5,8 +5,8 @@ import 'package:sihalal_ecommerce_app/component/color_palette.dart';
 import 'package:sihalal_ecommerce_app/controller/address_controller/user_address_controller.dart';
 import 'package:sihalal_ecommerce_app/models/seller_product.dart';
 import 'package:sihalal_ecommerce_app/screens/account_screen/store_centre_screen/add_product_screen/add_product_screen.dart';
-import 'package:sihalal_ecommerce_app/widgets/store_widgets/alert_modal/change_visibility_modal.dart';
-import 'package:sihalal_ecommerce_app/widgets/store_widgets/alert_modal/delete_product_modal.dart';
+import 'package:sihalal_ecommerce_app/widgets/store_widgets/alert_modal_dialog/change_visibility_modal.dart';
+import 'package:sihalal_ecommerce_app/widgets/store_widgets/alert_modal_dialog/delete_product_modal.dart';
 
 class ChangeStatusButton extends StatelessWidget {
   const ChangeStatusButton({

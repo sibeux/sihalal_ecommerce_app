@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:sihalal_ecommerce_app/controller/product_controller/get_seller_product_controller.dart';
@@ -87,6 +88,17 @@ class OrderController extends GetxController {
         getOrderHistory();
 
         debugPrint('Success change status order: $responseBody');
+
+        Fluttertoast.showToast(
+          msg:
+              'Pesanan berhasil di${orderStatus.contains('batal') ? 'batal' : orderStatus}kan!',
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.black.withOpacity(0.5),
+          textColor: Colors.white,
+          fontSize: 10.0,
+        );
       } else {
         debugPrint('Failed change status order: $responseBody');
       }

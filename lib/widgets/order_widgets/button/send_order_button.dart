@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:sihalal_ecommerce_app/widgets/order_widgets/cancel_order_dialog.dart';
-import 'package:sihalal_ecommerce_app/widgets/store_widgets/store_confirm_order_button.dart';
+import 'package:sihalal_ecommerce_app/component/color_palette.dart';
+import 'package:sihalal_ecommerce_app/widgets/store_widgets/alert_modal_dialog/send_order_dialog.dart';
 
-class CancelOrderButton extends StatelessWidget {
-  const CancelOrderButton({
+class SendOrderButton extends StatelessWidget {
+  const SendOrderButton({
     super.key,
     required this.idPesanan,
-    required this.isBuyer,
   });
 
   final String idPesanan;
-  final bool isBuyer;
 
   @override
   Widget build(BuildContext context) {
@@ -19,20 +17,17 @@ class CancelOrderButton extends StatelessWidget {
       children: [
         ElevatedButton(
           onPressed: () {
-            showCancelOrderDialog(
-              idPesanan: idPesanan,
-              statusPesanan: isBuyer ? 'batal' : 'batal_toko',
-            );
+            sendOrderDialog(context, idPesanan);
           },
           style: ElevatedButton.styleFrom(
-            foregroundColor: Colors.red,
+            foregroundColor: ColorPalette().primary,
             backgroundColor: Colors.transparent,
             elevation: 0, // Menghilangkan shadow
             splashFactory: InkRipple.splashFactory,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
-              side: const BorderSide(
-                color: Colors.red,
+              side: BorderSide(
+                color: ColorPalette().primary,
               ),
             ),
           ),
@@ -42,7 +37,7 @@ class CancelOrderButton extends StatelessWidget {
               vertical: 10.0,
             ),
             child: Text(
-              'Batalkan Pesanan',
+              'Kirim Pesanan',
               style: TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.bold,
@@ -50,10 +45,6 @@ class CancelOrderButton extends StatelessWidget {
             ),
           ),
         ),
-        if (!isBuyer) const SizedBox(width: 10),
-        if (!isBuyer) Expanded(child: StoreConfirmOrderButton(
-          idPesanan: idPesanan,
-        )),
       ],
     );
   }
