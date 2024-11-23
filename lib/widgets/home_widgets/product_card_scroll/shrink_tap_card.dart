@@ -77,7 +77,11 @@ class ShrinkTapProductState extends State<ShrinkTapProduct>
         _shrinkButtonSize();
         _restoreButtonSize();
         Get.to(
-          () => ProductDetailScreen(product: widget.product),
+          () => ProductDetailScreen(
+            idProduk: widget.uidProduct,
+            idUser: widget.product.uidUser,
+            fotoImage1: widget.image,
+          ),
           transition: Transition.native,
           fullscreenDialog: true,
           popGesture: false,
