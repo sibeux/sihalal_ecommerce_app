@@ -18,7 +18,7 @@ class StoreOrderScreen extends StatelessWidget {
     if (Get.arguments != null) {
       title = Get.arguments['title'];
     } else {
-      title = 'Riwayat Pesanan';
+      title = 'Riwayat\nPenjualan';
     }
 
     return Stack(

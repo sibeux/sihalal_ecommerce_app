@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:sihalal_ecommerce_app/component/color_palette.dart';
 import 'package:sihalal_ecommerce_app/models/order.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -37,19 +36,19 @@ class StatusNumDateOrder extends StatelessWidget {
                 fontWeight: FontWeight.w700,
               ),
             ),
-            const Spacer(),
-            if (!order.statusPesanan.contains('batal'))
-              InkWell(
-                onTap: () {},
-                child: Text(
-                  'Lihat Detail',
-                  style: TextStyle(
-                    color: ColorPalette().primary,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-              ),
+            // const Spacer(),
+            // if (!order.statusPesanan.contains('batal'))
+            //   InkWell(
+            //     onTap: () {},
+            //     child: Text(
+            //       'Lihat Detail',
+            //       style: TextStyle(
+            //         color: ColorPalette().primary,
+            //         fontSize: 12,
+            //         fontWeight: FontWeight.w700,
+            //       ),
+            //     ),
+            //   ),
           ],
         ),
         const HeightBox(10),
