@@ -10,6 +10,7 @@ import 'package:sihalal_ecommerce_app/models/order.dart';
 class OrderController extends GetxController {
   var selectedOrderStatusFilter = 'Semua'.obs;
   var orderList = RxList<Order>([]);
+  var fixAllOrderList = RxList<Order>([]);
   var orderHistoryCount = 0.obs;
   var orderHistoryStoreCount = 0.obs;
 
@@ -17,16 +18,45 @@ class OrderController extends GetxController {
   var isLoadingGetOrderCount = false.obs;
 
   void changeOrderStatusFilter(String status) {
+    isLoadingGetOrder.value = true;
     selectedOrderStatusFilter.value = status;
+    if (status == 'Diproses') {
+      orderList.value = fixAllOrderList
+          .where((order) =>
+              order.statusPesanan == 'tunggu' ||
+              order.statusPesanan == 'proses')
+          .toList();
+    } else if (status == 'Dikirim') {
+      orderList.value = fixAllOrderList
+          .where((order) => order.statusPesanan == 'kirim')
+          .toList();
+    } else if (status == 'Selesai') {
+      orderList.value = fixAllOrderList
+          .where((order) => order.statusPesanan == 'selesai')
+          .toList();
+    } else if (status == 'Dibatalkan') {
+      orderList.value = fixAllOrderList
+          .where((order) => order.statusPesanan.contains('batal'))
+          .toList();
+    } else {
+      orderList.value = fixAllOrderList;
+    }
+    isLoadingGetOrder.value = false;
   }
 
   Future<void> changeOrderStatus(
       {required String idPesanan, required String orderStatus}) async {
+    final GetSellerProductController getSellerProductController =
+        Get.isRegistered<GetSellerProductController>()
+            ? Get.find<GetSellerProductController>()
+            : Get.put(GetSellerProductController());
+
     isLoadingGetOrder.value = true;
 
     const String url = "https://sibeux.my.id/project/sihalal/order";
 
     try {
+      getSellerProductController.isGetOrderLoading.value = true;
       final response = await http.post(
         Uri.parse(url),
         headers: {
@@ -48,14 +78,10 @@ class OrderController extends GetxController {
 
       if (responseBody['status'] == 'success') {
         final userProfileController = Get.find<UserProfileController>();
-        final GetSellerProductController getSellerProductController =
-            Get.isRegistered<GetSellerProductController>()
-                ? Get.find<GetSellerProductController>()
-                : Get.put(GetSellerProductController());
 
-        getOrderHistoryCount(userProfileController.idUser);
         getSellerProductController.getSellerOrder(
             idUserToko: userProfileController.idUser);
+        getOrderHistoryCount(userProfileController.idUser);
         getOrderHistory();
 
         debugPrint('Success change status order: $responseBody');
@@ -66,6 +92,7 @@ class OrderController extends GetxController {
       debugPrint('Error: $e');
     } finally {
       isLoadingGetOrder.value = false;
+      getSellerProductController.isGetOrderLoading.value = false;
     }
   }
 
@@ -119,8 +146,10 @@ class OrderController extends GetxController {
             .toList();
 
         orderList.value = list;
+        fixAllOrderList.value = list;
       } else {
         orderList.value = [];
+        fixAllOrderList.value = [];
       }
     } catch (e) {
       debugPrint('Error: $e');

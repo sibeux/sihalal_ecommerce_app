@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:sihalal_ecommerce_app/component/color_palette.dart';
 import 'package:sihalal_ecommerce_app/controller/product_controller/get_seller_product_controller.dart';
 import 'package:sihalal_ecommerce_app/models/order.dart';
 import 'package:sihalal_ecommerce_app/models/seller_order.dart';
@@ -132,8 +131,8 @@ class StoreOrderScreen extends StatelessWidget {
         Obx(
           () => getSellerProductController.isGetOrderLoading.value
               ? const Opacity(
-                  opacity: 1,
-                  child: ModalBarrier(dismissible: false, color: Colors.white),
+                  opacity: 0.8,
+                  child: ModalBarrier(dismissible: false, color: Colors.black),
                 )
               : const SizedBox(),
         ),
@@ -141,7 +140,7 @@ class StoreOrderScreen extends StatelessWidget {
           () => getSellerProductController.isGetOrderLoading.value
               ? Center(
                   child: LoadingAnimationWidget.fourRotatingDots(
-                    color: ColorPalette().primary,
+                    color: Colors.white,
                     size: 50,
                   ),
                 )
