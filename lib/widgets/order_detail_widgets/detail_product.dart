@@ -170,7 +170,11 @@ class DetailProduct extends StatelessWidget {
                     ],
                   ),
                   const Spacer(),
-                  if (isBuyer) const BuyAgainButton(),
+                  if (isBuyer) BuyAgainButton(
+                    idProduct: order.idProduk,
+                    idUser: order.idUserToko,
+                    image: order.fotoProduk,
+                  ),
                 ],
               )
             ],
