@@ -217,10 +217,17 @@ class OrderListContainer extends StatelessWidget {
                         : order.statusPesanan == 'kirim' && isBuyer
                             ? CompleteOrderButton(idPesanan: order.idPesanan)
                             : order.statusPesanan == 'selesai' && isBuyer
-                                ? ReviewOrderButton(idPesanan: order.idPesanan)
+                                ? ReviewOrderButton(
+                                    idPesanan: order.idPesanan,
+                                    namaProduk: order.namaProduk,
+                                    idProduk: order.idProduk,
+                                  )
                                 : order.statusPesanan == 'ulas' && isBuyer
                                     ? ReviewBuyButton(
                                         statusPesanan: order.statusPesanan,
+                                        idProduct: order.idProduk,
+                                        idUser: order.idUserToko,
+                                        image: order.fotoProduk,
                                       )
                                     : const SizedBox(),
             const HeightBox(15),

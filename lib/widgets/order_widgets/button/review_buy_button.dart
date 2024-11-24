@@ -1,20 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:sihalal_ecommerce_app/component/color_palette.dart';
+import 'package:sihalal_ecommerce_app/screens/product_detail_screen/product_detail_screen.dart';
 
 class ReviewBuyButton extends StatelessWidget {
   const ReviewBuyButton({
     super.key,
     required this.statusPesanan,
+    required this.idProduct,
+    required this.idUser,
+    required this.image,
   });
 
   final String statusPesanan;
+  final String idProduct, idUser, image;
 
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        if (statusPesanan == 'selesai')
+        if (statusPesanan == 'ulas')
           Expanded(
             child: ElevatedButton(
               onPressed: () {},
@@ -47,9 +53,20 @@ class ReviewBuyButton extends StatelessWidget {
           ),
         const SizedBox(width: 10),
         Flexible(
-          fit: statusPesanan == 'selesai' ? FlexFit.tight : FlexFit.loose,
+          fit: statusPesanan == 'ulas' ? FlexFit.tight : FlexFit.loose,
           child: ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              Get.to(
+                () => ProductDetailScreen(
+                  idProduk: idProduct,
+                  idUser: idUser,
+                  fotoImage1: image,
+                ),
+                transition: Transition.downToUp,
+                fullscreenDialog: true,
+                popGesture: false,
+              );
+            },
             style: ElevatedButton.styleFrom(
               foregroundColor: Colors.white,
               backgroundColor: ColorPalette().primary,

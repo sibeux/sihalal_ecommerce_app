@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:sihalal_ecommerce_app/screens/review_screen/create_review_screen.dart';
 
 class ReviewOrderButton extends StatelessWidget {
   const ReviewOrderButton({
     super.key,
-    required this.idPesanan,
+    required this.idPesanan, required this.namaProduk, required this.idProduk,
   });
 
-  final String idPesanan;
+  final String idPesanan, namaProduk, idProduk;
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +16,19 @@ class ReviewOrderButton extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
         ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+            Get.to(
+              () => CreateReviewScreen(
+                idPesanan: idPesanan,
+                namaProduk: namaProduk,
+                idProduk: idProduk,
+
+              ),
+              transition: Transition.downToUp,
+              fullscreenDialog: true,
+              popGesture: false,
+            );
+          },
           style: ElevatedButton.styleFrom(
             foregroundColor:
                 const Color.fromARGB(255, 196, 130, 23).withOpacity(0.8),

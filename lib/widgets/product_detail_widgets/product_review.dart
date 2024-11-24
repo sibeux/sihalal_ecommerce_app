@@ -5,6 +5,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:sihalal_ecommerce_app/component/color_palette.dart';
 import 'package:sihalal_ecommerce_app/component/string_formatter.dart';
 import 'package:sihalal_ecommerce_app/controller/product_controller/product_review_controller.dart';
+import 'package:sihalal_ecommerce_app/widgets/product_detail_widgets/review_shimmer.dart';
 
 class ProductReview extends StatelessWidget {
   const ProductReview({
@@ -43,15 +44,18 @@ class ProductReview extends StatelessWidget {
               jumlahUlasan == '0'
                   ? const SizedBox()
                   : Flexible(
-                      flex: 1,
+                      flex: 0,
                       fit: FlexFit.tight,
-                      child: Text(
-                        'Lihat Semua',
-                        textAlign: TextAlign.right,
-                        style: TextStyle(
-                          color: ColorPalette().primary,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w700,
+                      child: InkWell(
+                        onTap: () {},
+                        child: Text(
+                          'Lihat Semua',
+                          textAlign: TextAlign.right,
+                          style: TextStyle(
+                            color: ColorPalette().primary,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w700,
+                          ),
                         ),
                       ),
                     )
@@ -117,9 +121,7 @@ class ProductReview extends StatelessWidget {
           const SizedBox(height: 5),
           Obx(
             () => productReviewController.isLoading.value
-                ? const Center(
-                    child: CircularProgressIndicator(),
-                  )
+                ? const ReviewShimmer()
                 : jumlahUlasan == '0'
                     ? const Center(
                         child: Column(
