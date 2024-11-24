@@ -14,6 +14,7 @@ import 'package:sihalal_ecommerce_app/screens/user_auth_screen/login_screen.dart
 import 'package:sihalal_ecommerce_app/widgets/product_detail_widgets/button.dart';
 import 'package:sihalal_ecommerce_app/widgets/product_detail_widgets/merk_stok_weight_product.dart';
 import 'package:sihalal_ecommerce_app/widgets/product_detail_widgets/product_review.dart';
+import 'package:sihalal_ecommerce_app/widgets/product_detail_widgets/shimmer_product_detail.dart';
 import 'package:sihalal_ecommerce_app/widgets/product_detail_widgets/shop_info.dart';
 import 'package:sihalal_ecommerce_app/widgets/product_detail_widgets/shop_info_shimmer.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -147,36 +148,43 @@ class ProductDetailScreen extends StatelessWidget {
                               ),
                             ),
                           ),
-                          Positioned(
-                            bottom: 10,
-                            left: 20,
-                            child: Container(
-                              width: 35,
-                              height: 20,
-                              decoration: BoxDecoration(
-                                color: HexColor('#fefeff'),
-                                borderRadius: BorderRadius.circular(3),
-                                border: Border.all(
-                                  color:
-                                      const Color.fromARGB(255, 217, 220, 231),
-                                  width: 1.1,
-                                  strokeAlign: BorderSide.strokeAlignOutside,
-                                ),
-                              ),
-                              child: Center(
-                                child: Obx(
-                                  () => Text(
-                                    '${productDetailController.imageIndex.value}/${productDetailController.imageProductCount.value}',
-                                    style: TextStyle(
-                                      color: const Color.fromARGB(255, 0, 0, 0)
-                                          .withOpacity(0.7),
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w500,
+                          Obx(
+                            () => productDetailController
+                                    .isLoadingFetchDataProduct.value
+                                ? const SizedBox()
+                                : Positioned(
+                                    bottom: 10,
+                                    left: 20,
+                                    child: Container(
+                                      width: 35,
+                                      height: 20,
+                                      decoration: BoxDecoration(
+                                        color: HexColor('#fefeff'),
+                                        borderRadius: BorderRadius.circular(3),
+                                        border: Border.all(
+                                          color: const Color.fromARGB(
+                                              255, 217, 220, 231),
+                                          width: 1.1,
+                                          strokeAlign:
+                                              BorderSide.strokeAlignOutside,
+                                        ),
+                                      ),
+                                      child: Center(
+                                        child: Obx(
+                                          () => Text(
+                                            '${productDetailController.imageIndex.value}/${productDetailController.imageProductCount.value}',
+                                            style: TextStyle(
+                                              color: const Color.fromARGB(
+                                                      255, 0, 0, 0)
+                                                  .withOpacity(0.7),
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ),
-                            ),
                           ),
                         ],
                       ),
@@ -190,8 +198,8 @@ class ProductDetailScreen extends StatelessWidget {
                       // ** Ini dipakai ketika productDetailData sudah selesai di-load
                       Obx(
                         () => productDetailController
-                                .isLoadingFetchDataProduct.value
-                            ? const CircularProgressIndicator()
+                                    .isLoadingFetchDataProduct.value
+                            ? const ShimmerProductDetail()
                             : Column(
                                 children: [
                                   Padding(

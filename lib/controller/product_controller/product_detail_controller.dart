@@ -67,8 +67,6 @@ class ProductDetailController extends GetxController {
   Future<void> fetchDataProductDetail({required String idProduk}) async {
     isLoadingFetchDataProduct.value = true;
 
-    getProductDetailData(idProduk);
-
     final String url =
         'https://sibeux.my.id/project/sihalal/product?method=get_product_detail&id_produk=$idProduk';
 
@@ -78,6 +76,8 @@ class ProductDetailController extends GetxController {
       final List<dynamic> listData = json.decode(response.body);
 
       var unescape = HtmlUnescape();
+
+      getProductDetailData(idProduk);
 
       if (listData.isNotEmpty) {
         final list = listData.map((product) {
