@@ -24,7 +24,7 @@ String stockFormatter(String input) {
 
 String ratingFormatter(String input) {
   double rating = double.parse(input);
-  return rating.toStringAsFixed(2);
+  return rating.toStringAsFixed(1);
 }
 
 String shortenKabupaten(String input) {

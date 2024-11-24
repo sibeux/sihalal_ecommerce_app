@@ -1,10 +1,10 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:sihalal_ecommerce_app/component/color_palette.dart';
-import 'package:sihalal_ecommerce_app/component/string_formatter.dart';
 import 'package:sihalal_ecommerce_app/controller/product_controller/product_review_controller.dart';
+import 'package:sihalal_ecommerce_app/screens/review_screen/product_review_screen.dart';
+import 'package:sihalal_ecommerce_app/widgets/product_detail_widgets/recent_review.dart';
 import 'package:sihalal_ecommerce_app/widgets/product_detail_widgets/review_shimmer.dart';
 
 class ProductReview extends StatelessWidget {
@@ -47,7 +47,16 @@ class ProductReview extends StatelessWidget {
                       flex: 0,
                       fit: FlexFit.tight,
                       child: InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          Get.to(
+                            () => ProductReviewScreen(
+                              productReviewController: productReviewController,
+                            ),
+                            transition: Transition.rightToLeft,
+                            fullscreenDialog: true,
+                            popGesture: false,
+                          );
+                        },
                         child: Text(
                           'Lihat Semua',
                           textAlign: TextAlign.right,
@@ -133,109 +142,8 @@ class ProductReview extends StatelessWidget {
                           ],
                         ),
                       )
-                    : RecentReview(controller: productReviewController),
+                    : RecentReview(controller: productReviewController, index: 0),
           ),
-        ],
-      ),
-    );
-  }
-}
-
-class RecentReview extends StatelessWidget {
-  const RecentReview({
-    super.key,
-    required this.controller,
-  });
-
-  final ProductReviewController controller;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(top: 5),
-      width: double.infinity,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              ClipRRect(
-                borderRadius: const BorderRadius.all(Radius.circular(100)),
-                child: CachedNetworkImage(
-                  imageUrl: controller.productReview[0]!.fotoUser,
-                  fit: BoxFit.cover,
-                  height: 35,
-                  width: 35,
-                  maxHeightDiskCache: 100,
-                  maxWidthDiskCache: 100,
-                  filterQuality: FilterQuality.low,
-                  placeholder: (context, url) => Image.asset(
-                    'assets/images/shimmer/profile/profile_shimmer.png',
-                    fit: BoxFit.cover,
-                  ),
-                  errorWidget: (context, url, error) => Image.asset(
-                    'assets/images/shimmer/profile/profile_shimmer.png',
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-              const SizedBox(width: 7),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    controller.productReview[0]!.namaUser,
-                    maxLines: 1,
-                    style: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 13,
-                      fontWeight: FontWeight.w600,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                  const SizedBox(height: 3),
-                  Row(
-                    children: [
-                      for (int i = 0; i < 5; i++)
-                        Icon(
-                          Icons.star,
-                          size: 15,
-                          color:
-                              i < int.parse(controller.productReview[0]!.rating)
-                                  ? HexColor('#FFD700')
-                                  : Colors.grey[400],
-                        ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      Text(
-                        '• ' '${timeAgo(controller.productReview[0]!.tanggal)}',
-                        style: TextStyle(
-                          color: Colors.black.withOpacity(0.6),
-                          fontSize: 12,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      )
-                    ],
-                  )
-                ],
-              )
-            ],
-          ),
-          const SizedBox(height: 10),
-          Container(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              controller.productReview[0]!.ulasan,
-              maxLines: 4,
-              style: const TextStyle(
-                color: Colors.black,
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
-                overflow: TextOverflow.ellipsis,
-              ),
-            ),
-          )
         ],
       ),
     );

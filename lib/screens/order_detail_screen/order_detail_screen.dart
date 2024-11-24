@@ -18,8 +18,11 @@ class NoGlowScrollBehavior extends ScrollBehavior {
 }
 
 class OrderDetailScreen extends StatelessWidget {
-  const OrderDetailScreen(
-      {super.key, required this.order, required this.isBuyer});
+  const OrderDetailScreen({
+    super.key,
+    required this.order,
+    required this.isBuyer,
+  });
 
   final Order order;
   final bool isBuyer;

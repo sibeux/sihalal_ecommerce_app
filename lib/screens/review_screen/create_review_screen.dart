@@ -11,7 +11,8 @@ class CreateReviewScreen extends StatelessWidget {
   const CreateReviewScreen({
     super.key,
     required this.idPesanan,
-    required this.namaProduk, required this.idProduk,
+    required this.namaProduk,
+    required this.idProduk,
   });
 
   final String idPesanan, idProduk, namaProduk;
@@ -98,10 +99,10 @@ class CreateReviewScreen extends StatelessWidget {
             ),
           ),
           const Spacer(),
-           ButtonSendReview(
+          ButtonSendReview(
             idPesanan: idPesanan,
             idProduk: idProduk,
-           ),
+          ),
         ],
       ),
     );

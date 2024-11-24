@@ -98,11 +98,12 @@ class ShippingInfo extends StatelessWidget {
                   const HeightBox(3),
                   Text(
                     order.alamatPenerima.trim(),
-                    maxLines: null,
+                    maxLines: 3,
                     style: TextStyle(
                       color: Colors.black.withOpacity(1),
                       fontSize: 12,
                       fontWeight: FontWeight.w400,
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
                 ],
