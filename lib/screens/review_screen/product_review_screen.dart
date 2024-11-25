@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:sihalal_ecommerce_app/component/color_palette.dart';
 import 'package:sihalal_ecommerce_app/controller/product_controller/product_review_controller.dart';
 import 'package:sihalal_ecommerce_app/widgets/product_detail_widgets/recent_review.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -12,6 +14,13 @@ class ProductReviewScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    late bool isFromOrderHistoryScreen;
+
+    if (Get.arguments != null) {
+      isFromOrderHistoryScreen = Get.arguments['isFromOrderHistoryScreen'] == true;
+    } else {
+      isFromOrderHistoryScreen = false;
+    }
     return Scaffold(
       backgroundColor: HexColor('#fefffe'),
       appBar: AppBar(
@@ -24,7 +33,9 @@ class ProductReviewScreen extends StatelessWidget {
             Get.back();
           },
         ),
-        title: const Text('Ulasan Produk'),
+        title: isFromOrderHistoryScreen
+            ? const Text('Ulasan Saya')
+            : const Text('Ulasan Produk'),
         titleTextStyle: const TextStyle(
           color: Colors.black,
           fontSize: 18,
@@ -39,8 +50,18 @@ class ProductReviewScreen extends StatelessWidget {
           ),
           Obx(
             () => productReviewController.isLoading.value
-                ? const Center(
-                    child: CircularProgressIndicator(),
+                ? Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Center(
+                          child: LoadingAnimationWidget.prograssiveDots(
+                            color: ColorPalette().primary,
+                            size: 50,
+                          ),
+                        ),
+                      ],
+                    ),
                   )
                 // * listview di column harus di-wrap dengan expanded
                 : Expanded(

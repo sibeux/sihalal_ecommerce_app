@@ -224,6 +224,7 @@ class OrderListContainer extends StatelessWidget {
                                   )
                                 : order.statusPesanan == 'ulas' && isBuyer
                                     ? ReviewBuyButton(
+                                        idPesanan: order.idPesanan,
                                         statusPesanan: order.statusPesanan,
                                         idProduct: order.idProduk,
                                         idUser: order.idUserToko,

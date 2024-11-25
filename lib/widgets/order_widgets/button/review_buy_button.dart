@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sihalal_ecommerce_app/component/color_palette.dart';
+import 'package:sihalal_ecommerce_app/controller/product_controller/product_review_controller.dart';
 import 'package:sihalal_ecommerce_app/screens/product_detail_screen/product_detail_screen.dart';
+import 'package:sihalal_ecommerce_app/screens/review_screen/product_review_screen.dart';
 
 class ReviewBuyButton extends StatelessWidget {
   const ReviewBuyButton({
     super.key,
+    required this.idPesanan,
     required this.statusPesanan,
     required this.idProduct,
     required this.idUser,
     required this.image,
   });
 
-  final String statusPesanan;
+  final String idPesanan, statusPesanan;
   final String idProduct, idUser, image;
 
   @override
@@ -23,7 +26,24 @@ class ReviewBuyButton extends StatelessWidget {
         if (statusPesanan == 'ulas')
           Expanded(
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                final productReviewController =
+                    Get.put(ProductReviewController());
+                productReviewController.getProductReview(
+                  idProduct,
+                  idPesanan: idPesanan,
+                );
+                Get.to(
+                    () => ProductReviewScreen(
+                          productReviewController: productReviewController,
+                        ),
+                    transition: Transition.downToUp,
+                    fullscreenDialog: true,
+                    popGesture: false,
+                    arguments: {
+                      'isFromOrderHistoryScreen': true,
+                    });
+              },
               style: ElevatedButton.styleFrom(
                 foregroundColor: ColorPalette().primary,
                 backgroundColor: Colors.transparent,

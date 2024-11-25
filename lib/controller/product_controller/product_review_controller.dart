@@ -63,7 +63,7 @@ class ProductReviewController extends GetxController {
         orderController.changeOrderStatus(
             idPesanan: idPesanan, orderStatus: 'ulas');
         Get.back();
-      } else{
+      } else {
         debugPrint('Error Send Data: ${data['error']}');
       }
     } catch (e) {
@@ -73,7 +73,8 @@ class ProductReviewController extends GetxController {
     }
   }
 
-  Future<void> getProductReview(String idProduk) async {
+  Future<void> getProductReview(String idProduk,
+      {String idPesanan = ''}) async {
     isLoading.value = true;
     var unescape = HtmlUnescape();
 
@@ -115,7 +116,13 @@ class ProductReviewController extends GetxController {
         );
       }).toList();
 
-      productReview.value = list;
+      if (idPesanan.isNotEmpty) {
+        productReview.value = list
+            .where((element) => element.idPesanan == idPesanan)
+            .toList();
+      } else {
+        productReview.value = list;
+      }
     } catch (e) {
       if (kDebugMode) {
         print(e);

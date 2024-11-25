@@ -26,7 +26,7 @@ void showCompleteOrderDialog({
         bottom: 10,
       ),
       content: Text(
-        'Yakin untuk menyelesaikan pesanan?',
+        'Yakin untuk menerima pesanan?',
         style: TextStyle(
           fontSize: 13,
           color: Colors.black.withOpacity(0.6),
@@ -81,7 +81,7 @@ void showCompleteOrderDialog({
                         padding: const EdgeInsets.symmetric(horizontal: 20),
                         alignment: Alignment.center,
                         child: Text(
-                          'Selesaikan!',
+                          'Terima',
                           style: TextStyle(
                             color: ColorPalette().primary,
                             fontSize: 14,

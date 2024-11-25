@@ -39,7 +39,7 @@ class CompleteOrderButton extends StatelessWidget {
               vertical: 10.0,
             ),
             child: Text(
-              'Selesaikan Pesanan',
+              'Terima Pesanan',
               style: TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.bold,
