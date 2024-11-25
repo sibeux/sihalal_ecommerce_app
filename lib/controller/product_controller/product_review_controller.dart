@@ -10,7 +10,7 @@ import 'package:sihalal_ecommerce_app/controller/user_profile_controller.dart';
 import 'package:sihalal_ecommerce_app/models/review.dart';
 
 class ProductReviewController extends GetxController {
-  var isLoading = false.obs;
+  var isLoadingFetchReview = false.obs;
   var isLoadingSendReview = false.obs;
 
   var productReview = RxList<Review?>([]);
@@ -75,7 +75,7 @@ class ProductReviewController extends GetxController {
 
   Future<void> getProductReview(String idProduk,
       {String idPesanan = ''}) async {
-    isLoading.value = true;
+    isLoadingFetchReview.value = true;
     var unescape = HtmlUnescape();
 
     String url =
@@ -117,9 +117,8 @@ class ProductReviewController extends GetxController {
       }).toList();
 
       if (idPesanan.isNotEmpty) {
-        productReview.value = list
-            .where((element) => element.idPesanan == idPesanan)
-            .toList();
+        productReview.value =
+            list.where((element) => element.idPesanan == idPesanan).toList();
       } else {
         productReview.value = list;
       }
@@ -128,7 +127,54 @@ class ProductReviewController extends GetxController {
         print(e);
       }
     } finally {
-      isLoading.value = false;
+      isLoadingFetchReview.value = false;
+    }
+  }
+
+  Future<void> fetchReview() async {
+    isLoadingFetchReview.value = true;
+    var unescape = HtmlUnescape();
+
+    final userProfileController = Get.find<UserProfileController>();
+
+    final String idUser = userProfileController.idUser;
+
+    String url =
+        'https://sibeux.my.id/project/sihalal/review?method=fetch_review&id_user=$idUser';
+
+    try {
+      final response = await http.get(Uri.parse(url));
+
+      final List<dynamic> listData = json.decode(response.body);
+
+      if (listData.isEmpty) {
+        productReview.value = [];
+        return;
+      }
+
+      final list = listData.map((review) {
+        return Review(
+          idRating: review['id_rating'],
+          idProduk: '',
+          idUser: review['id_user'],
+          idPesanan: review['id_pesanan'],
+          rating: review['bintang_rating'],
+          ulasan: review['pesan_rating'] == ''
+              ? 'Tidak ada ulasan'
+              : unescape.convert(review['pesan_rating']),
+          tanggal: review['tanggal_rating'],
+          namaUser: review['nama_produk'],
+          fotoUser: '',
+        );
+      }).toList();
+
+      productReview.value = list;
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    } finally {
+      isLoadingFetchReview.value = false;
     }
   }
 }

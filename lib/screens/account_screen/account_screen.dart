@@ -8,6 +8,7 @@ import 'package:sihalal_ecommerce_app/controller/auth_controller.dart';
 import 'package:sihalal_ecommerce_app/controller/order_controller.dart';
 import 'package:sihalal_ecommerce_app/controller/user_profile_controller.dart';
 import 'package:sihalal_ecommerce_app/screens/account_screen/address_screen/list_address_screen.dart';
+import 'package:sihalal_ecommerce_app/screens/account_screen/review_screen.dart/list_review_screen.dart';
 import 'package:sihalal_ecommerce_app/screens/account_screen/store_centre_screen/store_centre_screen.dart';
 import 'package:sihalal_ecommerce_app/screens/order_screen/order_screen.dart';
 import 'package:sihalal_ecommerce_app/screens/user_auth_screen/login_screen.dart';
@@ -190,7 +191,14 @@ class AccountScreen extends StatelessWidget {
                     TextTile(
                       title: 'Ulasan',
                       icon: Ionicons.star_outline,
-                      action: () {},
+                      action: () {
+                        Get.to(
+                          () => const ListReviewScreen(),
+                          transition: Transition.downToUp,
+                          fullscreenDialog: true,
+                          popGesture: false,
+                        );
+                      },
                     ),
                     if (login) const SpaceDivider(),
                     if (login)

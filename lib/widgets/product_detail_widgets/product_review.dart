@@ -129,7 +129,8 @@ class ProductReview extends StatelessWidget {
           ),
           const SizedBox(height: 5),
           Obx(
-            () => productReviewController.isLoading.value && jumlahUlasan != '0'
+            () => productReviewController.isLoadingFetchReview.value &&
+                    jumlahUlasan != '0'
                 ? const ReviewShimmer()
                 : jumlahUlasan == '0'
                     ? const Center(

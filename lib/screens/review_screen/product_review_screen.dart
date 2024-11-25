@@ -17,7 +17,8 @@ class ProductReviewScreen extends StatelessWidget {
     late bool isFromOrderHistoryScreen;
 
     if (Get.arguments != null) {
-      isFromOrderHistoryScreen = Get.arguments['isFromOrderHistoryScreen'] == true;
+      isFromOrderHistoryScreen =
+          Get.arguments['isFromOrderHistoryScreen'] == true;
     } else {
       isFromOrderHistoryScreen = false;
     }
@@ -49,7 +50,7 @@ class ProductReviewScreen extends StatelessWidget {
             thickness: 0.5,
           ),
           Obx(
-            () => productReviewController.isLoading.value
+            () => productReviewController.isLoadingFetchReview.value
                 ? Expanded(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
