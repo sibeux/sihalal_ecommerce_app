@@ -7,11 +7,14 @@ import 'package:sihalal_ecommerce_app/controller/product_controller/product_revi
 class RecentReview extends StatelessWidget {
   const RecentReview({
     super.key,
-    required this.controller, required this.index,
+    required this.controller,
+    required this.index,
+    required this.isFromProductDetailScreen,
   });
 
   final ProductReviewController controller;
   final int index;
+  final bool isFromProductDetailScreen;
 
   @override
   Widget build(BuildContext context) {
@@ -64,16 +67,18 @@ class RecentReview extends StatelessWidget {
                         Icon(
                           Icons.star,
                           size: 15,
-                          color:
-                              i < int.parse(controller.productReview[index]!.rating)
-                                  ? HexColor('#FFD700')
-                                  : Colors.grey[400],
+                          color: i <
+                                  int.parse(
+                                      controller.productReview[index]!.rating)
+                              ? HexColor('#FFD700')
+                              : Colors.grey[400],
                         ),
                       const SizedBox(
                         width: 5,
                       ),
                       Text(
-                        '• ' '${timeAgo(controller.productReview[index]!.tanggal)}',
+                        '• '
+                        '${timeAgo(controller.productReview[index]!.tanggal)}',
                         style: TextStyle(
                           color: Colors.black.withOpacity(0.6),
                           fontSize: 12,
@@ -91,12 +96,13 @@ class RecentReview extends StatelessWidget {
             alignment: Alignment.centerLeft,
             child: Text(
               controller.productReview[index]!.ulasan,
-              maxLines: 4,
-              style: const TextStyle(
+              maxLines: isFromProductDetailScreen ? 1 : null,
+              style: TextStyle(
                 color: Colors.black,
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
-                overflow: TextOverflow.ellipsis,
+                overflow:
+                    isFromProductDetailScreen ? TextOverflow.ellipsis : null,
               ),
             ),
           )

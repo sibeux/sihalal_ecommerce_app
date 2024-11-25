@@ -142,7 +142,11 @@ class ProductReview extends StatelessWidget {
                           ],
                         ),
                       )
-                    : RecentReview(controller: productReviewController, index: 0),
+                    : RecentReview(
+                        controller: productReviewController,
+                        index: 0,
+                        isFromProductDetailScreen: true,
+                      ),
           ),
         ],
       ),

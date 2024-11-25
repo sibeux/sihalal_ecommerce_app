@@ -57,6 +57,7 @@ class ProductReviewScreen extends StatelessWidget {
                               RecentReview(
                                 controller: productReviewController,
                                 index: index,
+                                isFromProductDetailScreen: false,
                               ),
                               const HeightBox(15),
                               const Divider(
