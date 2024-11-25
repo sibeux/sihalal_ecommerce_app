@@ -8,6 +8,8 @@ import 'package:sihalal_ecommerce_app/controller/address_controller/user_address
 import 'package:sihalal_ecommerce_app/controller/order_controller.dart';
 import 'package:sihalal_ecommerce_app/controller/product_controller/product_detail_controller.dart';
 import 'package:sihalal_ecommerce_app/controller/user_profile_controller.dart';
+import 'package:sihalal_ecommerce_app/models/order.dart';
+import 'package:sihalal_ecommerce_app/models/product.dart';
 import 'package:sihalal_ecommerce_app/screens/checkout_screen/order_placed_screen.dart';
 import 'package:uuid/uuid.dart';
 
@@ -55,7 +57,10 @@ class CheckoutController extends GetxController {
     return "SHL/$formattedDate/$idUser$idProduct/$formattedHour$randomString";
   }
 
-  Future<void> createOrder({required String idProduct}) async {
+  Future<void> createOrder({
+    required Product product,
+    required String sellerShopName,
+  }) async {
     isLoadingCreateOrder.value = true;
 
     final userProfileController = Get.find<UserProfileController>();
@@ -77,6 +82,10 @@ class CheckoutController extends GetxController {
       final province = address.first!.province;
       final postalCode = address.first!.postalCode;
 
+      final String noPesanan = generateNumbOrder(
+          idUser: userProfileController.idUser, idProduct: product.uidProduct);
+      final String date = now.toString();
+
       final response = await http.post(
         Uri.parse(uri),
         headers: {
@@ -84,10 +93,9 @@ class CheckoutController extends GetxController {
         },
         body: {
           'method': 'create_order',
-          'no_pesanan': generateNumbOrder(
-              idUser: userProfileController.idUser, idProduct: idProduct),
+          'no_pesanan': noPesanan,
           'id_user': userProfileController.idUser,
-          'id_produk': idProduct,
+          'id_produk': product.uidProduct,
           'jumlah': quantity.value.toString(),
           'pengiriman': expedition.value.toString().split('.').last,
           'nama_no_penerima': '$name | (+62) $phone',
@@ -95,7 +103,7 @@ class CheckoutController extends GetxController {
           'subtotal_harga_barang': subTotalPrice.toString(),
           'subtotal_pengiriman': subTotalShipping.toString(),
           'total_pembayaran': totalPrice.toString(),
-          'tanggal_pesanan': now.toString(),
+          'tanggal_pesanan': date,
           'status_pesanan': 'tunggu',
         },
       );
@@ -109,10 +117,32 @@ class CheckoutController extends GetxController {
 
       if (responseBody['status'] == 'success') {
         productDetailController.stockProduct.value -= quantity.value;
-        Get.find<OrderController>().getOrderHistoryCount(userProfileController.idUser);
+        Get.find<OrderController>()
+            .getOrderHistoryCount(userProfileController.idUser);
         Get.offUntil(
           MaterialPageRoute(
-            builder: (_) => const OrderPlacedScreen(),
+            builder: (_) => OrderPlacedScreen(
+              order: Order(
+                idPesanan: '',
+                noPesanan: noPesanan,
+                idUser: userProfileController.idUser,
+                idProduk: product.uidProduct,
+                jumlah: quantity.value.toString(),
+                pengiriman: expedition.value.toString().split('.').last,
+                namaNoPenerima: '$name | (+62) $phone',
+                alamatPenerima: '$street, $city, $province, $postalCode',
+                subtotalHargaBarang: subTotalPrice.toString(),
+                subtotalPengiriman: subTotalShipping.toString(),
+                totalPembayaran: totalPrice.toString(),
+                tanggalPesanan: date,
+                statusPesanan: 'tunggu',
+                idUserToko: product.uidUser,
+                namaUserToko: sellerShopName,
+                namaToko: sellerShopName,
+                namaProduk: product.nama,
+                fotoProduk: product.foto1,
+              ),
+            ),
             fullscreenDialog: true,
           ),
           (route) => route.isFirst,

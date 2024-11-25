@@ -2,11 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:sihalal_ecommerce_app/component/color_palette.dart';
+import 'package:sihalal_ecommerce_app/models/order.dart';
 import 'package:sihalal_ecommerce_app/screens/home_screen/persistent_bar_screen.dart';
+import 'package:sihalal_ecommerce_app/screens/order_detail_screen/order_detail_screen.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class OrderPlacedScreen extends StatelessWidget {
-  const OrderPlacedScreen({super.key});
+  const OrderPlacedScreen({super.key, required this.order});
+
+  final Order order;
 
   @override
   Widget build(BuildContext context) {
@@ -106,7 +110,15 @@ class OrderPlacedScreen extends StatelessWidget {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
-                    
+                    Get.off(
+                      () => OrderDetailScreen(
+                        order: order,
+                        isBuyer: false,
+                      ),
+                      transition: Transition.native,
+                      fullscreenDialog: true,
+                      popGesture: false,
+                    );
                   },
                   style: ElevatedButton.styleFrom(
                     foregroundColor: ColorPalette().primary,

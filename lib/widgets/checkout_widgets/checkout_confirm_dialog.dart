@@ -3,9 +3,14 @@ import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:sihalal_ecommerce_app/component/color_palette.dart';
 import 'package:sihalal_ecommerce_app/controller/checkout_controller.dart';
+import 'package:sihalal_ecommerce_app/models/product.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-void checkoutConfirmDialog(BuildContext context, String idProduct) {
+void checkoutConfirmDialog(
+  BuildContext context, {
+  required Product product,
+  required String sellerShopName,
+}) {
   showDialog<void>(
     barrierDismissible: true,
     context: context,
@@ -85,7 +90,8 @@ void checkoutConfirmDialog(BuildContext context, String idProduct) {
                       final checkoutController = Get.find<CheckoutController>();
                       Navigator.of(context).pop();
                       await checkoutController.createOrder(
-                        idProduct: idProduct,
+                        product: product,
+                        sellerShopName: sellerShopName,
                       );
                     },
                     child: Container(

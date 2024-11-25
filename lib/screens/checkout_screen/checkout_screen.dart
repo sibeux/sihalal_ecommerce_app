@@ -135,7 +135,8 @@ class CheckoutScreen extends StatelessWidget {
                   ],
                 ),
                 child: ButtonCreateOrder(
-                  idProduct: product.uidProduct,
+                  product: product,
+                  shopName: shopName,
                 ),
               ),
             ],
