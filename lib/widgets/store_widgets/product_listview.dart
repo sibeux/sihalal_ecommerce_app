@@ -1,7 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:sihalal_ecommerce_app/component/string_formatter.dart';
+import 'package:sihalal_ecommerce_app/screens/product_detail_screen/product_detail_screen.dart';
 import 'package:sihalal_ecommerce_app/widgets/store_widgets/button_product_listview.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -36,57 +38,73 @@ class ProductListview extends StatelessWidget {
                 ),
                 child: Column(
                   children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          clipBehavior: Clip.antiAlias,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            border: Border.all(
-                              strokeAlign: BorderSide.strokeAlignCenter,
-                              color: Colors.black.withOpacity(0.3),
-                              width: 0.3,
+                    InkWell(
+                      splashColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      onTap: () {
+                        Get.to(
+                          () => ProductDetailScreen(
+                            idProduk: listData[index].uidProduct,
+                            idUser: listData[index].uidUser,
+                            fotoImage1: listData[index].foto1,
+                          ),
+                          transition: Transition.rightToLeft,
+                          fullscreenDialog: true,
+                          popGesture: false,
+                        );
+                      },
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            clipBehavior: Clip.antiAlias,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5),
+                              border: Border.all(
+                                strokeAlign: BorderSide.strokeAlignCenter,
+                                color: Colors.black.withOpacity(0.3),
+                                width: 0.3,
+                              ),
+                            ),
+                            child: CachedNetworkImage(
+                              imageUrl: listData[index].foto1,
+                              height: 80,
+                              width: 80,
+                              filterQuality: FilterQuality.medium,
+                              fit: BoxFit.cover,
+                              maxHeightDiskCache: 200,
+                              maxWidthDiskCache: 200,
                             ),
                           ),
-                          child: CachedNetworkImage(
-                            imageUrl: listData[index].foto1,
-                            height: 80,
-                            width: 80,
-                            filterQuality: FilterQuality.medium,
-                            fit: BoxFit.cover,
-                            maxHeightDiskCache: 200,
-                            maxWidthDiskCache: 200,
-                          ),
-                        ),
-                        const WidthBox(10),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                listData[index].nama,
-                                maxLines: 2,
-                                style: const TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w500,
-                                  overflow: TextOverflow.ellipsis,
+                          const WidthBox(10),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  listData[index].nama,
+                                  maxLines: 2,
+                                  style: const TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
                                 ),
-                              ),
-                              const HeightBox(10),
-                              Text(
-                                priceFormatter(listData[index].harga),
-                                style: const TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w500,
+                                const HeightBox(10),
+                                Text(
+                                  priceFormatter(listData[index].harga),
+                                  style: const TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                     const HeightBox(10),
                     const Divider(
@@ -105,7 +123,7 @@ class ProductListview extends StatelessWidget {
                           icon: Ionicons.cube_outline,
                         ),
                         GridviewProductData(
-                          title: 'Terjual ${listData[index].stok}',
+                          title: 'Terjual ${listData[index].countSold}',
                           icon: Ionicons.basket_outline,
                         ),
                         GridviewProductData(
