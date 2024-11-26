@@ -69,10 +69,19 @@ class ReviewListContainer extends StatelessWidget {
             child: Text(
               productReviewController.productReview[index]!.ulasan,
               maxLines: null,
-              style: const TextStyle(
-                color: Colors.black,
+              style: TextStyle(
+                color: productReviewController.productReview[index]!.ulasan
+                            .toLowerCase() ==
+                        'tidak ada ulasan'
+                    ? Colors.grey[500]
+                    : Colors.black,
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
+                fontStyle: productReviewController.productReview[index]!.ulasan
+                            .toLowerCase() ==
+                        'tidak ada ulasan'
+                    ? FontStyle.italic
+                    : FontStyle.normal,
               ),
             ),
           )

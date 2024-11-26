@@ -95,12 +95,19 @@ class RecentReview extends StatelessWidget {
           Container(
             alignment: Alignment.centerLeft,
             child: Text(
-              controller.productReview[index]!.ulasan,
+              controller.productReview[index]!.ulasan.isEmpty
+                  ? 'Tidak ada ulasan'
+                  : controller.productReview[index]!.ulasan,
               maxLines: isFromProductDetailScreen ? 1 : null,
               style: TextStyle(
-                color: Colors.black,
+                color: controller.productReview[index]!.ulasan.isEmpty
+                    ? Colors.grey[500]
+                    : Colors.black,
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
+                fontStyle: controller.productReview[index]!.ulasan.isEmpty
+                    ? FontStyle.italic
+                    : FontStyle.normal,
                 overflow:
                     isFromProductDetailScreen ? TextOverflow.ellipsis : null,
               ),
