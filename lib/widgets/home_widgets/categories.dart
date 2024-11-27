@@ -1,11 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:sihalal_ecommerce_app/component/color_palette.dart';
 
-class Categories extends StatelessWidget {
+class Categories extends StatefulWidget {
   const Categories({super.key});
 
   @override
+  State<Categories> createState() => _CategoriesState();
+}
+
+class _CategoriesState extends State<Categories> with AutomaticKeepAliveClientMixin {
+
+  @override
+  bool get wantKeepAlive => true;
+
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
+    
     List<Map<String, dynamic>> categories1 = [
       {
         'icon': "assets/images/icon-category/Sugar-1.png",

@@ -23,9 +23,13 @@ class BannerSlider extends StatefulWidget {
   State<StatefulWidget> createState() => _BannerSliderState();
 }
 
-class _BannerSliderState extends State<BannerSlider> {
+class _BannerSliderState extends State<BannerSlider> with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
+
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Column(
       children: [
         SizedBox(

@@ -31,14 +31,19 @@ class ProductCardRowScroll extends StatefulWidget {
   }
 }
 
-class _ProductCardRowScrollState extends State<ProductCardRowScroll> {
+class _ProductCardRowScrollState extends State<ProductCardRowScroll>
+    with AutomaticKeepAliveClientMixin {
   get cardHeader => widget.cardHeader;
   get color => widget.color;
   final getScrollLeftProductController =
       Get.find<GetScrollLeftProductController>();
 
   @override
+  bool get wantKeepAlive => true;
+
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
     getScrollLeftProductController.getLeftProduct(widget.sort);
     final productCardScroll = getScrollLeftProductController.recentProduct;
 
