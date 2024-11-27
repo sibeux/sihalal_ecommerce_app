@@ -9,7 +9,10 @@ import 'package:sihalal_ecommerce_app/models/product.dart';
 
 class GetScrollLeftProductController extends GetxController {
   var recentProduct = RxList<Product?>([]);
-  var isLoading = false.obs;
+  var randomProduct = RxList<Product?>([]);
+
+  var isLoadingRecent = false.obs;
+  var isLoadingRandom = false.obs;
 
   final RefreshController refreshController =
       RefreshController(initialRefresh: false);
@@ -19,6 +22,7 @@ class GetScrollLeftProductController extends GetxController {
     await Future.delayed(const Duration(milliseconds: 500));
     // ** tidak perlu await karena biar bisa dijalankan bersamaan
     getLeftProduct('recent');
+    getLeftProduct('random');
     // if failed,use refreshFailed()
     refreshController.refreshCompleted();
   }
@@ -32,7 +36,11 @@ class GetScrollLeftProductController extends GetxController {
   }
 
   Future<void> getLeftProduct(String sort) async {
-    isLoading.value = true;
+    if (sort == 'recent') {
+    isLoadingRecent.value = true;
+    } else if (sort == 'random'){
+      isLoadingRandom.value = true;
+    }
 
     String url =
         'https://sibeux.my.id/project/sihalal/product?method=scroll_left&sort=$sort';
@@ -82,14 +90,22 @@ class GetScrollLeftProductController extends GetxController {
         );
       }).toList();
 
-      recentProduct.value = list;
+      if (sort == 'recent') {
+        recentProduct.value = list;
+      } else if (sort == 'random') {
+        randomProduct.value = list;
+      }
     } catch (e) {
       if (kDebugMode) {
         print(e);
       }
     } finally {
       // ini tetap dieksekusi baik berhasil atau gagal
-      isLoading.value = false;
+      if (sort == 'recent') {
+        isLoadingRecent.value = false;
+      } else if (sort == 'random') {
+        isLoadingRandom.value = false;
+      }
     }
   }
 }

@@ -44,8 +44,16 @@ class _ProductCardRowScrollState extends State<ProductCardRowScroll>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    getScrollLeftProductController.getLeftProduct(widget.sort);
-    final productCardScroll = getScrollLeftProductController.recentProduct;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      getScrollLeftProductController.getLeftProduct(widget.sort);
+    });
+    var productCardScroll = [];
+
+    if (widget.sort == 'recent') {
+      productCardScroll = getScrollLeftProductController.recentProduct;
+    } else if (widget.sort == 'random') {
+      productCardScroll = getScrollLeftProductController.randomProduct;
+    }
 
     return Column(
       children: [
@@ -97,7 +105,10 @@ class _ProductCardRowScrollState extends State<ProductCardRowScroll>
             ),
           ),
           child: Obx(
-            () => getScrollLeftProductController.isLoading.value
+            () => (getScrollLeftProductController.isLoadingRecent.value &&
+                        widget.sort == 'recent') ||
+                    (getScrollLeftProductController.isLoadingRandom.value &&
+                        widget.sort == 'random')
                 ? const AbsorbPointer(child: ShimmerProductCard())
                 : SingleChildScrollView(
                     scrollDirection: Axis.horizontal,

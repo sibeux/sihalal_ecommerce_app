@@ -161,10 +161,16 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 const Categories(),
                 const SizedBox(height: 25),
-                ProductCardRowScroll(
-                  color: HexColor('#ecffef'),
+                const ProductCardRowScroll(
+                  color: Color.fromARGB(255, 236, 255, 237),
                   cardHeader: "Cek Produk Terbaru di SiHALAL",
                   sort: 'recent',
+                ),
+                const SizedBox(height: 25),
+                const ProductCardRowScroll(
+                  color: Color.fromARGB(255, 255, 253, 236),
+                  cardHeader: "Mau Beli Apa Hari Ini?",
+                  sort: 'random',
                 ),
                 const SizedBox(height: 25),
                 MasonryGridView.count(
@@ -175,9 +181,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     itemBuilder: (context, index) {
                       return VerticalProductCard(
                         index: index,
-                        title: index % 2 == 0
-                            ? 'Gula 500 gram'
-                            : 'Gula 500 gram Gula Putih Gula Pasir 500 gram Gula Lokal setengah kilo',
+                        title:
+                            'Gula 500 gram Gula Putih Gula Pasir 500 gram Gula Lokal setengah kilo',
                         rating: '4.5',
                         description:
                             'Selama Promo Termurah Shopee, Order Gula 500 gram 2 pcs maka dikirim kemasan kiloan 1 pcs.',
