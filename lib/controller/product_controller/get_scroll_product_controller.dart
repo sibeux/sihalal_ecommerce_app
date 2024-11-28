@@ -7,39 +7,42 @@ import 'package:sihalal_ecommerce_app/component/regex_drive.dart';
 import 'package:html_unescape/html_unescape.dart';
 import 'package:sihalal_ecommerce_app/models/product.dart';
 
-class GetScrollLeftProductController extends GetxController {
+class GetScrollProductController extends GetxController {
   var recentProduct = RxList<Product?>([]);
-  var randomProduct = RxList<Product?>([]);
+  var leftRandomProduct = RxList<Product?>([]);
+  var verticalRandomProduct = RxList<Product?>([]);
 
   var isLoadingRecent = false.obs;
-  var isLoadingRandom = false.obs;
+  var isLoadingLeftRandom = false.obs;
+  var isLoadingVerticalRandom = false.obs;
 
   final RefreshController refreshController =
       RefreshController(initialRefresh: false);
 
   void onRefresh() async {
-    // monitor network fetch
     await Future.delayed(const Duration(milliseconds: 500));
     // ** tidak perlu await karena biar bisa dijalankan bersamaan
-    getLeftProduct('recent');
-    getLeftProduct('random');
+    getProduct('recent');
+    getProduct('random', isVertical: false);
+    getProduct('random', isVertical: true);
     // if failed,use refreshFailed()
     refreshController.refreshCompleted();
   }
 
   void onLoading() async {
     // ** ini untuk footer load more
-    // monitor network fetch
     await Future.delayed(const Duration(milliseconds: 1000));
     // if failed,use loadFailed(),if no data return,use LoadNodata()
     refreshController.loadComplete();
   }
 
-  Future<void> getLeftProduct(String sort) async {
+  Future<void> getProduct(String sort, {bool isVertical = false}) async {
     if (sort == 'recent') {
-    isLoadingRecent.value = true;
-    } else if (sort == 'random'){
-      isLoadingRandom.value = true;
+      isLoadingRecent.value = true;
+    } else if (sort == 'random' && !isVertical) {
+      isLoadingLeftRandom.value = true;
+    } else if (sort == 'random' && isVertical) {
+      isLoadingVerticalRandom.value = true;
     }
 
     String url =
@@ -92,19 +95,23 @@ class GetScrollLeftProductController extends GetxController {
 
       if (sort == 'recent') {
         recentProduct.value = list;
-      } else if (sort == 'random') {
-        randomProduct.value = list;
+      } else if (sort == 'random' && !isVertical) {
+        leftRandomProduct.value = list;
+      } else if (sort == 'random' && isVertical) {
+        verticalRandomProduct.value = list;
       }
     } catch (e) {
       if (kDebugMode) {
-        print(e);
+        print('Error: $e');
       }
     } finally {
       // ini tetap dieksekusi baik berhasil atau gagal
       if (sort == 'recent') {
         isLoadingRecent.value = false;
-      } else if (sort == 'random') {
-        isLoadingRandom.value = false;
+      } else if (sort == 'random' && !isVertical) {
+        isLoadingLeftRandom.value = false;
+      } else if (sort == 'random' && isVertical) {
+        isLoadingVerticalRandom.value = false;
       }
     }
   }

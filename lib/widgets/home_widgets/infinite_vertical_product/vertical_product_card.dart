@@ -1,15 +1,19 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:sihalal_ecommerce_app/component/string_formatter.dart';
-import 'package:sihalal_ecommerce_app/widgets/home_widgets/product_card_scroll/product_card_scroll.dart';
+import 'package:sihalal_ecommerce_app/screens/product_detail_screen/product_detail_screen.dart';
+import 'package:sihalal_ecommerce_app/widgets/home_widgets/product_card_scroll/left_product_card_scroll.dart';
 import 'package:sihalal_ecommerce_app/widgets/home_widgets/product_card_scroll/shimmer_product_card.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class VerticalProductCard extends ConsumerWidget {
   const VerticalProductCard({
     super.key,
+    required this.idProduct,
+    required this.idUser,
     required this.rating,
     required this.title,
     required this.price,
@@ -19,6 +23,7 @@ class VerticalProductCard extends ConsumerWidget {
     required this.index,
   });
 
+  final String idProduct, idUser;
   final String title, description, image, rating, kota;
   final double price;
   final int index;
@@ -39,7 +44,18 @@ class VerticalProductCard extends ConsumerWidget {
       child: InkWell(
         splashColor: Colors.transparent,
         highlightColor: Colors.transparent,
-        onTap: () {},
+        onTap: () {
+          Get.to(
+            () => ProductDetailScreen(
+              idProduk: idProduct,
+              idUser: idUser,
+              fotoImage1: image,
+            ),
+            transition: Transition.rightToLeft,
+            fullscreenDialog: true,
+            popGesture: false,
+          );
+        },
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
@@ -80,12 +96,7 @@ class ProductImage extends StatelessWidget {
       child: Container(
         clipBehavior: Clip.antiAlias,
         decoration: const BoxDecoration(
-            borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(10),
-          topRight: Radius.circular(10),
-          bottomLeft: Radius.circular(10),
-          bottomRight: Radius.circular(10),
-        )),
+            borderRadius: BorderRadius.all(Radius.circular(8))),
         child: CachedNetworkImage(
           imageUrl: image,
           fit: BoxFit.cover,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sihalal_ecommerce_app/component/color_palette.dart';
-import 'package:sihalal_ecommerce_app/controller/product_controller/get_scroll_left_product_controller.dart';
+import 'package:sihalal_ecommerce_app/controller/product_controller/get_scroll_product_controller.dart';
 import 'package:sihalal_ecommerce_app/widgets/home_widgets/product_card_scroll/shimmer_product_card.dart';
 import 'package:sihalal_ecommerce_app/widgets/home_widgets/product_card_scroll/shrink_tap_card.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -14,8 +14,8 @@ final Shader linearGradient = LinearGradient(
   colors: <Color>[HexColor("1D6BFF"), HexColor("C125FF")],
 ).createShader(const Rect.fromLTWH(0.0, 0.0, 200.0, 70.0));
 
-class ProductCardRowScroll extends StatefulWidget {
-  const ProductCardRowScroll({
+class LeftProductCardRowScroll extends StatefulWidget {
+  const LeftProductCardRowScroll({
     super.key,
     required this.color,
     required this.cardHeader,
@@ -27,16 +27,15 @@ class ProductCardRowScroll extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    return _ProductCardRowScrollState();
+    return _LeftProductCardRowScrollState();
   }
 }
 
-class _ProductCardRowScrollState extends State<ProductCardRowScroll>
+class _LeftProductCardRowScrollState extends State<LeftProductCardRowScroll>
     with AutomaticKeepAliveClientMixin {
   get cardHeader => widget.cardHeader;
   get color => widget.color;
-  final getScrollLeftProductController =
-      Get.find<GetScrollLeftProductController>();
+  final getScrollProductController = Get.find<GetScrollProductController>();
 
   @override
   bool get wantKeepAlive => true;
@@ -45,14 +44,14 @@ class _ProductCardRowScrollState extends State<ProductCardRowScroll>
   Widget build(BuildContext context) {
     super.build(context);
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      getScrollLeftProductController.getLeftProduct(widget.sort);
+      getScrollProductController.getProduct(widget.sort);
     });
     var productCardScroll = [];
 
     if (widget.sort == 'recent') {
-      productCardScroll = getScrollLeftProductController.recentProduct;
+      productCardScroll = getScrollProductController.recentProduct;
     } else if (widget.sort == 'random') {
-      productCardScroll = getScrollLeftProductController.randomProduct;
+      productCardScroll = getScrollProductController.leftRandomProduct;
     }
 
     return Column(
@@ -106,9 +105,9 @@ class _ProductCardRowScrollState extends State<ProductCardRowScroll>
             ),
           ),
           child: Obx(
-            () => (getScrollLeftProductController.isLoadingRecent.value &&
+            () => (getScrollProductController.isLoadingRecent.value &&
                         widget.sort == 'recent') ||
-                    (getScrollLeftProductController.isLoadingRandom.value &&
+                    (getScrollProductController.isLoadingLeftRandom.value &&
                         widget.sort == 'random')
                 ? const AbsorbPointer(child: ShimmerProductCard())
                 : SingleChildScrollView(

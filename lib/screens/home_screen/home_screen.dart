@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:sihalal_ecommerce_app/component/color_palette.dart';
-import 'package:sihalal_ecommerce_app/controller/product_controller/get_scroll_left_product_controller.dart';
+import 'package:sihalal_ecommerce_app/controller/product_controller/get_scroll_product_controller.dart';
 import 'package:sihalal_ecommerce_app/controller/user_profile_controller.dart';
 import 'package:sihalal_ecommerce_app/widgets/home_widgets/banner_slider.dart';
 import 'package:sihalal_ecommerce_app/widgets/home_widgets/categories.dart';
-import 'package:sihalal_ecommerce_app/widgets/home_widgets/infinite_vertical_product/vertical_product_card.dart';
-import 'package:sihalal_ecommerce_app/widgets/home_widgets/product_card_scroll/product_card_scroll.dart';
+import 'package:sihalal_ecommerce_app/widgets/home_widgets/infinite_vertical_product/vertical_product_scroll.dart';
+import 'package:sihalal_ecommerce_app/widgets/home_widgets/product_card_scroll/left_product_card_scroll.dart';
 import 'package:sihalal_ecommerce_app/screens/search_product_screen/search_product_screen.dart';
 import 'package:sihalal_ecommerce_app/widgets/home_widgets/photo_user.dart';
 
@@ -33,8 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     Get.put(UserProfileController());
-    final getScrollLeftProductController =
-        Get.put(GetScrollLeftProductController());
+    final getScrollProductController = Get.put(GetScrollProductController());
     return Scaffold(
       backgroundColor: HexColor(colorWhite),
       appBar: AppBar(
@@ -120,8 +118,8 @@ class _HomeScreenState extends State<HomeScreen> {
           axisDirection: AxisDirection.down,
           color: ColorPalette().primary,
           child: SmartRefresher(
-            controller: getScrollLeftProductController.refreshController,
-            onRefresh: getScrollLeftProductController.onRefresh,
+            controller: getScrollProductController.refreshController,
+            onRefresh: getScrollProductController.onRefresh,
             // onLoading itu ketika pull up / footer ditarik
             // onLoading: getScrollLeftProductController.onLoading,
             enablePullDown: true,
@@ -161,37 +159,19 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 const Categories(),
                 const SizedBox(height: 25),
-                const ProductCardRowScroll(
+                const LeftProductCardRowScroll(
                   color: Color.fromARGB(255, 236, 255, 237),
                   cardHeader: "Cek Produk Terbaru di SiHALAL",
                   sort: 'recent',
                 ),
                 const SizedBox(height: 25),
-                const ProductCardRowScroll(
+                const LeftProductCardRowScroll(
                   color: Color.fromARGB(255, 255, 253, 236),
                   cardHeader: "Mau Beli Apa Hari Ini?",
                   sort: 'random',
                 ),
                 const SizedBox(height: 25),
-                MasonryGridView.count(
-                    crossAxisCount: 2,
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: 10,
-                    itemBuilder: (context, index) {
-                      return VerticalProductCard(
-                        index: index,
-                        title:
-                            'Gula 500 gram Gula Putih Gula Pasir 500 gram Gula Lokal setengah kilo',
-                        rating: '4.5',
-                        description:
-                            'Selama Promo Termurah Shopee, Order Gula 500 gram 2 pcs maka dikirim kemasan kiloan 1 pcs.',
-                        image:
-                            'https://sibeux.my.id/project/sihalal/uploads/23_IMG_20241110222517_TMGX.jpg',
-                        kota: 'Kabupaten Bandung',
-                        price: 10000,
-                      );
-                    }),
+                VerticalProductScroll(),
               ],
             ),
           ),
