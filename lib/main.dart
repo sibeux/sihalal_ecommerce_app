@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
       ),
     );
     return RefreshConfiguration(
-      footerTriggerDistance: 15,
+      footerTriggerDistance: 25,
       headerTriggerDistance: 50,
       dragSpeedRatio: 0.91,
       headerBuilder: () => const MaterialClassicHeader(),

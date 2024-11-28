@@ -121,9 +121,9 @@ class _HomeScreenState extends State<HomeScreen> {
             controller: getScrollProductController.refreshController,
             onRefresh: getScrollProductController.onRefresh,
             // onLoading itu ketika pull up / footer ditarik
-            // onLoading: getScrollLeftProductController.onLoading,
+            onLoading: getScrollProductController.onLoading,
             enablePullDown: true,
-            enablePullUp: false,
+            enablePullUp: true,
             header: ClassicHeader(
               height: 40,
               refreshStyle: RefreshStyle.Follow,
@@ -145,32 +145,49 @@ class _HomeScreenState extends State<HomeScreen> {
                 fontSize: 12,
               ),
             ),
+            footer: ClassicFooter(
+              loadStyle: LoadStyle.ShowWhenLoading,
+              height: 60,
+              loadingText: 'Memuat...',
+              textStyle: TextStyle(
+                color: ColorPalette().primary,
+                fontSize: 12,
+              ),
+              idleText: 'Tarik ke atas untuk memuat lebih banyak',
+              noDataText: 'Tidak ada data lagi',
+              failedText: 'Gagal memuat',
+              canLoadingText: 'Lepaskan untuk memuat lebih banyak',
+              idleIcon: Icon(
+                Icons.arrow_upward,
+                color: ColorPalette().primary,
+              ),
+            ),
             // Awalnya pakai SingleChildScrollView,
             // tapi karena ada SmartRefresher, maka pakai ListView,
             // agar ScrollConfiguration bisa berfungsi.
             child: ListView(
-              children: <Widget>[
-                const SizedBox(
+              children: const <Widget>[
+                SizedBox(
                   height: 5,
                 ),
-                const BannerSlider(),
-                const SizedBox(
+                BannerSlider(),
+                SizedBox(
                   height: 20,
                 ),
-                const Categories(),
-                const SizedBox(height: 25),
-                const LeftProductCardRowScroll(
+                Categories(),
+                SizedBox(height: 25),
+                LeftProductCardRowScroll(
                   color: Color.fromARGB(255, 236, 255, 237),
                   cardHeader: "Cek Produk Terbaru di SiHALAL",
                   sort: 'recent',
                 ),
-                const SizedBox(height: 25),
-                const LeftProductCardRowScroll(
+                SizedBox(height: 25),
+                LeftProductCardRowScroll(
                   color: Color.fromARGB(255, 255, 253, 236),
                   cardHeader: "Mau Beli Apa Hari Ini?",
                   sort: 'random',
                 ),
-                const SizedBox(height: 25),
+                SizedBox(height: 25),
                 VerticalProductScroll(),
               ],
             ),

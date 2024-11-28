@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:sihalal_ecommerce_app/component/string_formatter.dart';
@@ -9,7 +8,7 @@ import 'package:sihalal_ecommerce_app/widgets/home_widgets/product_card_scroll/l
 import 'package:sihalal_ecommerce_app/widgets/home_widgets/product_card_scroll/shimmer_product_card.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-class VerticalProductCard extends ConsumerWidget {
+class VerticalProductCard extends StatelessWidget {
   const VerticalProductCard({
     super.key,
     required this.idProduct,
@@ -20,23 +19,16 @@ class VerticalProductCard extends ConsumerWidget {
     required this.description,
     required this.image,
     required this.kota,
-    required this.index,
   });
 
   final String idProduct, idUser;
   final String title, description, image, rating, kota;
   final double price;
-  final int index;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(
-        left: index % 2 == 0 ? 17 : 5,
-        right: index % 2 == 0 ? 5 : 17,
-        top: 5,
-        bottom: 5,
-      ),
+      
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),
@@ -51,7 +43,7 @@ class VerticalProductCard extends ConsumerWidget {
               idUser: idUser,
               fotoImage1: image,
             ),
-            transition: Transition.rightToLeft,
+            transition: Transition.native,
             fullscreenDialog: true,
             popGesture: false,
           );
