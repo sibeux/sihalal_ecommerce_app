@@ -22,11 +22,11 @@ class _VerticalProductScrollState extends State<VerticalProductScroll>
   Widget build(BuildContext context) {
     super.build(context);
     final getScrollProductController = Get.find<GetScrollProductController>();
-    getScrollProductController.getProduct('random', isVertical: true);
+    getScrollProductController.getProduct('recent', isVertical: true);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Obx(
-        () => getScrollProductController.isLoadingVerticalRandom.value
+        () => getScrollProductController.isLoadingVerticalRecent.value
             ? const Center(child: CircularProgressIndicator())
             : MasonryGridView.count(
                 crossAxisCount: 2,
@@ -35,25 +35,25 @@ class _VerticalProductScrollState extends State<VerticalProductScroll>
                 mainAxisSpacing: 5,
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount:
-                    getScrollProductController.verticalRandomProduct.length,
+                    getScrollProductController.verticalRecentProduct.length,
                 itemBuilder: (context, index) {
                   return VerticalProductCard(
                     idProduct: getScrollProductController
-                        .verticalRandomProduct[index]!.uidProduct,
+                        .verticalRecentProduct[index]!.uidProduct,
                     idUser: getScrollProductController
-                        .verticalRandomProduct[index]!.uidUser,
+                        .verticalRecentProduct[index]!.uidUser,
                     title: getScrollProductController
-                        .verticalRandomProduct[index]!.nama,
+                        .verticalRecentProduct[index]!.nama,
                     rating: getScrollProductController
-                        .verticalRandomProduct[index]!.rating,
+                        .verticalRecentProduct[index]!.rating,
                     description: getScrollProductController
-                        .verticalRandomProduct[index]!.deskripsi,
+                        .verticalRecentProduct[index]!.deskripsi,
                     image: getScrollProductController
-                        .verticalRandomProduct[index]!.foto1,
+                        .verticalRecentProduct[index]!.foto1,
                     kota: getScrollProductController
-                        .verticalRandomProduct[index]!.kota,
+                        .verticalRecentProduct[index]!.kota,
                     price: double.parse(getScrollProductController
-                        .verticalRandomProduct[index]!.harga),
+                        .verticalRecentProduct[index]!.harga),
                   );
                 },
               ),

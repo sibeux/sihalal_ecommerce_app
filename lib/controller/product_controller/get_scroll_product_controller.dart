@@ -10,11 +10,14 @@ import 'package:sihalal_ecommerce_app/models/product.dart';
 class GetScrollProductController extends GetxController {
   var recentProduct = RxList<Product?>([]);
   var leftRandomProduct = RxList<Product?>([]);
-  var verticalRandomProduct = RxList<Product?>([]);
+  var verticalRecentProduct = RxList<Product?>([]);
 
   var isLoadingRecent = false.obs;
   var isLoadingLeftRandom = false.obs;
-  var isLoadingVerticalRandom = false.obs;
+  var isLoadingVerticalRecent = false.obs;
+  var isLoadNoData = false.obs;
+
+  var offset = 0;
 
   final RefreshController refreshController =
       RefreshController(initialRefresh: false);
@@ -22,31 +25,44 @@ class GetScrollProductController extends GetxController {
   void onRefresh() async {
     await Future.delayed(const Duration(milliseconds: 500));
     // ** tidak perlu await karena biar bisa dijalankan bersamaan
+    offset = 0;
     getProduct('recent');
     getProduct('random', isVertical: false);
-    getProduct('random', isVertical: true);
+    getProduct('recent', isVertical: true);
     // if failed,use refreshFailed()
-    refreshController.refreshCompleted();
+    refreshController.refreshCompleted(resetFooterState: true);
   }
 
   void onLoading() async {
     // ** ini untuk footer load more
-    await Future.delayed(const Duration(milliseconds: 1000));
+    if (offset != 0) {
+      await getProduct('recent',
+          isVertical: true, isLoadMore: true, offset: offset);
+    }
     // if failed,use loadFailed(),if no data return,use LoadNodata()
-    refreshController.loadComplete();
+    if (isLoadNoData.value) {
+      refreshController.loadNoData();
+    } else {
+      refreshController.loadComplete();
+    }
   }
 
-  Future<void> getProduct(String sort, {bool isVertical = false}) async {
-    if (sort == 'recent') {
+  Future<void> getProduct(
+    String sort, {
+    bool isVertical = false,
+    bool isLoadMore = false,
+    int offset = 0,
+  }) async {
+    if (sort == 'recent' && !isVertical && !isLoadMore) {
       isLoadingRecent.value = true;
-    } else if (sort == 'random' && !isVertical) {
+    } else if (sort == 'random' && !isVertical && !isLoadMore) {
       isLoadingLeftRandom.value = true;
-    } else if (sort == 'random' && isVertical) {
-      isLoadingVerticalRandom.value = true;
+    } else if (sort == 'recent' && isVertical && !isLoadMore) {
+      isLoadingVerticalRecent.value = true;
     }
 
     String url =
-        'https://sibeux.my.id/project/sihalal/product?method=scroll_left&sort=$sort';
+        'https://sibeux.my.id/project/sihalal/product?method=scroll_left&sort=$sort&offset=$offset';
     const api =
         'https://sibeux.my.id/cloud-music-player/database/mobile-music-player/api/gdrive_api.php';
 
@@ -93,12 +109,25 @@ class GetScrollProductController extends GetxController {
         );
       }).toList();
 
-      if (sort == 'recent') {
+      if (sort == 'recent' && !isVertical && !isLoadMore) {
         recentProduct.value = list;
-      } else if (sort == 'random' && !isVertical) {
+      } else if (sort == 'random' && !isVertical && !isLoadMore) {
         leftRandomProduct.value = list;
-      } else if (sort == 'random' && isVertical) {
-        verticalRandomProduct.value = list;
+      } else if (sort == 'recent' && isVertical && !isLoadMore) {
+        this.offset += 10;
+        verticalRecentProduct.value = list;
+      } else if (sort == 'recent' && isVertical && isLoadMore) {
+        if (list.isNotEmpty) {
+          this.offset += 10;
+          verticalRecentProduct.addAll(
+            list.where(
+              (produk) => !verticalRecentProduct.any((existingProduk) =>
+                  existingProduk!.uidProduct == produk.uidProduct),
+            ),
+          );
+        } else {
+          isLoadNoData.value = true;
+        }
       }
     } catch (e) {
       if (kDebugMode) {
@@ -106,12 +135,12 @@ class GetScrollProductController extends GetxController {
       }
     } finally {
       // ini tetap dieksekusi baik berhasil atau gagal
-      if (sort == 'recent') {
+      if (sort == 'recent' && !isVertical && !isLoadMore) {
         isLoadingRecent.value = false;
-      } else if (sort == 'random' && !isVertical) {
+      } else if (sort == 'random' && !isVertical && !isLoadMore) {
         isLoadingLeftRandom.value = false;
-      } else if (sort == 'random' && isVertical) {
-        isLoadingVerticalRandom.value = false;
+      } else if (sort == 'recent' && isVertical && !isLoadMore) {
+        isLoadingVerticalRecent.value = false;
       }
     }
   }
