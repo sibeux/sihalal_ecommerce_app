@@ -100,6 +100,7 @@ class _ProductCardRowScrollState extends State<ProductCardRowScroll>
             image: const DecorationImage(
               alignment: AlignmentDirectional.centerStart,
               fit: BoxFit.fitHeight,
+              filterQuality: FilterQuality.medium,
               image: NetworkImage(
                   "https://raw.githubusercontent.com/sibeux/license-sibeux/MyProgram/Mask_group.png"),
             ),
