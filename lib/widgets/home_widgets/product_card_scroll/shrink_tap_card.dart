@@ -120,6 +120,7 @@ class ShrinkTapProductState extends State<ShrinkTapProduct>
                   price: widget.price,
                   image: widget.image,
                   kota: widget.product.kota,
+                  stok: widget.product.stok,
                 ),
               ),
             ],

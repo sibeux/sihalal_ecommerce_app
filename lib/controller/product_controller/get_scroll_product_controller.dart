@@ -115,10 +115,12 @@ class GetScrollProductController extends GetxController {
         leftRandomProduct.value = list;
       } else if (sort == 'recent' && isVertical && !isLoadMore) {
         this.offset += 10;
+        list.shuffle();
         verticalRecentProduct.value = list;
       } else if (sort == 'recent' && isVertical && isLoadMore) {
         if (list.isNotEmpty) {
           this.offset += 10;
+          list.shuffle();
           verticalRecentProduct.addAll(
             list.where(
               (produk) => !verticalRecentProduct.any((existingProduk) =>

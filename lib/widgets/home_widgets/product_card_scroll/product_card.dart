@@ -18,9 +18,10 @@ class ProductCard extends ConsumerWidget {
     required this.description,
     required this.image,
     required this.kota,
+    required this.stok,
   });
 
-  final String title, description, image, rating, kota;
+  final String title, description, image, rating, kota, stok;
   final double price;
 
   @override
@@ -44,7 +45,7 @@ class ProductCard extends ConsumerWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ProductImage(image: image),
+          ProductImage(image: image, stok: stok),
           const SizedBox(height: 5),
           Rating(rating: rating),
           const SizedBox(height: 10),
@@ -75,9 +76,10 @@ class ProductImage extends StatelessWidget {
   const ProductImage({
     super.key,
     required this.image,
+    required this.stok,
   });
 
-  final String image;
+  final String image, stok;
 
   @override
   Widget build(BuildContext context) {
@@ -90,22 +92,39 @@ class ProductImage extends StatelessWidget {
         topLeft: Radius.circular(10),
         topRight: Radius.circular(10),
       )),
-      child: CachedNetworkImage(
-        imageUrl: image,
-        fit: BoxFit.cover,
-        maxHeightDiskCache: 300,
-        maxWidthDiskCache: 300,
-        filterQuality: FilterQuality.low,
-        placeholder: (context, url) => Icon(
-          Icons.image,
-          size: 100,
-          color: colorShrink,
-        ),
-        errorWidget: (context, url, error) => Icon(
-          Icons.image,
-          size: 100,
-          color: colorShrink,
-        ),
+      child: Stack(
+        children: [
+          CachedNetworkImage(
+            imageUrl: image,
+            fit: BoxFit.cover,
+            maxHeightDiskCache: 300,
+            maxWidthDiskCache: 300,
+            filterQuality: FilterQuality.low,
+            placeholder: (context, url) => Icon(
+              Icons.image,
+              size: 100,
+              color: colorShrink,
+            ),
+            errorWidget: (context, url, error) => Icon(
+              Icons.image,
+              size: 100,
+              color: colorShrink,
+            ),
+          ),
+          if (stok == '0')
+            Container(
+              color: Colors.white.withOpacity(0.8),
+              alignment: Alignment.center,
+              child: Text(
+                'Habis',
+                style: TextStyle(
+                  color: Colors.black.withOpacity(0.8),
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            )
+        ],
       ),
     );
   }
