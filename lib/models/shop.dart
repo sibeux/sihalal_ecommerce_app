@@ -2,7 +2,7 @@ class Shop {
   final String idUser;
   final String fotoUser;
   final String namaToko, deskripsiToko, kotaToko, provinsiToko;
-  final String totalProduk, totalRating;
+  final String totalProduk, totalRating, jumlahRating;
 
   Shop({
     required this.idUser,
@@ -13,5 +13,6 @@ class Shop {
     required this.provinsiToko,
     required this.totalProduk,
     required this.totalRating,
+    required this.jumlahRating,
   });
 }

@@ -47,6 +47,7 @@ class ShopInfoProductController extends GetxController {
             provinsiToko: shop['provinsi'],
             totalProduk: shop['total_produk'],
             totalRating: shop['rata_rata_rating'] ?? '0',
+            jumlahRating: shop['jumlah_rating'] ?? '0',
           );
         }).toList();
 

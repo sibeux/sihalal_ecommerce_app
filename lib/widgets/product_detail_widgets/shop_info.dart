@@ -1,7 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:sihalal_ecommerce_app/component/color_palette.dart';
 import 'package:sihalal_ecommerce_app/component/string_formatter.dart';
+import 'package:sihalal_ecommerce_app/screens/account_screen/shop_dashboard_screen/shop_dashboard_screen.dart';
 
 class ShopInfo extends StatelessWidget {
   const ShopInfo({
@@ -11,11 +13,12 @@ class ShopInfo extends StatelessWidget {
     required this.image,
     required this.rating,
     required this.jumlahProduk,
+    required this.jumlahRating,
   });
 
   final String image;
   final String namaToko, lokasiToko;
-  final String rating, jumlahProduk;
+  final String rating, jumlahProduk, jumlahRating;
 
   @override
   Widget build(BuildContext context) {
@@ -174,24 +177,39 @@ class ShopInfo extends StatelessWidget {
                   ],
                 ),
               ),
-              Container(
-                height: 25,
-                width: 80,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(
-                    color: ColorPalette().primary,
-                    width: 1.5,
-                    strokeAlign: BorderSide.strokeAlignOutside,
+              InkWell(
+                onTap: () {
+                  Get.to(
+                    () => ShopDashboardScreen(
+                      namaToko: namaToko,
+                      fotoToko: image,
+                      lokasiToko: lokasiToko,
+                      ratingToko: rate, jumlahRating: jumlahRating,
+                    ),
+                    transition: Transition.downToUp,
+                    fullscreenDialog: true,
+                    popGesture: false,
+                  );
+                },
+                child: Container(
+                  height: 25,
+                  width: 80,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(
+                      color: ColorPalette().primary,
+                      width: 1.5,
+                      strokeAlign: BorderSide.strokeAlignOutside,
+                    ),
                   ),
-                ),
-                child: Text(
-                  'Lihat Toko',
-                  style: TextStyle(
-                    color: ColorPalette().primary,
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold,
+                  child: Text(
+                    'Lihat Toko',
+                    style: TextStyle(
+                      color: ColorPalette().primary,
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               )

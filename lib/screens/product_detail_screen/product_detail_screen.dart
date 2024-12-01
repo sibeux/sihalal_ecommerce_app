@@ -409,6 +409,9 @@ class ProductDetailScreen extends StatelessWidget {
                                                     shopInfoProductController
                                                         .shopInfo[0]!
                                                         .totalProduk,
+                                                        jumlahRating: shopInfoProductController
+                                                        .shopInfo[0]!
+                                                        .jumlahRating,
                                               )
                                             : const ShopInfoShimmer(),
                                   ),

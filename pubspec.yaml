@@ -65,7 +65,7 @@ dependencies:
   html_unescape: ^2.0.0
   uuid: ^4.5.1
   timeago: ^3.7.0
-  
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -97,6 +97,7 @@ flutter:
     - assets/images/shimmer/profile/profile_shimmer.png
     - assets/images/icon-general/
     - assets/images/splash/splash.png
+    - assets/images/splash/splash-text.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
