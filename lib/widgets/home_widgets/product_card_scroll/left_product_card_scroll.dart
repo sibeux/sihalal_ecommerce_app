@@ -109,10 +109,12 @@ class _LeftProductCardRowScrollState extends State<LeftProductCardRowScroll>
                         widget.sort == 'recent') ||
                     (getScrollProductController.isLoadingLeftRandom.value &&
                         widget.sort == 'random')
-                ? AbsorbPointer(child: ShimmerProductCard(
-                  needButtonTambah: true,
-                  fromShopDashboard: false,
-                ))
+                ? const AbsorbPointer(
+                    child: ShimmerProductCard(
+                      needButtonTambah: true,
+                      fromShopDashboard: false,
+                    ),
+                  )
                 : SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Row(
