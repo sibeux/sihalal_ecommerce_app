@@ -17,7 +17,7 @@ class StoreInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final userProfileController = Get.find<UserProfileController>();
-    final userAddressController = Get.put(UserAddressController());
+    final userAddressController = Get.find<UserAddressController>();
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 20),
       child: Row(
@@ -60,7 +60,7 @@ class StoreInfo extends StatelessWidget {
                               borderRadius: BorderRadius.circular(5),
                             ),
                             child: const Text(
-                              'Lihat Toko Saya',
+                              'Ini Text Shimmer',
                               style: TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w400,

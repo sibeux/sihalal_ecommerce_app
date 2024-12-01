@@ -4,8 +4,11 @@ import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:sihalal_ecommerce_app/component/color_palette.dart';
+import 'package:sihalal_ecommerce_app/controller/address_controller/user_address_controller.dart';
 import 'package:sihalal_ecommerce_app/controller/product_controller/get_seller_product_controller.dart';
+import 'package:sihalal_ecommerce_app/controller/product_controller/shop_info_product_controller.dart';
 import 'package:sihalal_ecommerce_app/controller/user_profile_controller.dart';
+import 'package:sihalal_ecommerce_app/screens/account_screen/shop_dashboard_screen/shop_dashboard_screen.dart';
 import 'package:sihalal_ecommerce_app/screens/account_screen/store_centre_screen/add_product_screen/add_product_screen.dart';
 import 'package:sihalal_ecommerce_app/screens/account_screen/store_centre_screen/list_product_screen.dart';
 import 'package:sihalal_ecommerce_app/screens/account_screen/store_centre_screen/store_order_screen.dart';
@@ -19,6 +22,8 @@ class StoreCentreScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final userProfileController = Get.find<UserProfileController>();
+    final userAddressController = Get.put(UserAddressController());
+    final shopInfoProductController = Get.put(ShopInfoProductController());
     final getSellerProductController = Get.put(GetSellerProductController());
     getSellerProductController.getProducts(
       email: userProfileController.userData[0].emailuser,
@@ -45,15 +50,73 @@ class StoreCentreScreen extends StatelessWidget {
         actions: [
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: InkWell(
-              splashFactory: InkRipple.splashFactory,
-              onTap: () {},
-              child: Text(
-                'Lihat Toko',
-                style: TextStyle(
-                  color: ColorPalette().primary,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
+            child: Obx(
+              () => InkWell(
+                splashFactory: InkRipple.splashFactory,
+                onTap: () {
+                  if (shopInfoProductController.isLoading.value ||
+                      getSellerProductController.visibleProductList.isEmpty ||
+                      getSellerProductController.isGetProductLoading.value) {
+                    if (getSellerProductController.visibleProductList.isEmpty) {
+                      Fluttertoast.showToast(
+                        msg: 'Tambahkan Produk Terlebih Dahulu',
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.CENTER,
+                        timeInSecForIosWeb: 1,
+                        backgroundColor: Colors.black.withOpacity(0.5),
+                        textColor: Colors.white,
+                        fontSize: 10.0,
+                      );
+                    } else {
+                      Fluttertoast.showToast(
+                        msg: 'Tunggu Sebentar',
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.CENTER,
+                        timeInSecForIosWeb: 1,
+                        backgroundColor: Colors.black.withOpacity(0.5),
+                        textColor: Colors.white,
+                        fontSize: 10.0,
+                      );
+                    }
+                  } else {
+                    Get.to(
+                      () => ShopDashboardScreen(
+                        idUserToko: userProfileController.userData[0].idUser,
+                        namaToko: userProfileController.userData[0].nameShop ==
+                                ''
+                            ? 'Toko ${userProfileController.userData[0].nameUser}'
+                            : userProfileController.userData[0].nameShop,
+                        fotoToko: userProfileController.userData[0].fotoUser,
+                        lokasiToko: userAddressController.addressList
+                                .firstWhere(
+                                    (element) => element!.isStore == true)
+                                ?.city ??
+                            '',
+                        ratingToko: shopInfoProductController
+                                    .shopInfo[0]!.totalRating ==
+                                '0.0000'
+                            ? '0.0'
+                            : ('${double.parse(shopInfoProductController.shopInfo[0]!.totalRating)}'),
+                        jumlahRating:
+                            shopInfoProductController.shopInfo[0]!.jumlahRating,
+                      ),
+                      transition: Transition.downToUp,
+                      fullscreenDialog: true,
+                      popGesture: false,
+                    );
+                  }
+                },
+                child: Text(
+                  'Lihat Toko',
+                  style: TextStyle(
+                    color: shopInfoProductController.isLoading.value ||
+                            getSellerProductController.allOrderList.isEmpty ||
+                            getSellerProductController.isGetProductLoading.value
+                        ? Colors.grey
+                        : ColorPalette().primary,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
               ),
             ),

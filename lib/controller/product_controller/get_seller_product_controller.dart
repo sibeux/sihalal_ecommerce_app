@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:html_unescape/html_unescape.dart';
 import 'package:http/http.dart' as http;
 import 'package:sihalal_ecommerce_app/component/regex_drive.dart';
+import 'package:sihalal_ecommerce_app/controller/product_controller/shop_info_product_controller.dart';
 import 'package:sihalal_ecommerce_app/models/order.dart';
 import 'package:sihalal_ecommerce_app/models/seller_order.dart';
 import 'package:sihalal_ecommerce_app/models/seller_product.dart';
@@ -127,6 +128,10 @@ class GetSellerProductController extends GetxController {
             list.where((data) => !data.isVisible).toList();
         outStockProductList.value =
             list.where((data) => data.stok == '0').toList();
+
+        final shopInfoProductController = Get.find<ShopInfoProductController>();
+        await shopInfoProductController
+            .getShopInfo(visibleProductList.first.uidProduct);
       } else {
         sellerProductList.value = [];
         visibleProductList.value = [];
