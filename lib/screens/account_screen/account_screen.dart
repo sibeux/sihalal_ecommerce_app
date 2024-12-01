@@ -11,7 +11,7 @@ import 'package:sihalal_ecommerce_app/screens/account_screen/address_screen/list
 import 'package:sihalal_ecommerce_app/screens/account_screen/review_screen.dart/list_review_screen.dart';
 import 'package:sihalal_ecommerce_app/screens/account_screen/store_centre_screen/store_centre_screen.dart';
 import 'package:sihalal_ecommerce_app/screens/order_screen/order_screen.dart';
-import 'package:sihalal_ecommerce_app/screens/user_auth_screen/login_screen.dart';
+import 'package:sihalal_ecommerce_app/screens/account_screen/user_auth_screen/login_screen.dart';
 import 'package:sihalal_ecommerce_app/widgets/account_widgets/button_widget.dart';
 import 'package:sihalal_ecommerce_app/widgets/account_widgets/logout_confirm_modal.dart';
 import 'package:sihalal_ecommerce_app/widgets/account_widgets/text_tile.dart';

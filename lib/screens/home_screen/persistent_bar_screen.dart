@@ -11,9 +11,9 @@ import 'package:sihalal_ecommerce_app/screens/cart_screen/cart_screen.dart';
 import 'package:sihalal_ecommerce_app/screens/favorite_screen/favorite_screen.dart';
 import 'package:sihalal_ecommerce_app/screens/home_screen/home_screen.dart';
 import 'package:sihalal_ecommerce_app/screens/order_screen/order_screen.dart';
-import 'package:sihalal_ecommerce_app/screens/user_auth_screen/check_valid_login.dart';
+import 'package:sihalal_ecommerce_app/screens/account_screen/user_auth_screen/check_valid_login.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:sihalal_ecommerce_app/screens/user_auth_screen/login_screen.dart';
+import 'package:sihalal_ecommerce_app/screens/account_screen/user_auth_screen/login_screen.dart';
 
 class PersistenBarScreen extends StatefulWidget {
   const PersistenBarScreen({super.key});

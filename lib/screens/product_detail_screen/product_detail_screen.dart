@@ -10,7 +10,7 @@ import 'package:sihalal_ecommerce_app/controller/product_controller/product_deta
 import 'package:sihalal_ecommerce_app/controller/product_controller/shop_info_product_controller.dart';
 import 'package:sihalal_ecommerce_app/controller/user_profile_controller.dart';
 import 'package:sihalal_ecommerce_app/screens/checkout_screen/checkout_screen.dart';
-import 'package:sihalal_ecommerce_app/screens/user_auth_screen/login_screen.dart';
+import 'package:sihalal_ecommerce_app/screens/account_screen/user_auth_screen/login_screen.dart';
 import 'package:sihalal_ecommerce_app/widgets/product_detail_widgets/button.dart';
 import 'package:sihalal_ecommerce_app/widgets/product_detail_widgets/merk_stok_weight_product.dart';
 import 'package:sihalal_ecommerce_app/widgets/product_detail_widgets/product_review.dart';

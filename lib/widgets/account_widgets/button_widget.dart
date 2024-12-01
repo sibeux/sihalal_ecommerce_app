@@ -7,8 +7,8 @@ import 'package:sihalal_ecommerce_app/controller/address_controller/send_user_ad
 import 'package:sihalal_ecommerce_app/controller/user_profile_controller.dart';
 import 'package:sihalal_ecommerce_app/screens/account_screen/address_screen/pin_point_map_screen.dart';
 import 'package:sihalal_ecommerce_app/screens/account_screen/edit_profile_screen.dart';
-import 'package:sihalal_ecommerce_app/screens/user_auth_screen/login_screen.dart';
-import 'package:sihalal_ecommerce_app/screens/user_auth_screen/register_email_screen.dart';
+import 'package:sihalal_ecommerce_app/screens/account_screen/user_auth_screen/login_screen.dart';
+import 'package:sihalal_ecommerce_app/screens/account_screen/user_auth_screen/register_email_screen.dart';
 
 class EditProfileButton extends StatelessWidget {
   const EditProfileButton({

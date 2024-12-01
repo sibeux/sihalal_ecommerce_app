@@ -8,7 +8,7 @@ import 'package:http/http.dart' as http;
 import 'package:sihalal_ecommerce_app/controller/jwt_controller.dart';
 import 'package:sihalal_ecommerce_app/controller/user_profile_controller.dart';
 import 'package:sihalal_ecommerce_app/screens/home_screen/persistent_bar_screen.dart';
-import 'package:sihalal_ecommerce_app/screens/user_auth_screen/register_data_screen.dart';
+import 'package:sihalal_ecommerce_app/screens/account_screen/user_auth_screen/register_data_screen.dart';
 
 class AuthFormController extends GetxController {
   var isObscure = true.obs;

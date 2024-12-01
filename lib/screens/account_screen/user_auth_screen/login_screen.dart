@@ -4,18 +4,17 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:sihalal_ecommerce_app/component/color_palette.dart';
 import 'package:sihalal_ecommerce_app/controller/auth_controller.dart';
-import 'package:sihalal_ecommerce_app/screens/user_auth_screen/login_screen.dart';
+import 'package:sihalal_ecommerce_app/screens/account_screen/user_auth_screen/register_email_screen.dart';
 import 'package:sihalal_ecommerce_app/widgets/user_auth_widgets/button_widgets.dart';
 import 'package:sihalal_ecommerce_app/widgets/user_auth_widgets/form_widgets.dart';
 
-class RegisterDataScreen extends StatelessWidget {
-  const RegisterDataScreen({super.key});
+class LoginScreen extends StatelessWidget {
+  const LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     final authController = Get.put(AuthFormController());
-    final userRegisterController = Get.put(UserRegisterController());
-    final String email = Get.arguments['email'] ?? '';
+    final userLoginController = Get.put(UserLoginController());
     return Stack(
       children: [
         Scaffold(
@@ -26,12 +25,11 @@ class RegisterDataScreen extends StatelessWidget {
             titleSpacing: 0,
             leading: IconButton(
               icon: const Icon(Icons.arrow_back),
-              color: Colors.black,
               onPressed: () {
                 Get.back();
               },
             ),
-            title: const Text('Daftar'),
+            title: const Text('Masuk'),
             titleTextStyle: const TextStyle(
               color: Colors.black,
               fontSize: 18,
@@ -42,7 +40,7 @@ class RegisterDataScreen extends StatelessWidget {
             children: [
               const SizedBox(height: 30),
               Text(
-                'Data Diri',
+                'Masuk Sekarang',
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
@@ -51,7 +49,7 @@ class RegisterDataScreen extends StatelessWidget {
               ),
               const SizedBox(height: 5),
               Text(
-                'Mohon lengkapi data diri anda',
+                'Mohon masuk ke dalam akun anda',
                 style: TextStyle(
                   fontSize: 12,
                   color: Colors.black.withOpacity(0.8),
@@ -59,15 +57,17 @@ class RegisterDataScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 30),
-              const NameRegisterForm(),
-              const SizedBox(height: 5),
+              const EmailLoginForm(),
+              const SizedBox(height: 10),
+              const PasswordLoginForm(),
               Obx(
-                () => authController.getIsNameValid()
+                () => !userLoginController.isLoginSuccess.value
                     ? Container(
                         alignment: Alignment.centerLeft,
+                        margin: const EdgeInsets.only(top: 5),
                         padding: const EdgeInsets.symmetric(horizontal: 40),
                         child: Text(
-                          '*Nama tidak boleh mengandung angka atau simbol',
+                          '*Email atau password tidak sesuai',
                           style: TextStyle(
                             fontSize: 10,
                             color: Colors.red.withOpacity(1),
@@ -77,23 +77,20 @@ class RegisterDataScreen extends StatelessWidget {
                       )
                     : const SizedBox(),
               ),
-              const SizedBox(height: 10),
-              const PasswordRegisterForm(),
-              const SizedBox(height: 20),
+              const SizedBox(height: 30),
               Obx(
-                () => authController.getIsDataRegisterValid() &&
-                        !authController.getIsNameValid()
-                    ? userRegisterController.isLoading.value
+                () => authController.getIsDataLoginValid()
+                    ? userLoginController.isLoading.value
                         ? const AbsorbPointer(child: AuthButtonLoading())
-                        : RegisterSubmitButtonEnable(email: email)
-                    : const AbsorbPointer(child: RegisterSubmitButtonDisable()),
+                        : const LoginSubmitButtonEnable()
+                    : const AbsorbPointer(child: LoginSubmitButtonDisable()),
               ),
               const SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Sudah memiliki akun SiHALAL? ',
+                    'Belum memiliki akun SiHALAL? ',
                     style: TextStyle(
                       fontSize: 12,
                       color: Colors.black.withOpacity(0.8),
@@ -102,16 +99,18 @@ class RegisterDataScreen extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      authController.onClearController('nameRegister');
-                      authController.onClearController('passwordRegister');
+                      authController.onClearController('emailLogin');
+                      authController.onClearController('passwordLogin');
+                      authController.onClearController('emailRegister');
                       Get.off(
-                        () => const LoginScreen(),
+                        () => const RegisterEmailScreen(),
+                        transition: Transition.native,
                         fullscreenDialog: true,
                         popGesture: false,
                       );
                     },
                     child: Text(
-                      'Masuk',
+                      'Daftar',
                       style: TextStyle(
                         fontSize: 12,
                         color: ColorPalette().primary,
@@ -125,20 +124,24 @@ class RegisterDataScreen extends StatelessWidget {
             ],
           ),
         ),
-        Obx(() => userRegisterController.isRedirecting.value
-            ? const Opacity(
-                opacity: 0.8,
-                child: ModalBarrier(dismissible: false, color: Colors.black),
-              )
-            : const SizedBox()),
-        Obx(() => userRegisterController.isRedirecting.value
-            ? Center(
-                child: LoadingAnimationWidget.fourRotatingDots(
-                  color: Colors.white,
-                  size: 50,
-                ),
-              )
-            : const SizedBox()),
+        Obx(
+          () => userLoginController.isRedirecting.value
+              ? const Opacity(
+                  opacity: 0.8,
+                  child: ModalBarrier(dismissible: false, color: Colors.black),
+                )
+              : const SizedBox(),
+        ),
+        Obx(
+          () => userLoginController.isRedirecting.value
+              ? Center(
+                  child: LoadingAnimationWidget.fourRotatingDots(
+                    color: Colors.white,
+                    size: 50,
+                  ),
+                )
+              : const SizedBox(),
+        ),
       ],
     );
   }
