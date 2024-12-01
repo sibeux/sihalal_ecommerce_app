@@ -362,9 +362,13 @@ class SellerProductController extends GetxController {
         responseUploadImage = await requestUploadImage.send();
       }
 
+      var status = '';
+
       final responseString = await responseUploadImage.stream.bytesToString();
-      final jsonResponse = json.decode(responseString);
-      final status = jsonResponse['uploaded_files'][0]['status'];
+      if (responseString.isNotEmpty) {
+        final jsonResponse = json.decode(responseString);
+        status = jsonResponse['uploaded_files'][0]['status'];
+      }
 
       if ((responseUploadImage.statusCode == 200 && status == 'success') ||
           !isImageChanged) {

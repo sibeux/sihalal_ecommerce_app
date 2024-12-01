@@ -26,6 +26,7 @@ class GetScrollProductController extends GetxController {
     await Future.delayed(const Duration(milliseconds: 500));
     // ** tidak perlu await karena biar bisa dijalankan bersamaan
     offset = 0;
+    isLoadNoData.value = false;
     getProduct('recent');
     getProduct('random', isVertical: false);
     getProduct('recent', isVertical: true);
