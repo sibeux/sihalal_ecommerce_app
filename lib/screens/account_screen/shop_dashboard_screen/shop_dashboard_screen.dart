@@ -3,11 +3,23 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:sihalal_ecommerce_app/component/color_palette.dart';
+import 'package:sihalal_ecommerce_app/controller/product_controller/shop_dashboard_controller.dart';
+import 'package:sihalal_ecommerce_app/controller/user_profile_controller.dart';
+import 'package:sihalal_ecommerce_app/widgets/home_widgets/product_card_scroll/shimmer_product_card.dart';
+import 'package:sihalal_ecommerce_app/widgets/home_widgets/product_card_scroll/shrink_tap_card.dart';
 import 'package:velocity_x/velocity_x.dart';
+
+class NoGlowScrollBehavior extends ScrollBehavior {
+  Widget buildViewportChrome(
+      BuildContext context, Widget child, AxisDirection axisDirection) {
+    return child;
+  }
+}
 
 class ShopDashboardScreen extends StatelessWidget {
   const ShopDashboardScreen({
     super.key,
+    required this.idUserToko,
     required this.namaToko,
     required this.fotoToko,
     required this.lokasiToko,
@@ -15,11 +27,15 @@ class ShopDashboardScreen extends StatelessWidget {
     required this.jumlahRating,
   });
 
+  final String idUserToko;
   final String namaToko, fotoToko, lokasiToko;
   final String ratingToko, jumlahRating;
 
   @override
   Widget build(BuildContext context) {
+    final shopDashboardController = Get.put(ShopDashboardController());
+    final idUser = Get.find<UserProfileController>().idUser;
+    shopDashboardController.fetchProductNow(idUSer: idUserToko);
     return Scaffold(
       backgroundColor: HexColor('#fefffe'),
       body: Stack(
@@ -37,7 +53,7 @@ class ShopDashboardScreen extends StatelessWidget {
                   namaToko,
                   maxLines: 1,
                   style: TextStyle(
-                    fontSize: 16,
+                    fontSize: 17,
                     fontWeight: FontWeight.bold,
                     color: Colors.black.withOpacity(0.8),
                     overflow: TextOverflow.ellipsis,
@@ -101,7 +117,96 @@ class ShopDashboardScreen extends StatelessWidget {
                       ),
                     )
                   ],
-                )
+                ),
+                const HeightBox(20),
+                SizedBox(
+                  height: 8,
+                  width: MediaQuery.of(context).size.width,
+                  child: OverflowBox(
+                    maxWidth: MediaQuery.of(context).size.width,
+                    child: Divider(
+                      color: HexColor('#eff4f8'),
+                      height: 8,
+                      thickness: 8,
+                    ),
+                  ),
+                ),
+                const HeightBox(20),
+                Expanded(
+                  child: ScrollConfiguration(
+                    behavior: NoGlowScrollBehavior(),
+                    child: GlowingOverscrollIndicator(
+                      axisDirection: AxisDirection.down,
+                      color: ColorPalette().primary,
+                      child: SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Produk Terlaris',
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                color: Colors.black.withOpacity(0.8),
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            SizedBox(
+                              height: idUser != idUserToko ? 380 : 340,
+                              child: OverflowBox(
+                                maxWidth: MediaQuery.of(context).size.width,
+                                child: Obx(
+                                  () => shopDashboardController
+                                          .isLoadingGetProductMostSold.value
+                                      ? AbsorbPointer(
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 20),
+                                            child: ShimmerProductCard(
+                                              needButtonTambah:
+                                                  idUser != idUserToko,
+                                              fromShopDashboard: true,
+                                            ),
+                                          ),
+                                        )
+                                      : GlowingOverscrollIndicator(
+                                          axisDirection: AxisDirection.right,
+                                          color: ColorPalette().white,
+                                          child: SingleChildScrollView(
+                                            scrollDirection: Axis.horizontal,
+                                            child: Row(
+                                              children: [
+                                                const SizedBox(width: 20),
+                                                for (var product
+                                                    in shopDashboardController
+                                                        .listProductMostSold)
+                                                  ShrinkTapProduct(
+                                                    product: product,
+                                                    uidProduct:
+                                                        product.uidProduct,
+                                                    title: product.nama,
+                                                    description:
+                                                        product.deskripsi,
+                                                    price: double.parse(
+                                                        product.harga),
+                                                    rating: product.rating,
+                                                    image: product.foto1,
+                                                    fromShopDashboard: true,
+                                                  ),
+                                                const SizedBox(width: 10),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),

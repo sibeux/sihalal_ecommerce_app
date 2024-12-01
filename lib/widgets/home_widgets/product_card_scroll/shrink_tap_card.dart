@@ -18,11 +18,13 @@ class ShrinkTapProduct extends StatefulWidget {
     required this.image,
     required this.uidProduct,
     required this.product,
+    required this.fromShopDashboard,
   });
 
   final String uidProduct, title, description, image, rating;
   final double price;
   final Product product;
+  final bool fromShopDashboard;
 
   @override
   ShrinkTapProductState createState() => ShrinkTapProductState();
@@ -114,6 +116,7 @@ class ShrinkTapProductState extends State<ShrinkTapProduct>
               Opacity(
                 opacity: colorOnTap,
                 child: ProductCard(
+                  idUserToko: widget.product.uidUser,
                   title: widget.title,
                   description: widget.description,
                   rating: widget.rating,
@@ -121,6 +124,7 @@ class ShrinkTapProductState extends State<ShrinkTapProduct>
                   image: widget.image,
                   kota: widget.product.kota,
                   stok: widget.product.stok,
+                  fromShopDashboard: widget.fromShopDashboard,
                 ),
               ),
             ],

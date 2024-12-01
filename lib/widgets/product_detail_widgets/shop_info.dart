@@ -8,6 +8,7 @@ import 'package:sihalal_ecommerce_app/screens/account_screen/shop_dashboard_scre
 class ShopInfo extends StatelessWidget {
   const ShopInfo({
     super.key,
+    required this.idUserToko,
     required this.namaToko,
     required this.lokasiToko,
     required this.image,
@@ -16,7 +17,7 @@ class ShopInfo extends StatelessWidget {
     required this.jumlahRating,
   });
 
-  final String image;
+  final String idUserToko, image;
   final String namaToko, lokasiToko;
   final String rating, jumlahProduk, jumlahRating;
 
@@ -181,6 +182,7 @@ class ShopInfo extends StatelessWidget {
                 onTap: () {
                   Get.to(
                     () => ShopDashboardScreen(
+                      idUserToko: idUserToko,
                       namaToko: namaToko,
                       fotoToko: image,
                       lokasiToko: lokasiToko,

@@ -393,6 +393,8 @@ class ProductDetailScreen extends StatelessWidget {
                                         : shopInfoProductController
                                                 .shopInfo.isNotEmpty
                                             ? ShopInfo(
+                                              idUserToko: shopInfoProductController
+                                                    .shopInfo[0]!.idUser,
                                                 namaToko:
                                                     shopInfoProductController
                                                         .shopInfo[0]!.namaToko,

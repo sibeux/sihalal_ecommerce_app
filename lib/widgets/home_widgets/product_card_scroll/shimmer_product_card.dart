@@ -4,7 +4,13 @@ import 'package:shimmer/shimmer.dart';
 final colorShrink = Colors.grey[300];
 
 class ShimmerProductCard extends StatelessWidget {
-  const ShimmerProductCard({super.key});
+  const ShimmerProductCard({
+    super.key,
+    required this.needButtonTambah,
+    required this.fromShopDashboard,
+  });
+
+  final bool needButtonTambah, fromShopDashboard;
 
   @override
   Widget build(BuildContext context) {
@@ -13,9 +19,13 @@ class ShimmerProductCard extends StatelessWidget {
       physics: const NeverScrollableScrollPhysics(),
       child: Row(
         children: [
-          SizedBox(width: MediaQuery.of(context).size.width * 0.43),
+          if (!fromShopDashboard)
+            SizedBox(width: MediaQuery.of(context).size.width * 0.43),
           // create for each product card from dummyProductCard
-          for (var x = 0; x < 5; x++) const ProductCard(),
+          for (var x = 0; x < 5; x++)
+            ProductCard(
+              needButtonTambah: needButtonTambah,
+            ),
           const SizedBox(width: 10),
         ],
       ),
@@ -26,7 +36,10 @@ class ShimmerProductCard extends StatelessWidget {
 class ProductCard extends StatelessWidget {
   const ProductCard({
     super.key,
+    required this.needButtonTambah,
   });
+
+  final bool needButtonTambah;
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +82,7 @@ class ProductCard extends StatelessWidget {
           ),
           const SizedBox(height: 5),
           const ProductPrice(),
-          const InkButtonShrink(),
+          if (needButtonTambah) const InkButtonShrink(),
         ],
       ),
     );
@@ -89,10 +102,11 @@ class ProductImage extends StatelessWidget {
       height: 150,
       width: double.infinity,
       decoration: const BoxDecoration(
-          borderRadius: BorderRadius.only(
-        topLeft: Radius.circular(10),
-        topRight: Radius.circular(10),
-      )),
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(10),
+          topRight: Radius.circular(10),
+        ),
+      ),
       child: Icon(
         Icons.image,
         size: 100,
