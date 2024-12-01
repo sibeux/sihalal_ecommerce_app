@@ -35,7 +35,9 @@ class ShopDashboardScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final shopDashboardController = Get.put(ShopDashboardController());
     final idUser = Get.find<UserProfileController>().idUser;
-    shopDashboardController.fetchProductNow(idUSer: idUserToko);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      shopDashboardController.fetchProductNow(idUSer: idUserToko);
+    });
     return Scaffold(
       backgroundColor: HexColor('#fefffe'),
       body: Stack(
