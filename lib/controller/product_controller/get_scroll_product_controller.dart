@@ -62,9 +62,11 @@ class GetScrollProductController extends GetxController {
     } else if (sort == 'recent' && isVertical && !isLoadMore) {
       isLoadingVerticalRecent.value = true;
     }
+
     final userProfileController =
         Get.find<UserProfileController>();
 
+    // ** ini untuk menunggu idUser terisi
     await Future.doWhile(() async {
       if (userProfileController.idUser.isNotEmpty) return false;
       await Future.delayed(const Duration(milliseconds: 100));
