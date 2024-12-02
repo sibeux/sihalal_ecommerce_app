@@ -43,7 +43,6 @@ class VerticalProductCard extends StatelessWidget {
               idProduk: idProduct,
               idUser: idUser,
               fotoImage1: image,
-              isFavorite: isFavorite,
             ),
             transition: Transition.native,
             fullscreenDialog: true,

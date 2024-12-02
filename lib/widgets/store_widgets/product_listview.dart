@@ -47,7 +47,6 @@ class ProductListview extends StatelessWidget {
                             idProduk: listData[index].uidProduct,
                             idUser: listData[index].uidUser,
                             fotoImage1: listData[index].foto1,
-                            isFavorite: listData[index].isFavorite,
                           ),
                           transition: Transition.rightToLeft,
                           fullscreenDialog: true,

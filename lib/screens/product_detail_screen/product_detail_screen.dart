@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:sihalal_ecommerce_app/component/color_palette.dart';
 import 'package:sihalal_ecommerce_app/component/string_formatter.dart';
 import 'package:sihalal_ecommerce_app/controller/product_controller/favorite_controller.dart';
@@ -35,11 +36,9 @@ class ProductDetailScreen extends StatelessWidget {
     required this.idProduk,
     required this.idUser,
     required this.fotoImage1,
-    required this.isFavorite,
   });
 
   final String idProduk, idUser, fotoImage1;
-  final bool isFavorite;
 
   @override
   Widget build(BuildContext context) {
@@ -83,16 +82,23 @@ class ProductDetailScreen extends StatelessWidget {
             margin: const EdgeInsets.only(right: 20),
             child: Obx(
               () => IconButton(
-                icon: Icon(
-                  favoriteController.favoriteProduct.value ||
-                          isFavorite
-                      ? Icons.favorite
-                      : Icons.favorite_border,
-                  color: favoriteController.favoriteProduct.value ||
-                          isFavorite
-                      ? Colors.red
-                      : Colors.black,
-                ),
+                icon: productDetailController.isLoadingFetchDataProduct.value
+                    ? Shimmer.fromColors(
+                        baseColor: Colors.grey[300]!,
+                        highlightColor: Colors.grey[100]!,
+                        child: const Icon(
+                          Icons.favorite,
+                          color: Colors.black,
+                        ),
+                      )
+                    : Icon(
+                        favoriteController.favoriteProduct.value
+                            ? Icons.favorite
+                            : Icons.favorite_border,
+                        color: favoriteController.favoriteProduct.value
+                            ? Colors.red
+                            : Colors.black,
+                      ),
                 onPressed: () {
                   favoriteController.changeFavoriteProduct(idProduk: idProduk);
                 },

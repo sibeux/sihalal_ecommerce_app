@@ -84,7 +84,6 @@ class ShrinkTapProductState extends State<ShrinkTapProduct>
             idProduk: widget.uidProduct,
             idUser: widget.product.uidUser,
             fotoImage1: widget.image,
-            isFavorite: widget.isFavorite,
           ),
           transition: Transition.native,
           fullscreenDialog: true,

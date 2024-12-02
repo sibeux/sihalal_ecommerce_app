@@ -4,7 +4,6 @@ class SellerOrder {
   final String subtotalHargaBarang, subtotalPengiriman, totalPembayaran;
   final String tanggalPesanan, statusPesanan;
   final String idUserToko, namaUserToko, namaToko, namaProduk, fotoProduk;
-  final bool isFavorite;
 
   SellerOrder({
     required this.idPesanan,
@@ -25,6 +24,5 @@ class SellerOrder {
     required this.namaToko,
     required this.namaProduk,
     required this.fotoProduk,
-    required this.isFavorite,
   });
 }

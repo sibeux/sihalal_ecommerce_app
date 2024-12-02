@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:html_unescape/html_unescape.dart';
+import 'package:sihalal_ecommerce_app/controller/product_controller/favorite_controller.dart';
 import 'package:sihalal_ecommerce_app/controller/product_controller/product_review_controller.dart';
 import 'package:sihalal_ecommerce_app/controller/product_controller/shop_info_product_controller.dart';
 
@@ -69,6 +70,7 @@ class ProductDetailController extends GetxController {
     isLoadingFetchDataProduct.value = true;
 
     final String idUser = Get.find<UserProfileController>().idUser;
+    final favoriteController = Get.find<FavoriteController>();
 
     final String url =
         'https://sibeux.my.id/project/sihalal/product?method=get_product_detail&id_produk=$idProduk&id_user=$idUser';
@@ -118,6 +120,8 @@ class ProductDetailController extends GetxController {
           list[0].foto2,
           list[0].foto3,
         ];
+
+        favoriteController.favoriteProduct.value = list[0].isFavorite;
 
         productDetailData.value = list;
       } else {

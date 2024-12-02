@@ -229,7 +229,6 @@ class OrderListContainer extends StatelessWidget {
                                         idProduct: order.idProduk,
                                         idUser: order.idUserToko,
                                         image: order.fotoProduk,
-                                        isFavorite: order.isFavorite,
                                       )
                                     : const SizedBox(),
             const HeightBox(15),
