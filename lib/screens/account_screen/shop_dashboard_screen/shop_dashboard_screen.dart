@@ -1,10 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:sihalal_ecommerce_app/component/color_palette.dart';
 import 'package:sihalal_ecommerce_app/controller/product_controller/shop_dashboard_controller.dart';
 import 'package:sihalal_ecommerce_app/controller/user_profile_controller.dart';
+import 'package:sihalal_ecommerce_app/widgets/home_widgets/infinite_vertical_product/vertical_product_card.dart';
 import 'package:sihalal_ecommerce_app/widgets/home_widgets/product_card_scroll/shimmer_product_card.dart';
 import 'package:sihalal_ecommerce_app/widgets/home_widgets/product_card_scroll/shrink_tap_card.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -133,30 +135,34 @@ class ShopDashboardScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                const HeightBox(20),
                 Expanded(
-                  child: ScrollConfiguration(
-                    behavior: NoGlowScrollBehavior(),
-                    child: GlowingOverscrollIndicator(
-                      axisDirection: AxisDirection.down,
-                      color: ColorPalette().primary,
-                      child: SingleChildScrollView(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Produk Terlaris',
-                              textAlign: TextAlign.left,
-                              style: TextStyle(
-                                color: Colors.black.withOpacity(0.8),
-                                fontSize: 14,
-                                fontWeight: FontWeight.w600,
+                  child: OverflowBox(
+                    maxWidth: MediaQuery.of(context).size.width,
+                    child: ScrollConfiguration(
+                      behavior: NoGlowScrollBehavior(),
+                      child: GlowingOverscrollIndicator(
+                        axisDirection: AxisDirection.down,
+                        color: ColorPalette().primary,
+                        child: SingleChildScrollView(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const HeightBox(20),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 20),
+                                child: Text(
+                                  'Produk Terlaris',
+                                  textAlign: TextAlign.left,
+                                  style: TextStyle(
+                                    color: Colors.black.withOpacity(0.8),
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
                               ),
-                            ),
-                            SizedBox(
-                              height: idUser != idUserToko ? 380 : 340,
-                              child: OverflowBox(
-                                maxWidth: MediaQuery.of(context).size.width,
+                              SizedBox(
+                                height: idUser != idUserToko ? 380 : 340,
                                 child: Obx(
                                   () => shopDashboardController
                                           .isLoadingGetProductMostSold.value
@@ -202,8 +208,75 @@ class ShopDashboardScreen extends StatelessWidget {
                                         ),
                                 ),
                               ),
-                            ),
-                          ],
+                              const HeightBox(15),
+                              Divider(
+                                color: HexColor('#eff4f8'),
+                                height: 8,
+                                thickness: 8,
+                              ),
+                              const HeightBox(20),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 20),
+                                child: Text(
+                                  'Semua Produk',
+                                  textAlign: TextAlign.left,
+                                  style: TextStyle(
+                                    color: Colors.black.withOpacity(0.8),
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 20),
+                                child: Obx(
+                                  () => shopDashboardController
+                                          .isLoadingGetAllProduct.value
+                                      ? const Center(
+                                          child: CircularProgressIndicator())
+                                      : MasonryGridView.count(
+                                          crossAxisCount: 2,
+                                          shrinkWrap: true,
+                                          crossAxisSpacing: 10,
+                                          mainAxisSpacing: 5,
+                                          physics:
+                                              const NeverScrollableScrollPhysics(),
+                                          itemCount: shopDashboardController
+                                              .listAllProduct.length,
+                                          itemBuilder: (context, index) {
+                                            return VerticalProductCard(
+                                              idProduct: shopDashboardController
+                                                  .listAllProduct[index]
+                                                  .uidProduct,
+                                              idUser: shopDashboardController
+                                                  .listAllProduct[index]
+                                                  .uidUser,
+                                              title: shopDashboardController
+                                                  .listAllProduct[index].nama,
+                                              rating: shopDashboardController
+                                                  .listAllProduct[index].rating,
+                                              description:
+                                                  shopDashboardController
+                                                      .listAllProduct[index]
+                                                      .deskripsi,
+                                              image: shopDashboardController
+                                                  .listAllProduct[index].foto1,
+                                              kota: shopDashboardController
+                                                  .listAllProduct[index].kota,
+                                              price: double.parse(
+                                                shopDashboardController
+                                                    .listAllProduct[index]
+                                                    .harga,
+                                              ),
+                                            );
+                                          },
+                                        ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),

@@ -9,11 +9,14 @@ import 'package:http/http.dart' as http;
 
 class ShopDashboardController extends GetxController {
   var isLoadingGetProductMostSold = false.obs;
+  var isLoadingGetAllProduct = false.obs;
 
   var listProductMostSold = RxList<Product>([]);
+  var listAllProduct = RxList<Product>([]);
 
   void fetchProductNow({required String idUSer}) {
     getProductShopDashboard(method: 'most_sold', idUSer: idUSer);
+    getProductShopDashboard(method: 'all_product_shop_dashboard', idUSer: idUSer);
   }
 
   Future<void> getProductShopDashboard({
@@ -22,6 +25,8 @@ class ShopDashboardController extends GetxController {
   }) async {
     if (method == 'most_sold') {
       isLoadingGetProductMostSold.value = true;
+    } else {
+      isLoadingGetAllProduct.value = true;
     }
 
     final url =
@@ -64,10 +69,14 @@ class ShopDashboardController extends GetxController {
 
         if (method == 'most_sold') {
           listProductMostSold.value = list;
+        } else {
+          listAllProduct.value = list;
         }
       } else {
         if (method == 'most_sold') {
           listProductMostSold.value = [];
+        } else {
+          listAllProduct.value = [];
         }
       }
     } catch (e) {
@@ -75,6 +84,8 @@ class ShopDashboardController extends GetxController {
     } finally {
       if (method == 'most_sold') {
         isLoadingGetProductMostSold.value = false;
+      } else {
+        isLoadingGetAllProduct.value = false;
       }
     }
   }

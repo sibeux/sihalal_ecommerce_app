@@ -53,11 +53,12 @@ class StoreCentreScreen extends StatelessWidget {
             child: Obx(
               () => InkWell(
                 splashFactory: InkRipple.splashFactory,
-                onTap: () {
+                onTap: () async {
                   if (shopInfoProductController.isLoading.value ||
                       getSellerProductController.visibleProductList.isEmpty ||
                       getSellerProductController.isGetProductLoading.value) {
-                    if (getSellerProductController.visibleProductList.isEmpty) {
+                    if (getSellerProductController.visibleProductList.isEmpty &&
+                        !getSellerProductController.isGetProductLoading.value) {
                       Fluttertoast.showToast(
                         msg: 'Tambahkan Produk Terlebih Dahulu',
                         toastLength: Toast.LENGTH_SHORT,
@@ -79,7 +80,7 @@ class StoreCentreScreen extends StatelessWidget {
                       );
                     }
                   } else {
-                    Get.to(
+                    await Get.to(
                       () => ShopDashboardScreen(
                         idUserToko: userProfileController.userData[0].idUser,
                         namaToko: userProfileController.userData[0].nameShop ==
