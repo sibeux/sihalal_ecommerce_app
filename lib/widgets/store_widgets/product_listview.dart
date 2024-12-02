@@ -47,6 +47,7 @@ class ProductListview extends StatelessWidget {
                             idProduk: listData[index].uidProduct,
                             idUser: listData[index].uidUser,
                             fotoImage1: listData[index].foto1,
+                            screenFrom: 'home_store_order',
                           ),
                           transition: Transition.rightToLeft,
                           fullscreenDialog: true,

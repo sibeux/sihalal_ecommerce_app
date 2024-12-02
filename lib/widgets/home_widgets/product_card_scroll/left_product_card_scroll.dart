@@ -133,6 +133,7 @@ class _LeftProductCardRowScrollState extends State<LeftProductCardRowScroll>
                             image: product.foto1,
                             fromShopDashboard: false,
                             isFavorite: product.isFavorite,
+                            screenFrom: 'home_horizontal',
                           ),
                         const SizedBox(width: 10),
                       ],

@@ -9,13 +9,15 @@ class MerkStokWeightProduct extends StatelessWidget {
   const MerkStokWeightProduct({
     super.key,
     required this.product,
+    required this.tag,
   });
 
   final Product product;
+  final String tag;
 
   @override
   Widget build(BuildContext context) {
-    final productDetailController = Get.find<ProductDetailController>();
+    final productDetailController = Get.find<ProductDetailController>(tag: tag);
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(

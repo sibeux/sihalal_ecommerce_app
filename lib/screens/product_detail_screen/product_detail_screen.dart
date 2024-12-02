@@ -36,18 +36,29 @@ class ProductDetailScreen extends StatelessWidget {
     required this.idProduk,
     required this.idUser,
     required this.fotoImage1,
+    required this.screenFrom,
   });
 
   final String idProduk, idUser, fotoImage1;
+  final String screenFrom;
 
   @override
   Widget build(BuildContext context) {
     final shopInfoProductController = Get.put(ShopInfoProductController());
     final favoriteController = Get.put(FavoriteController());
-    final productDetailController = Get.put(ProductDetailController(
-      idProduk: idProduk,
-      fotoImage1: fotoImage1,
-    ));
+    final productDetailController = screenFrom.contains('home')
+        ? Get.put(
+            ProductDetailController(
+              idProduk: idProduk,
+              fotoImage1: fotoImage1,
+            ),
+            tag: 'home')
+        : Get.put(
+            ProductDetailController(
+              idProduk: idProduk,
+              fotoImage1: fotoImage1,
+            ),
+            tag: 'shop_dashboard');
     final userProfileController = Get.find<UserProfileController>();
 
     final box = GetStorage();
@@ -231,7 +242,11 @@ class ProductDetailScreen extends StatelessWidget {
                                           fit: FlexFit.tight,
                                           child: Text(
                                             productDetailController
-                                                .productDetailData[0].nama
+                                                .productDetailData
+                                                .firstWhere((element) =>
+                                                    element.uidProduct ==
+                                                    idProduk)
+                                                .nama
                                                 .trim(),
                                             maxLines: 3,
                                             style: const TextStyle(
@@ -249,15 +264,22 @@ class ProductDetailScreen extends StatelessWidget {
                                           children: [
                                             ProductRating(
                                                 rating: productDetailController
-                                                    .productDetailData[0]
+                                                    .productDetailData
+                                                    .firstWhere((element) =>
+                                                        element.uidProduct ==
+                                                        idProduk)
                                                     .rating),
                                             productDetailController
-                                                        .productDetailData[0]
+                                                        .productDetailData
+                                                        .firstWhere((element) =>
+                                                            element
+                                                                .uidProduct ==
+                                                            idProduk)
                                                         .jumlahRating ==
                                                     '0'
                                                 ? const SizedBox()
                                                 : Text(
-                                                    '(${productDetailController.productDetailData[0].jumlahRating})',
+                                                    '(${productDetailController.productDetailData.firstWhere((element) => element.uidProduct == idProduk).jumlahRating})',
                                                     style: const TextStyle(
                                                       color: Colors.black,
                                                       fontSize: 14,
@@ -277,7 +299,10 @@ class ProductDetailScreen extends StatelessWidget {
                                         horizontal: 20),
                                     child: Text(
                                       priceFormatter(productDetailController
-                                          .productDetailData[0].harga),
+                                          .productDetailData
+                                          .firstWhere((element) =>
+                                              element.uidProduct == idProduk)
+                                          .harga),
                                       style: TextStyle(
                                         color: ColorPalette().primary,
                                         fontSize: 20,
@@ -319,7 +344,11 @@ class ProductDetailScreen extends StatelessWidget {
                                         ),
                                         AutoSizeText(
                                           productDetailController
-                                              .productDetailData[0].deskripsi
+                                              .productDetailData
+                                              .firstWhere((element) =>
+                                                  element.uidProduct ==
+                                                  idProduk)
+                                              .deskripsi
                                               .trim(),
                                           maxLines: 5,
                                           maxFontSize: 13,
@@ -338,7 +367,10 @@ class ProductDetailScreen extends StatelessWidget {
                                               Obx(
                                                 () => Text(
                                                   productDetailController
-                                                      .productDetailData[0]
+                                                      .productDetailData
+                                                      .firstWhere((element) =>
+                                                          element.uidProduct ==
+                                                          idProduk)
                                                       .deskripsi
                                                       .trim(),
                                                   maxLines:
@@ -393,8 +425,14 @@ class ProductDetailScreen extends StatelessWidget {
                                   Container(
                                     margin: const EdgeInsets.only(top: 8),
                                     child: MerkStokWeightProduct(
-                                        product: productDetailController
-                                            .productDetailData[0]),
+                                      product: productDetailController
+                                          .productDetailData
+                                          .firstWhere((element) =>
+                                              element.uidProduct == idProduk),
+                                      tag: screenFrom.contains('home')
+                                          ? 'home'
+                                          : 'shop_dashboard',
+                                    ),
                                   ),
                                   const SizedBox(
                                     height: 15,
@@ -447,11 +485,20 @@ class ProductDetailScreen extends StatelessWidget {
                                   ),
                                   ProductReview(
                                     rating: productDetailController
-                                        .productDetailData[0].rating,
+                                        .productDetailData
+                                        .firstWhere((element) =>
+                                            element.uidProduct == idProduk)
+                                        .rating,
                                     jumlahRating: productDetailController
-                                        .productDetailData[0].jumlahRating,
+                                        .productDetailData
+                                        .firstWhere((element) =>
+                                            element.uidProduct == idProduk)
+                                        .jumlahRating,
                                     jumlahUlasan: productDetailController
-                                        .productDetailData[0].jumlahUlasan,
+                                        .productDetailData
+                                        .firstWhere((element) =>
+                                            element.uidProduct == idProduk)
+                                        .jumlahUlasan,
                                   ),
                                   const SizedBox(
                                     height: 15,
@@ -497,7 +544,10 @@ class ProductDetailScreen extends StatelessWidget {
                                       Get.to(
                                         () => CheckoutScreen(
                                           product: productDetailController
-                                              .productDetailData[0],
+                                              .productDetailData
+                                              .firstWhere((element) =>
+                                                  element.uidProduct ==
+                                                  idProduk),
                                           shopName: shopInfoProductController
                                               .shopInfo[0]!.namaToko,
                                           stockProduct: productDetailController
@@ -521,7 +571,10 @@ class ProductDetailScreen extends StatelessWidget {
                                           Get.to(
                                             () => CheckoutScreen(
                                               product: productDetailController
-                                                  .productDetailData[0],
+                                                  .productDetailData
+                                                  .firstWhere((element) =>
+                                                      element.uidProduct ==
+                                                      idProduk),
                                               shopName:
                                                   shopInfoProductController
                                                       .shopInfo[0]!.namaToko,

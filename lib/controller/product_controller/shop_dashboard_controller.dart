@@ -15,14 +15,14 @@ class ShopDashboardController extends GetxController {
   var listAllProduct = RxList<Product>([]);
 
   void fetchProductNow({required String idUSer}) {
-    getProductShopDashboard(method: 'most_sold', idUSer: idUSer);
+    getProductShopDashboard(method: 'most_sold', idUser: idUSer);
     getProductShopDashboard(
-        method: 'all_product_shop_dashboard', idUSer: idUSer);
+        method: 'all_product_shop_dashboard', idUser: idUSer);
   }
 
   Future<void> getProductShopDashboard({
     required String method,
-    required String idUSer,
+    required String idUser,
   }) async {
     if (method == 'most_sold') {
       isLoadingGetProductMostSold.value = true;
@@ -31,7 +31,7 @@ class ShopDashboardController extends GetxController {
     }
 
     final url =
-        'https://sibeux.my.id/project/sihalal/product?method=$method&id_user=$idUSer';
+        'https://sibeux.my.id/project/sihalal/product?method=$method&id_user=$idUser';
 
     try {
       final response = await http.get(Uri.parse(url));

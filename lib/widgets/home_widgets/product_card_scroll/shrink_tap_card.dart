@@ -20,12 +20,14 @@ class ShrinkTapProduct extends StatefulWidget {
     required this.product,
     required this.fromShopDashboard,
     required this.isFavorite,
+    required this.screenFrom,
   });
 
   final String uidProduct, title, description, image, rating;
   final double price;
   final Product product;
   final bool fromShopDashboard, isFavorite;
+  final String screenFrom;
 
   @override
   ShrinkTapProductState createState() => ShrinkTapProductState();
@@ -84,6 +86,7 @@ class ShrinkTapProductState extends State<ShrinkTapProduct>
             idProduk: widget.uidProduct,
             idUser: widget.product.uidUser,
             fotoImage1: widget.image,
+            screenFrom: widget.screenFrom,
           ),
           transition: Transition.native,
           fullscreenDialog: true,

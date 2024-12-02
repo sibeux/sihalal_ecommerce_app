@@ -201,6 +201,7 @@ class ShopDashboardScreen extends StatelessWidget {
                                                     image: product.foto1,
                                                     fromShopDashboard: true,
                                                     isFavorite: product.isFavorite,
+                                                    screenFrom: 'shop_dashboard',
                                                   ),
                                                 const SizedBox(width: 10),
                                               ],
