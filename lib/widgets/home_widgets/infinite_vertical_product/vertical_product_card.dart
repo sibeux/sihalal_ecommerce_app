@@ -18,12 +18,13 @@ class VerticalProductCard extends StatelessWidget {
     required this.price,
     required this.description,
     required this.image,
-    required this.kota,
+    required this.kota, required this.isFavorite,
   });
 
   final String idProduct, idUser;
   final String title, description, image, rating, kota;
   final double price;
+  final bool isFavorite;
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +43,7 @@ class VerticalProductCard extends StatelessWidget {
               idProduk: idProduct,
               idUser: idUser,
               fotoImage1: image,
+              isFavorite: isFavorite,
             ),
             transition: Transition.native,
             fullscreenDialog: true,

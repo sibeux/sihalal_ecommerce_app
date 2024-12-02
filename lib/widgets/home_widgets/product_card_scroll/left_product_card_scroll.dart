@@ -132,6 +132,7 @@ class _LeftProductCardRowScrollState extends State<LeftProductCardRowScroll>
                             rating: product.rating,
                             image: product.foto1,
                             fromShopDashboard: false,
+                            isFavorite: product.isFavorite,
                           ),
                         const SizedBox(width: 10),
                       ],

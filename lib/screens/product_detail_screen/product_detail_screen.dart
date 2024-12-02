@@ -6,6 +6,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:sihalal_ecommerce_app/component/color_palette.dart';
 import 'package:sihalal_ecommerce_app/component/string_formatter.dart';
+import 'package:sihalal_ecommerce_app/controller/product_controller/favorite_controller.dart';
 import 'package:sihalal_ecommerce_app/controller/product_controller/product_detail_controller.dart';
 import 'package:sihalal_ecommerce_app/controller/product_controller/shop_info_product_controller.dart';
 import 'package:sihalal_ecommerce_app/controller/user_profile_controller.dart';
@@ -34,13 +35,16 @@ class ProductDetailScreen extends StatelessWidget {
     required this.idProduk,
     required this.idUser,
     required this.fotoImage1,
+    required this.isFavorite,
   });
 
   final String idProduk, idUser, fotoImage1;
+  final bool isFavorite;
 
   @override
   Widget build(BuildContext context) {
     final shopInfoProductController = Get.put(ShopInfoProductController());
+    final favoriteController = Get.put(FavoriteController());
     final productDetailController = Get.put(ProductDetailController(
       idProduk: idProduk,
       fotoImage1: fotoImage1,
@@ -77,14 +81,22 @@ class ProductDetailScreen extends StatelessWidget {
           ),
           Container(
             margin: const EdgeInsets.only(right: 20),
-            child: IconButton(
-              icon: const Icon(
-                Icons.favorite_border,
-                color: Colors.black,
+            child: Obx(
+              () => IconButton(
+                icon: Icon(
+                  favoriteController.favoriteProduct.value ||
+                          isFavorite
+                      ? Icons.favorite
+                      : Icons.favorite_border,
+                  color: favoriteController.favoriteProduct.value ||
+                          isFavorite
+                      ? Colors.red
+                      : Colors.black,
+                ),
+                onPressed: () {
+                  favoriteController.changeFavoriteProduct(idProduk: idProduk);
+                },
               ),
-              onPressed: () {
-                // Do something
-              },
             ),
           ),
         ],
@@ -198,7 +210,7 @@ class ProductDetailScreen extends StatelessWidget {
                       // ** Ini dipakai ketika productDetailData sudah selesai di-load
                       Obx(
                         () => productDetailController
-                                    .isLoadingFetchDataProduct.value
+                                .isLoadingFetchDataProduct.value
                             ? const ShimmerProductDetail()
                             : Column(
                                 children: [
@@ -393,8 +405,9 @@ class ProductDetailScreen extends StatelessWidget {
                                         : shopInfoProductController
                                                 .shopInfo.isNotEmpty
                                             ? ShopInfo(
-                                              idUserToko: shopInfoProductController
-                                                    .shopInfo[0]!.idUser,
+                                                idUserToko:
+                                                    shopInfoProductController
+                                                        .shopInfo[0]!.idUser,
                                                 namaToko:
                                                     shopInfoProductController
                                                         .shopInfo[0]!.namaToko,
@@ -411,7 +424,8 @@ class ProductDetailScreen extends StatelessWidget {
                                                     shopInfoProductController
                                                         .shopInfo[0]!
                                                         .totalProduk,
-                                                        jumlahRating: shopInfoProductController
+                                                jumlahRating:
+                                                    shopInfoProductController
                                                         .shopInfo[0]!
                                                         .jumlahRating,
                                               )

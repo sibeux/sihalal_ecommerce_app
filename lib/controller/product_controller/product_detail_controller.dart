@@ -7,6 +7,7 @@ import 'package:sihalal_ecommerce_app/controller/product_controller/product_revi
 import 'package:sihalal_ecommerce_app/controller/product_controller/shop_info_product_controller.dart';
 
 import 'package:http/http.dart' as http;
+import 'package:sihalal_ecommerce_app/controller/user_profile_controller.dart';
 import 'package:sihalal_ecommerce_app/models/product.dart';
 
 class ProductDetailController extends GetxController {
@@ -67,8 +68,10 @@ class ProductDetailController extends GetxController {
   Future<void> fetchDataProductDetail({required String idProduk}) async {
     isLoadingFetchDataProduct.value = true;
 
+    final String idUser = Get.find<UserProfileController>().idUser;
+
     final String url =
-        'https://sibeux.my.id/project/sihalal/product?method=get_product_detail&id_produk=$idProduk';
+        'https://sibeux.my.id/project/sihalal/product?method=get_product_detail&id_produk=$idProduk&id_user=$idUser';
 
     try {
       final response = await http.get(Uri.parse(url));
@@ -106,6 +109,7 @@ class ProductDetailController extends GetxController {
             kategori: product['kategori_shhalal'],
             merek: product['merek_shhalal'],
             nomorHalal: product['nomor_shhalal'],
+            isFavorite: product['is_favorite'] == '1' ? true : false,
           );
         }).toList();
 

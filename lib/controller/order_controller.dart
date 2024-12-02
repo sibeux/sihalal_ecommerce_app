@@ -160,6 +160,7 @@ class OrderController extends GetxController {
                     : 'Toko ${order['nama_user']}',
                 namaProduk: unescape.convert(order['nama_produk']),
                 fotoProduk: order['foto_produk_1'],
+                isFavorite: order['is_favorite'] == '1' ? true : false,
               ),
             )
             .toList();

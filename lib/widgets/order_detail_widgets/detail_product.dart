@@ -174,6 +174,7 @@ class DetailProduct extends StatelessWidget {
                     idProduct: order.idProduk,
                     idUser: order.idUserToko,
                     image: order.fotoProduk,
+                    isFavorite: order.isFavorite,
                   ),
                 ],
               )

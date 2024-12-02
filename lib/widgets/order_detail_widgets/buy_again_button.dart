@@ -9,9 +9,11 @@ class BuyAgainButton extends StatelessWidget {
     required this.idProduct,
     required this.idUser,
     required this.image,
+    required this.isFavorite,
   });
 
   final String idProduct, idUser, image;
+  final bool isFavorite;
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +24,7 @@ class BuyAgainButton extends StatelessWidget {
             idProduk: idProduct,
             idUser: idUser,
             fotoImage1: image,
+            isFavorite: isFavorite,
           ),
           transition: Transition.downToUp,
           fullscreenDialog: true,

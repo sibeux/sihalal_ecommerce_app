@@ -16,7 +16,8 @@ class ShopDashboardController extends GetxController {
 
   void fetchProductNow({required String idUSer}) {
     getProductShopDashboard(method: 'most_sold', idUSer: idUSer);
-    getProductShopDashboard(method: 'all_product_shop_dashboard', idUSer: idUSer);
+    getProductShopDashboard(
+        method: 'all_product_shop_dashboard', idUSer: idUSer);
   }
 
   Future<void> getProductShopDashboard({
@@ -41,30 +42,33 @@ class ShopDashboardController extends GetxController {
 
       if (listData.isNotEmpty) {
         final list = listData
-            .map((produk) => Product(
-                  uidProduct: produk['id_produk'],
-                  uidUser: produk['id_user'],
-                  uidShhalal: produk['id_shhalal'],
-                  nama: produk['nama_produk'] == null
-                      ? ''
-                      : unescape.convert(produk['nama_produk']),
-                  deskripsi: produk['deskripsi_produk'] == null
-                      ? ''
-                      : unescape.convert(produk['deskripsi_produk']),
-                  rating: produk['rating_produk'],
-                  harga: produk['harga_produk'],
-                  foto1: produk['foto_produk_1'],
-                  foto2: produk['foto_produk_2'] ?? '',
-                  foto3: produk['foto_produk_3'] ?? '',
-                  stok: produk['stok_produk'],
-                  berat: produk['berat_produk'],
-                  jumlahUlasan: produk['jumlah_ulasan'],
-                  jumlahRating: produk['jumlah_rating'],
-                  kota: produk['kota'],
-                  kategori: produk['kategori_shhalal'],
-                  merek: produk['merek_shhalal'],
-                  nomorHalal: produk['nomor_shhalal'],
-                ))
+            .map(
+              (produk) => Product(
+                uidProduct: produk['id_produk'],
+                uidUser: produk['id_user'],
+                uidShhalal: produk['id_shhalal'],
+                nama: produk['nama_produk'] == null
+                    ? ''
+                    : unescape.convert(produk['nama_produk']),
+                deskripsi: produk['deskripsi_produk'] == null
+                    ? ''
+                    : unescape.convert(produk['deskripsi_produk']),
+                rating: produk['rating_produk'],
+                harga: produk['harga_produk'],
+                foto1: produk['foto_produk_1'],
+                foto2: produk['foto_produk_2'] ?? '',
+                foto3: produk['foto_produk_3'] ?? '',
+                stok: produk['stok_produk'],
+                berat: produk['berat_produk'],
+                jumlahUlasan: produk['jumlah_ulasan'],
+                jumlahRating: produk['jumlah_rating'],
+                kota: produk['kota'],
+                kategori: produk['kategori_shhalal'],
+                merek: produk['merek_shhalal'],
+                nomorHalal: produk['nomor_shhalal'],
+                isFavorite: produk['is_favorite'] == '1' ? true : false,
+              ),
+            )
             .toList();
 
         if (method == 'most_sold') {

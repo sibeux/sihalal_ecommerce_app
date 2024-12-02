@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:sihalal_ecommerce_app/component/regex_drive.dart';
 import 'package:html_unescape/html_unescape.dart';
+import 'package:sihalal_ecommerce_app/controller/user_profile_controller.dart';
 import 'package:sihalal_ecommerce_app/models/product.dart';
 
 class GetScrollProductController extends GetxController {
@@ -61,9 +62,19 @@ class GetScrollProductController extends GetxController {
     } else if (sort == 'recent' && isVertical && !isLoadMore) {
       isLoadingVerticalRecent.value = true;
     }
+    final userProfileController =
+        Get.find<UserProfileController>();
+
+    await Future.doWhile(() async {
+      if (userProfileController.idUser.isNotEmpty) return false;
+      await Future.delayed(const Duration(milliseconds: 100));
+      return true;
+    });
+
+    final idUser = userProfileController.idUser;
 
     String url =
-        'https://sibeux.my.id/project/sihalal/product?method=scroll_left&sort=$sort&offset=$offset';
+        'https://sibeux.my.id/project/sihalal/product?method=scroll_left&sort=$sort&offset=$offset&id_user=$idUser';
     const api =
         'https://sibeux.my.id/cloud-music-player/database/mobile-music-player/api/gdrive_api.php';
 
@@ -107,6 +118,7 @@ class GetScrollProductController extends GetxController {
           kategori: produk['kategori_shhalal'],
           merek: produk['merek_shhalal'],
           nomorHalal: produk['nomor_shhalal'],
+          isFavorite: produk['is_favorite'] == '1' ? true : false,
         );
       }).toList();
 

@@ -13,10 +13,12 @@ class ReviewBuyButton extends StatelessWidget {
     required this.idProduct,
     required this.idUser,
     required this.image,
+    required this.isFavorite,
   });
 
   final String idPesanan, statusPesanan;
   final String idProduct, idUser, image;
+  final bool isFavorite;
 
   @override
   Widget build(BuildContext context) {
@@ -81,6 +83,7 @@ class ReviewBuyButton extends StatelessWidget {
                   idProduk: idProduct,
                   idUser: idUser,
                   fotoImage1: image,
+                  isFavorite: isFavorite,
                 ),
                 transition: Transition.downToUp,
                 fullscreenDialog: true,

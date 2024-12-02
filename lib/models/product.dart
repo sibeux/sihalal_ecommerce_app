@@ -3,6 +3,7 @@ class Product {
   final String foto1, foto2, foto3;
   final String harga, rating, stok, berat, jumlahUlasan, jumlahRating;
   final String kategori, merek, nomorHalal;
+  final bool isFavorite;
 
   Product({
     required this.uidProduct,
@@ -23,5 +24,6 @@ class Product {
     required this.kategori,
     required this.merek,
     required this.nomorHalal,
+    required this.isFavorite,
   });
 }

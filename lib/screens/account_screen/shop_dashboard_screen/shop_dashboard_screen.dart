@@ -200,6 +200,7 @@ class ShopDashboardScreen extends StatelessWidget {
                                                     rating: product.rating,
                                                     image: product.foto1,
                                                     fromShopDashboard: true,
+                                                    isFavorite: product.isFavorite,
                                                   ),
                                                 const SizedBox(width: 10),
                                               ],
@@ -270,6 +271,8 @@ class ShopDashboardScreen extends StatelessWidget {
                                                     .listAllProduct[index]
                                                     .harga,
                                               ),
+                                              isFavorite: shopDashboardController
+                                                  .listAllProduct[index].isFavorite,
                                             );
                                           },
                                         ),

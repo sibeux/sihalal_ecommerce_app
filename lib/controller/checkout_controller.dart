@@ -141,6 +141,7 @@ class CheckoutController extends GetxController {
                 namaToko: sellerShopName,
                 namaProduk: product.nama,
                 fotoProduk: product.foto1,
+                isFavorite: product.isFavorite,
               ),
             ),
             fullscreenDialog: true,
