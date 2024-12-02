@@ -274,6 +274,7 @@ class ShopDashboardScreen extends StatelessWidget {
                                               ),
                                               isFavorite: shopDashboardController
                                                   .listAllProduct[index].isFavorite,
+                                              screenFrom: 'shop_dashboard',
                                             );
                                           },
                                         ),

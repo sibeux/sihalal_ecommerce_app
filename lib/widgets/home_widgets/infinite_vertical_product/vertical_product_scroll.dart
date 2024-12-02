@@ -55,6 +55,7 @@ class _VerticalProductScrollState extends State<VerticalProductScroll>
                     price: double.parse(getScrollProductController
                         .verticalRecentProduct[index]!.harga),
                     isFavorite: getScrollProductController.verticalRecentProduct[index]!.isFavorite,
+                    screenFrom: 'home_vertical',
                   );
                 },
               ),

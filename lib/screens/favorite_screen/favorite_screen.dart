@@ -17,6 +17,7 @@ class FavoriteScreen extends StatelessWidget {
       backgroundColor: HexColor('#fefffe'),
       appBar: AppBar(
         backgroundColor: HexColor('#fefffe'),
+        surfaceTintColor: Colors.transparent,
         elevation: 0,
         toolbarHeight: 60,
       ),
@@ -58,6 +59,7 @@ class FavoriteScreen extends StatelessWidget {
                             ),
                             isFavorite: favoriteController
                                 .listFavoriteProduct[index].isFavorite,
+                            screenFrom: 'home_favorite',
                           );
                         },
                       ),

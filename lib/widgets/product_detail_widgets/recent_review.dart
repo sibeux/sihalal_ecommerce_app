@@ -24,73 +24,74 @@ class RecentReview extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              ClipRRect(
-                borderRadius: const BorderRadius.all(Radius.circular(100)),
-                child: CachedNetworkImage(
-                  imageUrl: controller.productReview[index]!.fotoUser,
-                  fit: BoxFit.cover,
-                  height: 35,
-                  width: 35,
-                  maxHeightDiskCache: 100,
-                  maxWidthDiskCache: 100,
-                  filterQuality: FilterQuality.low,
-                  placeholder: (context, url) => Image.asset(
-                    'assets/images/shimmer/profile/profile_shimmer.png',
+          if (controller.productReview.isNotEmpty)
+            Row(
+              children: [
+                ClipRRect(
+                  borderRadius: const BorderRadius.all(Radius.circular(100)),
+                  child: CachedNetworkImage(
+                    imageUrl: controller.productReview[index]!.fotoUser,
                     fit: BoxFit.cover,
-                  ),
-                  errorWidget: (context, url, error) => Image.asset(
-                    'assets/images/shimmer/profile/profile_shimmer.png',
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-              const SizedBox(width: 7),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    controller.productReview[index]!.namaUser,
-                    maxLines: 1,
-                    style: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 13,
-                      fontWeight: FontWeight.w600,
-                      overflow: TextOverflow.ellipsis,
+                    height: 35,
+                    width: 35,
+                    maxHeightDiskCache: 100,
+                    maxWidthDiskCache: 100,
+                    filterQuality: FilterQuality.low,
+                    placeholder: (context, url) => Image.asset(
+                      'assets/images/shimmer/profile/profile_shimmer.png',
+                      fit: BoxFit.cover,
+                    ),
+                    errorWidget: (context, url, error) => Image.asset(
+                      'assets/images/shimmer/profile/profile_shimmer.png',
+                      fit: BoxFit.cover,
                     ),
                   ),
-                  const SizedBox(height: 3),
-                  Row(
-                    children: [
-                      for (int i = 0; i < 5; i++)
-                        Icon(
-                          Icons.star,
-                          size: 15,
-                          color: i <
-                                  int.parse(
-                                      controller.productReview[index]!.rating)
-                              ? HexColor('#FFD700')
-                              : Colors.grey[400],
-                        ),
-                      const SizedBox(
-                        width: 5,
+                ),
+                const SizedBox(width: 7),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      controller.productReview[index]!.namaUser,
+                      maxLines: 1,
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 13,
+                        fontWeight: FontWeight.w600,
+                        overflow: TextOverflow.ellipsis,
                       ),
-                      Text(
-                        '• '
-                        '${timeAgo(controller.productReview[index]!.tanggal)}',
-                        style: TextStyle(
-                          color: Colors.black.withOpacity(0.6),
-                          fontSize: 12,
-                          fontWeight: FontWeight.w400,
+                    ),
+                    const SizedBox(height: 3),
+                    Row(
+                      children: [
+                        for (int i = 0; i < 5; i++)
+                          Icon(
+                            Icons.star,
+                            size: 15,
+                            color: i <
+                                    int.parse(
+                                        controller.productReview[index]!.rating)
+                                ? HexColor('#FFD700')
+                                : Colors.grey[400],
+                          ),
+                        const SizedBox(
+                          width: 5,
                         ),
-                      )
-                    ],
-                  )
-                ],
-              )
-            ],
-          ),
+                        Text(
+                          '• '
+                          '${timeAgo(controller.productReview[index]!.tanggal)}',
+                          style: TextStyle(
+                            color: Colors.black.withOpacity(0.6),
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        )
+                      ],
+                    )
+                  ],
+                )
+              ],
+            ),
           const SizedBox(height: 10),
           Container(
             alignment: Alignment.centerLeft,
