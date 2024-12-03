@@ -7,6 +7,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:sihalal_ecommerce_app/component/color_palette.dart';
 import 'package:sihalal_ecommerce_app/component/string_formatter.dart';
+import 'package:sihalal_ecommerce_app/controller/cart_controller.dart';
 import 'package:sihalal_ecommerce_app/controller/product_controller/favorite_controller.dart';
 import 'package:sihalal_ecommerce_app/controller/product_controller/product_detail_controller.dart';
 import 'package:sihalal_ecommerce_app/controller/product_controller/shop_info_product_controller.dart';
@@ -100,11 +101,33 @@ class ProductDetailScreen extends StatelessWidget {
         actions: [
           IconButton(
             icon: const Icon(
-              Icons.share,
+              Icons.shopping_cart_outlined,
               color: Colors.black,
             ),
             onPressed: () {
-              // Do something
+              final box = GetStorage();
+              if (box.read('login') != true) {
+                Get.to(
+                  () => const LoginScreen(),
+                  transition: Transition.rightToLeft,
+                  fullscreenDialog: true,
+                  popGesture: false,
+                );
+                return;
+              }
+              if (userProfileController.idUser == idUser) {
+                Get.snackbar(
+                  'Peringatan',
+                  'Anda tidak bisa membeli produk dari toko anda sendiri',
+                  snackPosition: SnackPosition.BOTTOM,
+                  backgroundColor: Colors.red,
+                  colorText: Colors.white,
+                  duration: const Duration(seconds: 2),
+                );
+                return;
+              }
+              final CartController cartController = Get.put(CartController());
+              cartController.changeCart(method: 'add', idProduk: idProduk);
             },
           ),
           Container(
@@ -592,64 +615,40 @@ class ProductDetailScreen extends StatelessWidget {
           if (userProfileController.idUser != idUser)
             Obx(
               () => productDetailController.isLoadingFetchDataProduct.value ||
-                      (productDetailController.productDetailData
+                      !productDetailController.productDetailData
+                          .any((element) => element.uidProduct == idProduk)
+                  ? const SizedBox()
+                  : (productDetailController.productDetailData
                               .firstWhere(
                                   (element) => element.uidProduct == idProduk)
                               .stok ==
                           '0')
-                  ? const SizedBox()
-                  : Container(
-                      width: double.infinity,
-                      height: 60,
-                      decoration: BoxDecoration(
-                        color: HexColor('#fefeff'),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.15),
-                            spreadRadius: 1,
-                            blurRadius: 1,
-                            offset: const Offset(0, -1),
+                      ? const SizedBox()
+                      : Container(
+                          width: double.infinity,
+                          height: 60,
+                          decoration: BoxDecoration(
+                            color: HexColor('#fefeff'),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.15),
+                                spreadRadius: 1,
+                                blurRadius: 1,
+                                offset: const Offset(0, -1),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: BuyButton(
-                                onPressed: () {
-                                  if (login) {
-                                    // ** Ini dipakai ketika shopinfo sudah selesai di-load
-                                    if (!shopInfoProductController
-                                        .isLoading.value) {
-                                      Get.to(
-                                        () => CheckoutScreen(
-                                          product: productDetailController
-                                              .productDetailData
-                                              .firstWhere((element) =>
-                                                  element.uidProduct ==
-                                                  idProduk),
-                                          shopName: shopInfoProductController
-                                              .shopInfo[0]!.namaToko,
-                                          stockProduct: productDetailController
-                                              .stockProduct.value,
-                                        ),
-                                        transition: Transition.rightToLeft,
-                                        fullscreenDialog: true,
-                                        popGesture: false,
-                                      );
-                                    } else {
-                                      shopInfoProductController
-                                          .needAwait.value = true;
-                                      shopInfoProductController
-                                          .needMoveScreen.value = true;
-
-                                      ever(shopInfoProductController.needAwait,
-                                          (callback) {
-                                        if (!callback &&
-                                            shopInfoProductController
-                                                .needMoveScreen.value) {
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 20),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: BuyButton(
+                                    onPressed: () {
+                                      if (login) {
+                                        // ** Ini dipakai ketika shopinfo sudah selesai di-load
+                                        if (!shopInfoProductController
+                                            .isLoading.value) {
                                           Get.to(
                                             () => CheckoutScreen(
                                               product: productDetailController
@@ -668,40 +667,72 @@ class ProductDetailScreen extends StatelessWidget {
                                             fullscreenDialog: true,
                                             popGesture: false,
                                           );
+                                        } else {
+                                          shopInfoProductController
+                                              .needAwait.value = true;
+                                          shopInfoProductController
+                                              .needMoveScreen.value = true;
+
+                                          ever(
+                                              shopInfoProductController
+                                                  .needAwait, (callback) {
+                                            if (!callback &&
+                                                shopInfoProductController
+                                                    .needMoveScreen.value) {
+                                              Get.to(
+                                                () => CheckoutScreen(
+                                                  product: productDetailController
+                                                      .productDetailData
+                                                      .firstWhere((element) =>
+                                                          element.uidProduct ==
+                                                          idProduk),
+                                                  shopName:
+                                                      shopInfoProductController
+                                                          .shopInfo[0]!
+                                                          .namaToko,
+                                                  stockProduct:
+                                                      productDetailController
+                                                          .stockProduct.value,
+                                                ),
+                                                transition:
+                                                    Transition.rightToLeft,
+                                                fullscreenDialog: true,
+                                                popGesture: false,
+                                              );
+                                            }
+                                          });
                                         }
-                                      });
-                                    }
-                                  } else {
-                                    Get.to(
-                                      () => const LoginScreen(),
-                                      transition: Transition.rightToLeft,
-                                      fullscreenDialog: true,
-                                      popGesture: false,
-                                    );
-                                  }
-                                },
-                              ),
+                                      } else {
+                                        Get.to(
+                                          () => const LoginScreen(),
+                                          transition: Transition.rightToLeft,
+                                          fullscreenDialog: true,
+                                          popGesture: false,
+                                        );
+                                      }
+                                    },
+                                  ),
+                                ),
+                                const WidthBox(10),
+                                Expanded(
+                                  child: CartButton(
+                                    onPressed: () {
+                                      if (login) {
+                                      } else {
+                                        Get.to(
+                                          () => const LoginScreen(),
+                                          transition: Transition.rightToLeft,
+                                          fullscreenDialog: true,
+                                          popGesture: false,
+                                        );
+                                      }
+                                    },
+                                  ),
+                                ),
+                              ],
                             ),
-                            const WidthBox(10),
-                            Expanded(
-                              child: CartButton(
-                                onPressed: () {
-                                  if (login) {
-                                  } else {
-                                    Get.to(
-                                      () => const LoginScreen(),
-                                      transition: Transition.rightToLeft,
-                                      fullscreenDialog: true,
-                                      popGesture: false,
-                                    );
-                                  }
-                                },
-                              ),
-                            ),
-                          ],
+                          ),
                         ),
-                      ),
-                    ),
             )
         ],
       ),

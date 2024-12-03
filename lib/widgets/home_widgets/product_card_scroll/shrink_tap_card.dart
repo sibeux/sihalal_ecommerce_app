@@ -120,6 +120,7 @@ class ShrinkTapProductState extends State<ShrinkTapProduct>
               Opacity(
                 opacity: colorOnTap,
                 child: ProductCard(
+                  idProduk: widget.uidProduct,
                   idUserToko: widget.product.uidUser,
                   title: widget.title,
                   description: widget.description,

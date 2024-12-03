@@ -18,10 +18,12 @@ class InkButton extends StatelessWidget {
     super.key,
     required this.text,
     required this.color,
+    required this.onTap,
   });
 
   final String text;
   final Color color;
+  final Function() onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +38,9 @@ class InkButton extends StatelessWidget {
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-          onTap: () {},
+          onTap: () {
+            onTap();
+          },
           splashColor: Colors.white.withOpacity(0.3),
           highlightColor: Colors.white.withOpacity(0.3),
           child: Container(

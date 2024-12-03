@@ -121,11 +121,18 @@ class OrderController extends GetxController {
     isLoadingGetOrder.value = true;
     final String idUser = userProfileController.idUser;
 
-    if (idUser.isEmpty) {
-      isLoadingGetOrder.value = false;
-      orderList.value = [];
-      return;
-    }
+    // if (idUser.isEmpty) {
+    //   isLoadingGetOrder.value = false;
+    //   orderList.value = [];
+    //   return;
+    // }
+
+    // ** ini untuk menunggu idUser terisi
+    await Future.doWhile(() async {
+      if (userProfileController.idUser.isNotEmpty) return false;
+      await Future.delayed(const Duration(milliseconds: 100));
+      return true;
+    });
 
     final String url =
         "https://sibeux.my.id/project/sihalal/order?method=get_order_history&id_user=$idUser";

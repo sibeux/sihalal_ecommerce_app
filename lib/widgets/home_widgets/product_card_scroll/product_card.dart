@@ -2,10 +2,13 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:sihalal_ecommerce_app/component/color_palette.dart';
 import 'package:sihalal_ecommerce_app/component/string_formatter.dart';
+import 'package:sihalal_ecommerce_app/controller/cart_controller.dart';
 import 'package:sihalal_ecommerce_app/controller/user_profile_controller.dart';
+import 'package:sihalal_ecommerce_app/screens/account_screen/user_auth_screen/login_screen.dart';
 import 'package:sihalal_ecommerce_app/widgets/home_widgets/product_card_scroll/left_product_card_scroll.dart';
 import 'package:sihalal_ecommerce_app/widgets/home_widgets/product_card_scroll/shimmer_product_card.dart';
 import 'package:sihalal_ecommerce_app/component/little_particle.dart';
@@ -15,6 +18,7 @@ class ProductCard extends ConsumerWidget {
   const ProductCard({
     super.key,
     required this.idUserToko,
+    required this.idProduk,
     required this.rating,
     required this.title,
     required this.price,
@@ -25,7 +29,7 @@ class ProductCard extends ConsumerWidget {
     required this.fromShopDashboard,
   });
 
-  final String idUserToko;
+  final String idUserToko, idProduk;
   final String title, description, image, rating, kota, stok;
   final double price;
   final bool fromShopDashboard;
@@ -69,11 +73,37 @@ class ProductCard extends ConsumerWidget {
               location: kota,
             ),
           ),
-          if (idUserToko != userProfileController.idUser || !fromShopDashboard)
-            InkButton(
-              text: 'Tambah',
-              color: ColorPalette().primary,
-            ),
+          (idUserToko != userProfileController.idUser)
+              ? InkButton(
+                  text: 'Tambah',
+                  color: ColorPalette().primary,
+                  onTap: () {
+                    final box = GetStorage();
+                    if (box.read('login') != true) {
+                      Get.to(
+                        () => const LoginScreen(),
+                        transition: Transition.rightToLeft,
+                        fullscreenDialog: true,
+                        popGesture: false,
+                      );
+                      return;
+                    }
+                    final CartController cartController =
+                        Get.put(CartController());
+                    cartController.changeCart(
+                        method: 'add', idProduk: idProduk);
+                  },
+                )
+              : (fromShopDashboard)
+                  ? const SizedBox()
+                  : AbsorbPointer(
+                      absorbing: true,
+                      child: InkButton(
+                        text: 'Tambah',
+                        color: Colors.grey,
+                        onTap: () {},
+                      ),
+                    ),
         ],
       ),
     );

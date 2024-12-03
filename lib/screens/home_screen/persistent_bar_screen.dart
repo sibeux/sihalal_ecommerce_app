@@ -99,7 +99,7 @@ class _PersistenBarScreenState extends State<PersistenBarScreen> {
         onItemSelected: (index) async {
           final box = GetStorage();
           final isLogin = box.read('login') == true;
-          if (index == 3 && !isLogin) {
+          if ((index == 1 || index == 2 || index == 3) && !isLogin) {
             _controller.jumpToTab(lastSelectedIndex);
 
             await Get.to(
