@@ -45,7 +45,13 @@ class ProductDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final shopInfoProductController = Get.put(ShopInfoProductController());
+    late bool isFirstCreateControllerShopDashboard;
     final favoriteController = Get.put(FavoriteController());
+    if (!Get.isRegistered<ProductDetailController>(tag: 'shop_dashboard')) {
+      isFirstCreateControllerShopDashboard = true;
+    } else {
+      isFirstCreateControllerShopDashboard = false;
+    }
     final productDetailController = screenFrom.contains('home')
         ? Get.put(
             ProductDetailController(
@@ -59,6 +65,18 @@ class ProductDetailScreen extends StatelessWidget {
               fotoImage1: fotoImage1,
             ),
             tag: 'shop_dashboard');
+
+    if (Get.isRegistered<ProductDetailController>(tag: 'shop_dashboard') &&
+        !isFirstCreateControllerShopDashboard) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        productDetailController.listImageProduct[idProduk] = [fotoImage1];
+        productDetailController.listIndexImageProduct[idProduk] = 1;
+        productDetailController.listImageProduct.refresh();
+        productDetailController.listIndexImageProduct.refresh();
+        productDetailController.fetchDataProductDetail(idProduk: idProduk);
+      });
+    }
+
     final userProfileController = Get.find<UserProfileController>();
 
     final box = GetStorage();
@@ -111,6 +129,16 @@ class ProductDetailScreen extends StatelessWidget {
                             : Colors.black,
                       ),
                 onPressed: () {
+                  final box = GetStorage();
+                  if (box.read('login') != true) {
+                    Get.to(
+                      () => const LoginScreen(),
+                      transition: Transition.rightToLeft,
+                      fullscreenDialog: true,
+                      popGesture: false,
+                    );
+                    return;
+                  }
                   favoriteController.changeFavoriteProduct(idProduk: idProduk);
                 },
               ),
@@ -159,16 +187,18 @@ class ProductDetailScreen extends StatelessWidget {
                                   behavior: NoGlowScrollBehavior(),
                                   child: PageView.builder(
                                     itemCount: productDetailController
-                                        .imageProductCount.value,
+                                        .listImageProduct[idProduk]!
+                                        .where((element) => element.isNotEmpty)
+                                        .length,
                                     controller: _pageController,
                                     onPageChanged: (value) {
-                                      productDetailController
-                                          .changeImageIndex(value + 1);
+                                      productDetailController.changeImageIndex(
+                                          idProduk, value + 1);
                                     },
                                     itemBuilder: (context, index) {
                                       return CachedNetworkImage(
                                         imageUrl: productDetailController
-                                            .listImageProduct[index],
+                                            .listImageProduct[idProduk]![index],
                                         fit: BoxFit.cover,
                                       );
                                     },
@@ -201,7 +231,7 @@ class ProductDetailScreen extends StatelessWidget {
                                       child: Center(
                                         child: Obx(
                                           () => Text(
-                                            '${productDetailController.imageIndex.value}/${productDetailController.imageProductCount.value}',
+                                            '${productDetailController.listIndexImageProduct[idProduk]}/${productDetailController.listImageProduct[idProduk]!.where((element) => element.isNotEmpty).length}',
                                             style: TextStyle(
                                               color: const Color.fromARGB(
                                                       255, 0, 0, 0)
@@ -484,6 +514,7 @@ class ProductDetailScreen extends StatelessWidget {
                                     height: 15,
                                   ),
                                   ProductReview(
+                                    idProduk: idProduk,
                                     rating: productDetailController
                                         .productDetailData
                                         .firstWhere((element) =>

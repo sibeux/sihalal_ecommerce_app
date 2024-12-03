@@ -12,13 +12,12 @@ import 'package:sihalal_ecommerce_app/controller/user_profile_controller.dart';
 import 'package:sihalal_ecommerce_app/models/product.dart';
 
 class ProductDetailController extends GetxController {
-  var imageIndex = 1.obs;
   var useMaxLine = 5.obs;
   var stockProduct = 0.obs;
-  var imageProductCount = 1.obs;
 
   var useOverflow = RxList<TextOverflow>([TextOverflow.ellipsis]).obs;
-  var listImageProduct = RxList<String>([]);
+  var listImageProduct = RxMap<String, List<String>>();
+  var listIndexImageProduct = RxMap<String, int>();
   var productDetailData = RxList<Product>([]);
 
   var isShowAllDescription = false.obs;
@@ -33,7 +32,10 @@ class ProductDetailController extends GetxController {
 
   @override
   void onInit() async {
-    listImageProduct.value = [fotoImage1];
+    listImageProduct[idProduk] = [fotoImage1];
+    listIndexImageProduct[idProduk] = 1;
+    listImageProduct.refresh();
+    listIndexImageProduct.refresh();
     await fetchDataProductDetail(idProduk: idProduk);
     super.onInit();
   }
@@ -44,8 +46,8 @@ class ProductDetailController extends GetxController {
     super.onClose();
   }
 
-  void changeImageIndex(int index) {
-    imageIndex.value = index;
+  void changeImageIndex(String idProduct, int index) {
+    listIndexImageProduct[idProduct] = index;
   }
 
   void showAllDescription() {
@@ -69,7 +71,9 @@ class ProductDetailController extends GetxController {
   Future<void> fetchDataProductDetail({required String idProduk}) async {
     isLoadingFetchDataProduct.value = true;
 
-    final String idUser = Get.find<UserProfileController>().idUser;
+    final String idUser = Get.find<UserProfileController>().idUser.isEmpty
+        ? '0'
+        : Get.find<UserProfileController>().idUser;
     final favoriteController = Get.find<FavoriteController>();
 
     final String url =
@@ -86,11 +90,6 @@ class ProductDetailController extends GetxController {
 
       if (listData.isNotEmpty) {
         final list = listData.map((product) {
-          imageProductCount.value = product['foto_produk_3'] != ""
-              ? 3
-              : product['foto_produk_2'] != ""
-                  ? 2
-                  : 1;
           stockProduct.value = int.parse(product['stok_produk']);
           return Product(
             uidProduct: product['id_produk'],
@@ -115,15 +114,21 @@ class ProductDetailController extends GetxController {
           );
         }).toList();
 
-        listImageProduct.value = [
+        listImageProduct[idProduk] = [
           list[0].foto1,
           list[0].foto2,
-          list[0].foto3,
+          list[0].foto3
         ];
+
+        listImageProduct.refresh();
 
         favoriteController.favoriteProduct.value = list[0].isFavorite;
 
-        productDetailData.value = list;
+        if (productDetailData.isNotEmpty) {
+          productDetailData.addAll(list);
+        } else {
+          productDetailData.value = list;
+        }
       } else {
         productDetailData.value = [];
       }

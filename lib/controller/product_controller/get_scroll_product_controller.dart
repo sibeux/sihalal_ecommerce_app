@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:sihalal_ecommerce_app/component/regex_drive.dart';
@@ -65,10 +66,11 @@ class GetScrollProductController extends GetxController {
 
     final userProfileController =
         Get.find<UserProfileController>();
+    final box = GetStorage();
 
     // ** ini untuk menunggu idUser terisi
     await Future.doWhile(() async {
-      if (userProfileController.idUser.isNotEmpty) return false;
+      if (userProfileController.idUser.isNotEmpty || box.read('login') == false) return false;
       await Future.delayed(const Duration(milliseconds: 100));
       return true;
     });

@@ -13,9 +13,11 @@ class ProductReview extends StatelessWidget {
     required this.jumlahRating,
     required this.jumlahUlasan,
     required this.rating,
+    required this.idProduk,
   });
 
   final String rating, jumlahRating, jumlahUlasan;
+  final String idProduk;
 
   @override
   Widget build(BuildContext context) {
@@ -51,6 +53,7 @@ class ProductReview extends StatelessWidget {
                           Get.to(
                             () => ProductReviewScreen(
                               productReviewController: productReviewController,
+                              keyList: idProduk,
                             ),
                             transition: Transition.rightToLeft,
                             fullscreenDialog: true,
@@ -147,6 +150,7 @@ class ProductReview extends StatelessWidget {
                         controller: productReviewController,
                         index: 0,
                         isFromProductDetailScreen: true,
+                        keyList: idProduk,
                       ),
           ),
         ],

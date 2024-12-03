@@ -13,7 +13,7 @@ class ProductReviewController extends GetxController {
   var isLoadingFetchReview = false.obs;
   var isLoadingSendReview = false.obs;
 
-  var productReview = RxList<Review?>([]);
+  var productReview = RxMap<String, RxList<Review>>();
 
   var reviewTextController = TextEditingController();
   var sendMessageReview = ''.obs;
@@ -91,7 +91,7 @@ class ProductReviewController extends GetxController {
       final List<dynamic> apiData = json.decode(apiResponse.body);
 
       if (listData.isEmpty) {
-        productReview.value = [];
+        productReview[idProduk] = <Review>[].obs;
         return;
       }
 
@@ -117,10 +117,19 @@ class ProductReviewController extends GetxController {
       }).toList();
 
       if (idPesanan.isNotEmpty) {
-        productReview.value =
+        String key = idPesanan;
+        // Filter list berdasarkan idPesanan
+        var filteredReviews =
             list.where((element) => element.idPesanan == idPesanan).toList();
+
+// Pastikan key ada di RxMap, jika belum ada tambahkan
+        productReview.putIfAbsent(key, () => <Review>[].obs);
+
+// Perbarui nilai RxList di dalam RxMap
+        productReview[key]?.value = filteredReviews;
       } else {
-        productReview.value = list;
+        productReview[idProduk] = list.toList().obs;
+        
       }
     } catch (e) {
       if (kDebugMode) {
@@ -148,7 +157,7 @@ class ProductReviewController extends GetxController {
       final List<dynamic> listData = json.decode(response.body);
 
       if (listData.isEmpty) {
-        productReview.value = [];
+        productReview[idUser] = <Review>[].obs;
         return;
       }
 
@@ -168,7 +177,7 @@ class ProductReviewController extends GetxController {
         );
       }).toList();
 
-      productReview.value = list;
+      productReview[idUser] = list.toList().obs;
     } catch (e) {
       if (kDebugMode) {
         print(e);

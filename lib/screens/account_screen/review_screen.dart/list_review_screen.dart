@@ -4,6 +4,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:sihalal_ecommerce_app/component/color_palette.dart';
 import 'package:sihalal_ecommerce_app/controller/product_controller/product_review_controller.dart';
+import 'package:sihalal_ecommerce_app/controller/user_profile_controller.dart';
 import 'package:sihalal_ecommerce_app/widgets/account_widgets/review_widgets/review_list_container.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -14,6 +15,7 @@ class ListReviewScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final productReviewController = Get.put(ProductReviewController());
     productReviewController.fetchReview();
+    final idUser = Get.find<UserProfileController>().idUser;
     return Scaffold(
       backgroundColor: HexColor('#fefffe'),
       appBar: AppBar(
@@ -72,7 +74,7 @@ class ListReviewScreen extends StatelessWidget {
                     : Expanded(
                         child: ListView.builder(
                           itemCount:
-                              productReviewController.productReview.length,
+                              productReviewController.productReview[idUser]!.length,
                           itemBuilder: (context, index) {
                             return Padding(
                               padding: const EdgeInsets.symmetric(
