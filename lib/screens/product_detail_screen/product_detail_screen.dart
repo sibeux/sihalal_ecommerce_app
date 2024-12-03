@@ -183,33 +183,66 @@ class ProductDetailScreen extends StatelessWidget {
                             child: SizedBox(
                               width: MediaQuery.of(context).size.width,
                               child: Obx(
-                                () => ScrollConfiguration(
-                                  behavior: NoGlowScrollBehavior(),
-                                  child: productDetailController
-                                              .listImageProduct[idProduk] ==
-                                          null
-                                      ? const CircularProgressIndicator()
-                                      : PageView.builder(
-                                          itemCount: productDetailController
-                                              .listImageProduct[idProduk]!
-                                              .where((element) =>
-                                                  element.isNotEmpty)
-                                              .length,
-                                          controller: _pageController,
-                                          onPageChanged: (value) {
-                                            productDetailController
-                                                .changeImageIndex(
-                                                    idProduk, value + 1);
-                                          },
-                                          itemBuilder: (context, index) {
-                                            return CachedNetworkImage(
-                                              imageUrl: productDetailController
-                                                      .listImageProduct[
-                                                  idProduk]![index],
-                                              fit: BoxFit.cover,
-                                            );
-                                          },
+                                () => Stack(
+                                  children: [
+                                    ScrollConfiguration(
+                                      behavior: NoGlowScrollBehavior(),
+                                      child: productDetailController
+                                                  .listImageProduct[idProduk] ==
+                                              null
+                                          ? const CircularProgressIndicator()
+                                          : PageView.builder(
+                                              itemCount: productDetailController
+                                                  .listImageProduct[idProduk]!
+                                                  .where((element) =>
+                                                      element.isNotEmpty)
+                                                  .length,
+                                              controller: _pageController,
+                                              onPageChanged: (value) {
+                                                productDetailController
+                                                    .changeImageIndex(
+                                                        idProduk, value + 1);
+                                              },
+                                              itemBuilder: (context, index) {
+                                                return CachedNetworkImage(
+                                                  imageUrl:
+                                                      productDetailController
+                                                              .listImageProduct[
+                                                          idProduk]![index],
+                                                  fit: BoxFit.cover,
+                                                );
+                                              },
+                                            ),
+                                    ),
+                                    if (productDetailController
+                                        .productDetailData
+                                        .any((element) =>
+                                            element.uidProduct == idProduk))
+                                      if (productDetailController
+                                              .productDetailData
+                                              .firstWhere((element) =>
+                                                  element.uidProduct ==
+                                                  idProduk)
+                                              .stok ==
+                                          '0')
+                                        AbsorbPointer(
+                                          absorbing: true,
+                                          child: Container(
+                                            height: double.infinity,
+                                            width: double.infinity,
+                                            color:
+                                                Colors.white.withOpacity(0.9),
+                                            child: const Text(
+                                              'Produk habis',
+                                              style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                            ).centered(),
+                                          ),
                                         ),
+                                  ],
                                 ),
                               ),
                             ),
@@ -558,7 +591,12 @@ class ProductDetailScreen extends StatelessWidget {
           ),
           if (userProfileController.idUser != idUser)
             Obx(
-              () => productDetailController.isLoadingFetchDataProduct.value
+              () => productDetailController.isLoadingFetchDataProduct.value ||
+                      (productDetailController.productDetailData
+                              .firstWhere(
+                                  (element) => element.uidProduct == idProduk)
+                              .stok ==
+                          '0')
                   ? const SizedBox()
                   : Container(
                       width: double.infinity,

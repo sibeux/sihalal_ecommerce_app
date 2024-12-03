@@ -121,7 +121,7 @@ class ProductImage extends StatelessWidget {
           ),
           if (stok == '0')
             Container(
-              color: Colors.white.withOpacity(0.8),
+              color: Colors.white.withOpacity(0.9),
               alignment: Alignment.center,
               child: Text(
                 'Habis',

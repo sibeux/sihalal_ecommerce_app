@@ -52,6 +52,8 @@ class _VerticalProductScrollState extends State<VerticalProductScroll>
                         .verticalRecentProduct[index]!.foto1,
                     kota: getScrollProductController
                         .verticalRecentProduct[index]!.kota,
+                    stok: getScrollProductController
+                        .verticalRecentProduct[index]!.stok,
                     price: double.parse(getScrollProductController
                         .verticalRecentProduct[index]!.harga),
                     isFavorite: getScrollProductController.verticalRecentProduct[index]!.isFavorite,

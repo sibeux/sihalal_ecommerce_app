@@ -255,7 +255,7 @@ class SellerProductController extends GetxController {
         if (oldUrlImage2 != urlImage2.value && oldUrlImage2.isNotEmpty) {
           nameImage2 = oldUrlImage2.split('/').last;
         }
-        if (oldUrlImage2 != urlImage3.value && oldUrlImage3.isNotEmpty) {
+        if (oldUrlImage3 != urlImage3.value && oldUrlImage3.isNotEmpty) {
           nameImage3 = oldUrlImage3.split('/').last;
         }
       } else {
@@ -422,7 +422,9 @@ class SellerProductController extends GetxController {
 
           if (!isNew) {
             deleteImageFromCpanel(
-                idProduct: currentIdProduct, method: 'update');
+              idProduct: currentIdProduct,
+              method: 'update',
+            );
           }
 
           Get.back();

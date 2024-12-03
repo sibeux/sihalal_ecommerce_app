@@ -53,6 +53,8 @@ class FavoriteScreen extends StatelessWidget {
                                 .listFavoriteProduct[index].foto1,
                             kota: favoriteController
                                 .listFavoriteProduct[index].kota,
+                            stok: favoriteController
+                                .listFavoriteProduct[index].stok,
                             price: double.parse(
                               favoriteController
                                   .listFavoriteProduct[index].harga,

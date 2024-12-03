@@ -267,6 +267,8 @@ class ShopDashboardScreen extends StatelessWidget {
                                                   .listAllProduct[index].foto1,
                                               kota: shopDashboardController
                                                   .listAllProduct[index].kota,
+                                              stok: shopDashboardController
+                                                  .listAllProduct[index].stok,
                                               price: double.parse(
                                                 shopDashboardController
                                                     .listAllProduct[index]

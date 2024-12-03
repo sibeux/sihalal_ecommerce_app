@@ -18,12 +18,14 @@ class VerticalProductCard extends StatelessWidget {
     required this.price,
     required this.description,
     required this.image,
-    required this.kota, required this.isFavorite,
+    required this.kota,
+    required this.isFavorite,
     required this.screenFrom,
+    required this.stok,
   });
 
   final String idProduct, idUser;
-  final String title, description, image, rating, kota;
+  final String title, description, image, rating, kota, stok;
   final double price;
   final bool isFavorite;
   final String screenFrom;
@@ -31,7 +33,6 @@ class VerticalProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),
@@ -56,7 +57,7 @@ class VerticalProductCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            ProductImage(image: image),
+            ProductImage(image: image, stok: stok),
             const SizedBox(height: 5),
             ProductRating(rating: rating),
             const SizedBox(height: 5),
@@ -81,9 +82,10 @@ class ProductImage extends StatelessWidget {
   const ProductImage({
     super.key,
     required this.image,
+    required this.stok,
   });
 
-  final String image;
+  final String image, stok;
 
   @override
   Widget build(BuildContext context) {
@@ -93,22 +95,40 @@ class ProductImage extends StatelessWidget {
         clipBehavior: Clip.antiAlias,
         decoration: const BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(8))),
-        child: CachedNetworkImage(
-          imageUrl: image,
-          fit: BoxFit.cover,
-          maxHeightDiskCache: 300,
-          maxWidthDiskCache: 300,
-          filterQuality: FilterQuality.low,
-          placeholder: (context, url) => Icon(
-            Icons.image,
-            size: 100,
-            color: colorShrink,
-          ),
-          errorWidget: (context, url, error) => Icon(
-            Icons.image,
-            size: 100,
-            color: colorShrink,
-          ),
+        child: Stack(
+          children: [
+            CachedNetworkImage(
+              imageUrl: image,
+              fit: BoxFit.cover,
+              maxHeightDiskCache: 300,
+              maxWidthDiskCache: 300,
+              filterQuality: FilterQuality.low,
+              placeholder: (context, url) => Icon(
+                Icons.image,
+                size: 100,
+                color: colorShrink,
+              ),
+              errorWidget: (context, url, error) => Icon(
+                Icons.image,
+                size: 100,
+                color: colorShrink,
+              ),
+            ),
+            if (stok == '0')
+              Container(
+                height: double.infinity,
+                width: double.infinity,
+                color: Colors.white.withOpacity(0.9),
+                child: const Text(
+                  'Produk habis',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ).centered(),
+              ),
+          ],
         ),
       ),
     );
