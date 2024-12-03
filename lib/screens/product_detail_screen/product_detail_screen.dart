@@ -185,31 +185,41 @@ class ProductDetailScreen extends StatelessWidget {
                               child: Obx(
                                 () => ScrollConfiguration(
                                   behavior: NoGlowScrollBehavior(),
-                                  child: PageView.builder(
-                                    itemCount: productDetailController
-                                        .listImageProduct[idProduk]!
-                                        .where((element) => element.isNotEmpty)
-                                        .length,
-                                    controller: _pageController,
-                                    onPageChanged: (value) {
-                                      productDetailController.changeImageIndex(
-                                          idProduk, value + 1);
-                                    },
-                                    itemBuilder: (context, index) {
-                                      return CachedNetworkImage(
-                                        imageUrl: productDetailController
-                                            .listImageProduct[idProduk]![index],
-                                        fit: BoxFit.cover,
-                                      );
-                                    },
-                                  ),
+                                  child: productDetailController
+                                              .listImageProduct[idProduk] ==
+                                          null
+                                      ? const CircularProgressIndicator()
+                                      : PageView.builder(
+                                          itemCount: productDetailController
+                                              .listImageProduct[idProduk]!
+                                              .where((element) =>
+                                                  element.isNotEmpty)
+                                              .length,
+                                          controller: _pageController,
+                                          onPageChanged: (value) {
+                                            productDetailController
+                                                .changeImageIndex(
+                                                    idProduk, value + 1);
+                                          },
+                                          itemBuilder: (context, index) {
+                                            return CachedNetworkImage(
+                                              imageUrl: productDetailController
+                                                      .listImageProduct[
+                                                  idProduk]![index],
+                                              fit: BoxFit.cover,
+                                            );
+                                          },
+                                        ),
                                 ),
                               ),
                             ),
                           ),
                           Obx(
                             () => productDetailController
-                                    .isLoadingFetchDataProduct.value
+                                        .isLoadingFetchDataProduct.value ||
+                                    productDetailController
+                                            .listImageProduct[idProduk] ==
+                                        null
                                 ? const SizedBox()
                                 : Positioned(
                                     bottom: 10,
@@ -257,7 +267,10 @@ class ProductDetailScreen extends StatelessWidget {
                       // ** Ini dipakai ketika productDetailData sudah selesai di-load
                       Obx(
                         () => productDetailController
-                                .isLoadingFetchDataProduct.value
+                                    .isLoadingFetchDataProduct.value ||
+                                // cek apakah ada idProduk yang sesuai
+                                !productDetailController.productDetailData.any(
+                                    (element) => element.uidProduct == idProduk)
                             ? const ShimmerProductDetail()
                             : Column(
                                 children: [
