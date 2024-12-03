@@ -38,10 +38,9 @@ class OrderScreen extends StatelessWidget {
               appBar: AppBar(
                 backgroundColor: HexColor('#fefffe'),
                 surfaceTintColor: Colors.transparent,
-                toolbarHeight: isFromAnotherScreen ? 60 : 40,
-                titleSpacing: 0,
+                titleSpacing: !isFromAnotherScreen ? 20 : 0,
                 leading: !isFromAnotherScreen
-                    ? const SizedBox()
+                    ? null
                     : IconButton(
                         icon: const Icon(Icons.arrow_back),
                         onPressed: () {
@@ -49,7 +48,7 @@ class OrderScreen extends StatelessWidget {
                         },
                       ),
                 title: Text(
-                  !isFromAnotherScreen ? '' : 'Riwayat Pesanan',
+                  !isFromAnotherScreen ? 'Pesanan' : 'Riwayat Pesanan',
                 ),
                 titleTextStyle: const TextStyle(
                   color: Colors.black,
@@ -61,6 +60,18 @@ class OrderScreen extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Column(
                   children: [
+                    SizedBox(
+                      height: 0.4,
+                      width: MediaQuery.of(context).size.width,
+                      child: OverflowBox(
+                        maxWidth: MediaQuery.of(context).size.width,
+                        child: const Divider(
+                          height: 0.4,
+                          thickness: 0.4,
+                        ),
+                      ),
+                    ),
+                    const HeightBox(10),
                     const Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
