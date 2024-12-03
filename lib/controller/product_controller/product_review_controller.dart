@@ -122,14 +122,13 @@ class ProductReviewController extends GetxController {
         var filteredReviews =
             list.where((element) => element.idPesanan == idPesanan).toList();
 
-// Pastikan key ada di RxMap, jika belum ada tambahkan
+        // Pastikan key ada di RxMap, jika belum ada tambahkan
         productReview.putIfAbsent(key, () => <Review>[].obs);
 
-// Perbarui nilai RxList di dalam RxMap
+        // Perbarui nilai RxList di dalam RxMap
         productReview[key]?.value = filteredReviews;
       } else {
         productReview[idProduk] = list.toList().obs;
-        
       }
     } catch (e) {
       if (kDebugMode) {
