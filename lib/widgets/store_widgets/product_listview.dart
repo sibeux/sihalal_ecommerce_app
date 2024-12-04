@@ -128,7 +128,7 @@ class ProductListview extends StatelessWidget {
                           icon: Ionicons.basket_outline,
                         ),
                         GridviewProductData(
-                          title: 'Favorit ${listData[index].stok}',
+                          title: 'Favorit ${listData[index].countFavorite}',
                           icon: Ionicons.heart_outline,
                         ),
                         GridviewProductData(

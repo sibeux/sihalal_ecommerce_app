@@ -1,7 +1,7 @@
 class SellerProduct {
   final String uidProduct, uidShhalal, uidUser, nama, deskripsi;
   final String foto1, foto2, foto3;
-  final String harga, stok, berat, countReview, countSold;
+  final String harga, stok, berat, countReview, countSold, countFavorite;
   final bool isVisible;
 
   final String kategori, nomorSH, merek;
@@ -21,6 +21,7 @@ class SellerProduct {
     required this.isVisible,
     required this.countReview,
     required this.countSold,
+    required this.countFavorite,
     required this.kategori,
     required this.nomorSH,
     required this.merek,

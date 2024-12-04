@@ -115,6 +115,7 @@ class GetSellerProductController extends GetxController {
             isVisible: produk['is_ditampilkan'] == 'true',
             countReview: produk['jumlah_ulasan'] ?? '0',
             countSold: produk['jumlah_terjual'] ?? '0',
+            countFavorite: produk['jumlah_favorite'] ?? '0',
             kategori: produk['kategori_shhalal'],
             nomorSH: produk['nomor_shhalal'],
             merek: produk['merek_shhalal'],
