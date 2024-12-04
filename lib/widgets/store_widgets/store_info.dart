@@ -6,6 +6,7 @@ import 'package:sihalal_ecommerce_app/component/color_palette.dart';
 import 'package:sihalal_ecommerce_app/controller/address_controller/user_address_controller.dart';
 import 'package:sihalal_ecommerce_app/controller/user_profile_controller.dart';
 import 'package:sihalal_ecommerce_app/screens/account_screen/address_screen/list_address_screen.dart';
+import 'package:sihalal_ecommerce_app/screens/account_screen/store_centre_screen/change_name_shop_screen.dart';
 import 'package:sihalal_ecommerce_app/widgets/home_widgets/photo_user.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -34,16 +35,18 @@ class StoreInfo extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  userProfileController.userData[0].nameShop == ''
-                      ? 'Toko ${userProfileController.userData[0].nameUser}'
-                      : userProfileController.userData[0].nameShop,
-                  maxLines: 1,
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black.withOpacity(1),
-                    overflow: TextOverflow.ellipsis,
+                Obx(
+                  () => Text(
+                    userProfileController.userData[0].nameShop == ''
+                        ? 'Toko ${userProfileController.userData[0].nameUser}'
+                        : userProfileController.userData[0].nameShop,
+                    maxLines: 1,
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.black.withOpacity(1),
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
                 ),
                 const SizedBox(
@@ -113,10 +116,25 @@ class StoreInfo extends StatelessWidget {
             ),
           ),
           const WidthBox(15),
-          Icon(
-            Icons.edit_square,
-            color: ColorPalette().primary,
-            size: 18,
+          InkWell(
+            onTap: () {
+              Get.to(
+                () => ChangeNameShopScreen(
+                  shopName: userProfileController.userData[0].nameShop == ''
+                      ? 'Toko ${userProfileController.userData[0].nameUser}'
+                      : userProfileController.userData[0].nameShop,
+                  foto: userProfileController.userData[0].fotoUser,
+                ),
+                transition: Transition.native,
+                fullscreenDialog: true,
+                popGesture: false,
+              );
+            },
+            child: Icon(
+              Icons.edit_square,
+              color: ColorPalette().primary,
+              size: 18,
+            ),
           ),
         ],
       ),
