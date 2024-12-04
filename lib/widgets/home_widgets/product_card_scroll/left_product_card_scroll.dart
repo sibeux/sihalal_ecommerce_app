@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sihalal_ecommerce_app/component/color_palette.dart';
 import 'package:sihalal_ecommerce_app/controller/product_controller/get_scroll_product_controller.dart';
 import 'package:sihalal_ecommerce_app/widgets/home_widgets/product_card_scroll/shimmer_product_card.dart';
 import 'package:sihalal_ecommerce_app/widgets/home_widgets/product_card_scroll/shrink_tap_card.dart';
@@ -78,16 +77,17 @@ class _LeftProductCardRowScrollState extends State<LeftProductCardRowScroll>
               flex: 1,
               fit: FlexFit.tight,
               child: Container(
-                  padding: const EdgeInsets.only(right: 20),
-                  child: Text(
-                    'Lihat Semua',
-                    textAlign: TextAlign.right,
-                    style: TextStyle(
-                      color: ColorPalette().primary,
-                      fontSize: 14,
-                      fontWeight: FontWeight.values[5],
-                    ),
-                  )),
+                padding: const EdgeInsets.only(right: 20),
+                // child: Text(
+                //   'Lihat Semua',
+                //   textAlign: TextAlign.right,
+                //   style: TextStyle(
+                //     color: ColorPalette().primary,
+                //     fontSize: 14,
+                //     fontWeight: FontWeight.values[5],
+                //   ),
+                // ),
+              ),
             )
           ],
         ),

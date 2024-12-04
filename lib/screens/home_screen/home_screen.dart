@@ -184,7 +184,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 SizedBox(height: 25),
                 LeftProductCardRowScroll(
                   color: Color.fromARGB(255, 255, 253, 236),
-                  cardHeader: "Mau Beli Apa Hari Ini?",
+                  cardHeader: "Rekomendasi Produk Hari Ini",
                   sort: 'random',
                 ),
                 SizedBox(height: 25),

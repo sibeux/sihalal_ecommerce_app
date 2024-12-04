@@ -21,7 +21,7 @@ class FavoriteScreen extends StatelessWidget {
         titleSpacing: 0,
         title: const Padding(
           padding: EdgeInsets.only(left: 20),
-          child: Text('Favorite'),
+          child: Text('Favorit'),
         ),
         titleTextStyle: const TextStyle(
           color: Colors.black,

@@ -111,7 +111,8 @@ class StoreCentreScreen extends StatelessWidget {
                   'Lihat Toko',
                   style: TextStyle(
                     color: shopInfoProductController.isLoading.value ||
-                            getSellerProductController.allOrderList.isEmpty ||
+                            getSellerProductController
+                                .visibleProductList.isEmpty ||
                             getSellerProductController.isGetProductLoading.value
                         ? Colors.grey
                         : ColorPalette().primary,
