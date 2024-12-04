@@ -37,6 +37,15 @@ class CheckoutScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final checkoutController = Get.put(CheckoutController());
     checkoutController.productStock = stockProduct;
+    late int qty;
+    String idCart = '';
+    if (Get.arguments != null) {
+      qty = Get.arguments['qty'] ?? 1;
+      idCart = Get.arguments['idCart'] ?? '';
+    } else {
+      qty = 1;
+    }
+    checkoutController.quantity.value = qty;
     return Stack(
       children: [
         Scaffold(
@@ -137,6 +146,7 @@ class CheckoutScreen extends StatelessWidget {
                 child: ButtonCreateOrder(
                   product: product,
                   shopName: shopName,
+                  idCart: idCart,
                 ),
               ),
             ],

@@ -8,11 +8,38 @@ import 'package:sihalal_ecommerce_app/models/cart.dart';
 
 class CartController extends GetxController {
   var isLoadingReadCart = false.obs;
+  var isLoadingRedirectToCheckoutScreen = false.obs;
+
+  var quantity = RxMap<String, int>();
+  var productStock = RxMap<String, int>();
 
   var listCart = RxList<Cart>([]);
 
-  Future<void> changeCart(
-      {required String method, required String idProduk}) async {
+  void increment({required String keyQty, required String keyStock}) {
+    if (quantity[keyQty]! < 99 && quantity[keyQty]! < productStock[keyStock]!) {
+      quantity[keyQty] = quantity[keyQty]! + 1;
+      quantity.refresh();
+    }
+  }
+
+  void decrement({required String keyQty}) {
+    if (quantity[keyQty]! > 1) {
+      quantity.update(keyQty, (value) => value - 1);
+    } else {
+      changeCart(
+        method: 'delete',
+        idProduk:
+            listCart.firstWhere((element) => element.idCart == keyQty).idProduk,
+        idCart: keyQty,
+      );
+    }
+  }
+
+  Future<void> changeCart({
+    required String method,
+    required String idProduk,
+    required String idCart,
+  }) async {
     const String url = 'https://sibeux.my.id/project/sihalal/cart';
 
     try {
@@ -25,6 +52,7 @@ class CartController extends GetxController {
           'method': method,
           'id_produk': idProduk,
           'id_user': Get.find<UserProfileController>().idUser,
+          'id_cart': idCart,
         },
       );
 

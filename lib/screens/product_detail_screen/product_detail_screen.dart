@@ -99,37 +99,6 @@ class ProductDetailScreen extends StatelessWidget {
           },
         ),
         actions: [
-          IconButton(
-            icon: const Icon(
-              Icons.shopping_cart_outlined,
-              color: Colors.black,
-            ),
-            onPressed: () {
-              final box = GetStorage();
-              if (box.read('login') != true) {
-                Get.to(
-                  () => const LoginScreen(),
-                  transition: Transition.rightToLeft,
-                  fullscreenDialog: true,
-                  popGesture: false,
-                );
-                return;
-              }
-              if (userProfileController.idUser == idUser) {
-                Get.snackbar(
-                  'Peringatan',
-                  'Anda tidak bisa membeli produk dari toko anda sendiri',
-                  snackPosition: SnackPosition.BOTTOM,
-                  backgroundColor: Colors.red,
-                  colorText: Colors.white,
-                  duration: const Duration(seconds: 2),
-                );
-                return;
-              }
-              final CartController cartController = Get.put(CartController());
-              cartController.changeCart(method: 'add', idProduk: idProduk);
-            },
-          ),
           Container(
             margin: const EdgeInsets.only(right: 20),
             child: Obx(
@@ -718,6 +687,13 @@ class ProductDetailScreen extends StatelessWidget {
                                   child: CartButton(
                                     onPressed: () {
                                       if (login) {
+                                        final CartController cartController =
+                                            Get.put(CartController());
+                                        cartController.changeCart(
+                                          method: 'add',
+                                          idProduk: idProduk,
+                                          idCart: '',
+                                        );
                                       } else {
                                         Get.to(
                                           () => const LoginScreen(),

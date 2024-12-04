@@ -6,6 +6,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 import 'package:sihalal_ecommerce_app/component/color_palette.dart';
 import 'package:sihalal_ecommerce_app/controller/auth_controller.dart';
+import 'package:sihalal_ecommerce_app/controller/cart_controller.dart';
 import 'package:sihalal_ecommerce_app/controller/order_controller.dart';
 import 'package:sihalal_ecommerce_app/screens/cart_screen/cart_screen.dart';
 import 'package:sihalal_ecommerce_app/screens/favorite_screen/favorite_screen.dart';
@@ -89,6 +90,7 @@ class _PersistenBarScreenState extends State<PersistenBarScreen> {
   @override
   Widget build(BuildContext context) {
     final userLogoutController = Get.put(UserLogoutController());
+    final cartController = Get.put(CartController());
     return AbsorbPointer(
       absorbing: userLogoutController.isLoggingOut.value,
       child: PersistentTabView(
@@ -108,6 +110,9 @@ class _PersistenBarScreenState extends State<PersistenBarScreen> {
               fullscreenDialog: true,
               popGesture: false,
             );
+          } else if (index == 1 && isLogin && lastSelectedIndex != 1) {
+            lastSelectedIndex = index;
+            await cartController.readCart();
           } else if (index == 3 && isLogin && lastSelectedIndex != 3) {
             lastSelectedIndex = index;
             await Get.find<OrderController>().getOrderHistory();

@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 
 import 'package:http/http.dart' as http;
 import 'package:sihalal_ecommerce_app/controller/address_controller/user_address_controller.dart';
+import 'package:sihalal_ecommerce_app/controller/cart_controller.dart';
 import 'package:sihalal_ecommerce_app/controller/order_controller.dart';
 import 'package:sihalal_ecommerce_app/controller/product_controller/product_detail_controller.dart';
 import 'package:sihalal_ecommerce_app/controller/user_profile_controller.dart';
@@ -60,6 +61,7 @@ class CheckoutController extends GetxController {
   Future<void> createOrder({
     required Product product,
     required String sellerShopName,
+    required String idCart,
   }) async {
     isLoadingCreateOrder.value = true;
 
@@ -119,6 +121,14 @@ class CheckoutController extends GetxController {
         productDetailController.stockProduct.value -= quantity.value;
         Get.find<OrderController>()
             .getOrderHistoryCount(userProfileController.idUser);
+        if (idCart.isNotEmpty) {
+          final cartController = Get.find<CartController>();
+          cartController.changeCart(
+            method: 'delete',
+            idProduk: product.uidProduct,
+            idCart: idCart,
+          );
+        }
         Get.offUntil(
           MaterialPageRoute(
             builder: (_) => OrderPlacedScreen(

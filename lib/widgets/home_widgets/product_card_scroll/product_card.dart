@@ -91,7 +91,7 @@ class ProductCard extends ConsumerWidget {
                     final CartController cartController =
                         Get.put(CartController());
                     cartController.changeCart(
-                        method: 'add', idProduk: idProduk);
+                        method: 'add', idProduk: idProduk, idCart: '');
                   },
                 )
               : (fromShopDashboard)

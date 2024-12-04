@@ -10,10 +10,11 @@ class ButtonCreateOrder extends StatelessWidget {
   const ButtonCreateOrder({
     super.key,
     required this.product, required this.shopName,
+    required this.idCart,
   });
 
   final Product product;
-  final String shopName;
+  final String shopName, idCart;
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +29,7 @@ class ButtonCreateOrder extends StatelessWidget {
               context,
               product: product,
               sellerShopName: shopName,
+              idCart: idCart,
             );
           },
           style: ElevatedButton.styleFrom(
