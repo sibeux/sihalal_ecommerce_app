@@ -11,22 +11,26 @@ class SearchProductController extends GetxController {
   var listProductSearch = RxList<Product>([]);
 
   final controller = TextEditingController();
-  var isTyping = false.obs;
+
   var textValue = ''.obs;
+
+  var isTyping = false.obs;
   var isKeybordFocus = false.obs;
   var isSearch = false.obs;
+  var isLoadingReadProduct = false.obs;
 
   void onChanged(String value) {
     isTyping.value = value.isNotEmpty;
     textValue.value = value;
     isKeybordFocus.value = true;
-    filterProduct(value);
+    controller.text = value;
     update();
   }
 
-  void filterProduct(String value) {
-    isSearch.value = !isSearch.value;
-    update();
+  void onClear() {
+    isTyping.value = false;
+    textValue.value = '';
+    controller.clear();
   }
 
   get getTextValue => textValue.value;
@@ -35,6 +39,7 @@ class SearchProductController extends GetxController {
 
   Future<void> searchProduct() async {
     final String keyword = textValue.value;
+    isLoadingReadProduct.value = true;
 
     final String url =
         'https://sibeux.my.id/project/sihalal/search?method=search_product&search=$keyword';
@@ -82,7 +87,7 @@ class SearchProductController extends GetxController {
     } catch (e) {
       debugPrint('Error in search_product: $e');
     } finally {
-      
+      isLoadingReadProduct.value = false;
     }
   }
 }

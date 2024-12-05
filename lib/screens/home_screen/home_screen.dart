@@ -4,6 +4,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:sihalal_ecommerce_app/component/color_palette.dart';
 import 'package:sihalal_ecommerce_app/controller/product_controller/get_scroll_product_controller.dart';
+import 'package:sihalal_ecommerce_app/controller/product_controller/search_product_controller.dart';
 import 'package:sihalal_ecommerce_app/controller/user_profile_controller.dart';
 import 'package:sihalal_ecommerce_app/widgets/home_widgets/banner_slider.dart';
 import 'package:sihalal_ecommerce_app/widgets/home_widgets/categories.dart';
@@ -54,10 +55,13 @@ class _HomeScreenState extends State<HomeScreen> {
         title: Padding(
           padding: const EdgeInsets.only(left: 20, right: 10),
           child: GestureDetector(
-            onTap: () => Get.to(
-              () => const SearchProductScreen(),
-              transition: Transition.rightToLeft,
-            ),
+            onTap: () {
+              Get.find<SearchProductController>().onClear();
+              Get.to(
+                () => const SearchProductScreen(),
+                transition: Transition.rightToLeft,
+              );
+            },
             child: AbsorbPointer(
               child: TextFormField(
                 cursorColor: HexColor('#575757'),

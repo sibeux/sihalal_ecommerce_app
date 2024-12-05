@@ -3,18 +3,20 @@ import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:sihalal_ecommerce_app/component/color_palette.dart';
 import 'package:sihalal_ecommerce_app/controller/product_controller/search_product_controller.dart';
+import 'package:sihalal_ecommerce_app/screens/search_product_screen/vertical_search_product.dart';
 
 class SearchProductScreen extends StatelessWidget {
   const SearchProductScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final searchProductController = Get.put(SearchProductController());
+    final SearchProductController searchProductController =
+        Get.find<SearchProductController>();
     return Scaffold(
-      backgroundColor: HexColor('#fefffe'),
+      backgroundColor: ColorPalette().white,
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        backgroundColor: HexColor('#fefffe'),
+        backgroundColor: ColorPalette().white,
         titleSpacing: 0,
         leading: IconButton(
           onPressed: () {
@@ -69,25 +71,43 @@ class SearchProductScreen extends StatelessWidget {
         actions: [
           GestureDetector(
             onTap: () {
+              if (searchProductController.textValue.isEmpty) {
+                return;
+              }
               searchProductController.searchProduct();
+              Get.offUntil(
+                MaterialPageRoute(
+                  builder: (_) => VerticalSearchProduct(
+                  keyword: searchProductController.textValue.value,
+                
+                  ),
+                  fullscreenDialog: true,
+                ),
+                (route) => route.isFirst,
+              );
             },
-            child: Container(
-              margin: const EdgeInsets.only(right: 10),
-              decoration: BoxDecoration(
-                  color: ColorPalette().primary,
+            child: Obx(
+              () => Container(
+                margin: const EdgeInsets.only(right: 10),
+                decoration: BoxDecoration(
+                  color: searchProductController.textValue.isEmpty
+                      ? Colors.grey
+                      : ColorPalette().primary,
                   border: Border.all(color: ColorPalette().primary, width: 2),
                   borderRadius: const BorderRadius.only(
                     topRight: Radius.circular(7),
                     bottomRight: Radius.circular(7),
-                  )),
-              child: const Row(
-                children: [
-                  Icon(
-                    Icons.search,
-                    size: 28,
-                    color: Colors.white,
                   ),
-                ],
+                ),
+                child: const Row(
+                  children: [
+                    Icon(
+                      Icons.search,
+                      size: 28,
+                      color: Colors.white,
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

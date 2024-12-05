@@ -8,6 +8,7 @@ import 'package:sihalal_ecommerce_app/component/color_palette.dart';
 import 'package:sihalal_ecommerce_app/controller/auth_controller.dart';
 import 'package:sihalal_ecommerce_app/controller/cart_controller.dart';
 import 'package:sihalal_ecommerce_app/controller/order_controller.dart';
+import 'package:sihalal_ecommerce_app/controller/product_controller/search_product_controller.dart';
 import 'package:sihalal_ecommerce_app/screens/cart_screen/cart_screen.dart';
 import 'package:sihalal_ecommerce_app/screens/favorite_screen/favorite_screen.dart';
 import 'package:sihalal_ecommerce_app/screens/home_screen/home_screen.dart';
@@ -91,6 +92,7 @@ class _PersistenBarScreenState extends State<PersistenBarScreen> {
   Widget build(BuildContext context) {
     final userLogoutController = Get.put(UserLogoutController());
     final cartController = Get.put(CartController());
+    Get.put(SearchProductController());
     return AbsorbPointer(
       absorbing: userLogoutController.isLoggingOut.value,
       child: PersistentTabView(
