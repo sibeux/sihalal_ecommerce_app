@@ -42,7 +42,7 @@ class VerticalSearchProduct extends StatelessWidget {
               searchProductController.onChanged(keyword);
               Get.to(
                 () => const SearchProductScreen(),
-                transition: Transition.native,
+                transition: Transition.rightToLeft,
                 fullscreenDialog: true,
                 popGesture: false,
               );
