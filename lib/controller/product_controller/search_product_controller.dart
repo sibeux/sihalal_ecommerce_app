@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:html_unescape/html_unescape.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:sihalal_ecommerce_app/models/product.dart';
 // http
 import 'package:http/http.dart' as http;
@@ -31,6 +32,18 @@ class SearchProductController extends GetxController {
     isTyping.value = false;
     textValue.value = '';
     controller.clear();
+  }
+
+  void onRefresh(RefreshController controller) async {
+    await Future.delayed(const Duration(milliseconds: 500));
+
+    searchProduct();
+
+    controller.refreshCompleted(resetFooterState: true);
+  }
+
+  void onLoading(RefreshController controller) async {
+    controller.loadComplete();
   }
 
   get getTextValue => textValue.value;
