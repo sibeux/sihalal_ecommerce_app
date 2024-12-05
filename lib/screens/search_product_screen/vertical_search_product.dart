@@ -25,6 +25,8 @@ class VerticalSearchProduct extends StatelessWidget {
   Widget build(BuildContext context) {
     final SearchProductController searchProductController =
         Get.find<SearchProductController>();
+        // * Ditaruh sini karena satu SmartRefresher hanyak boleh punya 1 controller.
+        // * Tidak bisa 1 dipakai 2 widget.
     final RefreshController refreshController =
         RefreshController(initialRefresh: false);
     return Scaffold(
