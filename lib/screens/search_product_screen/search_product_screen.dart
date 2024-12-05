@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:sihalal_ecommerce_app/component/color_palette.dart';
-import 'package:sihalal_ecommerce_app/controller/product_controller/product_controller.dart';
+import 'package:sihalal_ecommerce_app/controller/product_controller/search_product_controller.dart';
 
 class SearchProductScreen extends StatelessWidget {
   const SearchProductScreen({super.key});
@@ -68,7 +68,9 @@ class SearchProductScreen extends StatelessWidget {
         ),
         actions: [
           GestureDetector(
-            onTap: () {},
+            onTap: () {
+              searchProductController.searchProduct();
+            },
             child: Container(
               margin: const EdgeInsets.only(right: 10),
               decoration: BoxDecoration(
@@ -96,9 +98,6 @@ class SearchProductScreen extends StatelessWidget {
         toolbarHeight: 80,
         scrolledUnderElevation: 0,
         elevation: 0,
-      ),
-      body: const Center(
-        child: Text('Search Product Screen'),
       ),
     );
   }
