@@ -3,8 +3,8 @@ import 'package:sihalal_ecommerce_app/component/color_palette.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 List<String> assets = [
-  'assets/images/food.jpg',
-  'assets/images/food2.jpg',
+  'assets/images/milk.jpg',
+  'assets/images/sugar.jpg',
   'assets/images/food3.jpg',
   'assets/images/food4.jpg',
   'assets/images/food5.jpg'
@@ -23,7 +23,8 @@ class BannerSlider extends StatefulWidget {
   State<StatefulWidget> createState() => _BannerSliderState();
 }
 
-class _BannerSliderState extends State<BannerSlider> with AutomaticKeepAliveClientMixin {
+class _BannerSliderState extends State<BannerSlider>
+    with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
 
@@ -51,6 +52,7 @@ class _BannerSliderState extends State<BannerSlider> with AutomaticKeepAliveClie
                 child: Image.asset(
                   assets[index % 5],
                   fit: BoxFit.cover,
+                  filterQuality: FilterQuality.medium,
                 ),
               );
             },
