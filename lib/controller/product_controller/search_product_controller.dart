@@ -63,6 +63,7 @@ class SearchProductController extends GetxController {
       isLoadingReadProduct.value = true;
     }
 
+    // mereset nilai this.offset setiap kali search
     this.offset = offset;
 
     final String url =
@@ -112,6 +113,7 @@ class SearchProductController extends GetxController {
         this.offset += 10;
       } else {
         if (this.offset == 0) {
+          // agar saat load more kirim data kosong, tidak blank putih
           listProductSearch.value = [];
         }
       }
