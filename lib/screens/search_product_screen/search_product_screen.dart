@@ -74,7 +74,9 @@ class SearchProductScreen extends StatelessWidget {
               if (searchProductController.textValue.isEmpty) {
                 return;
               }
-              searchProductController.searchProduct();
+              searchProductController.searchProduct(
+                offset: 0,
+              );
               Get.offUntil(
                 MaterialPageRoute(
                   builder: (_) => VerticalSearchProduct(

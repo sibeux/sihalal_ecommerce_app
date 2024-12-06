@@ -15,6 +15,8 @@ class SearchProductController extends GetxController {
 
   var textValue = ''.obs;
 
+  var offset = 0;
+
   var isTyping = false.obs;
   var isKeybordFocus = false.obs;
   var isSearch = false.obs;
@@ -32,17 +34,22 @@ class SearchProductController extends GetxController {
     isTyping.value = false;
     textValue.value = '';
     controller.clear();
+    offset = 0;
   }
 
   void onRefresh(RefreshController controller) async {
     await Future.delayed(const Duration(milliseconds: 500));
 
-    searchProduct();
+    offset = 0;
+    searchProduct(offset: offset);
 
     controller.refreshCompleted(resetFooterState: true);
   }
 
   void onLoading(RefreshController controller) async {
+    if (offset != 0) {
+      await searchProduct(offset: offset);
+    }
     controller.loadComplete();
   }
 
@@ -50,12 +57,16 @@ class SearchProductController extends GetxController {
 
   get isTypingValue => isTyping.value;
 
-  Future<void> searchProduct() async {
+  Future<void> searchProduct({required int offset}) async {
     final String keyword = textValue.value;
-    isLoadingReadProduct.value = true;
+    if (offset == 0) {
+      isLoadingReadProduct.value = true;
+    }
+
+    this.offset = offset;
 
     final String url =
-        'https://sibeux.my.id/project/sihalal/search?method=search_product&search=$keyword';
+        'https://sibeux.my.id/project/sihalal/search?method=search_product&search=$keyword&offset=$offset';
 
     try {
       final response = await http.get(Uri.parse(url));
@@ -93,9 +104,16 @@ class SearchProductController extends GetxController {
           );
         }).toList();
 
-        listProductSearch.value = list;
+        if (this.offset == 0) {
+          listProductSearch.value = list;
+        } else {
+          listProductSearch.addAll(list);
+        }
+        this.offset += 10;
       } else {
-        listProductSearch.value = [];
+        if (this.offset == 0) {
+          listProductSearch.value = [];
+        }
       }
     } catch (e) {
       debugPrint('Error in search_product: $e');
