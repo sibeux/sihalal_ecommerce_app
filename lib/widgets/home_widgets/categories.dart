@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:sihalal_ecommerce_app/component/color_palette.dart';
+import 'package:sihalal_ecommerce_app/controller/product_controller/search_product_controller.dart';
+import 'package:sihalal_ecommerce_app/screens/search_product_screen/vertical_search_product.dart';
 
 class Categories extends StatefulWidget {
   const Categories({super.key});
@@ -8,15 +11,15 @@ class Categories extends StatefulWidget {
   State<Categories> createState() => _CategoriesState();
 }
 
-class _CategoriesState extends State<Categories> with AutomaticKeepAliveClientMixin {
-
+class _CategoriesState extends State<Categories>
+    with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    
+
     List<Map<String, dynamic>> categories1 = [
       {
         'icon': "assets/images/icon-category/Sugar-1.png",
@@ -75,7 +78,7 @@ class _CategoriesState extends State<Categories> with AutomaticKeepAliveClientMi
       },
       {
         'icon': "assets/images/icon-category/other.png",
-        'title': 'Lainnya',
+        'title': 'Semua',
       },
     ];
 
@@ -136,7 +139,23 @@ class IconRow extends StatelessWidget {
           (index) => CategoryCard(
             image: categories[index]['icon'],
             text: categories[index]['title'],
-            press: () {},
+            press: () {
+              final SearchProductController searchProductController =
+                  Get.find<SearchProductController>();
+
+              searchProductController.sortCategoryProduct(
+                  offset: 0, category: categories[index]['title']);
+
+              Get.offUntil(
+                MaterialPageRoute(
+                  builder: (_) => VerticalSearchProduct(
+                    keyword: categories[index]['title'],
+                  ),
+                  fullscreenDialog: true,
+                ),
+                (route) => route.isFirst,
+              );
+            },
           ),
         ),
       ],

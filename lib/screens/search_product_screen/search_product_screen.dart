@@ -71,7 +71,7 @@ class SearchProductScreen extends StatelessWidget {
         actions: [
           GestureDetector(
             onTap: () {
-              if (searchProductController.textValue.isEmpty) {
+              if (searchProductController.textValue.trim().isEmpty) {
                 return;
               }
               searchProductController.searchProduct(
@@ -80,8 +80,7 @@ class SearchProductScreen extends StatelessWidget {
               Get.offUntil(
                 MaterialPageRoute(
                   builder: (_) => VerticalSearchProduct(
-                  keyword: searchProductController.textValue.value,
-                
+                    keyword: searchProductController.textValue.value,
                   ),
                   fullscreenDialog: true,
                 ),
@@ -92,7 +91,7 @@ class SearchProductScreen extends StatelessWidget {
               () => Container(
                 margin: const EdgeInsets.only(right: 10),
                 decoration: BoxDecoration(
-                  color: searchProductController.textValue.isEmpty
+                  color: searchProductController.textValue.trim().isEmpty
                       ? Colors.grey
                       : ColorPalette().primary,
                   border: Border.all(color: ColorPalette().primary, width: 2),
