@@ -20,7 +20,8 @@ class ShimmerProductCard extends StatelessWidget {
       child: Row(
         children: [
           if (!fromShopDashboard)
-            SizedBox(width: MediaQuery.of(context).size.width * 0.43),
+            // SizedBox(width: MediaQuery.of(context).size.width * 0.43),
+            const SizedBox(width: 20),
           // create for each product card from dummyProductCard
           for (var x = 0; x < 5; x++)
             ProductCard(

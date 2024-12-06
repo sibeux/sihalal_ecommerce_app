@@ -96,13 +96,13 @@ class _LeftProductCardRowScrollState extends State<LeftProductCardRowScroll>
           height: 385,
           decoration: BoxDecoration(
             color: color,
-            image: const DecorationImage(
-              alignment: AlignmentDirectional.centerStart,
-              fit: BoxFit.fitHeight,
-              filterQuality: FilterQuality.medium,
-              image: NetworkImage(
-                  "https://raw.githubusercontent.com/sibeux/license-sibeux/MyProgram/Mask_group.png"),
-            ),
+            // image: const DecorationImage(
+            //   alignment: AlignmentDirectional.centerStart,
+            //   fit: BoxFit.fitHeight,
+            //   filterQuality: FilterQuality.medium,
+            //   image: NetworkImage(
+            //       "https://raw.githubusercontent.com/sibeux/license-sibeux/MyProgram/Mask_group.png"),
+            // ),
           ),
           child: Obx(
             () => (getScrollProductController.isLoadingRecent.value &&
@@ -119,8 +119,9 @@ class _LeftProductCardRowScrollState extends State<LeftProductCardRowScroll>
                     scrollDirection: Axis.horizontal,
                     child: Row(
                       children: [
-                        SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.43),
+                        // SizedBox(
+                        //     width: MediaQuery.of(context).size.width * 0.43),
+                        const SizedBox(width: 20),
                         // create for each product card from dummyProductCard
                         for (var product in productCardScroll)
                           ShrinkTapProduct(
