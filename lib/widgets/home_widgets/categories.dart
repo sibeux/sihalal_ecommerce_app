@@ -143,6 +143,8 @@ class IconRow extends StatelessWidget {
               final SearchProductController searchProductController =
                   Get.find<SearchProductController>();
 
+              searchProductController.isNowSearch = false;
+
               searchProductController.sortCategoryProduct(
                   offset: 0, category: categories[index]['title']);
 

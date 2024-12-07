@@ -74,6 +74,7 @@ class SearchProductScreen extends StatelessWidget {
               if (searchProductController.textValue.trim().isEmpty) {
                 return;
               }
+              searchProductController.isNowSearch = true;
               searchProductController.searchProduct(
                 offset: 0,
               );
