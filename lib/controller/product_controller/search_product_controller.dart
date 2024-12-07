@@ -35,7 +35,6 @@ class SearchProductController extends GetxController {
   void onClear() {
     isTyping.value = false;
     textValue.value = '';
-    isNowSearch = false;
     controller.clear();
     offset = 0;
   }

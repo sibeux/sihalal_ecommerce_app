@@ -146,7 +146,9 @@ class IconRow extends StatelessWidget {
               searchProductController.isNowSearch = false;
 
               searchProductController.sortCategoryProduct(
-                  offset: 0, category: categories[index]['title']);
+                offset: 0,
+                category: categories[index]['title'],
+              );
 
               Get.offUntil(
                 MaterialPageRoute(

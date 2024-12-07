@@ -52,7 +52,7 @@ class _BannerSliderState extends State<BannerSlider>
                 child: Image.asset(
                   assets[index % 5],
                   fit: BoxFit.cover,
-                  filterQuality: FilterQuality.medium,
+                  filterQuality: FilterQuality.low,
                 ),
               );
             },
