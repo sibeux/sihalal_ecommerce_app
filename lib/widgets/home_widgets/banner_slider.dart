@@ -5,9 +5,9 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 List<String> assets = [
   'assets/images/milk.jpg',
   'assets/images/sugar.jpg',
-  'assets/images/food3.jpg',
-  'assets/images/food4.jpg',
-  'assets/images/food5.jpg'
+  'assets/images/meat.jpg',
+  'assets/images/flour.jpg',
+  'assets/images/grocery.jpg'
 ];
 
 int currentindex = 0;
