@@ -97,21 +97,23 @@ class ProductImage extends StatelessWidget {
             borderRadius: BorderRadius.all(Radius.circular(8))),
         child: Stack(
           children: [
-            CachedNetworkImage(
-              imageUrl: image,
-              fit: BoxFit.cover,
-              maxHeightDiskCache: 300,
-              maxWidthDiskCache: 300,
-              filterQuality: FilterQuality.low,
-              placeholder: (context, url) => Icon(
-                Icons.image,
-                size: 100,
-                color: colorShrink,
-              ),
-              errorWidget: (context, url, error) => Icon(
-                Icons.image,
-                size: 100,
-                color: colorShrink,
+            Center(
+              child: CachedNetworkImage(
+                imageUrl: image,
+                fit: BoxFit.cover,
+                maxHeightDiskCache: 300,
+                maxWidthDiskCache: 300,
+                filterQuality: FilterQuality.low,
+                placeholder: (context, url) => Icon(
+                  Icons.image,
+                  size: 100,
+                  color: colorShrink,
+                ),
+                errorWidget: (context, url, error) => Icon(
+                  Icons.image,
+                  size: 100,
+                  color: colorShrink,
+                ),
               ),
             ),
             if (stok == '0')

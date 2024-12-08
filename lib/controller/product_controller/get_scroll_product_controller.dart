@@ -64,13 +64,14 @@ class GetScrollProductController extends GetxController {
       isLoadingVerticalRecent.value = true;
     }
 
-    final userProfileController =
-        Get.find<UserProfileController>();
+    final userProfileController = Get.find<UserProfileController>();
     final box = GetStorage();
 
     // ** ini untuk menunggu idUser terisi
     await Future.doWhile(() async {
-      if (userProfileController.idUser.isNotEmpty || box.read('login') == false) return false;
+      if (userProfileController.idUser.isNotEmpty || box.read('login') != true) {
+        return false;
+      }
       await Future.delayed(const Duration(milliseconds: 100));
       return true;
     });
