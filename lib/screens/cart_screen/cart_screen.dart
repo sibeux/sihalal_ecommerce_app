@@ -44,7 +44,6 @@ class CartScreen extends StatelessWidget {
                 height: 0.4,
                 thickness: 0.4,
               ),
-              const HeightBox(20),
               Obx(
                 () => cartController.listCart.isNotEmpty
                     ? const SizedBox()
@@ -134,183 +133,188 @@ class CartScreen extends StatelessWidget {
               Obx(
                 () => cartController.listCart.isEmpty
                     ? const SizedBox()
-                    : ListView(
-                        shrinkWrap: true,
-                        children: cartController.listCart.map((cart) {
-                          cartController.quantity
-                              .putIfAbsent(cart.idCart, () => 1);
-                          cartController.productStock.putIfAbsent(
-                              cart.idProduk, () => cart.stokProduk);
-                          return InkWell(
-                            splashColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            onTap: () async {
-                              if (cart.stokProduk == 0) {
-                                return;
-                              }
-                              cartController.isLoadingRedirectToCheckoutScreen
-                                  .value = true;
-                              final ShopInfoProductController
-                                  shopInfoProductController =
-                                  Get.put(ShopInfoProductController());
-                              Get.put(FavoriteController());
-
-                              final ProductDetailController
-                                  productDetailController = Get.put(
-                                ProductDetailController(
-                                  idProduk: cart.idProduk,
-                                  fotoImage1: cart.fotoProduk,
-                                ),
-                              );
-
-                              await productDetailController
-                                  .fetchDataProductDetail(
-                                      idProduk: cart.idProduk);
-
-                              await Future.doWhile(() async {
-                                if (productDetailController.productDetailData
-                                        .any((item) =>
-                                            item.uidProduct == cart.idProduk) &&
-                                    shopInfoProductController
-                                        .shopInfo.isNotEmpty) {
-                                  return false;
+                    : Expanded(
+                        child: ListView(
+                          children: cartController.listCart.map((cart) {
+                            cartController.quantity
+                                .putIfAbsent(cart.idCart, () => 1);
+                            cartController.productStock.putIfAbsent(
+                                cart.idProduk, () => cart.stokProduk);
+                            return InkWell(
+                              splashColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () async {
+                                if (cart.stokProduk == 0) {
+                                  return;
                                 }
-                                await Future.delayed(
-                                    const Duration(milliseconds: 100));
-                                return true;
-                              });
+                                cartController.isLoadingRedirectToCheckoutScreen
+                                    .value = true;
+                                final ShopInfoProductController
+                                    shopInfoProductController =
+                                    Get.put(ShopInfoProductController());
+                                Get.put(FavoriteController());
 
-                              Get.to(
-                                () => CheckoutScreen(
-                                  product: productDetailController
-                                      .productDetailData
-                                      .firstWhere((element) =>
-                                          element.uidProduct == cart.idProduk),
-                                  shopName: shopInfoProductController
-                                      .shopInfo[0]!.namaToko,
-                                  stockProduct: cart.stokProduk,
-                                ),
-                                arguments: {
-                                  'qty': cartController.quantity[cart.idCart],
-                                  'idCart': cart.idCart,
-                                }
-                              );
-                              cartController.isLoadingRedirectToCheckoutScreen
-                                  .value = false;
-                            },
-                            child: Dismissible(
-                              key: Key(cart.idCart),
-                              direction: DismissDirection.endToStart,
-                              onDismissed: (direction) {
-                                cartController.changeCart(
-                                  method: 'delete',
-                                  idProduk: cart.idProduk,
-                                  idCart: cart.idCart,
-                                );
-                              },
-                              background: Container(
-                                color: Colors.red,
-                                alignment: Alignment.centerRight,
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 20),
-                                child: const Icon(Icons.delete,
-                                    color: Colors.white),
-                              ),
-                              child: Stack(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 20, vertical: 10),
-                                    child: Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        SizedBox(
-                                          height: 80,
-                                          width: 80,
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                const BorderRadius.all(
-                                              Radius.circular(10),
-                                            ),
-                                            child: CachedNetworkImage(
-                                              imageUrl: cart.fotoProduk,
-                                            ),
-                                          ),
-                                        ),
-                                        const WidthBox(20),
-                                        Expanded(
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                'Sisa ${cart.stokProduk}',
-                                                maxLines: 1,
-                                                style: TextStyle(
-                                                  color: HexColor('#d88e4d'),
-                                                  fontSize: 11,
-                                                  fontWeight: FontWeight.w700,
-                                                ),
-                                              ),
-                                              const HeightBox(3),
-                                              Text(
-                                                cart.namaProduk,
-                                                maxLines: 1,
-                                                style: TextStyle(
-                                                  color: Colors.black
-                                                      .withOpacity(0.7),
-                                                  fontSize: 13,
-                                                  fontWeight: FontWeight.w400,
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                ),
-                                              ),
-                                              const HeightBox(5),
-                                              Text(
-                                                priceFormatter(cart.hargaProduk
-                                                    .toString()),
-                                                maxLines: 1,
-                                                style: TextStyle(
-                                                  color: Colors.black
-                                                      .withOpacity(1),
-                                                  fontSize: 13,
-                                                  fontWeight: FontWeight.w700,
-                                                ),
-                                              ),
-                                              const HeightBox(5),
-                                              ButtonQuantity(
-                                                idCart: cart.idCart,
-                                                idProduct: cart.idProduk,
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
+                                final ProductDetailController
+                                    productDetailController = Get.put(
+                                  ProductDetailController(
+                                    idProduk: cart.idProduk,
+                                    fotoImage1: cart.fotoProduk,
                                   ),
-                                  cart.stokProduk == 0
-                                      ? Container(
-                                          height: 120,
-                                          width: double.infinity,
-                                          color: Colors.black.withOpacity(0.5),
-                                          child: const Center(
-                                            child: Text(
-                                              'Stok Habis',
-                                              style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w700,
+                                );
+
+                                await productDetailController
+                                    .fetchDataProductDetail(
+                                        idProduk: cart.idProduk);
+
+                                await Future.doWhile(() async {
+                                  if (productDetailController.productDetailData
+                                          .any((item) =>
+                                              item.uidProduct ==
+                                              cart.idProduk) &&
+                                      shopInfoProductController
+                                          .shopInfo.isNotEmpty) {
+                                    return false;
+                                  }
+                                  await Future.delayed(
+                                      const Duration(milliseconds: 100));
+                                  return true;
+                                });
+
+                                Get.to(
+                                    () => CheckoutScreen(
+                                          product: productDetailController
+                                              .productDetailData
+                                              .firstWhere((element) =>
+                                                  element.uidProduct ==
+                                                  cart.idProduk),
+                                          shopName: shopInfoProductController
+                                              .shopInfo[0]!.namaToko,
+                                          stockProduct: cart.stokProduk,
+                                        ),
+                                    arguments: {
+                                      'qty':
+                                          cartController.quantity[cart.idCart],
+                                      'idCart': cart.idCart,
+                                    });
+                                cartController.isLoadingRedirectToCheckoutScreen
+                                    .value = false;
+                              },
+                              child: Dismissible(
+                                key: Key(cart.idCart),
+                                direction: DismissDirection.endToStart,
+                                onDismissed: (direction) {
+                                  cartController.changeCart(
+                                    method: 'delete',
+                                    idProduk: cart.idProduk,
+                                    idCart: cart.idCart,
+                                  );
+                                },
+                                background: Container(
+                                  color: Colors.red,
+                                  alignment: Alignment.centerRight,
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 20),
+                                  child: const Icon(Icons.delete,
+                                      color: Colors.white),
+                                ),
+                                child: Stack(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 20, vertical: 10),
+                                      child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          SizedBox(
+                                            height: 80,
+                                            width: 80,
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  const BorderRadius.all(
+                                                Radius.circular(10),
+                                              ),
+                                              child: CachedNetworkImage(
+                                                imageUrl: cart.fotoProduk,
                                               ),
                                             ),
                                           ),
-                                        )
-                                      : const SizedBox(),
-                                ],
+                                          const WidthBox(20),
+                                          Expanded(
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  'Sisa ${cart.stokProduk}',
+                                                  maxLines: 1,
+                                                  style: TextStyle(
+                                                    color: HexColor('#d88e4d'),
+                                                    fontSize: 11,
+                                                    fontWeight: FontWeight.w700,
+                                                  ),
+                                                ),
+                                                const HeightBox(3),
+                                                Text(
+                                                  cart.namaProduk,
+                                                  maxLines: 1,
+                                                  style: TextStyle(
+                                                    color: Colors.black
+                                                        .withOpacity(0.7),
+                                                    fontSize: 13,
+                                                    fontWeight: FontWeight.w400,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                  ),
+                                                ),
+                                                const HeightBox(5),
+                                                Text(
+                                                  priceFormatter(cart
+                                                      .hargaProduk
+                                                      .toString()),
+                                                  maxLines: 1,
+                                                  style: TextStyle(
+                                                    color: Colors.black
+                                                        .withOpacity(1),
+                                                    fontSize: 13,
+                                                    fontWeight: FontWeight.w700,
+                                                  ),
+                                                ),
+                                                const HeightBox(5),
+                                                ButtonQuantity(
+                                                  idCart: cart.idCart,
+                                                  idProduct: cart.idProduk,
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    cart.stokProduk == 0
+                                        ? Container(
+                                            height: 120,
+                                            width: double.infinity,
+                                            color:
+                                                Colors.black.withOpacity(0.5),
+                                            child: const Center(
+                                              child: Text(
+                                                'Stok Habis',
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w700,
+                                                ),
+                                              ),
+                                            ),
+                                          )
+                                        : const SizedBox(),
+                                  ],
+                                ),
                               ),
-                            ),
-                          );
-                        }).toList(),
+                            );
+                          }).toList(),
+                        ),
                       ),
               ),
             ],

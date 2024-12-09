@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -18,46 +19,46 @@ class EditProfileButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final userProfileController = Get.find<UserProfileController>();
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 90),
-      child: ElevatedButton(
-        onPressed: () {
-          Get.to(
-            () => EditProfilScreen(
-              name: userProfileController.userData[0].nameUser,
-              email: userProfileController.userData[0].emailuser,
-              photoUri: userProfileController.userData[0].fotoUser,
-            ),
-            transition: Transition.downToUp,
-            popGesture: false,
-            fullscreenDialog: true,
-          );
-        },
-        style: ElevatedButton.styleFrom(
-          foregroundColor: Colors.white,
-          backgroundColor: ColorPalette().primary,
-          elevation: 0, // Menghilangkan shadow
-          splashFactory: InkRipple.splashFactory,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
+    return ElevatedButton(
+      onPressed: () {
+        Get.to(
+          () => EditProfilScreen(
+            name: userProfileController.userData[0].nameUser,
+            email: userProfileController.userData[0].emailuser,
+            photoUri: userProfileController.userData[0].fotoUser,
           ),
-          minimumSize: const Size(
-            double.infinity,
-            40,
-          ),
+          transition: Transition.downToUp,
+          popGesture: false,
+          fullscreenDialog: true,
+        );
+      },
+      style: ElevatedButton.styleFrom(
+        foregroundColor: Colors.white,
+        backgroundColor: ColorPalette().primary,
+        elevation: 0, // Menghilangkan shadow
+        splashFactory: InkRipple.splashFactory,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
         ),
-        child: const Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: 10.0,
-            vertical: 12.0,
+        minimumSize: Size(
+          MediaQuery.of(context).size.width * 0.4,
+          40,
+        ),
+      ),
+      child: const Padding(
+        padding: EdgeInsets.symmetric(
+          vertical: 12.0,
+        ),
+        child: AutoSizeText(
+          'Ubah Profil',
+          style: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.bold,
           ),
-          child: Text(
-            'Ubah Profil',
-            style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          maxFontSize: 14,
+          minFontSize: 10,
         ),
       ),
     );

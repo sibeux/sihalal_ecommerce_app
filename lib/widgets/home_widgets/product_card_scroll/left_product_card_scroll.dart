@@ -73,22 +73,22 @@ class _LeftProductCardRowScrollState extends State<LeftProductCardRowScroll>
                 ),
               ),
             ),
-            Flexible(
-              flex: 1,
-              fit: FlexFit.tight,
-              child: Container(
-                padding: const EdgeInsets.only(right: 20),
-                // child: Text(
-                //   'Lihat Semua',
-                //   textAlign: TextAlign.right,
-                //   style: TextStyle(
-                //     color: ColorPalette().primary,
-                //     fontSize: 14,
-                //     fontWeight: FontWeight.values[5],
-                //   ),
-                // ),
-              ),
-            )
+            // Flexible(
+            //   flex: 1,
+            //   fit: FlexFit.tight,
+            //   child: Container(
+            //     padding: const EdgeInsets.only(right: 20),
+            //     child: Text(
+            //       'Lihat Semua',
+            //       textAlign: TextAlign.right,
+            //       style: TextStyle(
+            //         color: ColorPalette().primary,
+            //         fontSize: 14,
+            //         fontWeight: FontWeight.values[5],
+            //       ),
+            //     ),
+            //   ),
+            // )
           ],
         ),
         const SizedBox(height: 15),

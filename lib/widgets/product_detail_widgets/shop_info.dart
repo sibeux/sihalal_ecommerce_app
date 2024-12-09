@@ -76,19 +76,20 @@ class ShopInfo extends StatelessWidget {
                       ),
                     ),
                     Container(
-                        alignment: Alignment.centerLeft,
-                        height: 25,
-                        width: double.infinity,
-                        child: Text(
-                          shortenKabupaten(lokasiToko),
-                          maxLines: 1,
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w300,
-                            color: Colors.black.withOpacity(0.8),
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        )),
+                      alignment: Alignment.centerLeft,
+                      height: 25,
+                      width: double.infinity,
+                      child: Text(
+                        shortenKabupaten(lokasiToko),
+                        maxLines: 1,
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w300,
+                          color: Colors.black.withOpacity(0.8),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -186,7 +187,8 @@ class ShopInfo extends StatelessWidget {
                       namaToko: namaToko,
                       fotoToko: image,
                       lokasiToko: lokasiToko,
-                      ratingToko: rate, jumlahRating: jumlahRating,
+                      ratingToko: rate,
+                      jumlahRating: jumlahRating,
                     ),
                     transition: Transition.downToUp,
                     fullscreenDialog: true,
@@ -194,8 +196,10 @@ class ShopInfo extends StatelessWidget {
                   );
                 },
                 child: Container(
-                  height: 25,
-                  width: 80,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 5,
+                  ),
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
@@ -207,6 +211,7 @@ class ShopInfo extends StatelessWidget {
                   ),
                   child: Text(
                     'Lihat Toko',
+                    maxLines: 1,
                     style: TextStyle(
                       color: ColorPalette().primary,
                       fontSize: 14,

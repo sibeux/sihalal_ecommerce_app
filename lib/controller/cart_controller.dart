@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:html_unescape/html_unescape.dart';
 import 'package:http/http.dart' as http;
 import 'package:sihalal_ecommerce_app/controller/user_profile_controller.dart';
 import 'package:sihalal_ecommerce_app/models/cart.dart';
@@ -103,6 +104,7 @@ class CartController extends GetxController {
       final response = await http.get(Uri.parse(url));
 
       final List<dynamic> listData = json.decode(response.body);
+      var unescape = HtmlUnescape();
 
       if (listData.isNotEmpty) {
         final list = listData
@@ -114,7 +116,7 @@ class CartController extends GetxController {
                 stokProduk: int.parse(cart['stok_produk']),
                 hargaProduk: int.parse(cart['harga_produk']),
                 fotoProduk: cart['foto_produk_1'],
-                namaProduk: cart['nama_produk'],
+                namaProduk: unescape.convert(cart['nama_produk']),
               ),
             )
             .toList();

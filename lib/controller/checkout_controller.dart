@@ -7,7 +7,6 @@ import 'package:http/http.dart' as http;
 import 'package:sihalal_ecommerce_app/controller/address_controller/user_address_controller.dart';
 import 'package:sihalal_ecommerce_app/controller/cart_controller.dart';
 import 'package:sihalal_ecommerce_app/controller/order_controller.dart';
-import 'package:sihalal_ecommerce_app/controller/product_controller/product_detail_controller.dart';
 import 'package:sihalal_ecommerce_app/controller/user_profile_controller.dart';
 import 'package:sihalal_ecommerce_app/models/order.dart';
 import 'package:sihalal_ecommerce_app/models/product.dart';
@@ -67,7 +66,6 @@ class CheckoutController extends GetxController {
 
     final userProfileController = Get.find<UserProfileController>();
     final userAddressController = Get.find<UserAddressController>();
-    final productDetailController = Get.find<ProductDetailController>();
 
     const String uri = "https://sibeux.my.id/project/sihalal/order";
 
@@ -118,7 +116,6 @@ class CheckoutController extends GetxController {
       final responseBody = jsonDecode(response.body);
 
       if (responseBody['status'] == 'success') {
-        productDetailController.stockProduct.value -= quantity.value;
         Get.find<OrderController>()
             .getOrderHistoryCount(userProfileController.idUser);
         if (idCart.isNotEmpty) {
