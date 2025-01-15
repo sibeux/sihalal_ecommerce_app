@@ -43,17 +43,21 @@ class DetailProduct extends StatelessWidget {
                     flex: 1,
                     child: Padding(
                       padding: const EdgeInsets.only(right: 5),
-                      child: InkWell(
-                        onTap: () {},
-                        child: Text(
-                          order.namaToko,
-                          maxLines: 1,
-                          textAlign: TextAlign.end,
-                          style: TextStyle(
-                            color: Colors.black.withOpacity(0.8),
-                            fontSize: 13,
-                            fontWeight: FontWeight.w700,
-                            overflow: TextOverflow.ellipsis,
+                      // ini di-absorb karena buat skripsi biar tidak -
+                      // terlalu banyak fitur.
+                      child: AbsorbPointer(
+                        child: InkWell(
+                          onTap: () {},
+                          child: Text(
+                            order.namaToko,
+                            maxLines: 1,
+                            textAlign: TextAlign.end,
+                            style: TextStyle(
+                              color: Colors.black.withOpacity(0.8),
+                              fontSize: 13,
+                              fontWeight: FontWeight.w700,
+                              overflow: TextOverflow.ellipsis,
+                            ),
                           ),
                         ),
                       ),
@@ -170,11 +174,12 @@ class DetailProduct extends StatelessWidget {
                     ],
                   ),
                   const Spacer(),
-                  if (isBuyer) BuyAgainButton(
-                    idProduct: order.idProduk,
-                    idUser: order.idUserToko,
-                    image: order.fotoProduk,
-                  ),
+                  if (isBuyer)
+                    BuyAgainButton(
+                      idProduct: order.idProduk,
+                      idUser: order.idUserToko,
+                      image: order.fotoProduk,
+                    ),
                 ],
               )
             ],

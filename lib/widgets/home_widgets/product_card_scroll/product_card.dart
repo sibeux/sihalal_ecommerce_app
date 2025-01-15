@@ -13,6 +13,7 @@ import 'package:sihalal_ecommerce_app/widgets/home_widgets/product_card_scroll/l
 import 'package:sihalal_ecommerce_app/widgets/home_widgets/product_card_scroll/shimmer_product_card.dart';
 import 'package:sihalal_ecommerce_app/component/little_particle.dart';
 import 'package:velocity_x/velocity_x.dart';
+import 'package:intl/intl.dart';
 
 class ProductCard extends ConsumerWidget {
   const ProductCard({
@@ -180,6 +181,7 @@ class Rating extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String rating = NumberFormat("0.0").format(double.parse(this.rating));
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
@@ -188,8 +190,9 @@ class Rating extends StatelessWidget {
             height: 20,
             width: 45,
             decoration: BoxDecoration(
-              color:
-                  rating == '0.0000' ? Colors.grey[400] : HexColor('#FFC107'),
+              color: this.rating == '0.0000'
+                  ? Colors.grey[400]
+                  : HexColor('#FFC107'),
               borderRadius: BorderRadius.circular(3),
             ),
             child: Row(
@@ -198,7 +201,7 @@ class Rating extends StatelessWidget {
                 const Icon(Icons.star, color: Colors.white, size: 10),
                 const SizedBox(width: 5),
                 Text(
-                  rating == '0.0000' ? '0.0' : ('${double.parse(rating)}'),
+                  this.rating == '0.0000' ? '0.0' : rating,
                   textAlign: TextAlign.center,
                   style: const TextStyle(
                     color: Colors.white,

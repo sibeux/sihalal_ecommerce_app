@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:intl/intl.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:sihalal_ecommerce_app/component/color_palette.dart';
 import 'package:sihalal_ecommerce_app/component/string_formatter.dart';
@@ -331,12 +332,18 @@ class ProductDetailScreen extends StatelessWidget {
                                         Row(
                                           children: [
                                             ProductRating(
-                                                rating: productDetailController
-                                                    .productDetailData
-                                                    .firstWhere((element) =>
-                                                        element.uidProduct ==
-                                                        idProduk)
-                                                    .rating),
+                                              rating:
+                                                  NumberFormat("0.0").format(
+                                                double.parse(
+                                                    productDetailController
+                                                        .productDetailData
+                                                        .firstWhere((element) =>
+                                                            element
+                                                                .uidProduct ==
+                                                            idProduk)
+                                                        .rating),
+                                              ),
+                                            ),
                                             productDetailController
                                                         .productDetailData
                                                         .firstWhere((element) =>

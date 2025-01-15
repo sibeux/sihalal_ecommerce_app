@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:intl/intl.dart';
 import 'package:sihalal_ecommerce_app/component/color_palette.dart';
 import 'package:sihalal_ecommerce_app/controller/product_controller/product_review_controller.dart';
 import 'package:sihalal_ecommerce_app/screens/review_screen/product_review_screen.dart';
@@ -89,7 +90,7 @@ class ProductReview extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      rate,
+                      NumberFormat("0.0").format(double.parse(rate)),
                       textAlign: TextAlign.center,
                       style: const TextStyle(
                         color: Colors.black,

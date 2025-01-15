@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:intl/intl.dart';
 import 'package:sihalal_ecommerce_app/component/string_formatter.dart';
 import 'package:sihalal_ecommerce_app/screens/product_detail_screen/product_detail_screen.dart';
 import 'package:sihalal_ecommerce_app/widgets/home_widgets/product_card_scroll/left_product_card_scroll.dart';
@@ -147,6 +148,7 @@ class ProductRating extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String rating = NumberFormat("0.0").format(double.parse(this.rating));
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
@@ -155,7 +157,9 @@ class ProductRating extends StatelessWidget {
           height: 20,
           width: 45,
           decoration: BoxDecoration(
-            color: rating == '0.0000' ? Colors.grey[400] : HexColor('#FFC107'),
+            color: this.rating == '0.0000'
+                ? Colors.grey[400]
+                : HexColor('#FFC107'),
             borderRadius: BorderRadius.circular(3),
           ),
           child: Row(
@@ -164,7 +168,7 @@ class ProductRating extends StatelessWidget {
               const Icon(Icons.star, color: Colors.white, size: 10),
               const SizedBox(width: 5),
               Text(
-                rating == '0.0000' ? '0.0' : ('${double.parse(rating)}'),
+                this.rating == '0.0000' ? '0.0' : rating,
                 textAlign: TextAlign.center,
                 style: const TextStyle(
                   color: Colors.white,
