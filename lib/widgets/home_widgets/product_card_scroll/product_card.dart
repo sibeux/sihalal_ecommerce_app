@@ -124,7 +124,6 @@ class ProductImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       clipBehavior: Clip.antiAlias,
-      height: 150,
       width: double.infinity,
       decoration: const BoxDecoration(
           borderRadius: BorderRadius.only(
@@ -134,21 +133,23 @@ class ProductImage extends StatelessWidget {
       child: Stack(
         children: [
           Center(
-            child: CachedNetworkImage(
-              imageUrl: image,
-              fit: BoxFit.cover,
-              maxHeightDiskCache: 300,
-              maxWidthDiskCache: 300,
-              filterQuality: FilterQuality.low,
-              placeholder: (context, url) => Icon(
-                Icons.image,
-                size: 100,
-                color: colorShrink,
-              ),
-              errorWidget: (context, url, error) => Icon(
-                Icons.image,
-                size: 100,
-                color: colorShrink,
+            child: AspectRatio(
+              aspectRatio: 1,
+              child: CachedNetworkImage(
+                imageUrl: image,
+                fit: BoxFit.cover,
+                maxHeightDiskCache: 300,
+                maxWidthDiskCache: 300,
+                placeholder: (context, url) => Icon(
+                  Icons.image,
+                  size: 100,
+                  color: colorShrink,
+                ),
+                errorWidget: (context, url, error) => Icon(
+                  Icons.image,
+                  size: 100,
+                  color: colorShrink,
+                ),
               ),
             ),
           ),

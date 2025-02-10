@@ -200,8 +200,10 @@ class ShopDashboardScreen extends StatelessWidget {
                                                     rating: product.rating,
                                                     image: product.foto1,
                                                     fromShopDashboard: true,
-                                                    isFavorite: product.isFavorite,
-                                                    screenFrom: 'shop_dashboard',
+                                                    isFavorite:
+                                                        product.isFavorite,
+                                                    screenFrom:
+                                                        'shop_dashboard',
                                                   ),
                                                 const SizedBox(width: 10),
                                               ],
@@ -274,8 +276,10 @@ class ShopDashboardScreen extends StatelessWidget {
                                                     .listAllProduct[index]
                                                     .harga,
                                               ),
-                                              isFavorite: shopDashboardController
-                                                  .listAllProduct[index].isFavorite,
+                                              isFavorite:
+                                                  shopDashboardController
+                                                      .listAllProduct[index]
+                                                      .isFavorite,
                                               screenFrom: 'shop_dashboard',
                                             );
                                           },
@@ -349,6 +353,14 @@ class ShopDashboardScreen extends StatelessWidget {
                   fit: BoxFit.cover,
                   maxWidthDiskCache: 200,
                   maxHeightDiskCache: 200,
+                  placeholder: (context, url) => Image.asset(
+                    'assets/images/shimmer/profile/profile_shimmer.png',
+                    fit: BoxFit.cover,
+                  ),
+                  errorWidget: (context, url, error) => Image.asset(
+                    'assets/images/shimmer/profile/profile_shimmer.png',
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
             ),
