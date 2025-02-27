@@ -93,7 +93,10 @@ class ProductImage extends StatelessWidget {
     return Container(
       clipBehavior: Clip.antiAlias,
       decoration: const BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(8))),
+        borderRadius: BorderRadius.all(
+          Radius.circular(8),
+        ),
+      ),
       child: Stack(
         children: [
           Center(
@@ -119,18 +122,19 @@ class ProductImage extends StatelessWidget {
             ),
           ),
           if (stok == '0')
-            Container(
-              height: double.infinity,
-              width: double.infinity,
-              color: Colors.white.withOpacity(0.9),
-              child: const Text(
-                'Produk habis',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                ),
-              ).centered(),
+            AspectRatio(
+              aspectRatio: 1,
+              child: Container(
+                color: Colors.white.withOpacity(0.9),
+                child: const Text(
+                  'Produk habis',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ).centered(),
+              ),
             ),
         ],
       ),
