@@ -49,7 +49,7 @@ class RegisterEmailScreen extends StatelessWidget {
             'Daftar akun SiHALAL terlebih dahulu',
             style: TextStyle(
               fontSize: 12,
-              color: Colors.black.withOpacity(0.8),
+              color: Colors.black.withValues(alpha:0.8),
               fontWeight: FontWeight.w500,
             ),
           ),
@@ -65,7 +65,7 @@ class RegisterEmailScreen extends StatelessWidget {
                       '*Email ini sudah terdaftar',
                       style: TextStyle(
                         fontSize: 10,
-                        color: Colors.red.withOpacity(1),
+                        color: Colors.red.withValues(alpha:1),
                         fontWeight: FontWeight.w500,
                       ),
                     ),
@@ -88,7 +88,7 @@ class RegisterEmailScreen extends StatelessWidget {
                 'Sudah memiliki akun SiHALAL? ',
                 style: TextStyle(
                   fontSize: 12,
-                  color: Colors.black.withOpacity(0.8),
+                  color: Colors.black.withValues(alpha:0.8),
                   fontWeight: FontWeight.w500,
                 ),
               ),

@@ -60,7 +60,7 @@ class ShopInfoProductController extends GetxController {
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.CENTER,
           timeInSecForIosWeb: 1,
-          backgroundColor: Colors.black.withOpacity(1),
+          backgroundColor: Colors.black.withValues(alpha: 1),
           textColor: Colors.white,
           fontSize: 10.0,
         );

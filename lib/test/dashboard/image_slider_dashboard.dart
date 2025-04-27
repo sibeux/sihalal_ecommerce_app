@@ -68,7 +68,7 @@ class _ImageSliderState extends ConsumerState<ImageSlider> {
               count: itemCount,
               effect: ExpandingDotsEffect(
                 activeDotColor: Colors.white,
-                dotColor: Colors.grey.shade200.withOpacity(0.7),
+                dotColor: Colors.grey.shade200.withValues(alpha:0.7),
                 dotHeight: 4,
                 dotWidth: 4,
                 expansionFactor: 6,

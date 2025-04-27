@@ -145,7 +145,7 @@ class ProductDetailScreen extends StatelessWidget {
             Container(
               height: 20,
               width: double.infinity,
-              color: Colors.yellow.withOpacity(0.4),
+              color: Colors.yellow.withValues(alpha:0.4),
               alignment: Alignment.center,
               child: const Text(
                 'Anda sedang melihat produk dari toko anda',
@@ -224,7 +224,7 @@ class ProductDetailScreen extends StatelessWidget {
                                             height: double.infinity,
                                             width: double.infinity,
                                             color:
-                                                Colors.white.withOpacity(0.9),
+                                                Colors.white.withValues(alpha:0.9),
                                             child: const Text(
                                               'Produk habis',
                                               style: TextStyle(
@@ -271,7 +271,7 @@ class ProductDetailScreen extends StatelessWidget {
                                             style: TextStyle(
                                               color: const Color.fromARGB(
                                                       255, 0, 0, 0)
-                                                  .withOpacity(0.7),
+                                                  .withValues(alpha:0.7),
                                               fontSize: 12,
                                               fontWeight: FontWeight.w500,
                                             ),
@@ -409,7 +409,7 @@ class ProductDetailScreen extends StatelessWidget {
                                           'Deskripsi Produk',
                                           style: TextStyle(
                                             color:
-                                                Colors.black.withOpacity(0.8),
+                                                Colors.black.withValues(alpha:0.8),
                                             fontSize: 14,
                                             fontWeight: FontWeight.bold,
                                           ),
@@ -432,7 +432,7 @@ class ProductDetailScreen extends StatelessWidget {
                                           // overflow: TextOverflow.ellipsis,
                                           style: TextStyle(
                                             color:
-                                                Colors.black.withOpacity(0.6),
+                                                Colors.black.withValues(alpha:0.6),
                                             fontSize: 13,
                                           ),
                                           overflowReplacement: Column(
@@ -456,7 +456,7 @@ class ProductDetailScreen extends StatelessWidget {
                                                           .overflow[0],
                                                   style: TextStyle(
                                                     color: Colors.black
-                                                        .withOpacity(0.6),
+                                                        .withValues(alpha:0.6),
                                                     fontSize: 13,
                                                   ),
                                                 ),
@@ -607,7 +607,7 @@ class ProductDetailScreen extends StatelessWidget {
                             color: HexColor('#fefeff'),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.grey.withOpacity(0.15),
+                                color: Colors.grey.withValues(alpha:0.15),
                                 spreadRadius: 1,
                                 blurRadius: 1,
                                 offset: const Offset(0, -1),

@@ -29,7 +29,7 @@ class ChangeStatusButton extends StatelessWidget {
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.CENTER,
             timeInSecForIosWeb: 1,
-            backgroundColor: Colors.black.withOpacity(1),
+            backgroundColor: Colors.black.withValues(alpha:1),
             textColor: Colors.white,
             fontSize: 10.0,
           );
@@ -57,7 +57,7 @@ class ChangeStatusButton extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
           side: BorderSide(
-            color: Colors.black.withOpacity(0.3),
+            color: Colors.black.withValues(alpha:0.3),
           ),
         ),
         minimumSize: const Size(
@@ -143,12 +143,12 @@ class DeleteButton extends StatelessWidget {
           color: Colors.transparent,
           borderRadius: BorderRadius.circular(10),
           border: Border.all(
-            color: Colors.black.withOpacity(0.5),
+            color: Colors.black.withValues(alpha:0.5),
           ),
         ),
         child: Icon(
           Icons.delete_forever_outlined,
-          color: Colors.red.withOpacity(0.7),
+          color: Colors.red.withValues(alpha:0.7),
         ),
       ),
     );

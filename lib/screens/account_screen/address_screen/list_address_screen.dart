@@ -48,7 +48,7 @@ class ListAddressScreen extends StatelessWidget {
                 Obx(() => userAddressController.isLoadingGetAddress.value
                     ? Expanded(
                         child: Center(
-                          child: LoadingAnimationWidget.prograssiveDots(
+                          child: LoadingAnimationWidget.progressiveDots(
                             color: ColorPalette().primary,
                             size: 50,
                           ),
@@ -96,7 +96,7 @@ class ListAddressScreen extends StatelessWidget {
                             title: 'Tambah Alamat Baru',
                             icon: Ionicons.add_circle_outline,
                             foregroundColor:
-                                ColorPalette().primary.withOpacity(1),
+                                ColorPalette().primary.withValues(alpha: 1),
                             backgroundColor: Colors.transparent,
                             onPressed: () {
                               Get.to(
@@ -126,7 +126,7 @@ class ListAddressScreen extends StatelessWidget {
                       color: HexColor('#fefeff'),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.grey.withOpacity(0.2),
+                          color: Colors.grey.withValues(alpha: 0.2),
                           spreadRadius: 1,
                           blurRadius: 1,
                           offset: const Offset(0, -1),
@@ -136,7 +136,7 @@ class ListAddressScreen extends StatelessWidget {
                     child: AddressButtonWidget(
                       title: 'Tambah Alamat Baru',
                       icon: Ionicons.add_circle_outline,
-                      foregroundColor: ColorPalette().primary.withOpacity(1),
+                      foregroundColor: ColorPalette().primary.withValues(alpha: 1),
                       backgroundColor: Colors.transparent,
                       onPressed: () {
                         Get.to(

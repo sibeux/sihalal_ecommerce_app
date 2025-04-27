@@ -115,12 +115,12 @@ class OrderListContainer extends StatelessWidget {
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
                     color: order.statusPesanan == 'tunggu'
-                        ? Colors.blue.withOpacity(0.2)
+                        ? Colors.blue.withValues(alpha:0.2)
                         : order.statusPesanan == 'proses' ||
                                 order.statusPesanan == 'kirim'
-                            ? Colors.amber.withOpacity(0.2)
+                            ? Colors.amber.withValues(alpha:0.2)
                             : order.statusPesanan.contains('batal')
-                                ? Colors.red.withOpacity(0.2)
+                                ? Colors.red.withValues(alpha:0.2)
                                 : HexColor('#d8fddf'),
                     borderRadius: BorderRadius.circular(5),
                   ),
@@ -141,11 +141,11 @@ class OrderListContainer extends StatelessWidget {
                       fontSize: 11,
                       color: order.statusPesanan == 'tunggu'
                           ? const Color.fromARGB(255, 46, 139, 246)
-                              .withOpacity(0.8)
+                              .withValues(alpha:0.8)
                           : order.statusPesanan == 'proses' ||
                                   order.statusPesanan == 'kirim'
                               ? const Color.fromARGB(255, 196, 130, 23)
-                                  .withOpacity(0.8)
+                                  .withValues(alpha:0.8)
                               : order.statusPesanan.contains('batal')
                                   ? const Color.fromARGB(255, 196, 23, 23)
                                   : ColorPalette().primary,
@@ -162,7 +162,7 @@ class OrderListContainer extends StatelessWidget {
                   'No. Pesanan',
                   style: TextStyle(
                     fontSize: 12,
-                    color: Colors.black.withOpacity(0.7),
+                    color: Colors.black.withValues(alpha:0.7),
                     fontWeight: FontWeight.w500,
                   ),
                 ),
@@ -172,7 +172,7 @@ class OrderListContainer extends StatelessWidget {
                   maxLines: 1,
                   style: TextStyle(
                     fontSize: 12,
-                    color: Colors.black.withOpacity(0.9),
+                    color: Colors.black.withValues(alpha:0.9),
                     fontWeight: FontWeight.w600,
                     overflow: TextOverflow.ellipsis,
                   ),
@@ -186,7 +186,7 @@ class OrderListContainer extends StatelessWidget {
                   'Tanggal',
                   style: TextStyle(
                     fontSize: 12,
-                    color: Colors.black.withOpacity(0.7),
+                    color: Colors.black.withValues(alpha:0.7),
                     fontWeight: FontWeight.w500,
                   ),
                 ),
@@ -196,7 +196,7 @@ class OrderListContainer extends StatelessWidget {
                       .format(DateTime.parse(order.tanggalPesanan)),
                   style: TextStyle(
                     fontSize: 11,
-                    color: Colors.black.withOpacity(0.7),
+                    color: Colors.black.withValues(alpha:0.7),
                     fontWeight: FontWeight.w500,
                   ),
                 ),

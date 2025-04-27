@@ -31,8 +31,8 @@ class ButtonQuantity extends StatelessWidget {
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                   color: cartController.quantity[idCart]! == 1
-                      ? Colors.grey.withOpacity(0.1)
-                      : Colors.red.withOpacity(0.1),
+                      ? Colors.grey.withValues(alpha:0.1)
+                      : Colors.red.withValues(alpha:0.1),
                   borderRadius: BorderRadius.circular(5),
                 ),
                 child: Icon(
@@ -53,7 +53,7 @@ class ButtonQuantity extends StatelessWidget {
           alignment: Alignment.center,
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
           decoration: BoxDecoration(
-            color: Colors.grey.withOpacity(0.1),
+            color: Colors.grey.withValues(alpha:0.1),
             borderRadius: BorderRadius.circular(5),
           ),
           child: Obx(
@@ -84,8 +84,8 @@ class ButtonQuantity extends StatelessWidget {
                 color: cartController.quantity[idCart]! == 99 ||
                         cartController.quantity[idCart]! ==
                             cartController.productStock[idProduct]!
-                    ? Colors.grey.withOpacity(0.1)
-                    : Colors.blue.withOpacity(0.1),
+                    ? Colors.grey.withValues(alpha:0.1)
+                    : Colors.blue.withValues(alpha:0.1),
                 borderRadius: BorderRadius.circular(5),
               ),
               child: Icon(

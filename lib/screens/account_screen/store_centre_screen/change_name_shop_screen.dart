@@ -61,7 +61,7 @@ class ChangeNameShopScreen extends StatelessWidget {
                         },
                       )
                     : saveButton(
-                        color: Colors.black.withOpacity(0.4),
+                        color: Colors.black.withValues(alpha:0.4),
                         onTap: () {},
                       ),
               )
@@ -103,8 +103,8 @@ class ChangeNameShopScreen extends StatelessWidget {
                     data: ThemeData(
                       textSelectionTheme: TextSelectionThemeData(
                         cursorColor: Colors.blue, // Cursor color
-                        selectionColor: Colors.yellow.withOpacity(0.4),
-                        selectionHandleColor: Colors.blue.withOpacity(0.5),
+                        selectionColor: Colors.yellow.withValues(alpha:0.4),
+                        selectionHandleColor: Colors.blue.withValues(alpha:0.5),
                       ),
                     ),
                     child: TextField(
@@ -130,18 +130,18 @@ class ChangeNameShopScreen extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 25,
                         fontWeight: FontWeight.bold,
-                        color: Colors.black.withOpacity(0.7),
+                        color: Colors.black.withValues(alpha:0.7),
                       ),
                       decoration: InputDecoration(
                         contentPadding: const EdgeInsets.only(bottom: 0),
                         focusedBorder: UnderlineInputBorder(
                           borderSide: BorderSide(
                               color: Colors.black
-                                  .withOpacity(0.7)), // Color when focused
+                                  .withValues(alpha:0.7)), // Color when focused
                         ),
                         hintText: 'Nama Toko',
                         hintStyle: TextStyle(
-                          color: Colors.black.withOpacity(0.4),
+                          color: Colors.black.withValues(alpha:0.4),
                           fontSize: 25,
                         ),
                       ),
@@ -167,7 +167,7 @@ class ChangeNameShopScreen extends StatelessWidget {
                     height: 100,
                     width: 100,
                     decoration: BoxDecoration(
-                      color: Colors.black.withOpacity(0.5),
+                      color: Colors.black.withValues(alpha:0.5),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: LoadingAnimationWidget.threeArchedCircle(

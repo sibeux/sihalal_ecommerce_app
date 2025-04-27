@@ -72,7 +72,7 @@ class CartScreen extends StatelessWidget {
                                         'Keranjang belanja anda masih kosong',
                                         maxLines: 2,
                                         style: TextStyle(
-                                          color: Colors.black.withOpacity(1),
+                                          color: Colors.black.withValues(alpha:1),
                                           fontSize: 16,
                                           fontWeight: FontWeight.w700,
                                         ),
@@ -82,7 +82,7 @@ class CartScreen extends StatelessWidget {
                                         'Yuk, belanja sekarang!',
                                         maxLines: 2,
                                         style: TextStyle(
-                                          color: Colors.black.withOpacity(0.7),
+                                          color: Colors.black.withValues(alpha:0.7),
                                           fontSize: 12,
                                           fontWeight: FontWeight.w400,
                                         ),
@@ -260,7 +260,7 @@ class CartScreen extends StatelessWidget {
                                                   maxLines: 1,
                                                   style: TextStyle(
                                                     color: Colors.black
-                                                        .withOpacity(0.7),
+                                                        .withValues(alpha:0.7),
                                                     fontSize: 13,
                                                     fontWeight: FontWeight.w400,
                                                     overflow:
@@ -275,7 +275,7 @@ class CartScreen extends StatelessWidget {
                                                   maxLines: 1,
                                                   style: TextStyle(
                                                     color: Colors.black
-                                                        .withOpacity(1),
+                                                        .withValues(alpha:1),
                                                     fontSize: 13,
                                                     fontWeight: FontWeight.w700,
                                                   ),
@@ -296,7 +296,7 @@ class CartScreen extends StatelessWidget {
                                             height: 120,
                                             width: double.infinity,
                                             color:
-                                                Colors.black.withOpacity(0.5),
+                                                Colors.black.withValues(alpha:0.5),
                                             child: const Center(
                                               child: Text(
                                                 'Stok Habis',
@@ -353,7 +353,7 @@ class CartScreen extends StatelessWidget {
                     height: 100,
                     width: 100,
                     decoration: BoxDecoration(
-                      color: Colors.black.withOpacity(0.5),
+                      color: Colors.black.withValues(alpha:0.5),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: LoadingAnimationWidget.threeArchedCircle(

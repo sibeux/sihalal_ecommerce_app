@@ -21,7 +21,7 @@ class ShippingMethod extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
         boxShadow: [
           BoxShadow(
-            color: HexColor('#000000').withOpacity(0.1),
+            color: HexColor('#000000').withValues(alpha:0.1),
             spreadRadius: 1,
             blurRadius: 10,
             offset: const Offset(0, 1),
@@ -44,7 +44,7 @@ class ShippingMethod extends StatelessWidget {
               style: TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w600,
-                color: Colors.black.withOpacity(0.9),
+                color: Colors.black.withValues(alpha:0.9),
               ),
             ),
           ),
@@ -86,7 +86,7 @@ class ListExpedition extends StatelessWidget {
         style: TextStyle(
           fontSize: 14,
           fontWeight: FontWeight.w400,
-          color: Colors.black.withOpacity(0.7),
+          color: Colors.black.withValues(alpha:0.7),
         ),
       ),
       minLeadingWidth: 0,

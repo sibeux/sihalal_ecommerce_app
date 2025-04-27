@@ -52,7 +52,7 @@ class LoginScreen extends StatelessWidget {
                 'Mohon masuk ke dalam akun anda',
                 style: TextStyle(
                   fontSize: 12,
-                  color: Colors.black.withOpacity(0.8),
+                  color: Colors.black.withValues(alpha:0.8),
                   fontWeight: FontWeight.w500,
                 ),
               ),
@@ -70,7 +70,7 @@ class LoginScreen extends StatelessWidget {
                           '*Email atau password tidak sesuai',
                           style: TextStyle(
                             fontSize: 10,
-                            color: Colors.red.withOpacity(1),
+                            color: Colors.red.withValues(alpha:1),
                             fontWeight: FontWeight.w500,
                           ),
                         ),
@@ -93,7 +93,7 @@ class LoginScreen extends StatelessWidget {
                     'Belum memiliki akun SiHALAL? ',
                     style: TextStyle(
                       fontSize: 12,
-                      color: Colors.black.withOpacity(0.8),
+                      color: Colors.black.withValues(alpha:0.8),
                       fontWeight: FontWeight.w500,
                     ),
                   ),

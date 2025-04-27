@@ -84,7 +84,7 @@ class _PersistenBarScreenState extends State<PersistenBarScreen> {
       contentPadding: 0,
       iconSize: 20,
       activeColorPrimary: ColorPalette().primary,
-      inactiveColorPrimary: Colors.black.withOpacity(0.5),
+      inactiveColorPrimary: Colors.black.withValues(alpha:0.5),
     );
   }
 
@@ -154,7 +154,7 @@ class _PersistenBarScreenState extends State<PersistenBarScreen> {
               toastLength: Toast.LENGTH_SHORT,
               gravity: ToastGravity.CENTER,
               timeInSecForIosWeb: 1,
-              backgroundColor: Colors.black.withOpacity(0.8),
+              backgroundColor: Colors.black.withValues(alpha:0.8),
               textColor: Colors.white,
               fontSize: 10.0,
             );

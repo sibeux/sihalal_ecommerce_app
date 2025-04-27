@@ -63,7 +63,7 @@ class ProductReviewScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Center(
-                          child: LoadingAnimationWidget.prograssiveDots(
+                          child: LoadingAnimationWidget.progressiveDots(
                             color: ColorPalette().primary,
                             size: 50,
                           ),

@@ -43,7 +43,7 @@ class AddressContainer extends StatelessWidget {
         color: Colors.transparent,
         borderRadius: BorderRadius.circular(8),
         border: Border.all(
-          color: HexColor('#000000').withOpacity(0.5),
+          color: HexColor('#000000').withValues(alpha:0.5),
         ),
       ),
       child: InkWell(
@@ -58,7 +58,7 @@ class AddressContainer extends StatelessWidget {
             fullscreenDialog: true,
           );
         },
-        splashColor: Colors.grey.withOpacity(0.5),
+        splashColor: Colors.grey.withValues(alpha:0.5),
         splashFactory: InkRipple.splashFactory,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -97,7 +97,7 @@ class AddressContainer extends StatelessWidget {
                     ),
                     margin: const EdgeInsets.only(right: 10),
                     decoration: BoxDecoration(
-                      color: ColorPalette().primary.withOpacity(0.8),
+                      color: ColorPalette().primary.withValues(alpha:0.8),
                       borderRadius: BorderRadius.circular(5),
                     ),
                     child: Text(
@@ -122,7 +122,7 @@ class AddressContainer extends StatelessWidget {
                     child: Text(
                       'Alamat Toko',
                       style: TextStyle(
-                        color: HexColor('#000000').withOpacity(0.7),
+                        color: HexColor('#000000').withValues(alpha:0.7),
                         fontSize: 12,
                         fontWeight: FontWeight.w500,
                       ),
@@ -143,7 +143,7 @@ class AddressContainer extends StatelessWidget {
             Text(
               '(+62) $phoneNumber',
               style: TextStyle(
-                color: HexColor('#000000').withOpacity(0.7),
+                color: HexColor('#000000').withValues(alpha:0.7),
                 fontSize: 12,
                 fontWeight: FontWeight.w400,
               ),
@@ -152,7 +152,7 @@ class AddressContainer extends StatelessWidget {
             Text(
               address,
               style: TextStyle(
-                color: HexColor('#000000').withOpacity(0.8),
+                color: HexColor('#000000').withValues(alpha:0.8),
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
               ),
@@ -161,7 +161,7 @@ class AddressContainer extends StatelessWidget {
             Text(
               '$city, $province',
               style: TextStyle(
-                color: HexColor('#000000').withOpacity(0.8),
+                color: HexColor('#000000').withValues(alpha:0.8),
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
               ),
@@ -170,7 +170,7 @@ class AddressContainer extends StatelessWidget {
             Text(
               postalCode,
               style: TextStyle(
-                color: HexColor('#000000').withOpacity(0.8),
+                color: HexColor('#000000').withValues(alpha:0.8),
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
               ),

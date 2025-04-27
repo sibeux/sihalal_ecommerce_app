@@ -35,7 +35,7 @@ class ListTextField extends StatelessWidget {
                   title,
                   textAlign: TextAlign.start,
                   style: TextStyle(
-                    color: Colors.black.withOpacity(0.7),
+                    color: Colors.black.withValues(alpha:0.7),
                     fontSize: 14,
                     fontWeight: FontWeight.normal,
                   ),
@@ -124,7 +124,7 @@ class ListTextField extends StatelessWidget {
             color: editProfileController.getIsNameNotValid() &&
                     title.toLowerCase() == 'nama'
                 ? Colors.red
-                : Colors.grey.withOpacity(0.5),
+                : Colors.grey.withValues(alpha:0.5),
           ),
         ),
       ],

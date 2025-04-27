@@ -17,7 +17,7 @@ class UserPhoto extends StatelessWidget {
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           border: Border.all(
-            color: HexColor('#a0a2a0').withOpacity(0.3),
+            color: HexColor('#a0a2a0').withValues(alpha:0.3),
             width: 1,
           ),
         ),

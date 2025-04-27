@@ -18,7 +18,7 @@ class ShippingInfo extends StatelessWidget {
         Text(
           'Informasi Pengiriman',
           style: TextStyle(
-            color: Colors.black.withOpacity(0.9),
+            color: Colors.black.withValues(alpha:0.9),
             fontSize: 14,
             fontWeight: FontWeight.w700,
           ),
@@ -32,7 +32,7 @@ class ShippingInfo extends StatelessWidget {
               child: Text(
                 'Jasa Ekspedisi',
                 style: TextStyle(
-                  color: Colors.black.withOpacity(0.7),
+                  color: Colors.black.withValues(alpha:0.7),
                   fontSize: 12,
                   fontWeight: FontWeight.w400,
                 ),
@@ -48,7 +48,7 @@ class ShippingInfo extends StatelessWidget {
                         ? 'POS'
                         : 'JNE',
                 style: TextStyle(
-                  color: Colors.black.withOpacity(1),
+                  color: Colors.black.withValues(alpha:1),
                   fontSize: 12,
                   fontWeight: FontWeight.w400,
                 ),
@@ -66,7 +66,7 @@ class ShippingInfo extends StatelessWidget {
               child: Text(
                 'Alamat',
                 style: TextStyle(
-                  color: Colors.black.withOpacity(0.7),
+                  color: Colors.black.withValues(alpha:0.7),
                   fontSize: 12,
                   fontWeight: FontWeight.w400,
                 ),
@@ -81,7 +81,7 @@ class ShippingInfo extends StatelessWidget {
                   Text(
                     order.namaNoPenerima.split('|')[0].trim(),
                     style: TextStyle(
-                      color: Colors.black.withOpacity(1),
+                      color: Colors.black.withValues(alpha:1),
                       fontSize: 12,
                       fontWeight: FontWeight.w500,
                     ),
@@ -90,7 +90,7 @@ class ShippingInfo extends StatelessWidget {
                   Text(
                     order.namaNoPenerima.split('|')[1].trim(),
                     style: TextStyle(
-                      color: Colors.black.withOpacity(1),
+                      color: Colors.black.withValues(alpha:1),
                       fontSize: 12,
                       fontWeight: FontWeight.w400,
                     ),
@@ -100,7 +100,7 @@ class ShippingInfo extends StatelessWidget {
                     order.alamatPenerima.trim(),
                     maxLines: 3,
                     style: TextStyle(
-                      color: Colors.black.withOpacity(1),
+                      color: Colors.black.withValues(alpha:1),
                       fontSize: 12,
                       fontWeight: FontWeight.w400,
                       overflow: TextOverflow.ellipsis,

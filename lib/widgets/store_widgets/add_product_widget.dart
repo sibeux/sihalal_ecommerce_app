@@ -164,7 +164,7 @@ class ImagePlaceholder extends StatelessWidget {
                         borderRadius: BorderRadius.circular(5),
                         border: Border.all(
                           strokeAlign: BorderSide.strokeAlignCenter,
-                          color: Colors.black.withOpacity(0.3),
+                          color: Colors.black.withValues(alpha:0.3),
                           width: 0.3,
                         ),
                       ),
@@ -199,7 +199,7 @@ class ImagePlaceholder extends StatelessWidget {
                           child: Container(
                             padding: const EdgeInsets.all(2),
                             decoration: BoxDecoration(
-                              color: Colors.black.withOpacity(0.5),
+                              color: Colors.black.withValues(alpha:0.5),
                               borderRadius: BorderRadius.circular(50),
                             ),
                             child: const Icon(
@@ -547,7 +547,7 @@ class InsertCategorySHProduct extends StatelessWidget {
                   toastLength: Toast.LENGTH_SHORT,
                   gravity: ToastGravity.CENTER,
                   timeInSecForIosWeb: 1,
-                  backgroundColor: Colors.black.withOpacity(0.5),
+                  backgroundColor: Colors.black.withValues(alpha:0.5),
                   textColor: Colors.white,
                   fontSize: 10.0,
                 );
@@ -621,7 +621,7 @@ class InsertCategorySHProduct extends StatelessWidget {
                   toastLength: Toast.LENGTH_SHORT,
                   gravity: ToastGravity.CENTER,
                   timeInSecForIosWeb: 1,
-                  backgroundColor: Colors.black.withOpacity(0.5),
+                  backgroundColor: Colors.black.withValues(alpha:0.5),
                   textColor: Colors.white,
                   fontSize: 10.0,
                 );
@@ -957,7 +957,7 @@ class ButtonSaveProduct extends StatelessWidget {
         color: HexColor('#fefeff'),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.2),
+            color: Colors.grey.withValues(alpha:0.2),
             spreadRadius: 1,
             blurRadius: 1,
             offset: const Offset(0, -1),

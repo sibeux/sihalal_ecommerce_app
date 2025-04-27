@@ -23,7 +23,7 @@ class ButtonSendReview extends StatelessWidget {
         color: HexColor('#fefeff'),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.15),
+            color: Colors.grey.withValues(alpha: 0.15),
             spreadRadius: 1,
             blurRadius: 1,
             offset: const Offset(0, -1),

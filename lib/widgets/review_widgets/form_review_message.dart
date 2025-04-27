@@ -64,7 +64,7 @@ class FormReviewMessage extends StatelessWidget {
 OutlineInputBorder outlineInputBorder() {
   return OutlineInputBorder(
     borderSide: BorderSide(
-      color: HexColor('#575757').withOpacity(0.5),
+      color: HexColor('#575757').withValues(alpha: 0.5),
       width: 2,
     ),
     borderRadius: const BorderRadius.all(

@@ -25,7 +25,7 @@ class PrimaryAddressSwitcher extends StatelessWidget {
             'Jadikan Alamat Utama',
             style: TextStyle(
               fontSize: 14,
-              color: Colors.black.withOpacity(0.8),
+              color: Colors.black.withValues(alpha:0.8),
               fontWeight: FontWeight.w400,
             ),
           ),
@@ -83,7 +83,7 @@ class StoreAddressSwitcher extends StatelessWidget {
             'Jadikan Alamat Toko',
             style: TextStyle(
               fontSize: 14,
-              color: Colors.black.withOpacity(0.8),
+              color: Colors.black.withValues(alpha:0.8),
               fontWeight: FontWeight.w400,
             ),
           ),
@@ -138,7 +138,7 @@ class LabelAddressSwitcher extends StatelessWidget {
               'Label Alamat:',
               style: TextStyle(
                 fontSize: 14,
-                color: Colors.black.withOpacity(0.8),
+                color: Colors.black.withValues(alpha:0.8),
                 fontWeight: FontWeight.w400,
               ),
             ),
@@ -170,7 +170,7 @@ class LabelAddressSwitcher extends StatelessWidget {
                         color:
                             newAddressController.labelAddress.value == 'primary'
                                 ? Colors.white
-                                : Colors.black.withOpacity(0.8),
+                                : Colors.black.withValues(alpha:0.8),
                         fontWeight: FontWeight.w400,
                       ),
                     ),
@@ -201,7 +201,7 @@ class LabelAddressSwitcher extends StatelessWidget {
                         color:
                             newAddressController.labelAddress.value == 'office'
                                 ? Colors.white
-                                : Colors.black.withOpacity(0.8),
+                                : Colors.black.withValues(alpha:0.8),
                         fontWeight: FontWeight.w400,
                       ),
                     ),

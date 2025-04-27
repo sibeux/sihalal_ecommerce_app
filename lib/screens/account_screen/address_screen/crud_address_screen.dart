@@ -80,7 +80,7 @@ class CrudAddressScreen extends StatelessWidget {
                               toastLength: Toast.LENGTH_SHORT,
                               gravity: ToastGravity.CENTER,
                               timeInSecForIosWeb: 1,
-                              backgroundColor: Colors.black.withOpacity(0.8),
+                              backgroundColor: Colors.black.withValues(alpha:0.8),
                               textColor: Colors.white,
                               fontSize: 10.0,
                             );
@@ -90,7 +90,7 @@ class CrudAddressScreen extends StatelessWidget {
                             child: Text(
                               'Hapus Alamat',
                               style: TextStyle(
-                                color: Colors.black.withOpacity(0.4),
+                                color: Colors.black.withValues(alpha:0.4),
                                 fontSize: 14,
                                 fontWeight: FontWeight.w500,
                               ),
@@ -119,7 +119,7 @@ class CrudAddressScreen extends StatelessWidget {
                             '*Nama tidak boleh mengandung angka atau simbol',
                             style: TextStyle(
                               fontSize: 10,
-                              color: Colors.red.withOpacity(1),
+                              color: Colors.red.withValues(alpha:1),
                               fontWeight: FontWeight.w500,
                             ),
                           ),
@@ -137,7 +137,7 @@ class CrudAddressScreen extends StatelessWidget {
                             '*Format nomor telepon: 08xx-xxxx-xxxx',
                             style: TextStyle(
                               fontSize: 10,
-                              color: Colors.red.withOpacity(1),
+                              color: Colors.red.withValues(alpha:1),
                               fontWeight: FontWeight.w500,
                             ),
                           ),
@@ -228,7 +228,7 @@ class CrudAddressScreen extends StatelessWidget {
                     height: 100,
                     width: 100,
                     decoration: BoxDecoration(
-                      color: Colors.black.withOpacity(0.5),
+                      color: Colors.black.withValues(alpha:0.5),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: LoadingAnimationWidget.threeArchedCircle(

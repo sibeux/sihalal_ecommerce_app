@@ -29,7 +29,7 @@ class OrderStatusFilterButton extends StatelessWidget {
           alignment: Alignment.center,
           decoration: BoxDecoration(
             color: orderController.selectedOrderStatusFilter.value == title
-                ? Colors.black.withOpacity(0.8)
+                ? Colors.black.withValues(alpha: 0.8)
                 : HexColor('#f1f3f9'),
             borderRadius: BorderRadius.circular(50),
           ),

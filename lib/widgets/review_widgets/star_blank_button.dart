@@ -26,12 +26,12 @@ class StarBlankButton extends StatelessWidget {
             ? Icon(
                 Ionicons.star,
                 size: 30,
-                color: Colors.amber.withOpacity(0.7),
+                color: Colors.amber.withValues(alpha: 0.7),
               )
             : Icon(
                 Ionicons.star_outline,
                 size: 30,
-                color: Colors.black.withOpacity(0.7),
+                color: Colors.black.withValues(alpha: 0.7),
               ),
       ),
     );

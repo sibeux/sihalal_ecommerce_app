@@ -54,7 +54,7 @@ class RegisterDataScreen extends StatelessWidget {
                 'Mohon lengkapi data diri anda',
                 style: TextStyle(
                   fontSize: 12,
-                  color: Colors.black.withOpacity(0.8),
+                  color: Colors.black.withValues(alpha:0.8),
                   fontWeight: FontWeight.w500,
                 ),
               ),
@@ -70,7 +70,7 @@ class RegisterDataScreen extends StatelessWidget {
                           '*Nama tidak boleh mengandung angka atau simbol',
                           style: TextStyle(
                             fontSize: 10,
-                            color: Colors.red.withOpacity(1),
+                            color: Colors.red.withValues(alpha:1),
                             fontWeight: FontWeight.w500,
                           ),
                         ),
@@ -96,7 +96,7 @@ class RegisterDataScreen extends StatelessWidget {
                     'Sudah memiliki akun SiHALAL? ',
                     style: TextStyle(
                       fontSize: 12,
-                      color: Colors.black.withOpacity(0.8),
+                      color: Colors.black.withValues(alpha:0.8),
                       fontWeight: FontWeight.w500,
                     ),
                   ),

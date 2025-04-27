@@ -321,7 +321,7 @@ class AddressButtonWidget extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
           side: BorderSide(
-            color: foregroundColor.withOpacity(0.7),
+            color: foregroundColor.withValues(alpha: 0.7),
           ),
         ),
         minimumSize: const Size(

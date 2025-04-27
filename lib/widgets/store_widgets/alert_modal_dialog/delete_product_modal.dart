@@ -9,7 +9,7 @@ void showModalDeleteProduct(String idProduct) {
   Get.dialog(
     name: 'Dialog Delete Product',
     barrierDismissible: true,
-    barrierColor: Colors.black.withOpacity(0.5),
+    barrierColor: Colors.black.withValues(alpha:0.5),
     transitionDuration: const Duration(milliseconds: 100),
     AlertDialog(
       backgroundColor: HexColor('#fefffe'),
@@ -28,7 +28,7 @@ void showModalDeleteProduct(String idProduct) {
         'Yakin ingin menghapus produk ini?',
         style: TextStyle(
           fontSize: 13,
-          color: Colors.black.withOpacity(0.6),
+          color: Colors.black.withValues(alpha:0.6),
         ),
       ),
       actions: <Widget>[
@@ -53,7 +53,7 @@ void showModalDeleteProduct(String idProduct) {
                         child: Text(
                           'Batalkan',
                           style: TextStyle(
-                            color: Colors.black.withOpacity(0.7),
+                            color: Colors.black.withValues(alpha:0.7),
                             fontSize: 14,
                             fontWeight: FontWeight.w600,
                           ),

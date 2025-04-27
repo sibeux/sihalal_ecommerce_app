@@ -24,7 +24,7 @@ void confirmDialog() {
         'Yakin untuk menyimpan perubahan?',
         style: TextStyle(
           fontSize: 13,
-          color: Colors.black.withOpacity(0.6),
+          color: Colors.black.withValues(alpha:0.6),
         ),
       ),
       actions: <Widget>[
@@ -49,7 +49,7 @@ void confirmDialog() {
                         child: Text(
                           'Batalkan',
                           style: TextStyle(
-                            color: Colors.black.withOpacity(0.7),
+                            color: Colors.black.withValues(alpha:0.7),
                             fontSize: 14,
                             fontWeight: FontWeight.w600,
                           ),

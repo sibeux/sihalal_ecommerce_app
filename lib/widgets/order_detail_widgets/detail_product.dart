@@ -29,7 +29,7 @@ class DetailProduct extends StatelessWidget {
             Text(
               'Detail Produk',
               style: TextStyle(
-                color: Colors.black.withOpacity(0.9),
+                color: Colors.black.withValues(alpha:0.9),
                 fontSize: 14,
                 fontWeight: FontWeight.w700,
               ),
@@ -53,7 +53,7 @@ class DetailProduct extends StatelessWidget {
                             maxLines: 1,
                             textAlign: TextAlign.end,
                             style: TextStyle(
-                              color: Colors.black.withOpacity(0.8),
+                              color: Colors.black.withValues(alpha:0.8),
                               fontSize: 13,
                               fontWeight: FontWeight.w700,
                               overflow: TextOverflow.ellipsis,
@@ -68,7 +68,7 @@ class DetailProduct extends StatelessWidget {
                     child: Icon(
                       Icons.arrow_forward_ios,
                       size: 12,
-                      color: Colors.black.withOpacity(1),
+                      color: Colors.black.withValues(alpha:1),
                     ),
                   ),
                 ],
@@ -85,7 +85,7 @@ class DetailProduct extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.15),
+                color: Colors.black.withValues(alpha:0.15),
                 blurRadius: 6,
                 offset: const Offset(0, 2),
               ),
@@ -120,7 +120,7 @@ class DetailProduct extends StatelessWidget {
                               unescape.convert(order.namaProduk),
                               maxLines: 2,
                               style: TextStyle(
-                                color: Colors.black.withOpacity(0.9),
+                                color: Colors.black.withValues(alpha:0.9),
                                 fontSize: 12,
                                 fontWeight: FontWeight.w700,
                                 overflow: TextOverflow.ellipsis,
@@ -130,7 +130,7 @@ class DetailProduct extends StatelessWidget {
                           Text(
                             '${order.jumlah} x ${priceFormatter(hargaBarangSatuan.toString().split('.').first)}',
                             style: TextStyle(
-                              color: Colors.black.withOpacity(1),
+                              color: Colors.black.withValues(alpha:1),
                               fontSize: 11,
                               fontWeight: FontWeight.w400,
                             ),
@@ -155,7 +155,7 @@ class DetailProduct extends StatelessWidget {
                       Text(
                         'Total Harga',
                         style: TextStyle(
-                          color: Colors.black.withOpacity(0.9),
+                          color: Colors.black.withValues(alpha:0.9),
                           fontSize: 12,
                           fontWeight: FontWeight.w400,
                         ),
@@ -165,7 +165,7 @@ class DetailProduct extends StatelessWidget {
                         priceFormatter(order.subtotalHargaBarang),
                         maxLines: 1,
                         style: TextStyle(
-                          color: Colors.black.withOpacity(0.9),
+                          color: Colors.black.withValues(alpha:0.9),
                           fontSize: 12,
                           fontWeight: FontWeight.w700,
                           overflow: TextOverflow.ellipsis,

@@ -87,7 +87,7 @@ class FavoriteScreen extends StatelessWidget {
                                 'Tidak ada data lainnya',
                                 style: TextStyle(
                                   fontSize: 14,
-                                  color: Colors.black.withOpacity(0.8),
+                                  color: Colors.black.withValues(alpha:0.8),
                                   fontWeight: FontWeight.w500,
                                 ),
                               ),

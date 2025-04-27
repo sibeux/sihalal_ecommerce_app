@@ -32,7 +32,7 @@ class ShippingAddress extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w600,
-                    color: Colors.black.withOpacity(0.9),
+                    color: Colors.black.withValues(alpha:0.9),
                   ),
                 ),
                 const HeightBox(5),
@@ -155,7 +155,7 @@ class ShippingAddress extends StatelessWidget {
               padding: const EdgeInsets.all(5),
               child: Icon(
                 Icons.arrow_forward_ios,
-                color: Colors.black.withOpacity(0.5),
+                color: Colors.black.withValues(alpha:0.5),
                 size: 18,
               ),
             ),
@@ -186,7 +186,7 @@ class NamePhoneSelected extends StatelessWidget {
       style: TextStyle(
         fontSize: 12,
         fontWeight: FontWeight.w800,
-        color: Colors.black.withOpacity(0.7),
+        color: Colors.black.withValues(alpha:0.7),
         overflow: TextOverflow.ellipsis,
       ),
     );
@@ -214,7 +214,7 @@ class CityStreetSelected extends StatelessWidget {
       style: TextStyle(
         fontSize: 12,
         fontWeight: FontWeight.w500,
-        color: Colors.black.withOpacity(0.5),
+        color: Colors.black.withValues(alpha:0.5),
         overflow: TextOverflow.ellipsis,
       ),
     );

@@ -72,7 +72,7 @@ class AddProductScreen extends StatelessWidget {
                   decoration: BoxDecoration(
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.grey.withOpacity(0.3),
+                        color: Colors.grey.withValues(alpha:0.3),
                         spreadRadius: 2,
                         blurRadius: 2,
                         offset:
@@ -81,7 +81,7 @@ class AddProductScreen extends StatelessWidget {
                     ],
                   ),
                   child: Divider(
-                    color: Colors.grey.withOpacity(0.3),
+                    color: Colors.grey.withValues(alpha:0.3),
                     thickness: 2,
                     height: 0,
                   ),

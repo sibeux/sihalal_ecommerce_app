@@ -103,7 +103,7 @@ class ProductReview extends StatelessWidget {
                       '$jumlahRating penilaian',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        color: Colors.black.withOpacity(0.7),
+                        color: Colors.black.withValues(alpha:0.7),
                         fontSize: 12,
                         fontWeight: FontWeight.w500,
                       ),
@@ -121,7 +121,7 @@ class ProductReview extends StatelessWidget {
                       ' $jumlahUlasan ulasan',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        color: Colors.black.withOpacity(0.7),
+                        color: Colors.black.withValues(alpha:0.7),
                         fontSize: 12,
                         fontWeight: FontWeight.w500,
                       ),

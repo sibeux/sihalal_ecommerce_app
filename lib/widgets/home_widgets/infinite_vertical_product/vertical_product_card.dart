@@ -125,7 +125,7 @@ class ProductImage extends StatelessWidget {
             AspectRatio(
               aspectRatio: 1,
               child: Container(
-                color: Colors.white.withOpacity(0.9),
+                color: Colors.white.withValues(alpha: 0.9),
                 child: const Text(
                   'Produk habis',
                   style: TextStyle(

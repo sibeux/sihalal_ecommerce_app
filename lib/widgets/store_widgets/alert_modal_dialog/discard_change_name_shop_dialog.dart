@@ -6,7 +6,7 @@ void discardChangeNameShopDialog(BuildContext context) {
   showDialog<void>(
     barrierDismissible: true,
     context: context,
-    barrierColor: Colors.black.withOpacity(0.5),
+    barrierColor: Colors.black.withValues(alpha:0.5),
     builder: (BuildContext context) {
       return AlertDialog(
         backgroundColor: ColorPalette().white,
@@ -14,7 +14,7 @@ void discardChangeNameShopDialog(BuildContext context) {
         title: TextButton(
           onPressed: null,
           style: ButtonStyle(
-            overlayColor: MaterialStateProperty.all(Colors.transparent),
+            overlayColor: WidgetStateProperty.all(Colors.transparent),
           ),
           child: const Text(
             'Buang Perubahan?',
@@ -30,7 +30,7 @@ void discardChangeNameShopDialog(BuildContext context) {
           'Jika Anda keluar, perubahan tidak akan disimpan.',
           style: TextStyle(
             fontSize: 13,
-            color: Colors.black.withOpacity(0.6),
+            color: Colors.black.withValues(alpha:0.6),
           ),
         ),
         actions: <Widget>[
@@ -43,7 +43,7 @@ void discardChangeNameShopDialog(BuildContext context) {
                     Navigator.of(context).pop();
                   },
                   style: ButtonStyle(
-                    overlayColor: MaterialStateProperty.all(Colors.transparent),
+                    overlayColor: WidgetStateProperty.all(Colors.transparent),
                   ),
                   child: Container(
                     height: 40,
@@ -71,7 +71,7 @@ void discardChangeNameShopDialog(BuildContext context) {
                     Get.back();
                   },
                   style: ButtonStyle(
-                    overlayColor: MaterialStateProperty.all(Colors.transparent),
+                    overlayColor: WidgetStateProperty.all(Colors.transparent),
                   ),
                   child: const Text(
                     'Buang',

@@ -44,8 +44,8 @@ class _HomeScreenState extends State<HomeScreen> {
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
               colors: <Color>[
-                HexColor('#519756').withOpacity(0.6),
-                HexColor('#519756').withOpacity(0.6),
+                HexColor('#519756').withValues(alpha:0.6),
+                HexColor('#519756').withValues(alpha:0.6),
               ],
             ),
           ),

@@ -43,7 +43,7 @@ class OrderDetail extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w600,
-                  color: Colors.black.withOpacity(0.9),
+                  color: Colors.black.withValues(alpha:0.9),
                 ),
               ),
             ],
@@ -58,7 +58,7 @@ class OrderDetail extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w400,
-                    color: Colors.black.withOpacity(0.7),
+                    color: Colors.black.withValues(alpha:0.7),
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
@@ -74,7 +74,7 @@ class OrderDetail extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w400,
-                      color: Colors.black.withOpacity(0.7),
+                      color: Colors.black.withValues(alpha:0.7),
                       overflow: TextOverflow.ellipsis,
                     ),
                   );
@@ -91,7 +91,7 @@ class OrderDetail extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w400,
-                  color: Colors.black.withOpacity(0.7),
+                  color: Colors.black.withValues(alpha:0.7),
                 ),
               ),
               Obx(
@@ -104,7 +104,7 @@ class OrderDetail extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w400,
-                      color: Colors.black.withOpacity(0.7),
+                      color: Colors.black.withValues(alpha:0.7),
                     ),
                   );
                 },

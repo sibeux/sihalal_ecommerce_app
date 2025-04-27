@@ -17,7 +17,7 @@ class IconBtnWithCounter extends StatelessWidget {
     return Material(
       color: Colors.transparent,
       child: InkWell(
-        splashColor: Colors.white.withOpacity(0.3),
+        splashColor: Colors.white.withValues(alpha:0.3),
         borderRadius: BorderRadius.circular(8),
         onTap: press,
         child: Stack(

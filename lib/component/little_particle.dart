@@ -41,8 +41,8 @@ class InkButton extends StatelessWidget {
           onTap: () {
             onTap();
           },
-          splashColor: Colors.white.withOpacity(0.3),
-          highlightColor: Colors.white.withOpacity(0.3),
+          splashColor: Colors.white.withValues(alpha:0.3),
+          highlightColor: Colors.white.withValues(alpha:0.3),
           child: Container(
             alignment: Alignment.center,
             child: Text(

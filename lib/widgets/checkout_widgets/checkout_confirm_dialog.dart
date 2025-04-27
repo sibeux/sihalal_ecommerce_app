@@ -15,7 +15,7 @@ void checkoutConfirmDialog(
   showDialog<void>(
     barrierDismissible: true,
     context: context,
-    barrierColor: Colors.black.withOpacity(0.5),
+    barrierColor: Colors.black.withValues(alpha:0.5),
     builder: (BuildContext context) {
       return AlertDialog(
         backgroundColor: HexColor('#fefffe'),
@@ -41,7 +41,7 @@ void checkoutConfirmDialog(
             TextButton(
               onPressed: null,
               style: ButtonStyle(
-                overlayColor: MaterialStateProperty.all(Colors.transparent),
+                overlayColor: WidgetStateProperty.all(Colors.transparent),
               ),
               child: const Text(
                 'Pastikan pesanan sesuai!',
@@ -58,7 +58,7 @@ void checkoutConfirmDialog(
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 13,
-                color: Colors.black.withOpacity(0.6),
+                color: Colors.black.withValues(alpha:0.6),
               ),
             ),
           ],
@@ -76,7 +76,7 @@ void checkoutConfirmDialog(
                     child: Text(
                       'Kembali',
                       style: TextStyle(
-                        color: Colors.black.withOpacity(0.6),
+                        color: Colors.black.withValues(alpha:0.6),
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
                       ),

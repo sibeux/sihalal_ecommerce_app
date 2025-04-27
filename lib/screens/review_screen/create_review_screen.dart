@@ -59,7 +59,7 @@ class CreateReviewScreen extends StatelessWidget {
                     fontSize: 14,
                     fontWeight: FontWeight.w500,
                     overflow: TextOverflow.ellipsis,
-                    color: Colors.black.withOpacity(0.8),
+                    color: Colors.black.withValues(alpha:0.8),
                   ),
                 ),
                 const HeightBox(25),
@@ -67,7 +67,7 @@ class CreateReviewScreen extends StatelessWidget {
                   'Tekan bintang untuk memberi penilaian',
                   style: TextStyle(
                     fontSize: 13,
-                    color: Colors.black.withOpacity(0.8),
+                    color: Colors.black.withValues(alpha:0.8),
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -89,7 +89,7 @@ class CreateReviewScreen extends StatelessWidget {
                   'Berikan pesan ulasan (opsional)',
                   style: TextStyle(
                     fontSize: 13,
-                    color: Colors.black.withOpacity(0.8),
+                    color: Colors.black.withValues(alpha:0.8),
                     fontWeight: FontWeight.bold,
                   ),
                 ),

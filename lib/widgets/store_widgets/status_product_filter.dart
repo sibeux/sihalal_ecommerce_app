@@ -31,7 +31,7 @@ class FilterStatusProduct extends StatelessWidget {
                   getSellerProductController.currentFilterProductList.value ==
                           index
                       ? ColorPalette().primary
-                      : Colors.black.withOpacity(1),
+                      : Colors.black.withValues(alpha:1),
               overflow: TextOverflow.ellipsis,
             ),
           ),
@@ -48,7 +48,7 @@ class FilterStatusProduct extends StatelessWidget {
                   getSellerProductController.currentFilterProductList.value ==
                           index
                       ? ColorPalette().primary
-                      : Colors.black.withOpacity(1),
+                      : Colors.black.withValues(alpha:1),
               overflow: TextOverflow.ellipsis,
             ),
           ),

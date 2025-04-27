@@ -28,21 +28,21 @@ class PaymentMethod extends StatelessWidget {
             style: TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w600,
-              color: Colors.black.withOpacity(0.9),
+              color: Colors.black.withValues(alpha:0.9),
             ),
           ),
           const HeightBox(5),
           ListTile(
             leading: Icon(
               Ionicons.cash_outline,
-              color: Colors.amber.withOpacity(0.7),
+              color: Colors.amber.withValues(alpha:0.7),
             ),
             title: Text(
               'Bayar di Tempat (COD)',
               style: TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
-                color: Colors.black.withOpacity(0.7),
+                color: Colors.black.withValues(alpha:0.7),
               ),
             ),
             minLeadingWidth: 0,

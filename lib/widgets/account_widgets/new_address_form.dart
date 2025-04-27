@@ -119,7 +119,7 @@ class ReceiptStreet extends StatelessWidget {
                 toastLength: Toast.LENGTH_SHORT,
                 gravity: ToastGravity.CENTER,
                 timeInSecForIosWeb: 1,
-                backgroundColor: Colors.black.withOpacity(0.8),
+                backgroundColor: Colors.black.withValues(alpha:0.8),
                 textColor: Colors.white,
                 fontSize: 10.0,
               );
@@ -249,15 +249,15 @@ OutlineInputBorder outlineInputBorder(
       color: (isCurrentType || textValue!.isNotEmpty)
           ? formType.toLowerCase().contains('name')
               ? !newAddressController.getIsNameValid() && textValue!.isNotEmpty
-                  ? HexColor('#ff0000').withOpacity(0.5)
-                  : ColorPalette().primary.withOpacity(0.5)
+                  ? HexColor('#ff0000').withValues(alpha:0.5)
+                  : ColorPalette().primary.withValues(alpha:0.5)
               : formType.toLowerCase().contains('phone')
                   ? !newAddressController.getIsPhoneValid() &&
                           textValue!.isNotEmpty
-                      ? HexColor('#ff0000').withOpacity(0.5)
-                      : ColorPalette().primary.withOpacity(0.5)
-                  : ColorPalette().primary.withOpacity(0.5)
-          : HexColor('#575757').withOpacity(0.5),
+                      ? HexColor('#ff0000').withValues(alpha:0.5)
+                      : ColorPalette().primary.withValues(alpha:0.5)
+                  : ColorPalette().primary.withValues(alpha:0.5)
+          : HexColor('#575757').withValues(alpha:0.5),
       width: 2,
     ),
     borderRadius: const BorderRadius.all(

@@ -11,7 +11,7 @@ void showModalDeleteAddress(BuildContext context, int index) {
   showDialog<void>(
     barrierDismissible: true,
     context: context,
-    barrierColor: Colors.black.withOpacity(0.5),
+    barrierColor: Colors.black.withValues(alpha:0.5),
     builder: (BuildContext context) {
       return AlertDialog(
         backgroundColor: HexColor('#fefffe'),
@@ -23,7 +23,7 @@ void showModalDeleteAddress(BuildContext context, int index) {
         title: TextButton(
           onPressed: null,
           style: ButtonStyle(
-            overlayColor: MaterialStateProperty.all(Colors.transparent),
+            overlayColor: WidgetStateProperty.all(Colors.transparent),
           ),
           child: const Text(
             'Hapus Alamat?',
@@ -39,7 +39,7 @@ void showModalDeleteAddress(BuildContext context, int index) {
           'Alamat ini akan dihapus dari daftar alamat Anda.',
           style: TextStyle(
             fontSize: 13,
-            color: Colors.black.withOpacity(0.6),
+            color: Colors.black.withValues(alpha:0.6),
           ),
         ),
         actions: <Widget>[
@@ -52,7 +52,7 @@ void showModalDeleteAddress(BuildContext context, int index) {
                     Navigator.of(context).pop();
                   },
                   style: ButtonStyle(
-                    overlayColor: MaterialStateProperty.all(Colors.transparent),
+                    overlayColor: WidgetStateProperty.all(Colors.transparent),
                   ),
                   child: Container(
                     height: 40,
@@ -84,7 +84,7 @@ void showModalDeleteAddress(BuildContext context, int index) {
                     });
                   },
                   style: ButtonStyle(
-                    overlayColor: MaterialStateProperty.all(Colors.transparent),
+                    overlayColor: WidgetStateProperty.all(Colors.transparent),
                   ),
                   child: const Text(
                     'Tetap Hapus',

@@ -56,7 +56,7 @@ class ListTileLocation extends StatelessWidget {
                     location.isFistLetter ? location.name[0] : '',
                     style: TextStyle(
                       fontSize: 14,
-                      color: Colors.grey.withOpacity(0.9),
+                      color: Colors.grey.withValues(alpha:0.9),
                       fontWeight: FontWeight.w500,
                     ),
                   ),
@@ -73,7 +73,7 @@ class ListTileLocation extends StatelessWidget {
                             : location.name,
                     style: TextStyle(
                       fontSize: 14,
-                      color: Colors.black.withOpacity(0.7),
+                      color: Colors.black.withValues(alpha:0.7),
                       fontWeight: FontWeight.w500,
                     ),
                   ),
@@ -129,7 +129,7 @@ class BulletSelectedLocation extends StatelessWidget {
                 maxLines: 1,
                 style: TextStyle(
                   overflow: TextOverflow.ellipsis,
-                  color: Colors.black.withOpacity(0.9),
+                  color: Colors.black.withValues(alpha:0.9),
                   fontSize: 15,
                 ),
               ),
@@ -216,7 +216,7 @@ class ContainerSelectArea extends StatelessWidget {
                           : 'Pilih Kode Pos'
                   : code ?? '',
               style: TextStyle(
-                color: ColorPalette().primary.withOpacity(0.9),
+                color: ColorPalette().primary.withValues(alpha:0.9),
                 fontWeight: FontWeight.w500,
                 fontSize: 15,
               ),

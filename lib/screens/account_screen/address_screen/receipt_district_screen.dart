@@ -184,7 +184,7 @@ class ReceiptDistrictScreen extends StatelessWidget {
                     decoration: BoxDecoration(
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.grey.withOpacity(0.3),
+                          color: Colors.grey.withValues(alpha:0.3),
                           spreadRadius: 2,
                           blurRadius: 2,
                           offset:
@@ -193,7 +193,7 @@ class ReceiptDistrictScreen extends StatelessWidget {
                       ],
                     ),
                     child: Divider(
-                      color: Colors.grey.withOpacity(0.3),
+                      color: Colors.grey.withValues(alpha:0.3),
                       thickness: 2,
                       height: 0,
                     ),
@@ -204,7 +204,7 @@ class ReceiptDistrictScreen extends StatelessWidget {
                 child: Obx(
                   () => newAddressController.isGetLocationLoading.value
                       ? Center(
-                          child: LoadingAnimationWidget.prograssiveDots(
+                          child: LoadingAnimationWidget.progressiveDots(
                             color: ColorPalette().primary,
                             size: 50,
                           ),
@@ -236,7 +236,7 @@ class ReceiptDistrictScreen extends StatelessWidget {
                   height: 100,
                   width: 100,
                   decoration: BoxDecoration(
-                    color: Colors.black.withOpacity(0.5),
+                    color: Colors.black.withValues(alpha:0.5),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: LoadingAnimationWidget.threeArchedCircle(

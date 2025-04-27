@@ -31,7 +31,7 @@ class StatusNumDateOrder extends StatelessWidget {
                               ? 'Sedang Dikirim'
                               : 'Selesai',
               style: TextStyle(
-                color: Colors.black.withOpacity(0.9),
+                color: Colors.black.withValues(alpha:0.9),
                 fontSize: 14,
                 fontWeight: FontWeight.w700,
               ),
@@ -60,7 +60,7 @@ class StatusNumDateOrder extends StatelessWidget {
         Text(
           order.noPesanan,
           style: TextStyle(
-            color: Colors.black.withOpacity(0.7),
+            color: Colors.black.withValues(alpha:0.7),
             fontSize: 12,
             fontWeight: FontWeight.w400,
           ),
@@ -71,7 +71,7 @@ class StatusNumDateOrder extends StatelessWidget {
             Text(
               'Tanggal Pesanan',
               style: TextStyle(
-                color: Colors.black.withOpacity(0.7),
+                color: Colors.black.withValues(alpha:0.7),
                 fontSize: 12,
                 fontWeight: FontWeight.w400,
               ),
@@ -81,7 +81,7 @@ class StatusNumDateOrder extends StatelessWidget {
               DateFormat('d MMMM yyyy, HH:mm WIB', 'id_ID')
                   .format(DateTime.parse(order.tanggalPesanan)),
               style: TextStyle(
-                color: Colors.black.withOpacity(1),
+                color: Colors.black.withValues(alpha:1),
                 fontSize: 12,
                 fontWeight: FontWeight.w400,
               ),

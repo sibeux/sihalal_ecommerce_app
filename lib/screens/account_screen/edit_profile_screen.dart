@@ -107,7 +107,7 @@ class EditProfilScreen extends StatelessWidget {
                         child: Container(
                           padding: const EdgeInsets.all(5),
                           decoration: BoxDecoration(
-                            color: Colors.black.withOpacity(0.9),
+                            color: Colors.black.withValues(alpha:0.9),
                             shape: BoxShape.circle,
                             border: Border.all(
                               color: Colors.white,
@@ -166,7 +166,7 @@ class EditProfilScreen extends StatelessWidget {
               ),
               Container(
                 width: double.infinity,
-                color: HexColor('#f3f2f2').withOpacity(0.5),
+                color: HexColor('#f3f2f2').withValues(alpha:0.5),
                 child: Column(
                   children: [
                     const Divider(

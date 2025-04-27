@@ -19,7 +19,7 @@ class PaymentDetail extends StatelessWidget {
         Text(
           'Rincian Pembayaran',
           style: TextStyle(
-            color: Colors.black.withOpacity(0.9),
+            color: Colors.black.withValues(alpha:0.9),
             fontSize: 14,
             fontWeight: FontWeight.w700,
           ),
@@ -30,7 +30,7 @@ class PaymentDetail extends StatelessWidget {
             Text(
               'Metode Pembayaran',
               style: TextStyle(
-                color: Colors.black.withOpacity(0.7),
+                color: Colors.black.withValues(alpha:0.7),
                 fontSize: 12,
                 fontWeight: FontWeight.w400,
               ),
@@ -39,7 +39,7 @@ class PaymentDetail extends StatelessWidget {
             Text(
               'COD (Bayar di Tempat)',
               style: TextStyle(
-                color: Colors.black.withOpacity(1),
+                color: Colors.black.withValues(alpha:1),
                 fontSize: 12,
                 fontWeight: FontWeight.w400,
               ),
@@ -57,7 +57,7 @@ class PaymentDetail extends StatelessWidget {
             Text(
               'Subtotal Harga Barang',
               style: TextStyle(
-                color: Colors.black.withOpacity(0.7),
+                color: Colors.black.withValues(alpha:0.7),
                 fontSize: 12,
                 fontWeight: FontWeight.w400,
               ),
@@ -66,7 +66,7 @@ class PaymentDetail extends StatelessWidget {
             Text(
               priceFormatter(order.subtotalHargaBarang),
               style: TextStyle(
-                color: Colors.black.withOpacity(1),
+                color: Colors.black.withValues(alpha:1),
                 fontSize: 12,
                 fontWeight: FontWeight.w400,
               ),
@@ -79,7 +79,7 @@ class PaymentDetail extends StatelessWidget {
             Text(
               'Subtotal Pengiriman',
               style: TextStyle(
-                color: Colors.black.withOpacity(0.7),
+                color: Colors.black.withValues(alpha:0.7),
                 fontSize: 12,
                 fontWeight: FontWeight.w400,
               ),
@@ -88,7 +88,7 @@ class PaymentDetail extends StatelessWidget {
             Text(
               priceFormatter(order.subtotalPengiriman),
               style: TextStyle(
-                color: Colors.black.withOpacity(1),
+                color: Colors.black.withValues(alpha:1),
                 fontSize: 12,
                 fontWeight: FontWeight.w400,
               ),
@@ -106,7 +106,7 @@ class PaymentDetail extends StatelessWidget {
             Text(
               'Total Pembayaran',
               style: TextStyle(
-                color: Colors.black.withOpacity(1),
+                color: Colors.black.withValues(alpha:1),
                 fontSize: 14,
                 fontWeight: FontWeight.w700,
               ),
@@ -115,7 +115,7 @@ class PaymentDetail extends StatelessWidget {
             Text(
               priceFormatter(order.totalPembayaran),
               style: TextStyle(
-                color: Colors.black.withOpacity(1),
+                color: Colors.black.withValues(alpha:1),
                 fontSize: 14,
                 fontWeight: FontWeight.w700,
               ),

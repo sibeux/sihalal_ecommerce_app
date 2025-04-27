@@ -31,14 +31,14 @@ class ReviewOrderButton extends StatelessWidget {
           },
           style: ElevatedButton.styleFrom(
             foregroundColor:
-                const Color.fromARGB(255, 196, 130, 23).withOpacity(0.8),
+                const Color.fromARGB(255, 196, 130, 23).withValues(alpha:0.8),
             backgroundColor: Colors.transparent,
             elevation: 0, // Menghilangkan shadow
             splashFactory: InkRipple.splashFactory,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
               side: BorderSide(
-                color: Colors.amber.withOpacity(0.7),
+                color: Colors.amber.withValues(alpha:0.7),
               ),
             ),
           ),

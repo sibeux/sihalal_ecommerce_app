@@ -64,7 +64,7 @@ class StoreCentreScreen extends StatelessWidget {
                         toastLength: Toast.LENGTH_SHORT,
                         gravity: ToastGravity.CENTER,
                         timeInSecForIosWeb: 1,
-                        backgroundColor: Colors.black.withOpacity(0.5),
+                        backgroundColor: Colors.black.withValues(alpha:0.5),
                         textColor: Colors.white,
                         fontSize: 10.0,
                       );
@@ -74,7 +74,7 @@ class StoreCentreScreen extends StatelessWidget {
                         toastLength: Toast.LENGTH_SHORT,
                         gravity: ToastGravity.CENTER,
                         timeInSecForIosWeb: 1,
-                        backgroundColor: Colors.black.withOpacity(0.5),
+                        backgroundColor: Colors.black.withValues(alpha:0.5),
                         textColor: Colors.white,
                         fontSize: 10.0,
                       );
@@ -153,7 +153,7 @@ class StoreCentreScreen extends StatelessWidget {
                     'Penjualan',
                     textAlign: TextAlign.left,
                     style: TextStyle(
-                      color: Colors.black.withOpacity(0.8),
+                      color: Colors.black.withValues(alpha:0.8),
                       fontSize: 14,
                       fontWeight: FontWeight.w700,
                     ),
@@ -204,7 +204,7 @@ class StoreCentreScreen extends StatelessWidget {
                     'Produk',
                     textAlign: TextAlign.left,
                     style: TextStyle(
-                      color: Colors.black.withOpacity(0.8),
+                      color: Colors.black.withValues(alpha:0.8),
                       fontSize: 14,
                       fontWeight: FontWeight.w700,
                     ),
@@ -251,7 +251,7 @@ class StoreCentreScreen extends StatelessWidget {
                     toastLength: Toast.LENGTH_SHORT,
                     gravity: ToastGravity.CENTER,
                     timeInSecForIosWeb: 1,
-                    backgroundColor: Colors.black.withOpacity(0.5),
+                    backgroundColor: Colors.black.withValues(alpha:0.5),
                     textColor: Colors.white,
                     fontSize: 10.0,
                   );
@@ -266,7 +266,7 @@ class StoreCentreScreen extends StatelessWidget {
                       Text(
                         'Produk Saya',
                         style: TextStyle(
-                          color: Colors.black.withOpacity(0.8),
+                          color: Colors.black.withValues(alpha:0.8),
                           fontSize: 14,
                           fontWeight: FontWeight.w700,
                         ),
@@ -286,7 +286,7 @@ class StoreCentreScreen extends StatelessWidget {
                                       child: Text(
                                         '0 Produk',
                                         style: TextStyle(
-                                          color: Colors.black.withOpacity(0.7),
+                                          color: Colors.black.withValues(alpha:0.7),
                                           fontSize: 12,
                                           fontWeight: FontWeight.w300,
                                         ),
@@ -299,7 +299,7 @@ class StoreCentreScreen extends StatelessWidget {
                                         ? '0 Produk'
                                         : '${getSellerProductController.sellerProductList.length} Produk',
                                     style: TextStyle(
-                                      color: Colors.black.withOpacity(0.7),
+                                      color: Colors.black.withValues(alpha:0.7),
                                       fontSize: 12,
                                       fontWeight: FontWeight.w300,
                                     ),
@@ -310,7 +310,7 @@ class StoreCentreScreen extends StatelessWidget {
                   const Spacer(),
                   Icon(
                     Icons.arrow_forward_ios,
-                    color: Colors.black.withOpacity(0.7),
+                    color: Colors.black.withValues(alpha:0.7),
                     size: 20,
                   ),
                 ],

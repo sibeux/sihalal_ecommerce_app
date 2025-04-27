@@ -44,7 +44,7 @@ class StoreInfo extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w600,
-                      color: Colors.black.withOpacity(1),
+                      color: Colors.black.withValues(alpha:1),
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
@@ -86,7 +86,7 @@ class StoreInfo extends StatelessWidget {
                                 toastLength: Toast.LENGTH_SHORT,
                                 gravity: ToastGravity.CENTER,
                                 timeInSecForIosWeb: 1,
-                                backgroundColor: Colors.black.withOpacity(0.5),
+                                backgroundColor: Colors.black.withValues(alpha:0.5),
                                 textColor: Colors.white,
                                 fontSize: 10.0,
                               );
@@ -106,7 +106,7 @@ class StoreInfo extends StatelessWidget {
                               fontWeight: FontWeight.w400,
                               color: userAddressController.addressList.isEmpty
                                   ? ColorPalette().primary
-                                  : Colors.black.withOpacity(0.6),
+                                  : Colors.black.withValues(alpha:0.6),
                               overflow: TextOverflow.ellipsis,
                             ),
                           ),

@@ -63,7 +63,7 @@ class AccountScreen extends StatelessWidget {
                             overflow: TextOverflow.ellipsis,
                             fontSize: 18,
                             fontWeight: FontWeight.w600,
-                            color: Colors.black.withOpacity(0.7),
+                            color: Colors.black.withValues(alpha:0.7),
                           ),
                         ),
                       ),
@@ -83,7 +83,7 @@ class AccountScreen extends StatelessWidget {
                             overflow: TextOverflow.ellipsis,
                             fontSize: 12,
                             fontWeight: FontWeight.w300,
-                            color: Colors.black.withOpacity(0.6),
+                            color: Colors.black.withValues(alpha:0.6),
                           ),
                         ),
                       ),
@@ -107,7 +107,7 @@ class AccountScreen extends StatelessWidget {
                   'Pengaturan',
                   textAlign: TextAlign.start,
                   style: TextStyle(
-                    color: Colors.black.withOpacity(0.7),
+                    color: Colors.black.withValues(alpha:0.7),
                     fontSize: 12,
                     fontWeight: FontWeight.normal,
                   ),
@@ -120,10 +120,10 @@ class AccountScreen extends StatelessWidget {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
                 decoration: BoxDecoration(
-                  color: HexColor('#f3f2f2').withOpacity(0.5),
+                  color: HexColor('#f3f2f2').withValues(alpha:0.5),
                   borderRadius: BorderRadius.circular(20),
                   border: Border.all(
-                    color: HexColor('#a0a2a0').withOpacity(0.3),
+                    color: HexColor('#a0a2a0').withValues(alpha:0.3),
                     width: 1,
                   ),
                 ),
@@ -253,7 +253,7 @@ class SpaceDivider extends StatelessWidget {
           height: 10,
         ),
         Divider(
-          color: HexColor('#989999').withOpacity(0.4),
+          color: HexColor('#989999').withValues(alpha:0.4),
           height: 1,
         ),
         const SizedBox(

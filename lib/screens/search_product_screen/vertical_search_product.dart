@@ -72,7 +72,7 @@ class VerticalSearchProduct extends StatelessWidget {
                       const EdgeInsets.symmetric(vertical: 7, horizontal: 7),
                   hintText: keyword,
                   hintStyle: TextStyle(
-                      color: Colors.black.withOpacity(0.6), fontSize: 12),
+                      color: Colors.black.withValues(alpha: 0.6), fontSize: 12),
                   // * agar textfield tidak terlalu lebar, maka dibuat constraints
                   suffixIconConstraints: const BoxConstraints(
                     minWidth: 30,

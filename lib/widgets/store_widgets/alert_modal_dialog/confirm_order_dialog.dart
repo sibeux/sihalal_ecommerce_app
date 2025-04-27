@@ -9,7 +9,7 @@ void confirmOrderDialog(BuildContext context, String idPesanan) {
   showDialog<void>(
     barrierDismissible: true,
     context: context,
-    barrierColor: Colors.black.withOpacity(0.5),
+    barrierColor: Colors.black.withValues(alpha:0.5),
     builder: (BuildContext context) {
       return AlertDialog(
         backgroundColor: HexColor('#fefffe'),
@@ -35,7 +35,7 @@ void confirmOrderDialog(BuildContext context, String idPesanan) {
             TextButton(
               onPressed: null,
               style: ButtonStyle(
-                overlayColor: MaterialStateProperty.all(Colors.transparent),
+                overlayColor: WidgetStateProperty.all(Colors.transparent),
               ),
               child: const Text(
                 'Pesanan ini akan diproses.',
@@ -52,7 +52,7 @@ void confirmOrderDialog(BuildContext context, String idPesanan) {
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 13,
-                color: Colors.black.withOpacity(0.6),
+                color: Colors.black.withValues(alpha:0.6),
               ),
             ),
           ],
@@ -70,7 +70,7 @@ void confirmOrderDialog(BuildContext context, String idPesanan) {
                     child: Text(
                       'Kembali',
                       style: TextStyle(
-                        color: Colors.black.withOpacity(0.6),
+                        color: Colors.black.withValues(alpha:0.6),
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
                       ),

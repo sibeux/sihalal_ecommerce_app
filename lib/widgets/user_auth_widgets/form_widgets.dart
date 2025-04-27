@@ -203,17 +203,17 @@ OutlineInputBorder outlineInputBorder(
       color: (isCurrentType || textValue!.isNotEmpty)
           ? formType.toLowerCase().contains('email')
               ? emailBool
-                  ? HexColor('#ff0000').withOpacity(0.5)
-                  : ColorPalette().primary.withOpacity(0.5)
+                  ? HexColor('#ff0000').withValues(alpha:0.5)
+                  : ColorPalette().primary.withValues(alpha:0.5)
               : formType.toLowerCase().contains('name')
                   ? authController.getIsNameValid() && textValue!.isNotEmpty
-                      ? HexColor('#ff0000').withOpacity(0.5)
-                      : ColorPalette().primary.withOpacity(0.5)
+                      ? HexColor('#ff0000').withValues(alpha:0.5)
+                      : ColorPalette().primary.withValues(alpha:0.5)
                   : formType.toLowerCase().contains('login') &&
                           !userLoginController.isLoginSuccess.value
-                      ? HexColor('#ff0000').withOpacity(0.5)
-                      : ColorPalette().primary.withOpacity(0.5)
-          : HexColor('#575757').withOpacity(0.5),
+                      ? HexColor('#ff0000').withValues(alpha:0.5)
+                      : ColorPalette().primary.withValues(alpha:0.5)
+          : HexColor('#575757').withValues(alpha:0.5),
       width: 2,
     ),
     borderRadius: const BorderRadius.all(

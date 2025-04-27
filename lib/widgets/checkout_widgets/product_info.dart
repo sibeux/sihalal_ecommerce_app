@@ -36,7 +36,7 @@ class ProductInfo extends StatelessWidget {
                 shopName,
                 maxLines: 1,
                 style: TextStyle(
-                  color: Colors.black.withOpacity(0.8),
+                  color: Colors.black.withValues(alpha:0.8),
                   fontSize: 14,
                   fontWeight: FontWeight.w800,
                   overflow: TextOverflow.ellipsis,
@@ -84,7 +84,7 @@ class ProductInfo extends StatelessWidget {
                         product.nama,
                         maxLines: 2,
                         style: TextStyle(
-                          color: Colors.black.withOpacity(0.8),
+                          color: Colors.black.withValues(alpha:0.8),
                           fontSize: 14,
                           fontWeight: FontWeight.w400,
                           overflow: TextOverflow.ellipsis,
@@ -97,7 +97,7 @@ class ProductInfo extends StatelessWidget {
                             priceFormatter(product.harga),
                             maxLines: 1,
                             style: TextStyle(
-                              color: Colors.black.withOpacity(0.8),
+                              color: Colors.black.withValues(alpha:0.8),
                               fontSize: 14,
                               fontWeight: FontWeight.w800,
                               overflow: TextOverflow.ellipsis,
@@ -138,8 +138,8 @@ class ButtonQuantity extends StatelessWidget {
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                   color: checkoutController.quantity.value == 1
-                      ? Colors.grey.withOpacity(0.1)
-                      : Colors.red.withOpacity(0.1),
+                      ? Colors.grey.withValues(alpha:0.1)
+                      : Colors.red.withValues(alpha:0.1),
                   borderRadius: BorderRadius.circular(5),
                 ),
                 child: Icon(
@@ -158,7 +158,7 @@ class ButtonQuantity extends StatelessWidget {
           alignment: Alignment.center,
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
           decoration: BoxDecoration(
-            color: Colors.grey.withOpacity(0.1),
+            color: Colors.grey.withValues(alpha:0.1),
             borderRadius: BorderRadius.circular(5),
           ),
           child: Obx(() => Text(
@@ -183,8 +183,8 @@ class ButtonQuantity extends StatelessWidget {
                   color: checkoutController.quantity.value == 99 ||
                           checkoutController.quantity.value ==
                               checkoutController.productStock
-                      ? Colors.grey.withOpacity(0.1)
-                      : Colors.blue.withOpacity(0.1),
+                      ? Colors.grey.withValues(alpha:0.1)
+                      : Colors.blue.withValues(alpha:0.1),
                   borderRadius: BorderRadius.circular(5),
                 ),
                 child: Icon(
