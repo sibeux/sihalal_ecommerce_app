@@ -1,0 +1,2 @@
+C:/Users/Nasrul Wahabi/Documents/00--programming/mobile-developer/Flutter Applications/sihalal_ecommerce_app/android/app/.cxx/RelWithDebInfo/441q3f6u/arm64-v8a/CMakeFiles/edit_cache.dir
+C:/Users/Nasrul Wahabi/Documents/00--programming/mobile-developer/Flutter Applications/sihalal_ecommerce_app/android/app/.cxx/RelWithDebInfo/441q3f6u/arm64-v8a/CMakeFiles/rebuild_cache.dir
