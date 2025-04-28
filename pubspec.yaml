@@ -38,8 +38,8 @@ dependencies:
   hexcolor: ^3.0.1
   flutter_riverpod: ^2.5.1
   smooth_page_indicator: ^1.1.0
-  velocity_x: ^4.2.1
-  intl: ^0.19.0
+  velocity_x: ^4.3.1
+  intl: ^0.20.2
   get: ^4.6.6
   cached_network_image: ^3.4.0
   http: ^1.2.2
@@ -64,7 +64,7 @@ dependencies:
   pull_to_refresh: ^2.0.0
   html_unescape: ^2.0.0
   uuid: ^4.5.1
-  timeago: ^3.7.0
+  timeago: ^3.2.2
   mocktail: ^1.0.4
   mockito: ^5.4.4
   build_runner: ^2.4.9
